@@ -59,5 +59,4 @@ f1.nextNode = f2;
 
 f1.nextNode // => FilterNode("filter_2", ...)
 f2.previousNode // => FilterNode("filter_1", ...)
-
 ```
