@@ -4,7 +4,7 @@
   "description": "A node module for modeling and working with FFmpeg filtergraphs",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --reporter spec test/*.js"
+    "test": "NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/mocha --reporter spec test/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,9 @@
   "homepage": "https://github.com/tedconf/ffmpeg-filtergraph#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "sinon": "^7.1.1"
   },
   "dependencies": {}

@@ -3,7 +3,8 @@ const chai = require('chai'),
 
 const FilterNode = require('../lib/filter_node');
 
-let testFilter, otherTestFilter, badFilterDef1, badFilterDef2, badFilterDef3;
+let testFilter, otherTestFilter, arrayArgsFilter, mixedArgsFilter, complexFilter, sourceFilter,
+  sinkFilter, badFilterDef1, badFilterDef2, badFilterDef3, badFilterDef4, badFilterDef5;
 
 describe('FilterNode', function () {
   describe('simple FilterNode objects', function () {
@@ -20,7 +21,9 @@ describe('FilterNode', function () {
         expectation: {
           toCommandArrayResult: ['[tmp]', 'crop=iw:ih/2:0:0', '[cropped]'],
           toCommandStringResult: '[tmp] crop=iw:ih/2:0:0 [cropped]',
-          toStringResult: 'FilterNode("cropFilter", "[tmp] crop=iw:ih/2:0:0 [cropped]")'
+          toStringResult: 'FilterNode("cropFilter", "[tmp] crop=iw:ih/2:0:0 [cropped]")',
+          filterCommand: FilterNode.FilterCommands.FILTER,
+          filterType: FilterNode.FilterTypes.GENERIC
         }
       };
       // [cropped] vflip [flip]
@@ -34,7 +37,9 @@ describe('FilterNode', function () {
         expectation: {
           toCommandArrayResult: ['[cropped]', 'vflip', '[flip]'],
           toCommandStringResult: '[cropped] vflip [flip]',
-          toStringResult: 'FilterNode("vflipFilter", "[cropped] vflip [flip]")'
+          toStringResult: 'FilterNode("vflipFilter", "[cropped] vflip [flip]")',
+          filterCommand: FilterNode.FilterCommands.FILTER,
+          filterType: FilterNode.FilterTypes.GENERIC
         }
       };
       // array args
@@ -87,6 +92,45 @@ describe('FilterNode', function () {
           toStringResult: 'FilterNode("cropMixedFilter", "[tmp] crop=100:100:x=12:y=34 [cropped]")'
         }
       };
+      // filter command: COMPLEX
+      complexFilter = {
+        alias: 'complexFilter',
+        options: {
+          filterName: 'split',
+          inputs: ['in'],
+          outputs: ['main', 'flip']
+        },
+        expectation: {
+          filterCommand: FilterNode.FilterCommands.COMPLEX,
+          filterType: FilterNode.FilterTypes.GENERIC
+        }
+      };
+      // filter type: SOURCE
+      sourceFilter = {
+        alias: 'complexFilter',
+        options: {
+          filterName: 'sine',
+          inputs: [],
+          outputs: ['tone']
+        },
+        expectation: {
+          filterCommand: FilterNode.FilterCommands.FILTER,
+          filterType: FilterNode.FilterTypes.SOURCE
+        }
+      };
+      // filter type: SINK
+      sinkFilter = {
+        alias: 'sinkFilter',
+        options: {
+          filterName: 'nullsink',
+          inputs: ['main'],
+          outputs: []
+        },
+        expectation: {
+          filterCommand: FilterNode.FilterCommands.FILTER,
+          filterType: FilterNode.FilterTypes.SINK
+        }
+      };
       // no filterName
       badFilterDef1 = {
         alias: 'noFilterName',
@@ -110,6 +154,30 @@ describe('FilterNode', function () {
           outputs: []
         }
       };
+      // invalid arguments syntax
+      badFilterDef4 = {
+        alias: 'invalidFilterArgs',
+        options: {
+          filterName: 'crop',
+          inputs: [{ alias: 'tmp' }],
+          outputs: [{ alias: 'cropped' }],
+          args: [
+            { title: "x", val: 12 },
+            { title: "y", val: 34 },
+            { title: "w", val: 100 },
+            { title: "h", val: 100 }
+          ]
+        }
+      };
+      badFilterDef5 = {
+        alias: 'invalidFilterArgs',
+        options: {
+          filterName: 'crop',
+          inputs: [{ alias: 'tmp' }],
+          outputs: [{ alias: 'cropped' }],
+          args: [ undefined, 3, null ]
+        }
+      };
     });
 
     it('sets the filter alias and options', function () {
@@ -121,6 +189,8 @@ describe('FilterNode', function () {
       expect(() => new FilterNode(badFilterDef1.alias, badFilterDef1.options)).to.throw();
       expect(() => new FilterNode(badFilterDef2.alias, badFilterDef2.options)).to.throw();
       expect(() => new FilterNode(badFilterDef3.alias, badFilterDef3.options)).to.throw();
+      expect(() => new FilterNode(badFilterDef4.alias, badFilterDef4.options)).to.throw();
+      expect(() => new FilterNode(badFilterDef5.alias, badFilterDef5.options)).to.throw();
     });
     it('allows setting the previous node', function () {
       let f1 = new FilterNode(testFilter.alias, testFilter.options);
@@ -135,6 +205,16 @@ describe('FilterNode', function () {
       f1.nextNode = f2;
       expect(f1.nextNode).to.eql(f2);
       expect(f2.previousNode).to.eql(f1);
+    });
+    it('sets the appropriate filter command', function () {
+      let f = new FilterNode(complexFilter.alias, complexFilter.options);
+      expect(f.filterCommand).to.eql(complexFilter.expectation.filterCommand);
+    });
+    it('sets the appropriate filter type', function () {
+      let f1 = new FilterNode(sourceFilter.alias, sourceFilter.options);
+      expect(f1.filterType).to.eql(sourceFilter.expectation.filterType);
+      let f2 = new FilterNode(sinkFilter.alias, sinkFilter.options);
+      expect(f2.filterType).to.eql(sinkFilter.expectation.filterType);
     });
     // array-only arguments
     it('generates the correct command array for array-only arguments', function () {
