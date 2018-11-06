@@ -9,7 +9,7 @@ A node module for modeling and working with FFmpeg filtergraphs
 To load the `FilterNode` module, use:
 
 ```{javascript}
-const FilterNode = require('ffmpeg-filtergraph).FilterNode;
+const FilterNode = require('ffmpeg-filtergraph').FilterNode;
 ```
 
 ### FilterNode creation
