@@ -1,0 +1,6 @@
+version: 1.0
+vertical: video
+production:
+  endpoint_url:
+staging:
+  endpoint_url:
