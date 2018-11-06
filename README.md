@@ -37,7 +37,7 @@ The `options` object has the following format:
 
 ### Connecting FilterNode objects manually
 
-To connect one FilterNode object to another in a sequence, you can use
+To connect one FilterNode object to another in a sequence, you can either use the `connectNodes` method on `FilterNode`:
 
 ```{javascript}
 let f1 = new FilterNode(alias = "filter_1", options = { ... });
@@ -47,4 +47,17 @@ FilterNode.connectNodes(f1, f2);
 
 f1.nextNode // => FilterNode("filter_2", ...)
 f2.previousNode // => FilterNode("filter_1", ...)
+```
+
+Or you can use the property assignment syntax on the object instance:
+
+```{javascript}
+let f1 = new FilterNode(alias = "filter_1", options = { ... });
+let f2 = new FilterNode(alias = "filter_2", options = { ... });
+
+f1.nextNode = f2;
+
+f1.nextNode // => FilterNode("filter_2", ...)
+f2.previousNode // => FilterNode("filter_1", ...)
+
 ```
