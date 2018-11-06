@@ -19,7 +19,8 @@ describe('FilterNode', function () {
         },
         expectation: {
           toCommandArrayResult: ['[tmp]', 'crop=iw:ih/2:0:0', '[cropped]'],
-          toStringResult: '[tmp] crop=iw:ih/2:0:0 [cropped]'
+          toCommandStringResult: '[tmp] crop=iw:ih/2:0:0 [cropped]',
+          toStringResult: 'FilterNode("cropFilter", "[tmp] crop=iw:ih/2:0:0 [cropped]")'
         }
       };
       // [cropped] vflip [flip]
@@ -32,7 +33,8 @@ describe('FilterNode', function () {
         },
         expectation: {
           toCommandArrayResult: ['[cropped]', 'vflip', '[flip]'],
-          toStringResult: '[cropped] vflip [flip]'
+          toCommandStringResult: '[cropped] vflip [flip]',
+          toStringResult: 'FilterNode("vflipFilter", "[cropped] vflip [flip]")'
         }
       };
       // no filterName
@@ -91,6 +93,12 @@ describe('FilterNode', function () {
       expect(f2.toCommandArray()).to.deep.eql(otherTestFilter.expectation.toCommandArrayResult);
     });
     it('generates the correct command string', function () {
+      let f1 = new FilterNode(testFilter.alias, testFilter.options);
+      expect(f1.toCommandString()).to.deep.eql(testFilter.expectation.toCommandStringResult);
+      let f2 = new FilterNode(otherTestFilter.alias, otherTestFilter.options);
+      expect(f2.toCommandString()).to.deep.eql(otherTestFilter.expectation.toCommandStringResult);
+    });
+    it('generates the correct string representation', function () {
       let f1 = new FilterNode(testFilter.alias, testFilter.options);
       expect(f1.toString()).to.deep.eql(testFilter.expectation.toStringResult);
       let f2 = new FilterNode(otherTestFilter.alias, otherTestFilter.options);
