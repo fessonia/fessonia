@@ -5,15 +5,6 @@
     "es6": true,
     "mocha": true
   },
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "blockBindings": true,
-    "classes": false,
-    "defaultParams": true,
-    "modules": false,
-    "spread": true,
-    "globalReturn": true
-  },
   "rules": {
     "valid-jsdoc": ["error", {
       "requireReturn": true,
