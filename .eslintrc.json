@@ -1,0 +1,55 @@
+{
+  "env": {
+    "browser": false,
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "blockBindings": true,
+    "classes": false,
+    "defaultParams": true,
+    "modules": false,
+    "spread": true,
+    "globalReturn": true
+  },
+  "rules": {
+    "valid-jsdoc": ["error", {
+      "requireReturn": true,
+      "requireReturnType": true,
+      "requireParamDescription": true,
+      "requireReturnDescription": true,
+      "preferType": {
+        "String": "string",
+        "object": "Object"
+      }
+    }],
+    "require-jsdoc": ["warn", {
+      "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": true,
+          "ClassDeclaration": true
+      }
+    }],
+    "no-var": 1,
+    "no-eval": "error",
+    "indent": ["error", 2],
+    "quotes": ["error", "single"],
+    "no-console": ["warn", { "allow": ["warn", "info"] }],
+    "space-before-function-paren": ["error", "always"],
+    "padded-blocks": ["error", "never"],
+    "prefer-arrow-callback": [0, { "allowNamedFunctions": true }],
+    "func-names": ["error", "never"],
+    "no-use-before-define": [
+      "off", {
+        "functions": false,
+        "classes": false
+      }
+    ],
+    "max-nested-callbacks": [
+      "error",
+      5
+    ]
+  }
+}

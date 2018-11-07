@@ -65,10 +65,10 @@ describe('FilterNode', function () {
           inputs: [{ alias: 'tmp'}],
           outputs: [{ alias: 'cropped'}],
           args: [
-            { name: "w", value: 100 },
-            { name: "h", value: 100 },
-            { name: "x", value: 12 },
-            { name: "y", value: 34 }
+            { name: 'w', value: 100 },
+            { name: 'h', value: 100 },
+            { name: 'x', value: 12 },
+            { name: 'y', value: 34 }
           ]
         },
         expectation: {
@@ -84,7 +84,7 @@ describe('FilterNode', function () {
           filterName: 'crop',
           inputs: [{ alias: 'tmp'}],
           outputs: [{ alias: 'cropped'}],
-          args: [ { name: "x", value: 12 }, { name: "y", value: 34 }, 100, 100 ]
+          args: [ { name: 'x', value: 12 }, { name: 'y', value: 34 }, 100, 100 ]
         },
         expectation: {
           toCommandArrayResult: ['[tmp]', 'crop=100:100:x=12:y=34', '[cropped]'],
@@ -162,10 +162,10 @@ describe('FilterNode', function () {
           inputs: [{ alias: 'tmp' }],
           outputs: [{ alias: 'cropped' }],
           args: [
-            { title: "x", val: 12 },
-            { title: "y", val: 34 },
-            { title: "w", val: 100 },
-            { title: "h", val: 100 }
+            { title: 'x', val: 12 },
+            { title: 'y', val: 34 },
+            { title: 'w', val: 100 },
+            { title: 'h', val: 100 }
           ]
         }
       };

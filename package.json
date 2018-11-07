@@ -26,6 +26,7 @@
   "homepage": "https://github.com/tedconf/ffmpeg-filtergraph#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "eslint": "^5.8.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
