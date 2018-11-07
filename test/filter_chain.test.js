@@ -51,50 +51,50 @@ describe('FilterChain', function () {
     it('fails on non-FilterNode values in nodes argument', function () {
       expect(() => new FilterChain('bad_filter_chain', nodes.concat(['not a node']))).to.throw();
     });
-    it('disallows COMPLEX filters in a chain', function () {
-      expect(() => new FilterChain('chain_with_complex', nodes.concat([
-        new FilterNode('complex', {
-          filterName: 'split',
-          inputs: [],
-          outputs: ['main', 'tmp']
-        })
-      ]))).to.throw();
-    });
-    it('allows SOURCE filters first in a chain', function () {
-      expect(() => new FilterChain('chain_with_source_first', [
-        new FilterNode('source', {
-          filterName: 'sine',
-          inputs: [],
-          outputs: ['tone']
-        })
-      ].concat(nodes))).to.not.throw();
-    });
-    it('disallows SOURCE filters not first in a chain', function () {
-      expect(() => new FilterChain('chain_with_non_first_source', nodes.concat([
-        new FilterNode('source', {
-          filterName: 'sine',
-          inputs: [],
-          outputs: ['tone']
-        })
-      ]))).to.throw();
-    });
-    it('allows SINK filters last in a chain', function () {
-      expect(() => new FilterChain('chain_with_sink_last', nodes.concat([
-        new FilterNode('sink', {
-          filterName: 'nullsink',
-          inputs: ['main'],
-          outputs: []
-        })
-      ]))).to.not.throw();
-    });
-    it('disallows SINK filters not last in a chain', function () {
-      expect(() => new FilterChain('chain_with_non_last_sink', [
-        new FilterNode('sink', {
-          filterName: 'nullsink',
-          inputs: ['main'],
-          outputs: []
-        })
-      ].concat(nodes))).to.throw();
-    });
+    // it('disallows COMPLEX filters in a chain', function () {
+    //   expect(() => new FilterChain('chain_with_complex', nodes.concat([
+    //     new FilterNode('complex', {
+    //       filterName: 'split',
+    //       inputs: [],
+    //       outputs: ['main', 'tmp']
+    //     })
+    //   ]))).to.throw();
+    // });
+    // it('allows SOURCE filters first in a chain', function () {
+    //   expect(() => new FilterChain('chain_with_source_first', [
+    //     new FilterNode('source', {
+    //       filterName: 'sine',
+    //       inputs: [],
+    //       outputs: ['tone']
+    //     })
+    //   ].concat(nodes))).to.not.throw();
+    // });
+    // it('disallows SOURCE filters not first in a chain', function () {
+    //   expect(() => new FilterChain('chain_with_non_first_source', nodes.concat([
+    //     new FilterNode('source', {
+    //       filterName: 'sine',
+    //       inputs: [],
+    //       outputs: ['tone']
+    //     })
+    //   ]))).to.throw();
+    // });
+    // it('allows SINK filters last in a chain', function () {
+    //   expect(() => new FilterChain('chain_with_sink_last', nodes.concat([
+    //     new FilterNode('sink', {
+    //       filterName: 'nullsink',
+    //       inputs: ['main'],
+    //       outputs: []
+    //     })
+    //   ]))).to.not.throw();
+    // });
+    // it('disallows SINK filters not last in a chain', function () {
+    //   expect(() => new FilterChain('chain_with_non_last_sink', [
+    //     new FilterNode('sink', {
+    //       filterName: 'nullsink',
+    //       inputs: ['main'],
+    //       outputs: []
+    //     })
+    //   ].concat(nodes))).to.throw();
+    // });
   });
 });

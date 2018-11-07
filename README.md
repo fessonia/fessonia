@@ -25,8 +25,8 @@ The `options` object has the following format:
 ```{javascript}
 {
   filterName: "...", // must be a filter name recognized by ffmpeg
-  inputs: ["input1", ...], // filter inputs (what ffmpeg calls LINKLABELS for input)
-  outputs: ["output1", ...], // filter outputs (what ffmpeg calls LINKLABELS for output)
+  inputs: [{ alias: "input1", ... }, ...], // filter inputs (what ffmpeg calls LINKLABELS for input)
+  outputs: [{ alias: "output1", ... }, ...], // filter outputs (what ffmpeg calls LINKLABELS for output)
   args: [
     "arg1",
     { "obj_arg2": "obj_arg_value" },
