@@ -5,6 +5,9 @@
     "es6": true,
     "mocha": true
   },
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "rules": {
     "valid-jsdoc": ["error", {
       "requireReturn": true,
@@ -35,7 +38,7 @@
     "no-use-before-define": [
       "off", {
         "functions": false,
-        "classes": false
+        "classes": true
       }
     ],
     "max-nested-callbacks": [
