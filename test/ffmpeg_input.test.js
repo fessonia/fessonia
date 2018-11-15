@@ -19,7 +19,7 @@ describe('FfmpegInput', function () {
     expect(new FfmpegInput(input_file, {}).url).to.eql(input_file);
   });
   it('generates the correct command string segment', function () {
-    const expected = '-ss 5110.77 -i "/some/file.mov" -itsoffset 0';
+    const expected = '-ss 5110.77 -itsoffset 0 -i "/some/file.mov"';
     const fi = new FfmpegInput('/some/file.mov', {
       'ss': 5110.77,
       'itsoffset': 0
