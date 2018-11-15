@@ -24,9 +24,9 @@ describe('FfmpegOutput', function () {
     const expected = '-b:v 3850k -f mp4 -aspect 16:9 "/some/file.mp4"';
     const fo = new FfmpegOutput({
       'file': '/some/file.mp4',
-      'b:v': '3850k',
+      'aspect': '16:9',
       'f': 'mp4',
-      'aspect': '16:9'
+      'b:v': '3850k'
     });
     expect(fo.toCommandString()).to.eql(expected);
   });
