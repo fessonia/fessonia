@@ -1,5 +1,6 @@
 const chai = require('chai'),
-  expect = chai.expect;
+  expect = chai.expect,
+  testHelpers = require('./helpers');
 
 const FfmpegOutput = require('../lib/ffmpeg_output');
 
@@ -19,6 +20,22 @@ describe('FfmpegOutput', function () {
     const output_file = '/some/file.mp4';
     expect(new FfmpegOutput({ url: output_file }).url).to.eql(output_file);
     expect(new FfmpegOutput({ file: output_file }).url).to.eql(output_file);
+  });
+  it('generates the correct command array segment', function () {
+    const expectedLast = '"/some/file.mp4"';
+    const expectedArgs = [
+      ['-b:v', '3850k'],
+      ['-f', 'mp4'],
+      ['-aspect', '16:9']
+    ];
+    const foCmd = new FfmpegOutput({
+      'file': '/some/file.mp4',
+      'aspect': '16:9',
+      'f': 'mp4',
+      'b:v': '3850k'
+    }).toCommandArray();
+    testHelpers.expectLast(foCmd, expectedLast);
+    testHelpers.expectSequences(foCmd, expectedArgs);
   });
   it('generates the correct command string segment', function () {
     const expected = '-b:v 3850k -f mp4 -aspect 16:9 "/some/file.mp4"';

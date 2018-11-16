@@ -1,5 +1,6 @@
 const chai = require('chai'),
-  expect = chai.expect;
+  expect = chai.expect,
+  testHelpers = require('./helpers');
 
 const FfmpegInput = require('../lib/ffmpeg_input');
 
@@ -17,6 +18,20 @@ describe('FfmpegInput', function () {
   it('sets the url property on the object', function () {
     const input_file = '/some/file.mov';
     expect(new FfmpegInput(input_file, {}).url).to.eql(input_file);
+  });
+  it('generates the correct command array segment', function () {
+    const expectedLast = '"/some/file.mov"';
+    const expectedArgs = [
+      ['-ss', '5110.77'],
+      ['-itsoffset', '0'],
+      ['-i', '"/some/file.mov"']
+    ];
+    const fiCmd = new FfmpegInput('/some/file.mov', {
+      'itsoffset': 0,
+      'ss': 5110.77
+    }).toCommandArray();
+    testHelpers.expectLast(fiCmd, expectedLast);
+    testHelpers.expectSequences(fiCmd, expectedArgs);
   });
   it('generates the correct command string segment', function () {
     const expected = '-ss 5110.77 -itsoffset 0 -i "/some/file.mov"';
