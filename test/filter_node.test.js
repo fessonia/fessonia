@@ -1,5 +1,6 @@
 const chai = require('chai'),
-  expect = chai.expect;
+  expect = chai.expect,
+  sinon = require('sinon');
 
 const FilterNode = require('../lib/filter_node');
 
@@ -23,7 +24,7 @@ describe('FilterNode', function () {
           toCommandStringResult: '[tmp] crop=iw:ih/2:0:0 [cropped]',
           toStringResult: 'FilterNode("cropFilter", "[tmp] crop=iw:ih/2:0:0 [cropped]")',
           filterCommand: FilterNode.FilterCommands.FILTER,
-          filterType: FilterNode.FilterTypes.GENERIC
+          filterIOType: FilterNode.FilterIOTypes.GENERIC
         }
       };
       // [cropped] vflip [flip]
@@ -39,7 +40,7 @@ describe('FilterNode', function () {
           toCommandStringResult: '[cropped] vflip [flip]',
           toStringResult: 'FilterNode("vflipFilter", "[cropped] vflip [flip]")',
           filterCommand: FilterNode.FilterCommands.FILTER,
-          filterType: FilterNode.FilterTypes.GENERIC
+          filterIOType: FilterNode.FilterIOTypes.GENERIC
         }
       };
       // array args
@@ -102,7 +103,7 @@ describe('FilterNode', function () {
         },
         expectation: {
           filterCommand: FilterNode.FilterCommands.COMPLEX,
-          filterType: FilterNode.FilterTypes.GENERIC
+          filterIOType: FilterNode.FilterIOTypes.GENERIC
         }
       };
       // filter type: SOURCE
@@ -115,7 +116,7 @@ describe('FilterNode', function () {
         },
         expectation: {
           filterCommand: FilterNode.FilterCommands.FILTER,
-          filterType: FilterNode.FilterTypes.SOURCE
+          filterIOType: FilterNode.FilterIOTypes.SOURCE
         }
       };
       // filter type: SINK
@@ -128,7 +129,7 @@ describe('FilterNode', function () {
         },
         expectation: {
           filterCommand: FilterNode.FilterCommands.FILTER,
-          filterType: FilterNode.FilterTypes.SINK
+          filterIOType: FilterNode.FilterIOTypes.SINK
         }
       };
       // no filterName
@@ -178,6 +179,13 @@ describe('FilterNode', function () {
           args: [ undefined, 3, null ]
         }
       };
+      // unrecognized filterName
+      badFilterDef6 = {
+        alias: 'unknownFilter',
+        options: {
+          filterName: 'asldfa3tgj23dghsdg'
+        }
+      };
     });
 
     it('sets the filter alias and options', function () {
@@ -191,15 +199,20 @@ describe('FilterNode', function () {
       expect(() => new FilterNode(badFilterDef3.alias, badFilterDef3.options)).to.throw();
       expect(() => new FilterNode(badFilterDef4.alias, badFilterDef4.options)).to.throw();
       expect(() => new FilterNode(badFilterDef5.alias, badFilterDef5.options)).to.throw();
+
+      sinon.stub(logger, 'warn');
+      new FilterNode(badFilterDef6.alias, badFilterDef6.options);
+      expect(logger.warn.called).to.be.true;
+      logger.warn.restore();
     });
-    it('allows setting the previous node', function () {
+    it.skip('allows setting the previous node', function () {
       let f1 = new FilterNode(testFilter.alias, testFilter.options);
       let f2 = new FilterNode(otherTestFilter.alias, otherTestFilter.options);
       f1.previousNode = f2;
       expect(f1.previousNode).to.eql(f2);
       expect(f2.nextNode).to.eql(f1);
     });
-    it('allows setting the next node', function () {
+    it.skip('allows setting the next node', function () {
       let f1 = new FilterNode(testFilter.alias, testFilter.options);
       let f2 = new FilterNode(otherTestFilter.alias, otherTestFilter.options);
       f1.nextNode = f2;
@@ -212,9 +225,9 @@ describe('FilterNode', function () {
     });
     it('sets the appropriate filter type', function () {
       let f1 = new FilterNode(sourceFilter.alias, sourceFilter.options);
-      expect(f1.filterType).to.eql(sourceFilter.expectation.filterType);
+      expect(f1.filterIOType).to.eql(sourceFilter.expectation.filterIOType);
       let f2 = new FilterNode(sinkFilter.alias, sinkFilter.options);
-      expect(f2.filterType).to.eql(sinkFilter.expectation.filterType);
+      expect(f2.filterIOType).to.eql(sinkFilter.expectation.filterIOType);
     });
     // array-only arguments
     it('generates the correct command array for array-only arguments', function () {

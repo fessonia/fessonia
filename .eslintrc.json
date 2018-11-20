@@ -30,7 +30,7 @@
     "no-eval": "error",
     "indent": ["error", 2],
     "quotes": ["error", "single"],
-    "no-console": ["warn", { "allow": ["warn", "info"] }],
+    "no-console": "warn",
     "space-before-function-paren": ["error", "always"],
     "padded-blocks": ["error", "never"],
     "prefer-arrow-callback": [0, { "allowNamedFunctions": true }],
