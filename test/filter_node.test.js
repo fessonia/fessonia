@@ -1,8 +1,14 @@
 const chai = require('chai'),
   expect = chai.expect,
+  fs = require('fs'),
   sinon = require('sinon');
 
 const FilterNode = require('../lib/filter_node');
+console.log(process.cwd());
+const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
+const filterInfoFixture = JSON.parse(
+  fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.json`).toString()
+);
 
 let testFilter, otherTestFilter, arrayArgsFilter, mixedArgsFilter, complexFilter, sourceFilter,
   sinkFilter, badFilterDef1, badFilterDef2, badFilterDef3, badFilterDef4, badFilterDef5;
@@ -10,6 +16,9 @@ let testFilter, otherTestFilter, arrayArgsFilter, mixedArgsFilter, complexFilter
 describe('FilterNode', function () {
   describe('simple FilterNode objects', function () {
     this.beforeAll(() => {
+      // stub for ffmpeg interaction
+      sinon.stub(FilterNode, '_queryFFmpegForFilters')
+        .returns(filtersFixture);
       // basic test filter
       testFilter = {
         alias: 'cropFilter',
@@ -287,5 +296,9 @@ describe('FilterNode', function () {
       let f = new FilterNode(mixedArgsFilter.alias, mixedArgsFilter.options);
       expect(f.toString()).to.deep.eql(mixedArgsFilter.expectation.toStringResult);
     });
+    it('provides filter validation info based on ffmpeg help output', function () {
+      expect(FilterNode._getValidFilterInfoFromFFmpeg()).to.deep.equal(filterInfoFixture);
+    });
+    // TODO: figure out how to add an un-stubbed test involving ffmpeg for FilterNode._queryFFmpegForFilters that doesn't break Jenkins
   });
 });
