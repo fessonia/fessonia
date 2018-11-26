@@ -4,7 +4,6 @@ const chai = require('chai'),
   sinon = require('sinon');
 
 const FilterNode = require('../lib/filter_node');
-console.log(process.cwd());
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 const filterInfoFixture = JSON.parse(
   fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.json`).toString()
@@ -195,6 +194,10 @@ describe('FilterNode', function () {
           filterName: 'asldfa3tgj23dghsdg'
         }
       };
+    });
+
+    this.afterAll(() => {
+      FilterNode._queryFFmpegForFilters.restore();
     });
 
     it('sets the filter alias and options', function () {
