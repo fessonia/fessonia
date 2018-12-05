@@ -34,7 +34,7 @@ describe('FFmpegInput', function () {
     testHelpers.expectSequences(fiCmd, expectedArgs);
   });
   it('generates the correct command string segment', function () {
-    const expected = '-ss 5110.77 -itsoffset 0 -i /some/file.mov';
+    const expected = '-ss "5110.77" -itsoffset "0" -i "/some/file.mov"';
     const fi = new FFmpegInput('/some/file.mov', {
       'itsoffset': 0,
       'ss': 5110.77

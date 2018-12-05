@@ -22,7 +22,7 @@ describe('FfmpegOutput', function () {
     expect(new FfmpegOutput({ file: output_file }).url).to.eql(output_file);
   });
   it('generates the correct command array segment', function () {
-    const expectedLast = '"/some/file.mp4"';
+    const expectedLast = '/some/file.mp4';
     const expectedArgs = [
       ['-b:v', '3850k'],
       ['-f', 'mp4'],
@@ -38,7 +38,7 @@ describe('FfmpegOutput', function () {
     testHelpers.expectSequences(foCmd, expectedArgs);
   });
   it('generates the correct command string segment', function () {
-    const expected = '-b:v 3850k -f mp4 -aspect 16:9 "/some/file.mp4"';
+    const expected = '-b:v "3850k" -f "mp4" -aspect "16:9" "/some/file.mp4"';
     const fo = new FfmpegOutput({
       'file': '/some/file.mp4',
       'aspect': '16:9',
