@@ -23,4 +23,12 @@ describe('FFmpegOption', function () {
   it('fails if the context is invalid', function () {
     expect(() => new FFmpegOption('ss', false)).to.throw;
   });
+  it('does not fail if args is a Map', function () {
+    const C = FFmpegOption.FFmpegOptionContexts;
+    expect(() => new FFmpegOption('ss', C.INPUT, new Map([[2545, null]]))).not.to.throw;
+  });
+  it('fails if the args is not a Map', function () {
+    const C = FFmpegOption.FFmpegOptionContexts;
+    expect(() => new FFmpegOption('ss', C.INPUT, [2545])).to.throw;
+  });
 });
