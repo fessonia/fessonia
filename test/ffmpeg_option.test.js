@@ -27,7 +27,11 @@ describe('FFmpegOption', function () {
     const C = FFmpegOption.FFmpegOptionContexts;
     expect(() => new FFmpegOption('ss', C.INPUT, new Map([[2545, null]]))).not.to.throw;
   });
-  it('fails if the args is not a Map', function () {
+  it('does not fail if args is an object', function () {
+    const C = FFmpegOption.FFmpegOptionContexts;
+    expect(() => new FFmpegOption('ss', C.INPUT, { 2545: null })).not.to.throw;
+  });
+  it('fails if the args is not a Map or an object', function () {
     const C = FFmpegOption.FFmpegOptionContexts;
     expect(() => new FFmpegOption('ss', C.INPUT, [2545])).to.throw;
   });
