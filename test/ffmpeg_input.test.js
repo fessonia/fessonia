@@ -20,6 +20,14 @@ describe('FFmpegInput', function () {
     const input_file = '/some/file.mov';
     expect(new FFmpegInput(input_file, {}).url).to.eql(input_file);
   });
+  it('handles filenames with quotes properly', function () {
+    const fi = new FFmpegInput('/some/file with "quotes".mp4', {});
+    const expectedCommandArray = ['-i', '/some/file with "quotes".mp4'];
+    const expectedCommandString = '-i "/some/file with \\"quotes\\".mp4"';
+    expect(fi.url).to.eql('/some/file with "quotes".mp4');
+    expect(fi.toCommandArray()).to.deep.eql(expectedCommandArray);
+    expect(fi.toCommandString()).to.eql(expectedCommandString);
+  });
   it('generates the correct command array segment', function () {
     const expectedLast = '/some/file.mov';
     const expectedArgs = [
