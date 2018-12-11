@@ -3,7 +3,8 @@ const chai = require('chai'),
   fs = require('fs'),
   sinon = require('sinon');
 
-const FilterNode = require('../lib/filter_node');
+const FilterNode = require('../lib/filter_node'),
+  FFmpegEnumerations = require('../lib/ffmpeg_enumerations');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 const filterInfoFixture = JSON.parse(
   fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.json`).toString()
@@ -31,8 +32,8 @@ describe('FilterNode', function () {
           toCommandArrayResult: ['[tmp]', 'crop=iw:ih/2:0:0', '[cropped]'],
           toCommandStringResult: '[tmp] crop=iw:ih/2:0:0 [cropped]',
           toStringResult: 'FilterNode("cropFilter", "[tmp] crop=iw:ih/2:0:0 [cropped]")',
-          filterCommand: FilterNode.FilterCommands.FILTER,
-          filterIOType: FilterNode.FilterIOTypes.GENERIC
+          filterCommand: FFmpegEnumerations.FilterCommands.FILTER,
+          filterIOType: FFmpegEnumerations.FilterIOTypes.GENERIC
         }
       };
       // [cropped] vflip [flip]
@@ -47,8 +48,8 @@ describe('FilterNode', function () {
           toCommandArrayResult: ['[cropped]', 'vflip', '[flip]'],
           toCommandStringResult: '[cropped] vflip [flip]',
           toStringResult: 'FilterNode("vflipFilter", "[cropped] vflip [flip]")',
-          filterCommand: FilterNode.FilterCommands.FILTER,
-          filterIOType: FilterNode.FilterIOTypes.GENERIC
+          filterCommand: FFmpegEnumerations.FilterCommands.FILTER,
+          filterIOType: FFmpegEnumerations.FilterIOTypes.GENERIC
         }
       };
       // array args
@@ -110,8 +111,8 @@ describe('FilterNode', function () {
           outputs: ['main', 'flip']
         },
         expectation: {
-          filterCommand: FilterNode.FilterCommands.COMPLEX,
-          filterIOType: FilterNode.FilterIOTypes.GENERIC
+          filterCommand: FFmpegEnumerations.FilterCommands.COMPLEX,
+          filterIOType: FFmpegEnumerations.FilterIOTypes.GENERIC
         }
       };
       // filter type: SOURCE
@@ -123,8 +124,8 @@ describe('FilterNode', function () {
           outputs: ['tone']
         },
         expectation: {
-          filterCommand: FilterNode.FilterCommands.FILTER,
-          filterIOType: FilterNode.FilterIOTypes.SOURCE
+          filterCommand: FFmpegEnumerations.FilterCommands.FILTER,
+          filterIOType: FFmpegEnumerations.FilterIOTypes.SOURCE
         }
       };
       // filter type: SINK
@@ -136,8 +137,8 @@ describe('FilterNode', function () {
           outputs: []
         },
         expectation: {
-          filterCommand: FilterNode.FilterCommands.FILTER,
-          filterIOType: FilterNode.FilterIOTypes.SINK
+          filterCommand: FFmpegEnumerations.FilterCommands.FILTER,
+          filterIOType: FFmpegEnumerations.FilterIOTypes.SINK
         }
       };
       // no filterName
