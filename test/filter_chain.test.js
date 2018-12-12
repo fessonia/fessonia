@@ -66,7 +66,7 @@ describe('FilterChain', function () {
       ];
       const fc = new FilterChain('my_filter_chain', nodes, null, connections);
       console.log(fc.rootNodes);
-      const expected = 'crop=iw:ih/2:0:0;split [0] [1];[0] vflip;[1] vflip';
+      const expected = 'crop=iw:ih/2:0:0;split [splitFilter_0] [splitFilter_1];[splitFilter_0] vflip;[splitFilter_1] vflip';
       expect(fc.toString()).to.eql(expected);
     });
   });
