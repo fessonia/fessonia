@@ -4,9 +4,9 @@ const chai = require('chai'),
 const FFmpegCommand = require('../lib/ffmpeg_command');
 
 describe('FFmpegCommand', function () {
-  it('creates an FFmpegInput object', function () {
+  it('creates an FFmpegCommand object', function () {
     const fi = new FFmpegCommand();
-    expect(fi).to.be.instanceof(FFmpegInput);
+    expect(fi).to.be.instanceof(FFmpegCommand);
   });
   it('sets the options property on the object', function () {
     expect(new FFmpegCommand().options).to.eql(new Map());
