@@ -6,10 +6,14 @@ const FFmpegOutput = require('../lib/ffmpeg_output');
 
 describe('FFmpegOutput', function () {
   it('creates an FFmpegOutput object', function () {
-    const fi = new FFmpegOutput('/some/file.mp4', {});
+    const fi = new FFmpegOutput('/some/file.mp4');
     expect(fi).to.be.instanceof(FFmpegOutput);
   });
+  it('disallows creating FFmpegOutput object with no file or url', function () {
+    expect(() => new FFmpegOutput(null, {})).to.throw();
+  });
   it('sets the options property on the object', function () {
+    expect(new FFmpegOutput('/some/file.mov', new Map()).options).to.eql(new Map());
     expect(new FFmpegOutput('/some/file.mp4', {}).options).to.eql(new Map());
   });
   it('sets the url property on the object', function () {
