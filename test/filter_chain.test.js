@@ -7,54 +7,35 @@ const FilterChain = require('../lib/filter_chain');
 const FilterNode = require('../lib/filter_node');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
-describe.skip('FilterChain', function () {
-  this.beforeAll(() => {
-    // stub for ffmpeg interaction
-    sinon.stub(FilterNode, '_queryFFmpegForFilters')
-      .returns(filtersFixture);
-    let nodes = [
-      new FilterNode('cropFilter', {
-        filterName: 'crop',
-        inputs: [{ alias: 'tmp' }],
-        outputs: [{ alias: 'cropped' }],
-        args: ['iw', 'ih/2', 0, 0]
-      }),
-      new FilterNode('vflipFilter', {
-        filterName: 'vflip',
-        inputs: [{ alias: 'cropped' }],
-        outputs: [{ alias: 'flip' }]
-      })
-    ];
-  });
-
-  this.afterAll(() => {
-    FilterNode._queryFFmpegForFilters.restore();
-  });
-
+describe('FilterChain', function () {
   describe('simple FilterChain objects', function () {
+    this.beforeAll(() => {
+      // stub for ffmpeg interaction
+      sinon.stub(FilterNode, '_queryFFmpegForFilters')
+        .returns(filtersFixture);
+      nodes = [
+        new FilterNode('cropFilter', {
+          filterName: 'crop',
+          args: ['iw', 'ih/2', 0, 0]
+        }),
+        new FilterNode('vflipFilter', { filterName: 'vflip' }),
+        new FilterNode('splitFilter', { filterName: 'split' })
+      ];
+    });
+  
+    this.afterAll(() => {
+      FilterNode._queryFFmpegForFilters.restore();
+    });
+  
     it('creates a FilterChain from a list of FilterNodes', function () {
       const fc = new FilterChain('my_filter_chain', nodes);
       expect(fc).to.be.instanceof(FilterChain);
     });
     it('provides an iterable collection of FilterNodes', function () {
       const fc = new FilterChain('my_filter_chain', nodes);
-      expect(fc.filterNodes).to.be.instanceof(Array);
-      for (let node of fc.filterNodes) {
+      expect(fc.nodes).to.be.instanceof(Map);
+      for (let node of fc.nodes.values()) {
         expect(node).to.be.instanceof(FilterNode);
-      }
-    });
-    it('autoConnects nodes when creating a FilterChain', function () {
-      const fc = new FilterChain('my_filter_chain', nodes);
-      for (let i = 1; i < fc.filterNodes.length; i++) {
-        expect(fc.filterNodes[i - 1].nextNode).to.eql(fc.filterNodes[i]);
-        expect(fc.filterNodes[i].previousNode).to.eql(fc.filterNodes[i - 1]);
-      }
-    });
-    it('does not autoConnect nodes when autoConnect option is false', function () {
-      const fc = new FilterChain('my_filter_chain', nodes, autoConnect = false);
-      for (let node of fc.filterNodes) {
-        expect(node.previousNode).to.be.null;
-        expect(node.nextNode).to.be.null;
       }
     });
     it('fails on non-Array nodes argument', function () {
@@ -63,50 +44,30 @@ describe.skip('FilterChain', function () {
     it('fails on non-FilterNode values in nodes argument', function () {
       expect(() => new FilterChain('bad_filter_chain', nodes.concat(['not a node']))).to.throw();
     });
-    // it('disallows COMPLEX filters in a chain', function () {
-    //   expect(() => new FilterChain('chain_with_complex', nodes.concat([
-    //     new FilterNode('complex', {
-    //       filterName: 'split',
-    //       inputs: [],
-    //       outputs: ['main', 'tmp']
-    //     })
-    //   ]))).to.throw();
-    // });
-    // it('allows SOURCE filters first in a chain', function () {
-    //   expect(() => new FilterChain('chain_with_source_first', [
-    //     new FilterNode('source', {
-    //       filterName: 'sine',
-    //       inputs: [],
-    //       outputs: ['tone']
-    //     })
-    //   ].concat(nodes))).to.not.throw();
-    // });
-    // it('disallows SOURCE filters not first in a chain', function () {
-    //   expect(() => new FilterChain('chain_with_non_first_source', nodes.concat([
-    //     new FilterNode('source', {
-    //       filterName: 'sine',
-    //       inputs: [],
-    //       outputs: ['tone']
-    //     })
-    //   ]))).to.throw();
-    // });
-    // it('allows SINK filters last in a chain', function () {
-    //   expect(() => new FilterChain('chain_with_sink_last', nodes.concat([
-    //     new FilterNode('sink', {
-    //       filterName: 'nullsink',
-    //       inputs: ['main'],
-    //       outputs: []
-    //     })
-    //   ]))).to.not.throw();
-    // });
-    // it('disallows SINK filters not last in a chain', function () {
-    //   expect(() => new FilterChain('chain_with_non_last_sink', [
-    //     new FilterNode('sink', {
-    //       filterName: 'nullsink',
-    //       inputs: ['main'],
-    //       outputs: []
-    //     })
-    //   ].concat(nodes))).to.throw();
-    // });
+    it('sets a default root node of the chain', function () {
+      const fc = new FilterChain('my_filter_chain', nodes);
+      expect(fc.rootNodes).to.eql([ nodes[0].alias ]);
+    });
+    it('sets node connections on creation', function () {
+      const fc = new FilterChain('my_filter_chain', nodes, null, [['cropFilter:0', 'vflipFilter:0']]);
+      expect(fc.connections).to.be.instanceof(Map);
+      expect(fc.connections.has('cropFilter')).to.be.true;
+      expect(fc.connections.get('cropFilter')).to.be.instanceof(Map);
+      expect(fc.connections.get('cropFilter').has(0)).to.be.true;
+      expect(fc.connections.get('cropFilter').get(0)).to.be.an('object');
+      expect(fc.connections.get('cropFilter').get(0)).to.have.own.property('vflipFilter');
+      expect(fc.connections.get('cropFilter').get(0).vflipFilter).to.eql(0);
+    });
+    it('generates a string representation of the chain', function () {
+      const connections = [
+        ['cropFilter:0', 'splitFilter:0'],
+        ['splitFilter:0', 'vflipFilter:0'],
+        ['splitFilter:1', 'vflipFilter:0']
+      ];
+      const fc = new FilterChain('my_filter_chain', nodes, null, connections);
+      console.log(fc.rootNodes);
+      const expected = 'crop=iw:ih/2:0:0;split [0] [1];[0] vflip;[1] vflip';
+      expect(fc.toString()).to.eql(expected);
+    });
   });
 });
