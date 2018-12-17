@@ -34,15 +34,15 @@ describe('FFmpegOption', function () {
     const C = FFmpegOption.FFmpegOptionContexts;
     const fo = new FFmpegOption('ss', C.INPUT, '2545');
     expect(fo.args).to.be.instanceof(Map);
-    expect(fo.args.has(2545));
-    expect(fo.args.get(2545)).to.be.null;
+    expect(fo.args.has('2545'));
+    expect(fo.args.get('2545')).to.be.null;
   });
   it('sets the arguments when args is an object', function () {
     const C = FFmpegOption.FFmpegOptionContexts;
     const fo = new FFmpegOption('ss', C.INPUT, { 2545: null });
     expect(fo.args).to.be.instanceof(Map);
-    expect(fo.args.has(2545));
-    expect(fo.args.get(2545)).to.be.null;
+    expect(fo.args.has('2545'));
+    expect(fo.args.get('2545')).to.be.null;
   });
   it('fails if the args is not a Map or an object', function () {
     const C = FFmpegOption.FFmpegOptionContexts;
