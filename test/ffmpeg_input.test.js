@@ -31,17 +31,20 @@ describe('FFmpegInput', function () {
   it('generates the correct command array segment', function () {
     const expectedLast = '/some/file.mov';
     const expectedArgs = [
+      ['-bitexact'],
       ['-ss', '5110.77'],
       ['-itsoffset', '0'],
       ['-i', '/some/file.mov']
     ];
     const fiCmdObj = new FFmpegInput('/some/file.mov', {
+      'bitexact': undefined,
       'itsoffset': 0,
       'ss': 5110.77
     }).toCommandArray();
     testHelpers.expectLast(fiCmdObj, expectedLast);
     testHelpers.expectSequences(fiCmdObj, expectedArgs);
     const fiCmdMap = new FFmpegInput('/some/file.mov', new Map([
+      ['bitexact'],
       ['itsoffset', 0],
       ['ss', 5110.77]
     ])).toCommandArray();
@@ -49,13 +52,15 @@ describe('FFmpegInput', function () {
     testHelpers.expectSequences(fiCmdMap, expectedArgs);
   });
   it('generates the correct command string segment', function () {
-    const expected = '-ss "5110.77" -itsoffset "0" -i "/some/file.mov"';
+    const expected = '-ss "5110.77" -itsoffset "0" -bitexact -i "/some/file.mov"';
     const fiObj = new FFmpegInput('/some/file.mov', {
+      'bitexact': null,
       'itsoffset': 0,
       'ss': 5110.77
     });
     expect(fiObj.toCommandString()).to.eql(expected);
     const fiMap = new FFmpegInput('/some/file.mov', new Map([
+      ['bitexact', null],
       ['itsoffset', 0],
       ['ss', 5110.77]
     ]));
