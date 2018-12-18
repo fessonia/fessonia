@@ -65,8 +65,8 @@ describe('FilterChain', function () {
         ['splitFilter:1', 'vflipFilter:0']
       ];
       const fc = new FilterChain('my_filter_chain', nodes, null, connections);
-      console.log(fc.rootNodes);
-      const expected = 'crop=iw:ih/2:0:0;split [splitFilter_0] [splitFilter_1];[splitFilter_0] vflip;[splitFilter_1] vflip';
+      // console.log(fc.rootNodes);
+      const expected = 'crop=iw:ih/2:0:0 [cropFilter_0];[cropFilter_0] split [splitFilter_0] [splitFilter_1];[splitFilter_0] vflip;[splitFilter_1] vflip';
       expect(fc.toString()).to.eql(expected);
     });
   });
