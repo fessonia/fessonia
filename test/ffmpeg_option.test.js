@@ -23,29 +23,16 @@ describe('FFmpegOption', function () {
   it('fails if the context is invalid', function () {
     expect(() => new FFmpegOption('ss', false)).to.throw;
   });
-  it('sets the arguments when args is a Map', function () {
-    const C = FFmpegOption.FFmpegOptionContexts;
-    const fo = new FFmpegOption('ss', C.INPUT, new Map([[2545, null]]));
-    expect(fo.args).to.be.instanceof(Map);
-    expect(fo.args.has(2545));
-    expect(fo.args.get(2545)).to.be.null;
-  });
-  it('sets the arguments when args is a string', function () {
+  it('sets the argument when arg is a string', function () {
     const C = FFmpegOption.FFmpegOptionContexts;
     const fo = new FFmpegOption('ss', C.INPUT, '2545');
-    expect(fo.args).to.be.instanceof(Map);
-    expect(fo.args.has(2545));
-    expect(fo.args.get(2545)).to.be.null;
+    expect(fo.arg).to.be.a('string');
+    expect(fo.arg).to.eql('2545');
   });
-  it('sets the arguments when args is an object', function () {
+  it('fails if arg is not a string', function () {
     const C = FFmpegOption.FFmpegOptionContexts;
-    const fo = new FFmpegOption('ss', C.INPUT, { 2545: null });
-    expect(fo.args).to.be.instanceof(Map);
-    expect(fo.args.has(2545));
-    expect(fo.args.get(2545)).to.be.null;
-  });
-  it('fails if the args is not a Map or an object', function () {
-    const C = FFmpegOption.FFmpegOptionContexts;
+    expect(() => new FFmpegOption('ss', C.INPUT, new Map([[2545, null]]))).to.throw;
+    expect(() => new FFmpegOption('ss', C.INPUT, { 2545: null })).to.throw;
     expect(() => new FFmpegOption('ss', C.INPUT, [2545])).to.throw;
   });
 });

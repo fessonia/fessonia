@@ -49,24 +49,24 @@ describe('FilterChain', function () {
       expect(fc.rootNodes).to.eql([ nodes[0].alias ]);
     });
     it('sets node connections on creation', function () {
-      const fc = new FilterChain('my_filter_chain', nodes, null, [['cropFilter:0', 'vflipFilter:0']]);
+      const fc = new FilterChain('my_filter_chain', nodes, null, [[['cropFilter', '0'], ['vflipFilter', '0']]]);
       expect(fc.connections).to.be.instanceof(Map);
       expect(fc.connections.has('cropFilter')).to.be.true;
       expect(fc.connections.get('cropFilter')).to.be.instanceof(Map);
-      expect(fc.connections.get('cropFilter').has(0)).to.be.true;
-      expect(fc.connections.get('cropFilter').get(0)).to.be.an('object');
-      expect(fc.connections.get('cropFilter').get(0)).to.have.own.property('vflipFilter');
-      expect(fc.connections.get('cropFilter').get(0).vflipFilter).to.eql(0);
+      expect(fc.connections.get('cropFilter').has('0')).to.be.true;
+      expect(fc.connections.get('cropFilter').get('0')).to.be.an('object');
+      expect(fc.connections.get('cropFilter').get('0')).to.have.own.property('vflipFilter');
+      expect(fc.connections.get('cropFilter').get('0').vflipFilter).to.eql('0');
     });
     it('generates a string representation of the chain', function () {
       const connections = [
-        ['cropFilter:0', 'splitFilter:0'],
-        ['splitFilter:0', 'vflipFilter:0'],
-        ['splitFilter:1', 'vflipFilter:0']
+        [['cropFilter', '0'], ['splitFilter', '0']],
+        [['splitFilter', '0'], ['vflipFilter', '0']],
+        [['splitFilter', '1'], ['vflipFilter', '0']]
       ];
       const fc = new FilterChain('my_filter_chain', nodes, null, connections);
-      console.log(fc.rootNodes);
-      const expected = 'crop=iw:ih/2:0:0;split [splitFilter_0] [splitFilter_1];[splitFilter_0] vflip;[splitFilter_1] vflip';
+      // console.log(fc.rootNodes);
+      const expected = 'crop=iw:ih/2:0:0 [cropFilter_0];[cropFilter_0] split [splitFilter_0] [splitFilter_1];[splitFilter_0] vflip;[splitFilter_1] vflip';
       expect(fc.toString()).to.eql(expected);
     });
   });
