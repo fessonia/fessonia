@@ -19,8 +19,10 @@ module.exports = {
         k += 1;
       }
       if (found >= 0) {
+        console.log(`${tested.slice(found, found + seq.length)} =?= ${seq}`);
         expect(tested.slice(found, found + seq.length)).to.deep.eql(seq);
       } else {
+        console.log(`no match found for ${seq}`);
         expect(false).to.be.true;
       }
     }
