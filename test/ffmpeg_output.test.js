@@ -53,7 +53,7 @@ describe('FFmpegOutput', function () {
     testHelpers.expectSequences(foCmdMap, expectedArgs);
   });
   it('generates the correct command string segment', function () {
-    const expected = '-b:v "3850k" -f "mp4" -aspect "16:9" -dn "/some/file.mp4"';
+    const expected = '-dn -aspect "16:9" -f "mp4" -b:v "3850k" "/some/file.mp4"';
     const foObj = new FFmpegOutput('/some/file.mp4', {
       'dn': null,
       'aspect': '16:9',
