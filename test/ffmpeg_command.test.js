@@ -59,7 +59,7 @@ describe('FFmpegCommand', function () {
       }
     }
   });
-  it.skip('WIP: generates the correct command array segment', function () {
+  it('generates the correct command object', function () {
     const fc = new FFmpegCommand(new Map([['y'],]));
     const fi = new FFmpegInput('/some/file.mov', new Map([]));
     const fo = new FFmpegOutput('/dev/null', new Map([
@@ -83,7 +83,6 @@ describe('FFmpegCommand', function () {
     fc.addInput(fi);
     fc.addOutput(fo);
     const fcCmd = fc.toCommand();
-    console.log(fcCmd);
     const expected = {
       command: config.ffmpeg_bin,
       seqs: [
@@ -116,19 +115,38 @@ describe('FFmpegCommand', function () {
     expect(fcCmd.command).to.eql(expected.command);
     testHelpers.expectSequences(fcCmd.args, expected.seqs);
   });
-  it.skip('generates the correct command string segment', function () {
-    const expected = '-ss "5110.77" -itsoffset "0" -bitexact -i "/some/file.mov"';
-    const fiObj = new FFmpegInput('/some/file.mov', {
-      'bitexact': null,
-      'itsoffset': 0,
-      'ss': 5110.77
-    });
-    expect(fiObj.toCommandString()).to.eql(expected);
-    const fiMap = new FFmpegInput('/some/file.mov', new Map([
-      ['bitexact', null],
-      ['itsoffset', 0],
-      ['ss', 5110.77]
+  it('generates the correct command string', function () {
+    const fc = new FFmpegCommand(new Map([['y'],]));
+    const fi = new FFmpegInput('/some/file.mov', new Map([]));
+    const fo = new FFmpegOutput('/dev/null', new Map([
+      ['c:v', 'libx264'],
+      ['preset:v', 'slow'],
+      ['profile:v', 'high'],
+      ['pix_fmt', 'yuv420p'],
+      ['coder', '1'],
+      ['g', '48'],
+      ['b:v', '3850k'],
+      ['flags', '+bitexact'],
+      ['sws_flags', '+accurate_rnd+bitexact'],
+      ['fflags', '+bitexact'],
+      ['maxrate', '4000k'],
+      ['bufsize', '2850k'],
+      ['an'],
+      ['f', 'mp4'],
+      ['aspect', '16:9'],
+      ['pass', '1'],
     ]));
-    expect(fiMap.toCommandString()).to.eql(expected);
+    fc.addInput(fi);
+    fc.addOutput(fo);
+    const fcArgs = [];
+    fc.options.forEach((value, opt) => {
+      fcArgs.push(`-${opt}`);
+      if (value !== null && value !== undefined) { fcArgs.push(`"${String(value)}"`); }
+    });
+    const expected = [
+      config.ffmpeg_bin,
+      fcArgs.join(' '),
+      fi.toCommandString(), fo.toCommandString()].join(' ');
+    expect(fc.toString()).to.eql(expected);
   });
 });
