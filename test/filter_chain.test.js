@@ -9,7 +9,7 @@ const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out
 
 describe('FilterChain', function () {
   describe('simple FilterChain objects', function () {
-    this.beforeAll(() => {
+    this.beforeEach(() => {
       // stub for ffmpeg interaction
       sinon.stub(FilterNode, '_queryFFmpegForFilters')
         .returns(filtersFixture);
@@ -23,7 +23,7 @@ describe('FilterChain', function () {
       ];
     });
   
-    this.afterAll(() => {
+    this.afterEach(() => {
       FilterNode._queryFFmpegForFilters.restore();
     });
   
