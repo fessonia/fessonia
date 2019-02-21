@@ -21,6 +21,7 @@ module.exports = {
       if (found >= 0) {
         expect(tested.slice(found, found + seq.length)).to.deep.eql(seq);
       } else {
+        console.log(tested.slice(found, found + seq.length), seq);
         expect(false).to.be.true;
       }
     }

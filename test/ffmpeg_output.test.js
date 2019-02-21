@@ -1,8 +1,13 @@
 const chai = require('chai'),
   expect = chai.expect,
+  sinon = require('sinon'),
+  fs = require('fs'),
   testHelpers = require('./helpers');
 
-const FFmpegOutput = require('../lib/ffmpeg_output');
+const FFmpegOutput = require('../lib/ffmpeg_output'),
+  FilterNode = require('../lib/filter_node'),
+  FilterChain = require('../lib/filter_chain'),
+  filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegOutput', function () {
   it('creates an FFmpegOutput object', function () {
@@ -13,8 +18,8 @@ describe('FFmpegOutput', function () {
     expect(() => new FFmpegOutput(null, {})).to.throw();
   });
   it('sets the options property on the object', function () {
-    expect(new FFmpegOutput('/some/file.mov', new Map()).options).to.eql(new Map());
-    expect(new FFmpegOutput('/some/file.mp4', {}).options).to.eql(new Map());
+    expect(new FFmpegOutput('/some/file.mov', new Map()).options).to.eql([]);
+    expect(new FFmpegOutput('/some/file.mp4', {}).options).to.eql([]);
   });
   it('sets the url property on the object', function () {
     expect(new FFmpegOutput('/some/file.mp4', {}).url).to.eql('/some/file.mp4');
@@ -68,5 +73,51 @@ describe('FFmpegOutput', function () {
       ['b:v', '3850k']
     ]));
     expect(foMap.toCommandString()).to.eql(expected);
+  });
+  describe('with filter option', function () {
+    this.beforeEach(() => {
+      // stub for ffmpeg interaction
+      sinon.stub(FilterNode, '_queryFFmpegForFilters')
+        .returns(filtersFixture);
+      const nodes = [
+        new FilterNode('cropFilter', {
+          filterName: 'crop',
+          args: ['iw', 'ih/2', 0, 0]
+        }),
+        new FilterNode('vflipFilter', { filterName: 'vflip' }),
+        new FilterNode('hflipFilter', { filterName: 'hflip' }),
+        new FilterNode('splitFilter', { filterName: 'split' })
+      ];
+      const connections = [
+        [['cropFilter', '0'], ['splitFilter', '0']],
+        [['splitFilter', '0'], ['vflipFilter', '0']],
+        [['splitFilter', '1'], ['hflipFilter', '0']]
+      ];
+      fc = new FilterChain('my_filter_chain', nodes, null, connections);
+    });
+  
+    this.afterEach(() => {
+      FilterNode._queryFFmpegForFilters.restore();
+    });
+  
+    it('generates the correct command array segment', function () {
+      const expectedLast = '/some/file.mp4';
+      const expectedArgs = [
+        ['-dn'],
+        ['-filter_complex', 'crop=iw:ih/2:0:0 [cropFilter_0];[cropFilter_0] split [splitFilter_0] [splitFilter_1];[splitFilter_0] vflip;[splitFilter_1] hflip'],
+        ['-b:v', '3850k'],
+        ['-f', 'mp4'],
+        ['-aspect', '16:9']
+      ];
+      const foCmdObj = new FFmpegOutput('/some/file.mp4', new Map([
+        ['dn', null],
+        ['filter', fc],
+        ['aspect', '16:9'],
+        ['f', 'mp4'],
+        ['b:v', '3850k']
+      ])).toCommandArray();
+      testHelpers.expectLast(foCmdObj, expectedLast);
+      testHelpers.expectSequences(foCmdObj, expectedArgs); // TODO: failing here
+    });
   });
 });
