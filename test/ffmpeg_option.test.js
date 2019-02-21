@@ -41,6 +41,34 @@ describe('FFmpegOption', function () {
       expect(() => new FFmpegOption('ss', C.INPUT, { 2545: null })).to.throw;
       expect(() => new FFmpegOption('ss', C.INPUT, [2545])).to.throw;
     });
+
+    describe('with filters', function () {
+      this.beforeEach(() => {
+        // stub for ffmpeg interaction
+        sinon.stub(FilterNode, '_queryFFmpegForFilters')
+          .returns(filtersFixture);
+        nodes = [
+          new FilterNode('cropFilter', {
+            filterName: 'crop',
+            args: ['iw', 'ih/2', 0, 0]
+          }),
+          new FilterNode('vflipFilter', { filterName: 'vflip' }),
+          new FilterNode('splitFilter', { filterName: 'split' })
+        ];
+        fc = new FilterChain('my_filter_chain', nodes);
+      });
+
+      this.afterEach(() => {
+        FilterNode._queryFFmpegForFilters.restore();
+      });
+
+      it('handles all filter options as filter_complex with GLOBAL context', function () {
+        const C = FFmpegOption.FFmpegOptionContexts;
+        const fo = new FFmpegOption('filter', C.OUTPUT, fc);
+        expect(fo.optionName).to.eql('-filter_complex');
+        expect(fo.context).to.eql(C.GLOBAL);
+      });
+    });
   });
   
   describe('toCommandArray()', function () {

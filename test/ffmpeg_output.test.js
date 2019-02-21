@@ -99,7 +99,7 @@ describe('FFmpegOutput', function () {
     this.afterEach(() => {
       FilterNode._queryFFmpegForFilters.restore();
     });
-  
+    
     it('generates the correct command array segment', function () {
       const expectedLast = '/some/file.mp4';
       const expectedArgs = [
@@ -109,15 +109,15 @@ describe('FFmpegOutput', function () {
         ['-f', 'mp4'],
         ['-aspect', '16:9']
       ];
-      const foCmdObj = new FFmpegOutput('/some/file.mp4', new Map([
+      const fo = new FFmpegOutput('/some/file.mp4', new Map([
         ['dn', null],
         ['filter', fc],
         ['aspect', '16:9'],
         ['f', 'mp4'],
         ['b:v', '3850k']
       ])).toCommandArray();
-      testHelpers.expectLast(foCmdObj, expectedLast);
-      testHelpers.expectSequences(foCmdObj, expectedArgs); // TODO: failing here
+      testHelpers.expectLast(fo, expectedLast);
+      testHelpers.expectSequences(fo, expectedArgs);
     });
   });
 });
