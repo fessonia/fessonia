@@ -37,7 +37,14 @@ describe('FFmpegCommand', function () {
   it('it allows getting mapped inputs and outputs', function () {
     const fc = new FFmpegCommand();
     fc.mapIO('input_tag', 0, 'output_tag', 3);
-    const expected = new Map([['input_tag', new Map([[0, { output_tag: 3 }]])]]);
+    const expected = new Map([
+      [
+        'input_tag',
+        new Map([
+          [0, { output_tag: 3 }]
+        ])
+      ]
+    ]);
     const result = fc.mappedIO();
     expect(result.size).to.eql(expected.size);
     for (let [fromKey, fromVal] of result) {
