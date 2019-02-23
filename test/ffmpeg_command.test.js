@@ -68,7 +68,11 @@ describe('FFmpegCommand', function () {
   });
   it('generates the correct command object', function () {
     const fc = new FFmpegCommand(new Map([['y'],]));
-    const fi = new FFmpegInput('/some/file.mov', new Map([]));
+    const fi = new FFmpegInput('/some/file.mov', new Map([
+      ['threads', '8'],
+      ['itsoffset', '0'],
+      ['ss', '6234.0182917']
+    ]));
     const fo = new FFmpegOutput('/dev/null', new Map([
       ['c:v', 'libx264'],
       ['preset:v', 'slow'],
@@ -98,6 +102,9 @@ describe('FFmpegCommand', function () {
         fi.toCommandArray().concat(fo.toCommandArray()),
         [
           '-y',
+          '-threads', '8',
+          '-itsoffset', '0',
+          '-ss', '6234.0182917',
           '-i', '/some/file.mov',
           '-c:v', 'libx264',
           '-preset:v', 'slow',
@@ -124,7 +131,11 @@ describe('FFmpegCommand', function () {
   });
   it('generates the correct command string', function () {
     const fc = new FFmpegCommand(new Map([['y'],]));
-    const fi = new FFmpegInput('/some/file.mov', new Map([]));
+    const fi = new FFmpegInput('/some/file.mov', new Map([
+      ['threads', '8'],
+      ['itsoffset', '0'],
+      ['ss', '6234.0182917']
+    ]));
     const fo = new FFmpegOutput('/dev/null', new Map([
       ['c:v', 'libx264'],
       ['preset:v', 'slow'],

@@ -13,8 +13,8 @@ describe('FFmpegInput', function () {
     expect(() => new FFmpegInput(null, {})).to.throw();
   });
   it('sets the options property on the object', function () {
-    expect(new FFmpegInput('/some/file.mov', new Map()).options).to.eql(new Map());
-    expect(new FFmpegInput('/some/file.mov', {}).options).to.eql(new Map());
+    expect(new FFmpegInput('/some/file.mov', new Map()).options).to.eql([]);
+    expect(new FFmpegInput('/some/file.mov', {}).options).to.eql([]);
   });
   it('sets the url property on the object', function () {
     const input_file = '/some/file.mov';
@@ -31,22 +31,22 @@ describe('FFmpegInput', function () {
   it('generates the correct command array segment', function () {
     const expectedLast = '/some/file.mov';
     const expectedArgs = [
-      ['-bitexact'],
       ['-ss', '5110.77'],
       ['-itsoffset', '0'],
+      ['-bitexact'],
       ['-i', '/some/file.mov']
     ];
     const fiCmdObj = new FFmpegInput('/some/file.mov', {
-      'bitexact': undefined,
+      'ss': 5110.77,
       'itsoffset': 0,
-      'ss': 5110.77
+      'bitexact': undefined
     }).toCommandArray();
     testHelpers.expectLast(fiCmdObj, expectedLast);
     testHelpers.expectSequences(fiCmdObj, expectedArgs);
     const fiCmdMap = new FFmpegInput('/some/file.mov', new Map([
-      ['bitexact'],
+      ['ss', 5110.77],
       ['itsoffset', 0],
-      ['ss', 5110.77]
+      ['bitexact']
     ])).toCommandArray();
     testHelpers.expectLast(fiCmdMap, expectedLast);
     testHelpers.expectSequences(fiCmdMap, expectedArgs);
@@ -54,15 +54,15 @@ describe('FFmpegInput', function () {
   it('generates the correct command string segment', function () {
     const expected = '-ss "5110.77" -itsoffset "0" -bitexact -i "/some/file.mov"';
     const fiObj = new FFmpegInput('/some/file.mov', {
-      'bitexact': null,
+      'ss': 5110.77,
       'itsoffset': 0,
-      'ss': 5110.77
+      'bitexact': null
     });
     expect(fiObj.toCommandString()).to.eql(expected);
     const fiMap = new FFmpegInput('/some/file.mov', new Map([
-      ['bitexact', null],
+      ['ss', 5110.77],
       ['itsoffset', 0],
-      ['ss', 5110.77]
+      ['bitexact', null]
     ]));
     expect(fiMap.toCommandString()).to.eql(expected);
   });
