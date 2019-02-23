@@ -64,9 +64,12 @@ describe('FFmpegOption', function () {
 
       it('handles all filter options as filter_complex with GLOBAL context', function () {
         const C = FFmpegOption.FFmpegOptionContexts;
-        const fo = new FFmpegOption('filter', C.OUTPUT, fc);
-        expect(fo.optionName).to.eql('-filter_complex');
-        expect(fo.context).to.eql(C.GLOBAL);
+        let fo;
+        FFmpegOption.FFmpegFilterOptions.forEach((opt) => {
+          fo = new FFmpegOption(opt, C.OUTPUT, fc);
+          expect(fo.optionName).to.eql('-filter_complex');
+          expect(fo.context).to.eql(C.GLOBAL);
+        });
       });
     });
   });
