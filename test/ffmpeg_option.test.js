@@ -35,6 +35,12 @@ describe('FFmpegOption', function () {
       expect(fo.arg).to.be.a('string');
       expect(fo.arg).to.eql('2545');
     });
+    it('sets the argument when arg is stringifiable', function () {
+      const C = FFmpegOption.FFmpegOptionContexts;
+      const fo = new FFmpegOption('ss', C.INPUT, 2545);
+      expect(fo.arg).to.be.a('string');
+      expect(fo.arg).to.eql((2545).toString());
+    });
     it('fails if arg is not a string', function () {
       const C = FFmpegOption.FFmpegOptionContexts;
       expect(() => new FFmpegOption('ss', C.INPUT, new Map([[2545, null]]))).to.throw;
