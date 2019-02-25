@@ -1,4 +1,5 @@
 module.exports = {
+  FFmpegCommand: require('./lib/ffmpeg_command'),
   FFmpegInput: require('./lib/ffmpeg_input'),
   FFmpegOutput: require('./lib/ffmpeg_output'),
   FilterOption: require('./lib/filter_option'),
