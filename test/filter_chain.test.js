@@ -70,4 +70,45 @@ describe('FilterChain', function () {
       expect(fc.toString()).to.eql(expected);
     });
   });
+  
+  describe('example filter chains from real use', function () {
+    it('generative video filter to be used as an input', function () {
+      let expected = 'life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0 [life_0];[life_0] scale=1920:1080';
+      let nodes = [
+        new FilterNode('life', {
+          filterName: 'life',
+          args: [
+            { name: 'size', value: '320x240' },
+            { name: 'mold', value: 10 },
+            { name: 'rate', value: 23.976 },
+            { name: 'ratio', value: 0.5 },
+            { name: 'death_color', value: '#C83232' },
+            { name: 'life_color', value: '#00ff00' },
+            { name: 'stitch', value: 0 }
+          ]
+        }),
+        new FilterNode('scale', {
+          filterName: 'scale',
+          args: [1920, 1080]
+        })
+      ];
+      let connections = [[['life', '0'], ['scale', '0']]];
+      let fc = new FilterChain('my_input_filter', nodes, null, connections);
+      expect(fc.toString()).to.eql(expected);
+    });
+    it('generative audio filter to be used as input', function () {
+      let expected = 'sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000';
+      let node = new FilterNode('sine', {
+        filterName: 'sine',
+        args: [
+          { name: 'frequency', value: 620 },
+          { name: 'beep_factor', value: 4 },
+          { name: 'duration', value: 9999999999 },
+          { name: 'sample_rate', value: 48000 }
+        ]
+      });
+      let fc = new FilterChain('my_chain', [node], null, []);
+      expect(fc.toString()).to.eql(expected);
+    });
+  });
 });
