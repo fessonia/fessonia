@@ -156,15 +156,7 @@ describe('FFmpegCommand', function () {
     ]));
     fc.addInput(fi);
     fc.addOutput(fo);
-    const fcArgs = [];
-    fc.options.forEach((value, opt) => {
-      fcArgs.push(`-${opt}`);
-      if (value !== null && value !== undefined) { fcArgs.push(`"${String(value)}"`); }
-    });
-    const expected = [
-      config.ffmpeg_bin,
-      fcArgs.join(' '),
-      fi.toCommandString(), fo.toCommandString()].join(' ');
+    const expected = `${config.ffmpeg_bin} -y -threads "8" -itsoffset "0" -ss "6234.0182917" -i "/some/file.mov" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "3850k" -flags "+bitexact" -sws_flags "+accurate_rnd+bitexact" -fflags "+bitexact" -maxrate "4000k" -bufsize "2850k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
     expect(fc.toString()).to.eql(expected);
   });
 });
