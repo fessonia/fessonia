@@ -1,10 +1,13 @@
 const chai = require('chai'),
   expect = chai.expect,
+  sinon = require('sinon'),
+  fs = require('fs'),
   testHelpers = require('./helpers');
 
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FilterChain = require('../lib/filter_chain');
 const FilterNode = require('../lib/filter_node');
+const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegInput', function () {
   it('creates an FFmpegInput object', function () {
@@ -68,50 +71,72 @@ describe('FFmpegInput', function () {
     ]));
     expect(fiMap.toCommandString()).to.eql(expected);
   });
-  it('handles a single filter as input', function () {
-    let expected = '-re -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000"';
-    let fInput = new FilterNode('sine', {
-      filterName: 'sine',
-      args: [
-        { name: 'frequency', value: 620 },
-        { name: 'beep_factor', value: 4 },
-        { name: 'duration', value: 9999999999 },
-        { name: 'sample_rate', value: 48000 }
-      ]
+  describe('filters as input', function () {
+    this.beforeEach(() => {
+      // stub for ffmpeg interaction
+      sinon.stub(FilterNode, '_queryFFmpegForFilters')
+        .returns(filtersFixture);
+      nodes = [
+        new FilterNode('cropFilter', {
+          filterName: 'crop',
+          args: ['iw', 'ih/2', 0, 0]
+        }),
+        new FilterNode('vflipFilter', { filterName: 'vflip' }),
+        new FilterNode('splitFilter', { filterName: 'split' })
+      ];
+      fc = new FilterChain('my_filter_chain', nodes);
     });
-    let fiObj = new FFmpegInput(fInput, new Map([
-      ['re', null],
-      ['f', 'lavfi']
-    ]));
-    expect(fiObj.toCommandString()).to.eql(expected);
-  });
-  it('handles a filter chain as input', function () {
-    let expected = '-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0 [life_0];[life_0] scale=1920:1080"';
-    let nodes = [
-      new FilterNode('life', {
-        filterName: 'life',
+
+    this.afterEach(() => {
+      FilterNode._queryFFmpegForFilters.restore();
+    });
+
+    it('handles a single filter as input', function () {
+      let expected = '-re -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000"';
+      let fInput = new FilterNode('sine', {
+        filterName: 'sine',
         args: [
-          { name: 'size', value: '320x240' },
-          { name: 'mold', value: 10 },
-          { name: 'rate', value: 23.976 },
-          { name: 'ratio', value: 0.5 },
-          { name: 'death_color', value: '#C83232' },
-          { name: 'life_color', value: '#00ff00' },
-          { name: 'stitch', value: 0 }
+          { name: 'frequency', value: 620 },
+          { name: 'beep_factor', value: 4 },
+          { name: 'duration', value: 9999999999 },
+          { name: 'sample_rate', value: 48000 }
         ]
-      }),
-      new FilterNode('scale', {
-        filterName: 'scale',
-        args: [1920, 1080]
-      })
-    ];
-    let connections = [[['life', '0'], ['scale', '0']]];
-    let fcInput = new FilterChain('my_input_filter', nodes, null, connections);
-    let fiObj = new FFmpegInput(fcInput, new Map([
-      ['re', null],
-      ['r', 23.976],
-      ['f', 'lavfi']
-    ]));
-    expect(fiObj.toCommandString()).to.eql(expected);
+      });
+      let fiObj = new FFmpegInput(fInput, new Map([
+        ['re', null],
+        ['f', 'lavfi']
+      ]));
+      expect(fiObj.toCommandString()).to.eql(expected);
+    });
+
+    it('handles a filter chain as input', function () {
+      let expected = '-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0 [life_0];[life_0] scale=1920:1080"';
+      let nodes = [
+        new FilterNode('life', {
+          filterName: 'life',
+          args: [
+            { name: 'size', value: '320x240' },
+            { name: 'mold', value: 10 },
+            { name: 'rate', value: 23.976 },
+            { name: 'ratio', value: 0.5 },
+            { name: 'death_color', value: '#C83232' },
+            { name: 'life_color', value: '#00ff00' },
+            { name: 'stitch', value: 0 }
+          ]
+        }),
+        new FilterNode('scale', {
+          filterName: 'scale',
+          args: [1920, 1080]
+        })
+      ];
+      let connections = [[['life', '0'], ['scale', '0']]];
+      let fcInput = new FilterChain('my_input_filter', nodes, null, connections);
+      let fiObj = new FFmpegInput(fcInput, new Map([
+        ['re', null],
+        ['r', 23.976],
+        ['f', 'lavfi']
+      ]));
+      expect(fiObj.toCommandString()).to.eql(expected);
+    });
   });
 });
