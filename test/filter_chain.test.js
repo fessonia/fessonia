@@ -58,6 +58,46 @@ describe('FilterChain', function () {
       expect(fc.connections.get('cropFilter').get('0')).to.have.own.property('vflipFilter');
       expect(fc.connections.get('cropFilter').get('0').vflipFilter).to.eql('0');
     });
+    it.only('provides leaf nodes for the FilterChain', function () {
+      const connections = [
+        [['cropFilter', '0'], ['splitFilter', '0']],
+        [['splitFilter', '0'], ['vflipFilter', '0']]
+      ];
+      const fc = new FilterChain('chain_alias', nodes, null, connections);
+      expect(fc.leafNodes).to.be.instanceof(Array);
+      expect(fc.leafNodes.length).to.eql(2);
+      const expectedLeafNodes = [
+        new FilterNode('vflipFilter', { filterName: 'vflip' }),
+        new FilterNode('splitFilter', { filterName: 'split' })
+      ];
+      expect(fc.leafNodes).contains(expectedLeafNodes[1]);
+      expect(fc.leafNodes).contains(expectedLeafNodes[2]);
+    });
+    it.skip('provides output pads for the FilterChain', function () {
+      const connections = [
+        [['cropFilter', '0'], ['splitFilter', '0']],
+        [['splitFilter', '0'], ['vflipFilter', '0']]
+      ];
+      const fc = new FilterChain('chain_alias', nodes, null, connections);
+      expect(fc.outputPads).to.be.instanceof(Array);
+      console.log(fc.outputPads);
+      expect(fc.outputPads.length).to.eql(2);
+      fc.outputPads.forEach((pad) => {
+        expect(pad).to.have.ownProperty('name');
+        expect(pad).to.have.ownProperty('mapped');
+        expect(pad).to.have.ownProperty('streamType');
+        expect(pad.name.startsWith('chain_alias_')).to.be.true;
+        expect(() => parseInt(pad.name.replace('chain_alias_', ''))).not.to.throw();
+      });
+    });
+    it.skip('marks output pads as mapped', function () {
+      const fc = new FilterChain('chain_alias', nodes, null, [[['cropFilter', '0'], ['vFlipFilter', '0']]]);
+      
+    });
+    it.skip('provides a non-marked output pad as the next pad', function () {
+      const fc = new FilterChain('chain_alias', nodes, null, [[['cropFilter', '0'], ['vFlipFilter', '0']]]);
+
+    });
     it('generates a string representation of the chain', function () {
       const connections = [
         [['cropFilter', '0'], ['splitFilter', '0']],
