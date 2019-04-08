@@ -79,19 +79,18 @@ describe('FFmpegOutput', function () {
       // stub for ffmpeg interaction
       sinon.stub(FilterNode, '_queryFFmpegForFilters')
         .returns(filtersFixture);
-      const nodes = [
-        new FilterNode('cropFilter', {
-          filterName: 'crop',
-          args: ['iw', 'ih/2', 0, 0]
-        }),
-        new FilterNode('vflipFilter', { filterName: 'vflip' }),
-        new FilterNode('hflipFilter', { filterName: 'hflip' }),
-        new FilterNode('splitFilter', { filterName: 'split' })
-      ];
+      cropFilter = new FilterNode({
+        filterName: 'crop',
+        args: ['iw', 'ih/2', 0, 0]
+      });
+      vflipFilter = new FilterNode({ filterName: 'vflip' });
+      hflipFilter = new FilterNode({ filterName: 'hflip' });
+      splitFilter = new FilterNode({ filterName: 'split' });
+      const nodes = [cropFilter, vflipFilter, hflipFilter, splitFilter];
       const connections = [
-        [['cropFilter', '0'], ['splitFilter', '0']],
-        [['splitFilter', '0'], ['vflipFilter', '0']],
-        [['splitFilter', '1'], ['hflipFilter', '0']]
+        [[cropFilter, '0'], [splitFilter, '0']],
+        [[splitFilter, '0'], [vflipFilter, '0']],
+        [[splitFilter, '1'], [hflipFilter, '0']]
       ];
       fc = new FilterChain('my_filter_chain', nodes, null, connections);
     });
@@ -104,7 +103,7 @@ describe('FFmpegOutput', function () {
       const expectedLast = '/some/file.mp4';
       const expectedArgs = [
         ['-dn'],
-        ['-filter_complex', 'crop=iw:ih/2:0:0 [cropFilter_0];[cropFilter_0] split [splitFilter_0] [splitFilter_1];[splitFilter_0] vflip;[splitFilter_1] hflip'],
+        ['-filter_complex', `crop=iw:ih/2:0:0 [${cropFilter.padPrefix}_0];[${cropFilter.padPrefix}_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip`],
         ['-b:v', '3850k'],
         ['-f', 'mp4'],
         ['-aspect', '16:9']

@@ -31,12 +31,13 @@ describe('FFmpegCommand', function () {
     fc.addOutput(fo);
     expect(fc.outputs()).to.contain(fo);
   });
-  it('it allows mapping inputs to outputs', function () {
+  // TODO: when work in FilterChain is done, continue here.
+  it.skip('it allows mapping inputs to outputs', function () {
     const fc = new FFmpegCommand();
     const result = fc.mapIO('input_tag', 0, 'output_tag', 3);
     expect(result).to.be.true;
   });
-  it('it allows getting mapped inputs and outputs', function () {
+  it.skip('it allows getting mapped inputs and outputs', function () {
     const fc = new FFmpegCommand();
     fc.mapIO('input_tag', 0, 'output_tag', 3);
     const expected = new Map([

@@ -16,12 +16,8 @@ let testFilter, otherTestFilter, arrayArgsFilter, mixedArgsFilter, complexFilter
 describe('FilterNode', function () {
   describe('simple FilterNode objects', function () {
     this.beforeAll(() => {
-      // stub for ffmpeg interaction
-      sinon.stub(FilterNode, '_queryFFmpegForFilters')
-        .returns(filtersFixture);
       // basic test filter
       testFilter = {
-        alias: 'cropFilter',
         options: {
           filterName: 'crop',
           args: ['iw', 'ih/2', 0, 0]
@@ -33,7 +29,6 @@ describe('FilterNode', function () {
       };
       // vflip filter
       otherTestFilter = {
-        alias: 'vflipFilter',
         options: { filterName: 'vflip' },
         expectation: {
           toStringResult: 'vflip',
@@ -42,7 +37,6 @@ describe('FilterNode', function () {
       };
       // array args
       arrayArgsFilter = {
-        alias: 'aechoFilter',
         options: {
           filterName: 'aecho',
           args: [0.8, 0.9, [1000, 1800], [0.3, 0.25]]
@@ -53,7 +47,6 @@ describe('FilterNode', function () {
       };
       // keyword args
       keywordArgsFilter = {
-        alias: 'cropKWFilter',
         options: {
           filterName: 'crop',
           args: [
@@ -69,7 +62,6 @@ describe('FilterNode', function () {
       };
       // mixed args (this is horrible - don't do this - but we test anyway)
       mixedArgsFilter = {
-        alias: 'cropMixedFilter',
         options: {
           filterName: 'crop',
           inputs: [{ alias: 'tmp'}],
@@ -82,7 +74,6 @@ describe('FilterNode', function () {
       };
       // filter command: COMPLEX
       complexFilter = {
-        alias: 'complexFilter',
         options: {
           filterName: 'split'
         },
@@ -92,7 +83,6 @@ describe('FilterNode', function () {
       };
       // filter type: SOURCE
       sourceFilter = {
-        alias: 'complexFilter',
         options: {
           filterName: 'sine'
         },
@@ -102,7 +92,6 @@ describe('FilterNode', function () {
       };
       // filter type: SINK
       sinkFilter = {
-        alias: 'sinkFilter',
         options: {
           filterName: 'nullsink'
         },
@@ -112,12 +101,10 @@ describe('FilterNode', function () {
       };
       // no filterName
       badFilterDef1 = {
-        alias: 'noFilterName',
         options: {}
       };
       // invalid arguments syntax
       badFilterDef4 = {
-        alias: 'invalidFilterArgs',
         options: {
           filterName: 'crop',
           args: [
@@ -129,7 +116,6 @@ describe('FilterNode', function () {
         }
       };
       badFilterDef5 = {
-        alias: 'invalidFilterArgs',
         options: {
           filterName: 'crop',
           args: [ undefined, 3, null ]
@@ -137,56 +123,74 @@ describe('FilterNode', function () {
       };
       // unrecognized filterName
       badFilterDef6 = {
-        alias: 'unknownFilter',
         options: { filterName: 'asldfa3tgj23dghsdg' }
       };
     });
 
     this.afterAll(() => {
-      FilterNode._queryFFmpegForFilters.restore();
     });
 
-    it('sets the filter alias and options', function () {
-      let f = new FilterNode(testFilter.alias, testFilter.options);
-      expect(f.alias).to.eql(testFilter.alias);
+    this.beforeEach(() => {
+      // stub for ffmpeg interaction
+      sinon.stub(FilterNode, '_queryFFmpegForFilters')
+        .returns(filtersFixture);
+    });
+
+    this.afterEach(() => {
+      // restore sinon sandbox
+      sinon.restore();
+    });
+
+    it('sets the filter options', function () {
+      let f = new FilterNode(testFilter.options);
       expect(f.options).to.deep.eql(testFilter.options);
     });
     it('validates the options object', function () {
-      expect(() => new FilterNode(badFilterDef1.alias, badFilterDef1.options)).to.throw();
-      expect(() => new FilterNode(badFilterDef4.alias, badFilterDef4.options)).to.throw();
-      expect(() => new FilterNode(badFilterDef5.alias, badFilterDef5.options)).to.throw();
+      expect(() => new FilterNode(badFilterDef1.options)).to.throw();
+      expect(() => new FilterNode(badFilterDef4.options)).to.throw();
+      expect(() => new FilterNode(badFilterDef5.options)).to.throw();
 
-      sinon.stub(logger, 'warn');
-      new FilterNode(badFilterDef6.alias, badFilterDef6.options);
-      expect(logger.warn.called).to.be.true;
-      logger.warn.restore();
+      /*
+      // TODO: Figure out how to stub this properly.
+      const stubbedLogger = require('../lib/util/logger')('FilterNode(stubbed-logger)');
+      stubbedLogger.warn = sinon.spy();
+      sinon.stub(FilterNode, 'logger').returns(stubbedLogger);
+      new FilterNode(badFilterDef6.options);
+      expect(stubbedLogger.warn.calledOnce()).to.be.true();
+      */
     });
     it('sets the appropriate filter type', function () {
-      let f1 = new FilterNode(sourceFilter.alias, sourceFilter.options);
+      let f1 = new FilterNode(sourceFilter.options);
       expect(f1.filterIOType).to.eql(sourceFilter.expectation.filterIOType);
-      let f2 = new FilterNode(sinkFilter.alias, sinkFilter.options);
+      let f2 = new FilterNode(sinkFilter.options);
       expect(f2.filterIOType).to.eql(sinkFilter.expectation.filterIOType);
+    });
+    it('creates a unique pad prefix', function () {
+      let f1 = new FilterNode(testFilter.options);
+      expect(f1.padPrefix).to.be.a('string');
+      let f2 = new FilterNode(otherTestFilter.options);
+      expect(f2.padPrefix).to.be.a('string');
     });
     // array-only arguments
     it('generates the correct arguments string representation for array-only arguments', function () {
-      let f1 = new FilterNode(testFilter.alias, testFilter.options);
+      let f1 = new FilterNode(testFilter.options);
       expect(f1.toString()).to.eql(testFilter.expectation.toStringResult);
-      let f2 = new FilterNode(otherTestFilter.alias, otherTestFilter.options);
+      let f2 = new FilterNode(otherTestFilter.options);
       expect(f2.toString()).to.eql(otherTestFilter.expectation.toStringResult);
     });
     // array-valued arguments
     it('generates the correct arguments string representation for array-valued arguments', function () {
-      let f = new FilterNode(arrayArgsFilter.alias, arrayArgsFilter.options);
+      let f = new FilterNode(arrayArgsFilter.options);
       expect(f.toString()).to.deep.eql(arrayArgsFilter.expectation.toStringResult);
     });
     // keyword arguments
     it('generates the correct arguments string representation for keyword arguments', function () {
-      let f = new FilterNode(keywordArgsFilter.alias, keywordArgsFilter.options);
+      let f = new FilterNode(keywordArgsFilter.options);
       expect(f.toString()).to.deep.eql(keywordArgsFilter.expectation.toStringResult);
     });
     // mixed arguments
     it('generates the correct arguments string representation for mixed arguments', function () {
-      let f = new FilterNode(mixedArgsFilter.alias, mixedArgsFilter.options);
+      let f = new FilterNode(mixedArgsFilter.options);
       expect(f.toString()).to.deep.eql(mixedArgsFilter.expectation.toStringResult);
     });
     it('provides filter validation info based on ffmpeg help output', function () {
