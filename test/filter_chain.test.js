@@ -58,7 +58,7 @@ describe('FilterChain', function () {
       expect(fc.connections.get(cropFilter).get('0').has(vflipFilter));
       expect(fc.connections.get(cropFilter).get('0').get(vflipFilter)).to.eql('0');
     });
-    // TODO: continue working here.
+    // TODO: continue working here once _subchainLeafNodes is working.
     it.skip('provides leaf nodes for the FilterChain', function () {
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
@@ -182,6 +182,19 @@ describe('FilterChain', function () {
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1] [${splitFilter.padPrefix}_2];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip;[${splitFilter.padPrefix}_2] vflip [${vflipFilter2.padPrefix}_0];[${vflipFilter2.padPrefix}_0] hflip`;
       expect(subchain).to.be.a('string');
       expect(subchain).to.eql(expected);
+    });
+    // TODO: Continue working here NOW.
+    it.skip('computes leaf nodes for the FilterChain', function () {
+      const connections = [
+        [[cropFilter, '0'], [splitFilter, '0']],
+        [[splitFilter, '0'], [vflipFilter, '0']]
+      ];
+      const fc = new FilterChain('chain_alias', nodes, null, connections);
+      const leafNodes = fc._subchainLeafNodes(cropFilter);
+      expect(leafNodes).to.be.instanceof(Array);
+      expect(leafNodes).to.eql(2);
+      expect(fc.leafNodes).contains(`${vflipFilter.padPrefix}_${0}`);
+      expect(fc.leafNodes).contains(`${splitFilter.padPrefix}_${1}`);
     });
   });
   
