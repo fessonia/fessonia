@@ -99,9 +99,43 @@ describe('FilterNode', function () {
           filterIOType: FFmpegEnumerations.FilterIOTypes.SINK
         }
       };
+      // variable input filter
+      varInputFilter = {
+        options: {
+          filterName: 'amerge',
+          inputsCount: 5
+        },
+        expectation: {
+          inputs: ['N', 'N', 'N', 'N', 'N']
+        }
+      };
+      // variable input filter
+      varOutputFilter = {
+        options: {
+          filterName: 'asplit',
+          outputsCount: 4
+        },
+        expectation: {
+          outputs: ['N', 'N', 'N', 'N']
+        }
+      };
       // no filterName
       badFilterDef1 = {
         options: {}
+      };
+      // invalid inputsCount
+      badFilterDef2 = {
+        options: {
+          filterName: 'sine',
+          inputsCount: 2
+        }
+      };
+      // invalid outputsCount
+      badFilterDef3 = {
+        options: {
+          filterName: 'nullsink',
+          outputsCount: 1
+        }
       };
       // invalid arguments syntax
       badFilterDef4 = {
@@ -147,6 +181,8 @@ describe('FilterNode', function () {
     });
     it('validates the options object', function () {
       expect(() => new FilterNode(badFilterDef1.options)).to.throw();
+      expect(() => new FilterNode(badFilterDef2.options)).to.throw();
+      expect(() => new FilterNode(badFilterDef3.options)).to.throw();
       expect(() => new FilterNode(badFilterDef4.options)).to.throw();
       expect(() => new FilterNode(badFilterDef5.options)).to.throw();
 
@@ -170,6 +206,14 @@ describe('FilterNode', function () {
       expect(f1.padPrefix).to.be.a('string');
       let f2 = new FilterNode(otherTestFilter.options);
       expect(f2.padPrefix).to.be.a('string');
+    });
+    it('handles inputs on variable-input filters', function () {
+      let f1 = new FilterNode(varInputFilter.options);
+      expect(f1.inputs).to.deep.eql(varInputFilter.expectation.inputs);
+    });
+    it('handles outputs on variable-output filters', function () {
+      let f1 = new FilterNode(varOutputFilter.options);
+      expect(f1.outputs).to.deep.eql(varOutputFilter.expectation.outputs);
     });
     // array-only arguments
     it('generates the correct arguments string representation for array-only arguments', function () {
