@@ -136,7 +136,7 @@ describe('FilterChain', function () {
         [[splitFilter, '0'], [vflipFilter, '0']]
       ];
       const fc = new FilterChain('my_filter_chain', nodes, [cropFilter], connections);
-      const subchain = fc._subchainToString2(splitFilter, ['crop_0'], null, 1);
+      const subchain = fc._subchainToString(splitFilter, ['crop_0'], null, 1);
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0];[${splitFilter.padPrefix}_0] vflip`;
       expect(subchain).to.be.a('string');
       expect(subchain).to.eql(expected);
@@ -149,7 +149,7 @@ describe('FilterChain', function () {
         [[splitFilter, '1'], [hflipFilter, '0']]
       ];
       const fc = new FilterChain('my_filter_chain', nodes, [cropFilter], connections);
-      const subchain = fc._subchainToString2(splitFilter, ['crop_0'], null, 1);
+      const subchain = fc._subchainToString(splitFilter, ['crop_0'], null, 1);
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip`;
       expect(subchain).to.be.a('string');
       expect(subchain).to.eql(expected);
@@ -163,7 +163,7 @@ describe('FilterChain', function () {
         [[splitFilter, '2'], [vflipFilter2, '0']]
       ];
       const fc = new FilterChain('my_filter_chain', nodes, [cropFilter], connections);
-      const subchain = fc._subchainToString2(splitFilter, ['crop_0'], null, 1);
+      const subchain = fc._subchainToString(splitFilter, ['crop_0'], null, 1);
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1] [${splitFilter.padPrefix}_2];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip;[${splitFilter.padPrefix}_2] vflip`;
       expect(subchain).to.be.a('string');
       expect(subchain).to.eql(expected);
@@ -178,7 +178,7 @@ describe('FilterChain', function () {
         [[vflipFilter2, '0'], [hflipFilter2, '0']]
       ];
       const fc = new FilterChain('my_filter_chain', nodes, [cropFilter], connections);
-      const subchain = fc._subchainToString2(splitFilter, ['crop_0'], null, 1);
+      const subchain = fc._subchainToString(splitFilter, ['crop_0'], null, 1);
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1] [${splitFilter.padPrefix}_2];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip;[${splitFilter.padPrefix}_2] vflip [${vflipFilter2.padPrefix}_0];[${vflipFilter2.padPrefix}_0] hflip`;
       expect(subchain).to.be.a('string');
       expect(subchain).to.eql(expected);
