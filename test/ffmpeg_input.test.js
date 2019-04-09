@@ -82,7 +82,7 @@ describe('FFmpegInput', function () {
           args: ['iw', 'ih/2', 0, 0]
         }),
         new FilterNode({ filterName: 'vflip' }),
-        new FilterNode({ filterName: 'split' })
+        new FilterNode({ filterName: 'split', outputsCount: 2 })
       ];
       fc = new FilterChain('my_filter_chain', nodes);
     });

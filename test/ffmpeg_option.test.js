@@ -59,7 +59,7 @@ describe('FFmpegOption', function () {
             args: ['iw', 'ih/2', 0, 0]
           }),
           new FilterNode({ filterName: 'vflip' }),
-          new FilterNode({ filterName: 'split' })
+          new FilterNode({ filterName: 'split', outputsCount: 2 })
         ];
         fc = new FilterChain('my_filter_chain', nodes);
       });
@@ -133,7 +133,7 @@ describe('FFmpegOption', function () {
         });
         vflipFilter = new FilterNode({ filterName: 'vflip' });
         vflipFilter2 = new FilterNode({ filterName: 'vflip' });
-        splitFilter = new FilterNode({ filterName: 'split' });
+        splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
         nodes = [cropFilter, vflipFilter, vflipFilter2, splitFilter];
         connections = [
           [[cropFilter, '0'], [splitFilter, '0']],
@@ -213,7 +213,7 @@ describe('FFmpegOption', function () {
         });
         vflipFilter = new FilterNode({ filterName: 'vflip' });
         vflipFilter2 = new FilterNode({ filterName: 'vflip' });
-        splitFilter = new FilterNode({ filterName: 'split' });
+        splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
         nodes = [cropFilter, vflipFilter, vflipFilter2, splitFilter];
         connections = [
           [[cropFilter, '0'], [splitFilter, '0']],

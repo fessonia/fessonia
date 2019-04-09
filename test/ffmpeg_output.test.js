@@ -85,7 +85,7 @@ describe('FFmpegOutput', function () {
       });
       vflipFilter = new FilterNode({ filterName: 'vflip' });
       hflipFilter = new FilterNode({ filterName: 'hflip' });
-      splitFilter = new FilterNode({ filterName: 'split' });
+      splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
       const nodes = [cropFilter, vflipFilter, hflipFilter, splitFilter];
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],

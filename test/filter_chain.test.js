@@ -19,7 +19,7 @@ describe('FilterChain', function () {
       });
       vflipFilter = new FilterNode({ filterName: 'vflip' });
       vflipFilter2 = new FilterNode({ filterName: 'vflip' });
-      splitFilter = new FilterNode({ filterName: 'split' });
+      splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
       nodes = [cropFilter, vflipFilter, splitFilter];
     });
   
@@ -122,7 +122,7 @@ describe('FilterChain', function () {
       vflipFilter2 = new FilterNode({ filterName: 'vflip' });
       hflipFilter = new FilterNode({ filterName: 'hflip' });
       hflipFilter2 = new FilterNode({ filterName: 'hflip' });
-      splitFilter = new FilterNode({ filterName: 'split' });
+      splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
     });
   
     this.afterEach(() => {
