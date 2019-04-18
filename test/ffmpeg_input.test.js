@@ -76,15 +76,15 @@ describe('FFmpegInput', function () {
       // stub for ffmpeg interaction
       sinon.stub(FilterNode, '_queryFFmpegForFilters')
         .returns(filtersFixture);
-      nodes = [
-        new FilterNode({
-          filterName: 'crop',
-          args: ['iw', 'ih/2', 0, 0]
-        }),
-        new FilterNode({ filterName: 'vflip' }),
-        new FilterNode({ filterName: 'split', outputsCount: 2 })
+      cropFilter = new FilterNode({ filterName: 'crop', args: ['iw', 'ih/2', 0, 0] });
+      vflipFilter = new FilterNode({ filterName: 'vflip' });
+      splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
+      nodes = [ cropFilter, vflipFilter, splitFilter ];
+      connections = [
+        [[cropFilter, 0], [splitFilter, 0]],
+        [[splitFilter, 0], [vflipFilter, 0]]
       ];
-      fc = new FilterChain('my_filter_chain', nodes);
+      fc = new FilterChain('my_filter_chain', nodes, null, connections);
     });
 
     this.afterEach(() => {

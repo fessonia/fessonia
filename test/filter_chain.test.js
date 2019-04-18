@@ -183,8 +183,8 @@ describe('FilterChain', function () {
       expect(subchain).to.be.a('string');
       expect(subchain).to.eql(expected);
     });
-    // TODO: Continue working here NOW.
-    it.skip('computes leaf nodes for the FilterChain', function () {
+    it('computes leaf nodes for the FilterChain', function () {
+      const nodes = [cropFilter, vflipFilter, splitFilter];
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
         [[splitFilter, '0'], [vflipFilter, '0']]
@@ -192,9 +192,9 @@ describe('FilterChain', function () {
       const fc = new FilterChain('chain_alias', nodes, null, connections);
       const leafNodes = fc._subchainLeafNodes(cropFilter);
       expect(leafNodes).to.be.instanceof(Array);
-      expect(leafNodes).to.eql(2);
-      expect(fc.leafNodes).contains(`${vflipFilter.padPrefix}_${0}`);
-      expect(fc.leafNodes).contains(`${splitFilter.padPrefix}_${1}`);
+      expect(leafNodes.length).to.eql(2);
+      expect(fc.leafNodes.map((n) => n.padName)).contains(`${vflipFilter.padPrefix}_${0}`);
+      expect(fc.leafNodes.map((n) => n.padName)).contains(`${splitFilter.padPrefix}_${1}`);
     });
   });
   
