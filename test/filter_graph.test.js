@@ -5,6 +5,7 @@ const chai = require('chai'),
 
 const FilterGraph = require('../lib/filter_graph');
 const FilterNode = require('../lib/filter_node');
+const FFmpegInput = require('../lib/ffmpeg_input');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FilterGraph', function () {
@@ -44,7 +45,7 @@ describe('FilterGraph', function () {
     it('fails on non-FilterNode values in nodes argument', function () {
       expect(() => new FilterGraph('bad_filter_graph', nodes.concat(['not a node']))).to.throw();
     });
-    it('sets a default root node of the chain', function () {
+    it('sets a default root node of the graph', function () {
       const fc = new FilterGraph('my_filter_graph', nodes);
       expect(fc.rootNodes).to.eql([ nodes[0] ]);
     });
@@ -58,12 +59,28 @@ describe('FilterGraph', function () {
       expect(fc.connections.get(cropFilter).get('0').has(vflipFilter));
       expect(fc.connections.get(cropFilter).get('0').get(vflipFilter)).to.eql('0');
     });
+    // TODO: Start here again. Currently: `TypeError: Right-hand side of 'instanceof' is not callable`
+    it.skip('sets FFmpegInput objects as from values in connection Maps', function () {
+      const fi = new FFmpegInput('/some/file.mov');
+      const connections = [
+        [[fi, 1], [cropFilter, 0]],
+        [[cropFilter, 0], [vflipFilter, 0]]
+      ];
+      const fc = new FilterGraph('graph_alias', nodes, null, connections);
+      expect(fc.connections).to.be.instanceof(Map);
+      expect(fc.connections.has(fi)).to.be.true;
+      expect(fc.connections.get(fi)).to.be.instanceof(Map);
+      expect(fc.connections.get(fi).has(1)).to.be.true;
+      expect(fc.connections.get(fi).get(1)).to.be.instanceof(Map);
+      expect(fc.connections.get(fi).get(1).has(cropFilter));
+      expect(fc.connections.get(fi).get(1).get(cropFilter)).to.eql(0);
+    });
     it('provides leaf nodes for the FilterGraph', function () {
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
         [[splitFilter, '0'], [vflipFilter, '0']]
       ];
-      const fc = new FilterGraph('chain_alias', nodes, null, connections);
+      const fc = new FilterGraph('graph_alias', nodes, null, connections);
       expect(fc.leafNodes).to.be.instanceof(Array);
       expect(fc.leafNodes.length).to.eql(2);
       expect(fc.leafNodes.map((n) => n.node)).contains(vflipFilter);
@@ -76,7 +93,7 @@ describe('FilterGraph', function () {
         [[cropFilter, '0'], [splitFilter, '0']],
         [[splitFilter, '0'], [vflipFilter, '0']]
       ];
-      const fc = new FilterGraph('chain_alias', nodes, null, connections);
+      const fc = new FilterGraph('graph_alias', nodes, null, connections);
       expect(fc.outputPads).to.be.instanceof(Array);
       // console.log(fc.outputPads);
       expect(fc.outputPads.length).to.eql(2);
@@ -89,14 +106,14 @@ describe('FilterGraph', function () {
       });
     });
     it.skip('marks output pads as mapped', function () {
-      const fc = new FilterGraph('chain_alias', nodes, null, [[[cropFilter, '0'], [vFlipFilter, '0']]]);
+      const fc = new FilterGraph('graph_alias', nodes, null, [[[cropFilter, '0'], [vFlipFilter, '0']]]);
       
     });
     it.skip('provides a non-marked output pad as the next pad', function () {
-      const fc = new FilterGraph('chain_alias', nodes, null, [[[cropFilter, '0'], [vFlipFilter, '0']]]);
+      const fc = new FilterGraph('graph_alias', nodes, null, [[[cropFilter, '0'], [vFlipFilter, '0']]]);
 
     });
-    it('generates a string representation of the chain', function () {
+    it('generates a string representation of the graph', function () {
       const nodes = [cropFilter, splitFilter, vflipFilter, vflipFilter2];
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
@@ -130,19 +147,19 @@ describe('FilterGraph', function () {
       FilterNode._queryFFmpegForFilters.restore();
     });
   
-    it('correctly generates a subchain string', function () {
+    it('correctly generates a subgraph string', function () {
       const nodes = [cropFilter, vflipFilter, splitFilter];
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
         [[splitFilter, '0'], [vflipFilter, '0']]
       ];
       const fc = new FilterGraph('my_filter_graph', nodes, [cropFilter], connections);
-      const subchain = fc._subchainToString(splitFilter, ['crop_0'], null, 1);
+      const subgraph = fc._subgraphToString(splitFilter, ['crop_0'], null, 1);
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0];[${splitFilter.padPrefix}_0] vflip`;
-      expect(subchain).to.be.a('string');
-      expect(subchain).to.eql(expected);
+      expect(subgraph).to.be.a('string');
+      expect(subgraph).to.eql(expected);
     });
-    it('correctly generates a subchain string with multiple out pads', function () {
+    it('correctly generates a subgraph string with multiple out pads', function () {
       const nodes = [cropFilter, vflipFilter, splitFilter, hflipFilter];
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
@@ -150,12 +167,12 @@ describe('FilterGraph', function () {
         [[splitFilter, '1'], [hflipFilter, '0']]
       ];
       const fc = new FilterGraph('my_filter_graph', nodes, [cropFilter], connections);
-      const subchain = fc._subchainToString(splitFilter, ['crop_0'], null, 1);
+      const subgraph = fc._subgraphToString(splitFilter, ['crop_0'], null, 1);
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip`;
-      expect(subchain).to.be.a('string');
-      expect(subchain).to.eql(expected);
+      expect(subgraph).to.be.a('string');
+      expect(subgraph).to.eql(expected);
     });
-    it('correctly generates a subchain string for filter with varying out pads', function () {
+    it('correctly generates a subgraph string for filter with varying out pads', function () {
       const nodes = [cropFilter, vflipFilter, splitFilter, hflipFilter, vflipFilter2];
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
@@ -164,12 +181,12 @@ describe('FilterGraph', function () {
         [[splitFilter, '2'], [vflipFilter2, '0']]
       ];
       const fc = new FilterGraph('my_filter_graph', nodes, [cropFilter], connections);
-      const subchain = fc._subchainToString(splitFilter, ['crop_0'], null, 1);
+      const subgraph = fc._subgraphToString(splitFilter, ['crop_0'], null, 1);
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1] [${splitFilter.padPrefix}_2];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip;[${splitFilter.padPrefix}_2] vflip`;
-      expect(subchain).to.be.a('string');
-      expect(subchain).to.eql(expected);
+      expect(subgraph).to.be.a('string');
+      expect(subgraph).to.eql(expected);
     });
-    it('correctly generates a string recursively for multi-step subchain', function () {
+    it('correctly generates a string recursively for multi-step subgraph', function () {
       const nodes = [cropFilter, vflipFilter, splitFilter, hflipFilter, vflipFilter2, hflipFilter2];
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
@@ -179,10 +196,10 @@ describe('FilterGraph', function () {
         [[vflipFilter2, '0'], [hflipFilter2, '0']]
       ];
       const fc = new FilterGraph('my_filter_graph', nodes, [cropFilter], connections);
-      const subchain = fc._subchainToString(splitFilter, ['crop_0'], null, 1);
+      const subgraph = fc._subgraphToString(splitFilter, ['crop_0'], null, 1);
       const expected = `[crop_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1] [${splitFilter.padPrefix}_2];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip;[${splitFilter.padPrefix}_2] vflip [${vflipFilter2.padPrefix}_0];[${vflipFilter2.padPrefix}_0] hflip`;
-      expect(subchain).to.be.a('string');
-      expect(subchain).to.eql(expected);
+      expect(subgraph).to.be.a('string');
+      expect(subgraph).to.eql(expected);
     });
     it('computes leaf nodes for the FilterGraph', function () {
       const nodes = [cropFilter, vflipFilter, splitFilter];
@@ -190,8 +207,8 @@ describe('FilterGraph', function () {
         [[cropFilter, '0'], [splitFilter, '0']],
         [[splitFilter, '0'], [vflipFilter, '0']]
       ];
-      const fc = new FilterGraph('chain_alias', nodes, null, connections);
-      const leafNodes = fc._subchainLeafNodes(cropFilter);
+      const fc = new FilterGraph('graph_alias', nodes, null, connections);
+      const leafNodes = fc._subgraphLeafNodes(cropFilter);
       expect(leafNodes).to.be.instanceof(Array);
       expect(leafNodes.length).to.eql(2);
       expect(fc.leafNodes.map((n) => n.padName)).contains(`${vflipFilter.padPrefix}_${0}`);
@@ -234,7 +251,7 @@ describe('FilterGraph', function () {
           { name: 'sample_rate', value: 48000 }
         ]
       });
-      let fc = new FilterGraph('my_chain', [node], null, []);
+      let fc = new FilterGraph('my_graph', [node], null, []);
       expect(fc.toString()).to.eql(expected);
     });
   });

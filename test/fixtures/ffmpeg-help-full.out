@@ -4668,7 +4668,7 @@ acompressor AVOptions:
   detection         <int>        ..F.A.... set detection (from 0 to 1) (default rms)
      peak                         ..F.A....
      rms                          ..F.A....
-  level_sc          <double>     ..F.A.... set sidechain gain (from 0.015625 to 64) (default 1)
+  level_sc          <double>     ..F.A.... set sidegraph gain (from 0.015625 to 64) (default 1)
   mix               <double>     ..F.A.... set mix (from 0 to 1) (default 1)
 
 acontrast AVOptions:
@@ -4899,7 +4899,7 @@ agate AVOptions:
   link              <int>        ..F.A.... set link (from 0 to 1) (default average)
      average                      ..F.A....
      maximum                      ..F.A....
-  level_sc          <double>     ..F.A.... set sidechain gain (from 0.015625 to 64) (default 1)
+  level_sc          <double>     ..F.A.... set sidegraph gain (from 0.015625 to 64) (default 1)
 
 aiir AVOptions:
   z                 <string>     ..F.A.... set B/numerator/zeros coefficients (default "1+0i 1-0i")
@@ -5598,7 +5598,7 @@ AVAudioResampleContext AVOptions:
      triangular_hp                ....A.... Triangular Dither With High Pass
      triangular_ns                ....A.... Triangular Dither With Noise Shaping
 
-sidechaincompress AVOptions:
+sidegraphcompress AVOptions:
   level_in          <double>     ..F.A.... set input gain (from 0.015625 to 64) (default 1)
   threshold         <double>     ..F.A.... set threshold (from 0.000976563 to 1) (default 0.125)
   ratio             <double>     ..F.A.... set ratio (from 1 to 20) (default 2)
@@ -5612,10 +5612,10 @@ sidechaincompress AVOptions:
   detection         <int>        ..F.A.... set detection (from 0 to 1) (default rms)
      peak                         ..F.A....
      rms                          ..F.A....
-  level_sc          <double>     ..F.A.... set sidechain gain (from 0.015625 to 64) (default 1)
+  level_sc          <double>     ..F.A.... set sidegraph gain (from 0.015625 to 64) (default 1)
   mix               <double>     ..F.A.... set mix (from 0 to 1) (default 1)
 
-sidechaingate AVOptions:
+sidegraphgate AVOptions:
   level_in          <double>     ..F.A.... set input level (from 0.015625 to 64) (default 1)
   range             <double>     ..F.A.... set max gain reduction (from 0 to 1) (default 0.06125)
   threshold         <double>     ..F.A.... set threshold (from 0 to 1) (default 0.125)
@@ -5630,7 +5630,7 @@ sidechaingate AVOptions:
   link              <int>        ..F.A.... set link (from 0 to 1) (default average)
      average                      ..F.A....
      maximum                      ..F.A....
-  level_sc          <double>     ..F.A.... set sidechain gain (from 0.015625 to 64) (default 1)
+  level_sc          <double>     ..F.A.... set sidegraph gain (from 0.015625 to 64) (default 1)
 
 silencedetect AVOptions:
   n                 <double>     ..F.A.... set noise tolerance (from 0 to DBL_MAX) (default 0.001)

@@ -82,8 +82,8 @@ Filters:
  ... pan               A->A       Remix channels with coefficients (panning).
  ... replaygain        A->A       ReplayGain scanner.
  ... resample          A->A       Audio resampling and conversion.
- ... sidechaincompress AA->A      Sidechain compressor.
- ... sidechaingate     AA->A      Audio sidechain gate.
+ ... sidegraphcompress AA->A      Sidegraph compressor.
+ ... sidegraphgate     AA->A      Audio sidegraph gate.
  ... silencedetect     A->A       Detect silence.
  ... silenceremove     A->A       Remove silence.
  ... stereotools       A->A       Apply various stereo tools.
@@ -343,7 +343,7 @@ Filters:
  ..C movie             |->N       Read from a movie source.
  ... afifo             A->A       Buffer input frames and send them when they are requested.
  ... fifo              V->V       Buffer input images and send them when they are requested.
- ... abuffer           |->A       Buffer audio frames, and make them accessible to the filterchain.
- ... buffer            |->V       Buffer video frames, and make them accessible to the filterchain.
+ ... abuffer           |->A       Buffer audio frames, and make them accessible to the filtergraph.
+ ... buffer            |->V       Buffer video frames, and make them accessible to the filtergraph.
  ... abuffersink       A->|       Buffer audio frames, and make them available to the end of the filter graph.
  ... buffersink        V->|       Buffer video frames, and make them available to the end of the filter graph.
