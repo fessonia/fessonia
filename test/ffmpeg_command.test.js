@@ -6,7 +6,7 @@ const FFmpegCommand = require('../lib/ffmpeg_command');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FFmpegOutput = require('../lib/ffmpeg_output');
 const FilterNode = require('../lib/filter_node');
-const FilterChain = require('../lib/filter_chain');
+const FilterGraph = require('../lib/filter_graph');
 const config = require('../lib/util/config')();
 
 describe('FFmpegCommand', function () {
@@ -31,7 +31,7 @@ describe('FFmpegCommand', function () {
     fc.addOutput(fo);
     expect(fc.outputs()).to.contain(fo);
   });
-  // TODO: when work in FilterChain is done, continue here.
+  // TODO: when work in FilterGraph is done, continue here.
   it.skip('it allows mapping inputs to outputs', function () {
     const fc = new FFmpegCommand();
     const result = fc.mapIO('input_tag', 0, 'output_tag', 3);
@@ -198,8 +198,8 @@ describe('FFmpegCommand', function () {
       })
     ];
     let connections = [[['life', '0'], ['scale', '0']]];
-    let filterChainInput = new FilterChain('my_input_filter', nodes, null, connections);
-    let lifeInput = new FFmpegInput(filterChainInput, new Map([
+    let filterGraphInput = new FilterGraph('my_input_filter', nodes, null, connections);
+    let lifeInput = new FFmpegInput(filterGraphInput, new Map([
       ['re', null],
       ['r', 23.976],
       ['f', 'lavfi']

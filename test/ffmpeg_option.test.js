@@ -5,7 +5,7 @@ const chai = require('chai'),
   testHelpers = require('./helpers');
 
 const FFmpegOption = require('../lib/ffmpeg_option');
-const FilterChain = require('../lib/filter_chain');
+const FilterGraph = require('../lib/filter_graph');
 const FilterNode = require('../lib/filter_node');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
@@ -61,7 +61,7 @@ describe('FFmpegOption', function () {
           new FilterNode({ filterName: 'vflip' }),
           new FilterNode({ filterName: 'split', outputsCount: 2 })
         ];
-        fc = new FilterChain('my_filter_chain', nodes);
+        fc = new FilterGraph('my_filter_graph', nodes);
       });
 
       this.afterEach(() => {
@@ -123,7 +123,7 @@ describe('FFmpegOption', function () {
         expect(options[i].toCommandArray()).to.deep.eql(expected[i]);
       }
     });
-    describe('with FilterChain arguments', function () {
+    describe('with FilterGraph arguments', function () {
       this.beforeEach(() => {
         // stub for ffmpeg interaction
         sinon.stub(FilterNode, '_queryFFmpegForFilters').returns(filtersFixture);
@@ -140,7 +140,7 @@ describe('FFmpegOption', function () {
           [[splitFilter, '0'], [vflipFilter, '0']],
           [[splitFilter, '1'], [vflipFilter2, '0']]
         ];
-        fc = new FilterChain('my_filter_chain', nodes, null, connections);
+        fc = new FilterGraph('my_filter_graph', nodes, null, connections);
       });
   
       this.afterEach(() => {
@@ -148,7 +148,7 @@ describe('FFmpegOption', function () {
       });
 
       it('generates the correct command array segment for an output filter option', function () {
-        // create FilterChain object
+        // create FilterGraph object
         const option = new FFmpegOption(
           'filter',
           FFmpegOption.FFmpegOptionContexts.OUTPUT,
@@ -203,7 +203,7 @@ describe('FFmpegOption', function () {
         expect(options[i].toCommandString()).to.deep.eql(expected[i]);
       }
     });
-    describe('with FilterChain arguments', function () {
+    describe('with FilterGraph arguments', function () {
       this.beforeEach(() => {
         // stub for ffmpeg interaction
         sinon.stub(FilterNode, '_queryFFmpegForFilters').returns(filtersFixture);
@@ -220,7 +220,7 @@ describe('FFmpegOption', function () {
           [[splitFilter, '0'], [vflipFilter, '0']],
           [[splitFilter, '1'], [vflipFilter2, '0']]
         ];
-        fc = new FilterChain('my_filter_chain', nodes, null, connections);
+        fc = new FilterGraph('my_filter_graph', nodes, null, connections);
       });
   
       this.afterEach(() => {
@@ -228,7 +228,7 @@ describe('FFmpegOption', function () {
       });
 
       it('generates the correct command array segment for an output filter option', function () {
-        // create FilterChain object
+        // create FilterGraph object
         const option = new FFmpegOption(
           'filter',
           FFmpegOption.FFmpegOptionContexts.OUTPUT,

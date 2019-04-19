@@ -6,7 +6,7 @@ const chai = require('chai'),
 
 const FFmpegOutput = require('../lib/ffmpeg_output'),
   FilterNode = require('../lib/filter_node'),
-  FilterChain = require('../lib/filter_chain'),
+  FilterGraph = require('../lib/filter_graph'),
   filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegOutput', function () {
@@ -92,7 +92,7 @@ describe('FFmpegOutput', function () {
         [[splitFilter, '0'], [vflipFilter, '0']],
         [[splitFilter, '1'], [hflipFilter, '0']]
       ];
-      fc = new FilterChain('my_filter_chain', nodes, null, connections);
+      fc = new FilterGraph('my_filter_graph', nodes, null, connections);
     });
   
     this.afterEach(() => {

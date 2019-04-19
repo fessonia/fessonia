@@ -5,7 +5,7 @@ const chai = require('chai'),
   testHelpers = require('./helpers');
 
 const FFmpegInput = require('../lib/ffmpeg_input');
-const FilterChain = require('../lib/filter_chain');
+const FilterGraph = require('../lib/filter_graph');
 const FilterNode = require('../lib/filter_node');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
@@ -84,7 +84,7 @@ describe('FFmpegInput', function () {
         [[cropFilter, 0], [splitFilter, 0]],
         [[splitFilter, 0], [vflipFilter, 0]]
       ];
-      fc = new FilterChain('my_filter_chain', nodes, null, connections);
+      fc = new FilterGraph('my_filter_graph', nodes, null, connections);
     });
 
     this.afterEach(() => {
@@ -109,7 +109,7 @@ describe('FFmpegInput', function () {
       expect(fiObj.toCommandString()).to.eql(expected);
     });
 
-    it('handles a filter chain as input', function () {
+    it('handles a filter graph as input', function () {
       let lifeNode = new FilterNode({
         filterName: 'life',
         args: [
@@ -129,7 +129,7 @@ describe('FFmpegInput', function () {
       let expected = `-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0 [${lifeNode.padPrefix}_0];[${lifeNode.padPrefix}_0] scale=1920:1080"`;
       let nodes = [lifeNode, scaleNode];
       let connections = [[[lifeNode, '0'], [scaleNode, '0']]];
-      let fcInput = new FilterChain('my_input_filter', nodes, null, connections);
+      let fcInput = new FilterGraph('my_input_filter', nodes, null, connections);
       let fiObj = new FFmpegInput(fcInput, new Map([
         ['re', null],
         ['r', 23.976],

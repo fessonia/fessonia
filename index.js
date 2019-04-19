@@ -4,7 +4,7 @@ module.exports = {
   FFmpegOutput: require('./lib/ffmpeg_output'),
   FFmpegOption: require('./lib/ffmpeg_option'),
   FilterNode: require('./lib/filter_node'),
-  FilterChain: require('./lib/filter_chain'),
+  FilterGraph: require('./lib/filter_graph'),
   Util: {
     config: require('./lib/util/config')(),
     logger: require('./lib/util/logger')('ffmpeg-filtergraph:root')
