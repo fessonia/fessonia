@@ -137,5 +137,21 @@ describe('FFmpegInput', function () {
       ]));
       expect(fiObj.toCommandString()).to.eql(expected);
     });
+
+    describe('input label handling', function () {
+      beforeEach(function () {
+        fi = new FFmpegInput('/some/file.mov');
+      });
+      
+      it('returns an undefined label prior to setting', function () {
+        expect(fi.inputLabel).to.be.undefined;
+      });
+      it('allows setting and getting an input label', function () {
+        fi.inputLabel = '0';
+        expect(fi.inputLabel).to.eql('0');
+        fi.inputLabel = 1;
+        expect(fi.inputLabel).to.eql('1');
+      });
+    });
   });
 });

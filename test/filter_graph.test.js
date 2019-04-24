@@ -59,8 +59,7 @@ describe('FilterGraph', function () {
       expect(fc.connections.get(cropFilter).get('0').has(vflipFilter));
       expect(fc.connections.get(cropFilter).get('0').get(vflipFilter)).to.eql('0');
     });
-    // TODO: Start here again. Currently: `TypeError: Right-hand side of 'instanceof' is not callable`
-    it.skip('sets FFmpegInput objects as from values in connection Maps', function () {
+    it('sets FFmpegInput objects as from values in connection Maps', function () {
       const fi = new FFmpegInput('/some/file.mov');
       const connections = [
         [[fi, 1], [cropFilter, 0]],

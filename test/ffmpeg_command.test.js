@@ -25,6 +25,18 @@ describe('FFmpegCommand', function () {
     fc.addInput(fi);
     expect(fc.inputs()).to.contain(fi);
   });
+  it('sets the labels on inputs as they are added', function () {
+    const fc = new FFmpegCommand();
+    expect(fc.inputs().length).to.eql(0);
+    const fi1 = new FFmpegInput('/some/file1.mov', {});
+    fc.addInput(fi1);
+    expect(fc.inputs().length).to.eql(1);
+    expect(fi1.inputLabel).to.eql('0');
+    const fi2 = new FFmpegInput('/some/file2.mov', {});
+    fc.addInput(fi2);
+    expect(fc.inputs().length).to.eql(2);
+    expect(fi2.inputLabel).to.eql('1');
+  });
   it('allows adding outputs on and retrieving outputs from the object', function () {
     const fc = new FFmpegCommand();
     const fo = new FFmpegOutput('/some/file.mov', {});
