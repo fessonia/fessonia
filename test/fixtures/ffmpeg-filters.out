@@ -82,8 +82,8 @@ Filters:
  ... pan               A->A       Remix channels with coefficients (panning).
  ... replaygain        A->A       ReplayGain scanner.
  ... resample          A->A       Audio resampling and conversion.
- ... sidegraphcompress AA->A      Sidegraph compressor.
- ... sidegraphgate     AA->A      Audio sidegraph gate.
+ ... sidechaincompress AA->A      Sidechain compressor.
+ ... sidechaingate     AA->A      Audio sidechain gate.
  ... silencedetect     A->A       Detect silence.
  ... silenceremove     A->A       Remove silence.
  ... stereotools       A->A       Apply various stereo tools.
