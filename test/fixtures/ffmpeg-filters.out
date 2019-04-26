@@ -343,7 +343,7 @@ Filters:
  ..C movie             |->N       Read from a movie source.
  ... afifo             A->A       Buffer input frames and send them when they are requested.
  ... fifo              V->V       Buffer input images and send them when they are requested.
- ... abuffer           |->A       Buffer audio frames, and make them accessible to the filtergraph.
- ... buffer            |->V       Buffer video frames, and make them accessible to the filtergraph.
+ ... abuffer           |->A       Buffer audio frames, and make them accessible to the filterchain.
+ ... buffer            |->V       Buffer video frames, and make them accessible to the filterchain.
  ... abuffersink       A->|       Buffer audio frames, and make them available to the end of the filter graph.
  ... buffersink        V->|       Buffer video frames, and make them available to the end of the filter graph.
