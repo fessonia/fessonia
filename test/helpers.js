@@ -1,6 +1,21 @@
 const chai = require('chai'),
   expect = chai.expect;
 
+const { Readable } = require('stream');
+
+
+/**
+ * Test readable stream class (for internal use in testing only)
+ */
+class TestReadableStream extends Readable {
+  /**
+   * Required _read method of Readable interface. No-op.
+   * 
+   * @returns {void}
+   */
+  _read () { }
+}
+
 module.exports = {
   expectLast: function (tested, expected) {
     const last = tested[tested.length - 1];
@@ -24,5 +39,8 @@ module.exports = {
         expect(false).to.be.true;
       }
     }
+  },
+  createTestReadableStream () {
+    return new TestReadableStream();
   }
 };
