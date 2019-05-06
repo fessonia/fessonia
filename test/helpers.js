@@ -3,11 +3,24 @@ const chai = require('chai'),
 
 const { Readable } = require('stream');
 
+/* eslint-disable no-console */
 
 /**
  * Test readable stream class (for internal use in testing only)
  */
 class TestReadableStream extends Readable {
+  /**
+   * Constructor
+   * @param {Object} opts - options for the Readable stream 
+   * 
+   * @returns {TestReadableStream} - the object instance
+   */
+  constructor (opts) {
+    super(opts);
+    for (let e of ['readable', 'data', 'close', 'error', 'end']) {
+      this.on(e, (data, eventName = e) => console.log(`Event '${eventName}' received on TestReadableStream: event data = ${data}`));
+    }
+  }
   /**
    * Required _read method of Readable interface. No-op.
    * 
@@ -15,6 +28,8 @@ class TestReadableStream extends Readable {
    */
   _read () { }
 }
+
+/* eslint-enable no-console */
 
 module.exports = {
   expectLast: function (tested, expected) {
@@ -40,7 +55,5 @@ module.exports = {
       }
     }
   },
-  createTestReadableStream () {
-    return new TestReadableStream();
-  }
+  createTestReadableStream () { return new TestReadableStream(); }
 };

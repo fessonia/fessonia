@@ -1,8 +1,13 @@
 const chai = require('chai'),
   expect = chai.expect,
+  fs = require('fs'),
+  util = require('util'),
   testHelpers = require('./helpers');
 
 const FFmpegProgressEmitter = require('../lib/ffmpeg_progress_emitter');
+
+const progressChunksJSON = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-video-progress-chunks.json`).toString(),
+  progressChunksFixture = JSON.parse(progressChunksJSON);
 
 describe('FFmpegProgressEmitter', function () {
   it('creates an FFmpegProgressEmitter object', function () {
@@ -62,5 +67,30 @@ describe('FFmpegProgressEmitter', function () {
     const testData = testHelpers.createTestReadableStream();
     testData.pipe(progress);
     testData.push(Buffer.from(progressChunk, 'utf8'));
+  });
+  it('provides the last n writes into the stream', function (done) {
+    const progress = new FFmpegProgressEmitter();
+    const testData = testHelpers.createTestReadableStream();
+    // console.log(`progressChunksFixture = ${util.inspect(progressChunksFixture)}`);
+    testData.on('finish', () => progress.end());
+    const expected = progressChunksFixture.slice(progressChunksFixture.length - 10);
+    progress.on('data', (data, encoding) => {
+      console.log(`Data received: data = ${util.inspect(data)}, encoding = '${encoding}'`);
+    });
+    testData.pipe(progress);
+    for (let progressChunk of progressChunksFixture) {
+      testData.push(Buffer.from(progressChunk, 'utf8'));
+    }
+    // FIXME: Is this the correct event to listen on to end the stream? Seems like it should be 'end' or 'finish', but those never seem to be emitted.
+    testData.on('readable', () => {
+      testData.emit('end', 'End of test data stream.');
+    });
+    progress.on('end', () => {
+      const lastOne = progress.last();
+      const lastTen = progress.last(10);
+      expect(lastTen).to.deep.eql(expected);
+      expect(lastOne).to.eql('Exiting normally, received signal 15.\n');
+      done();
+    });
   });
 });
