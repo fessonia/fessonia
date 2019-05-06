@@ -74,9 +74,6 @@ describe('FFmpegProgressEmitter', function () {
     // console.log(`progressChunksFixture = ${util.inspect(progressChunksFixture)}`);
     testData.on('finish', () => progress.end());
     const expected = progressChunksFixture.slice(progressChunksFixture.length - 10);
-    progress.on('data', (data, encoding) => {
-      console.log(`Data received: data = ${util.inspect(data)}, encoding = '${encoding}'`);
-    });
     testData.pipe(progress);
     for (let progressChunk of progressChunksFixture) {
       testData.push(Buffer.from(progressChunk, 'utf8'));
@@ -90,6 +87,26 @@ describe('FFmpegProgressEmitter', function () {
       const lastTen = progress.last(10);
       expect(lastTen).to.deep.eql(expected);
       expect(lastOne).to.eql('Exiting normally, received signal 15.\n');
+      done();
+    });
+  });
+  it('provides the all writes into the stream', function (done) {
+    const progress = new FFmpegProgressEmitter();
+    const testData = testHelpers.createTestReadableStream();
+    // console.log(`progressChunksFixture = ${util.inspect(progressChunksFixture)}`);
+    testData.on('finish', () => progress.end());
+    const expected = progressChunksFixture;
+    testData.pipe(progress);
+    for (let progressChunk of progressChunksFixture) {
+      testData.push(Buffer.from(progressChunk, 'utf8'));
+    }
+    // FIXME: Is this the correct event to listen on to end the stream? Seems like it should be 'end' or 'finish', but those never seem to be emitted.
+    testData.on('readable', () => {
+      testData.emit('end', 'End of test data stream.');
+    });
+    progress.on('end', () => {
+      const buffered = progress.allUpdates();
+      expect(buffered).to.deep.eql(expected);
       done();
     });
   });
