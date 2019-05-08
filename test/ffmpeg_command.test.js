@@ -159,4 +159,41 @@ describe('FFmpegCommand', function () {
     const expected = `${config.ffmpeg_bin} -y -threads "8" -itsoffset "0" -ss "6234.0182917" -i "/some/file.mov" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "3850k" -flags "+bitexact" -sws_flags "+accurate_rnd+bitexact" -fflags "+bitexact" -maxrate "4000k" -bufsize "2850k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
     expect(fc.toString()).to.eql(expected);
   });
+  describe('event emits', function () {
+    it('emits a success event when the process executes successfully', function (done) {
+      const fc = new FFmpegCommand(new Map([['version'],]));
+      fc.on('success', (data) => {
+        expect(data).to.have.ownProperty('exitCode');
+        expect(data).to.have.ownProperty('progressData');
+        expect(data.exitCode).to.eql(0);
+        done();
+      });
+      fc.on('error', (err) => {
+        console.log('Expected success event but error event received.');
+        throw err;
+      });
+      fc.on('failure', (err) => {
+        console.log('Expected success event but failure event received.');
+        throw err;
+      });
+      fc.spawn();
+    });
+    it('emits a failure event when the process spawns but fails to execute successfully', function (done) {
+      const fc = new FFmpegCommand(new Map([['notanoption'],]));
+      fc.on('success', (data) => {
+        throw new Error(`Expected failure event but received success event with data ${JSON.stringify(data)}.`);
+      });
+      fc.on('error', (err) => {
+        console.log('Expected failure event but error event received.');
+        throw err;
+      });
+      fc.on('failure', (data) => {
+        expect(data).to.have.ownProperty('exitCode');
+        expect(data).to.have.ownProperty('progressData');
+        expect(data.exitCode).to.be.gt(0);
+        done();
+      });
+      fc.spawn();
+    });
+  });
 });
