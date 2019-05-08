@@ -7,6 +7,19 @@ const FFmpegInput = require('../lib/ffmpeg_input');
 const FFmpegOutput = require('../lib/ffmpeg_output');
 const config = require('../lib/util/config')();
 
+let ffmpegAvailable;
+try {
+  const fs = require('fs');
+  fs.statSync(config.ffmpeg_bin);
+  ffmpegAvailable = true;
+} catch (err) {
+  if (err.code !== 'ENOENT') {
+    console.error(`Unknown error occurred when checking for presence of ffmpeg: ${JSON.stringify(err)}`);
+  }
+  console.log('Disabling tests requiring ffmpeg binary.');
+  ffmpegAvailable = false;
+}
+
 describe('FFmpegCommand', function () {
   it('creates an FFmpegCommand object', function () {
     const fc = new FFmpegCommand();
@@ -159,7 +172,7 @@ describe('FFmpegCommand', function () {
     const expected = `${config.ffmpeg_bin} -y -threads "8" -itsoffset "0" -ss "6234.0182917" -i "/some/file.mov" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "3850k" -flags "+bitexact" -sws_flags "+accurate_rnd+bitexact" -fflags "+bitexact" -maxrate "4000k" -bufsize "2850k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
     expect(fc.toString()).to.eql(expected);
   });
-  describe('event emits', function () {
+  (ffmpegAvailable ? describe : describe.skip)('event emits', function () {
     it('emits a success event when the process executes successfully', function (done) {
       const fc = new FFmpegCommand(new Map([['version'],]));
       fc.on('success', (data) => {
