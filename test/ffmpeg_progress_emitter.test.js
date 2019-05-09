@@ -78,11 +78,8 @@ describe('FFmpegProgressEmitter', function () {
     for (let progressChunk of progressChunksFixture) {
       testData.push(Buffer.from(progressChunk, 'utf8'));
     }
-    // FIXME: Is this the correct event to listen on to end the stream? Seems like it should be 'end' or 'finish', but those never seem to be emitted.
-    testData.on('readable', () => {
-      testData.emit('end', 'End of test data stream.');
-    });
-    progress.on('end', () => {
+    testData.push(null);
+    progress.on('finish', () => {
       const lastOne = progress.last();
       const lastTen = progress.last(10);
       expect(lastTen).to.deep.eql(expected);
@@ -100,12 +97,9 @@ describe('FFmpegProgressEmitter', function () {
     for (let progressChunk of progressChunksFixture) {
       testData.push(Buffer.from(progressChunk, 'utf8'));
     }
-    // FIXME: Is this the correct event to listen on to end the stream? Seems like it should be 'end' or 'finish', but those never seem to be emitted.
-    testData.on('readable', () => {
-      testData.emit('end', 'End of test data stream.');
-    });
-    progress.on('end', () => {
-      const buffered = progress.allUpdates();
+    testData.push(null);
+    progress.on('finish', () => {
+      const buffered = progress.logData();
       expect(buffered).to.deep.eql(expected);
       done();
     });
