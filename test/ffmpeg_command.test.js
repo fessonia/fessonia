@@ -1,24 +1,15 @@
 const chai = require('chai'),
   expect = chai.expect,
+  sinon = require('sinon'),
+  events = require('events'),
+  stream = require('stream'),
+  childProcess = require('child_process'),
   testHelpers = require('./helpers');
 
 const FFmpegCommand = require('../lib/ffmpeg_command');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FFmpegOutput = require('../lib/ffmpeg_output');
 const config = require('../lib/util/config')();
-
-let ffmpegAvailable;
-try {
-  const fs = require('fs');
-  fs.statSync(config.ffmpeg_bin);
-  ffmpegAvailable = true;
-} catch (err) {
-  if (err.code !== 'ENOENT') {
-    console.error(`Unknown error occurred when checking for presence of ffmpeg: ${JSON.stringify(err)}`);
-  }
-  console.log('Disabling tests requiring ffmpeg binary.');
-  ffmpegAvailable = false;
-}
 
 describe('FFmpegCommand', function () {
   it('creates an FFmpegCommand object', function () {
@@ -172,9 +163,27 @@ describe('FFmpegCommand', function () {
     const expected = `${config.ffmpeg_bin} -y -threads "8" -itsoffset "0" -ss "6234.0182917" -i "/some/file.mov" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "3850k" -flags "+bitexact" -sws_flags "+accurate_rnd+bitexact" -fflags "+bitexact" -maxrate "4000k" -bufsize "2850k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
     expect(fc.toString()).to.eql(expected);
   });
-  (ffmpegAvailable ? describe : describe.skip)('event emits', function () {
+
+  describe('event emits', function () {
+    beforeEach(() => {
+      mockProcess = new events.EventEmitter();
+      mockProcess.stderr = new stream.Readable();
+      mockProcess.stderr._read = sinon.spy();
+      stub = sinon.stub(childProcess, 'spawn').returns(mockProcess);
+    });
+    afterEach(() => {
+      childProcess.spawn.restore();
+    });
+    it('sets up proper listeners on the process', function () {
+      const mock = sinon.mock(mockProcess);
+      mock.expects('on').withArgs('exit').once();
+      mock.expects('on').withArgs('error').once();
+      const fc = new FFmpegCommand();
+      fc.spawn();
+      mock.verify();
+    });
     it('emits a success event when the process executes successfully', function (done) {
-      const fc = new FFmpegCommand(new Map([['version'],]));
+      const fc = new FFmpegCommand();
       fc.on('success', (data) => {
         expect(data).to.have.ownProperty('exitCode');
         expect(data).to.have.ownProperty('progressData');
@@ -182,31 +191,30 @@ describe('FFmpegCommand', function () {
         done();
       });
       fc.on('error', (err) => {
-        console.log('Expected success event but error event received.');
-        throw err;
+        throw new Error(`Expected success event but error event received: ${err.message}`);
       });
-      fc.on('failure', (err) => {
-        console.log('Expected success event but failure event received.');
-        throw err;
+      fc.on('failure', (data) => {
+        throw new Error(`Expected success event but received failure event with data ${JSON.stringify(data)}`);
       });
       fc.spawn();
+      mockProcess.emit('exit', 0, null);
     });
     it('emits a failure event when the process spawns but fails to execute successfully', function (done) {
-      const fc = new FFmpegCommand(new Map([['notanoption'],]));
+      const fc = new FFmpegCommand();
       fc.on('success', (data) => {
         throw new Error(`Expected failure event but received success event with data ${JSON.stringify(data)}.`);
       });
       fc.on('error', (err) => {
-        console.log('Expected failure event but error event received.');
-        throw err;
+        throw new Error(`Expected success event but error event received: ${err.message}`);
       });
       fc.on('failure', (data) => {
         expect(data).to.have.ownProperty('exitCode');
         expect(data).to.have.ownProperty('progressData');
-        expect(data.exitCode).to.be.gt(0);
+        expect(data.exitCode).to.eql(1);
         done();
       });
       fc.spawn();
+      mockProcess.emit('exit', 1, null);
     });
   });
 });
