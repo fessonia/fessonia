@@ -1,5 +1,9 @@
 const chai = require('chai'),
   expect = chai.expect,
+  sinon = require('sinon'),
+  events = require('events'),
+  stream = require('stream'),
+  childProcess = require('child_process'),
   testHelpers = require('./helpers');
 
 const FFmpegCommand = require('../lib/ffmpeg_command');
@@ -225,5 +229,59 @@ describe('FFmpegCommand', function () {
     fc.addOutput(output, mappings = [[lifeInput, 0], [sineInput, 0], [sineInput, 0]]);
     const expected = `${config.ffmpeg_bin} -re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080" -re -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000" -c:v "prores" -c:a "pcm_s24le" -aspect "16:9" -map "0:0" -map "1:0" -map "1:0" "gen.mov"`;
     expect(fc.toString()).to.eql(expected);
+  });
+
+  describe('event emits', function () {
+    beforeEach(() => {
+      mockProcess = new events.EventEmitter();
+      mockProcess.stderr = new stream.Readable();
+      mockProcess.stderr._read = sinon.spy();
+      stub = sinon.stub(childProcess, 'spawn').returns(mockProcess);
+    });
+    afterEach(() => {
+      childProcess.spawn.restore();
+    });
+    it('sets up proper listeners on the process', function () {
+      const mock = sinon.mock(mockProcess);
+      mock.expects('on').withArgs('exit').once();
+      mock.expects('on').withArgs('error').once();
+      const fc = new FFmpegCommand();
+      fc.spawn();
+      mock.verify();
+    });
+    it('emits a success event when the process executes successfully', function (done) {
+      const fc = new FFmpegCommand();
+      fc.on('success', (data) => {
+        expect(data).to.have.ownProperty('exitCode');
+        expect(data).to.have.ownProperty('progressData');
+        expect(data.exitCode).to.eql(0);
+        done();
+      });
+      fc.on('error', (err) => {
+        throw new Error(`Expected success event but error event received: ${err.message}`);
+      });
+      fc.on('failure', (data) => {
+        throw new Error(`Expected success event but received failure event with data ${JSON.stringify(data)}`);
+      });
+      fc.spawn();
+      mockProcess.emit('exit', 0, null);
+    });
+    it('emits a failure event when the process spawns but fails to execute successfully', function (done) {
+      const fc = new FFmpegCommand();
+      fc.on('success', (data) => {
+        throw new Error(`Expected failure event but received success event with data ${JSON.stringify(data)}.`);
+      });
+      fc.on('error', (err) => {
+        throw new Error(`Expected failure event but error event received: ${err.message}`);
+      });
+      fc.on('failure', (data) => {
+        expect(data).to.have.ownProperty('exitCode');
+        expect(data).to.have.ownProperty('progressData');
+        expect(data.exitCode).to.eql(1);
+        done();
+      });
+      fc.spawn();
+      mockProcess.emit('exit', 1, null);
+    });
   });
 });
