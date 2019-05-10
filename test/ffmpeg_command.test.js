@@ -205,7 +205,7 @@ describe('FFmpegCommand', function () {
         throw new Error(`Expected failure event but received success event with data ${JSON.stringify(data)}.`);
       });
       fc.on('error', (err) => {
-        throw new Error(`Expected success event but error event received: ${err.message}`);
+        throw new Error(`Expected failure event but error event received: ${err.message}`);
       });
       fc.on('failure', (data) => {
         expect(data).to.have.ownProperty('exitCode');
