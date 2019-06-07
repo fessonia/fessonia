@@ -9,6 +9,7 @@ const chai = require('chai'),
 const FFmpegCommand = require('../lib/ffmpeg_command');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FFmpegOutput = require('../lib/ffmpeg_output');
+const FFmpegOption = require('../lib/ffmpeg_option');
 const FilterNode = require('../lib/filter_node');
 const FilterGraph = require('../lib/filter_graph');
 const config = require('../lib/util/config')();
@@ -23,30 +24,56 @@ describe('FFmpegCommand', function () {
     expect(new FFmpegCommand(new Map()).options).to.eql(new Map());
     expect(new FFmpegCommand({}).options).to.eql(new Map());
   });
-  it('allows adding inputs on and retrieving inputs from the object', function () {
-    const fc = new FFmpegCommand();
-    const fi = new FFmpegInput('/some/file.mov', {});
-    fc.addInput(fi);
-    expect(fc.inputs()).to.contain(fi);
+  describe('addInput', function () {
+    it('allows adding inputs on and retrieving inputs from the object', function () {
+      const fc = new FFmpegCommand();
+      const fi = new FFmpegInput('/some/file.mov', {});
+      fc.addInput(fi);
+      expect(fc.inputs()).to.contain(fi);
+    });
+    it('sets the labels on inputs as they are added', function () {
+      const fc = new FFmpegCommand();
+      expect(fc.inputs().length).to.eql(0);
+      const fi1 = new FFmpegInput('/some/file1.mov', {});
+      fc.addInput(fi1);
+      expect(fc.inputs().length).to.eql(1);
+      expect(fi1.inputLabel).to.eql('0');
+      const fi2 = new FFmpegInput('/some/file2.mov', {});
+      fc.addInput(fi2);
+      expect(fc.inputs().length).to.eql(2);
+      expect(fi2.inputLabel).to.eql('1');
+    });
   });
-  it('sets the labels on inputs as they are added', function () {
-    const fc = new FFmpegCommand();
-    expect(fc.inputs().length).to.eql(0);
-    const fi1 = new FFmpegInput('/some/file1.mov', {});
-    fc.addInput(fi1);
-    expect(fc.inputs().length).to.eql(1);
-    expect(fi1.inputLabel).to.eql('0');
-    const fi2 = new FFmpegInput('/some/file2.mov', {});
-    fc.addInput(fi2);
-    expect(fc.inputs().length).to.eql(2);
-    expect(fi2.inputLabel).to.eql('1');
+  describe('addOutput', function () {
+    it('allows adding outputs on and retrieving outputs from the object', function () {
+      const fc = new FFmpegCommand();
+      const fo = new FFmpegOutput('/some/file.mov', {});
+      fc.addOutput(fo);
+      expect(fc.outputs()).to.contain(fo);
+    });
   });
-  it('allows adding outputs on and retrieving outputs from the object', function () {
-    const fc = new FFmpegCommand();
-    const fo = new FFmpegOutput('/some/file.mov', {});
-    fc.addOutput(fo);
-    expect(fc.outputs()).to.contain(fo);
-  });
+  describe.skip('addFilterGraph', function () {
+    it('allows adding filter graphs on and retrieving filtergraphs from the object', function () {
+      const fc = new FFmpegCommand();
+      const fg = new FilterGraph([], null, new Map());
+      fc.addFilterGraph(fg);
+      expect(fc.filterGraphs()).to.contain(fg);
+    });
+    it('allows specifying the output to map the filter graph into  when adding it', function () {
+      const fc = new FFmpegCommand();
+      const fg = new FilterGraph([], null, new Map());
+      const fo = new FFmpegOutput('/some/file.mov', {});
+      fc.addOutput(fo);
+      fc.addFilterGraph(fg, fo);
+      expect(fc.filterGraphs()).to.contain(fg);
+      const expectedOption = new FFmpegOption(
+        'filter',
+        FFmpegOption.FFmpegOptionContexts.OUTPUT,
+        fg
+      );
+      expect(fo.options).to.contain(expectedOption);
+    })
+  })
   // TODO: when work in FilterGraph is done, continue here.
   it.skip('it allows mapping inputs to outputs', function () {
     const fc = new FFmpegCommand();
@@ -214,7 +241,7 @@ describe('FFmpegCommand', function () {
       })
     ];
     let connections = [[['life', '0'], ['scale', '0']]];
-    let filterGraphInput = new FilterGraph('my_input_filter', nodes, null, connections);
+    let filterGraphInput = new FilterGraph(nodes, null, connections);
     let lifeInput = new FFmpegInput(filterGraphInput, new Map([
       ['re', null],
       ['r', 23.976],

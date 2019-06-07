@@ -61,7 +61,7 @@ describe('FFmpegOption', function () {
           new FilterNode({ filterName: 'vflip' }),
           new FilterNode({ filterName: 'split', outputsCount: 2 })
         ];
-        fc = new FilterGraph('my_filter_graph', nodes);
+        fc = new FilterGraph(nodes);
       });
 
       this.afterEach(() => {
@@ -140,7 +140,7 @@ describe('FFmpegOption', function () {
           [[splitFilter, '0'], [vflipFilter, '0']],
           [[splitFilter, '1'], [vflipFilter2, '0']]
         ];
-        fc = new FilterGraph('my_filter_graph', nodes, null, connections);
+        fc = new FilterGraph(nodes, null, connections);
       });
   
       this.afterEach(() => {
@@ -220,7 +220,7 @@ describe('FFmpegOption', function () {
           [[splitFilter, '0'], [vflipFilter, '0']],
           [[splitFilter, '1'], [vflipFilter2, '0']]
         ];
-        fc = new FilterGraph('my_filter_graph', nodes, null, connections);
+        fc = new FilterGraph(nodes, null, connections);
       });
   
       this.afterEach(() => {

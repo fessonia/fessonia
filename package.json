@@ -3,9 +3,15 @@
   "version": "0.0.1",
   "description": "A node module for modeling and working with FFmpeg filtergraphs",
   "main": "index.js",
-  "scripts": {
+  "watch": {
     "test": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec test/*.test.js",
     "lint": "./node_modules/.bin/eslint ./{lib,test}/**/*.js"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec test/*.test.js",
+    "lint": "./node_modules/.bin/eslint ./{lib,test}/**/*.js",
+    "testlint": "npm test && npm lint",
+    "watch": "npm-watch"
   },
   "repository": {
     "type": "git",
@@ -30,7 +36,8 @@
     "eslint": "^5.8.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
+    "npm-watch": "^0.6.0",
+    "nyc": "^14.1.1",
     "sinon": "^7.1.1"
   },
   "dependencies": {}

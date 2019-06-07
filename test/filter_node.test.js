@@ -240,6 +240,22 @@ describe('FilterNode', function () {
     it('provides filter validation info based on ffmpeg help output', function () {
       expect(FilterNode._getValidFilterInfoFromFFmpeg()).to.deep.equal(filterInfoFixture);
     });
+    it('provides the next unmapped filter input pad index', function () {
+      let f = new FilterNode(varInputFilter.options);
+      expect(f.nextAvailableInputPadIndex()).to.eql(0);
+      f.markInputPadMapped(0);
+      expect(f.nextAvailableInputPadIndex()).to.eql(1);
+      f.markInputPadMapped(3);
+      expect(f.nextAvailableInputPadIndex()).to.eql(1);
+    });
+    it('provides the next unmapped filter output pad index', function () {
+      let f = new FilterNode(varOutputFilter.options);
+      expect(f.nextAvailableOutputPadIndex()).to.eql(0);
+      f.markOutputPadMapped(0);
+      expect(f.nextAvailableOutputPadIndex()).to.eql(1);
+      f.markOutputPadMapped(3);
+      expect(f.nextAvailableOutputPadIndex()).to.eql(1);
+    })
     // TODO: figure out how to add an un-stubbed test involving ffmpeg for FilterNode._queryFFmpegForFilters that doesn't break Jenkins
   });
 });
