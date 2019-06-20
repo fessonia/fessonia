@@ -5,8 +5,9 @@ const chai = require('chai'),
   testHelpers = require('./helpers');
 
 const FFmpegOutput = require('../lib/ffmpeg_output'),
+  FFmpegOption = require('../lib/ffmpeg_option'),
   FilterNode = require('../lib/filter_node'),
-  FilterChain = require('../lib/filter_chain'),
+  FilterGraph = require('../lib/filter_graph'),
   filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegOutput', function () {
@@ -79,21 +80,20 @@ describe('FFmpegOutput', function () {
       // stub for ffmpeg interaction
       sinon.stub(FilterNode, '_queryFFmpegForFilters')
         .returns(filtersFixture);
-      const nodes = [
-        new FilterNode('cropFilter', {
-          filterName: 'crop',
-          args: ['iw', 'ih/2', 0, 0]
-        }),
-        new FilterNode('vflipFilter', { filterName: 'vflip' }),
-        new FilterNode('hflipFilter', { filterName: 'hflip' }),
-        new FilterNode('splitFilter', { filterName: 'split' })
-      ];
+      cropFilter = new FilterNode({
+        filterName: 'crop',
+        args: ['iw', 'ih/2', 0, 0]
+      });
+      vflipFilter = new FilterNode({ filterName: 'vflip' });
+      hflipFilter = new FilterNode({ filterName: 'hflip' });
+      splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
+      const nodes = [cropFilter, vflipFilter, hflipFilter, splitFilter];
       const connections = [
-        [['cropFilter', '0'], ['splitFilter', '0']],
-        [['splitFilter', '0'], ['vflipFilter', '0']],
-        [['splitFilter', '1'], ['hflipFilter', '0']]
+        [[cropFilter, '0'], [splitFilter, '0']],
+        [[splitFilter, '0'], [vflipFilter, '0']],
+        [[splitFilter, '1'], [hflipFilter, '0']]
       ];
-      fc = new FilterChain('my_filter_chain', nodes, null, connections);
+      fc = new FilterGraph(nodes, null, connections);
     });
   
     this.afterEach(() => {
@@ -104,7 +104,7 @@ describe('FFmpegOutput', function () {
       const expectedLast = '/some/file.mp4';
       const expectedArgs = [
         ['-dn'],
-        ['-filter_complex', 'crop=iw:ih/2:0:0 [cropFilter_0];[cropFilter_0] split [splitFilter_0] [splitFilter_1];[splitFilter_0] vflip;[splitFilter_1] hflip'],
+        ['-filter_complex', `crop=iw:ih/2:0:0 [${cropFilter.padPrefix}_0];[${cropFilter.padPrefix}_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip`],
         ['-b:v', '3850k'],
         ['-f', 'mp4'],
         ['-aspect', '16:9']
@@ -118,6 +118,54 @@ describe('FFmpegOutput', function () {
       ])).toCommandArray();
       testHelpers.expectLast(fo, expectedLast);
       testHelpers.expectSequences(fo, expectedArgs);
+    });
+  });
+  describe('addOptions', function () {
+    it('allows adding options after creation of the output object', function () {
+      const fo = new FFmpegOutput('/some/file.mp4', new Map());
+      expect(fo.options).to.deep.eql([]);
+      const newOptions = new Map([['dn', null], ['f', 'mp4']]);
+      const expected = Array.from(newOptions).map(
+        ([name, arg]) => new FFmpegOption(
+          name,
+          FFmpegOption.FFmpegOptionContexts.OUTPUT,
+          arg
+        )
+      );
+      fo.addOptions(newOptions);
+      expect(fo.options).to.deep.eql(expected);
+    });
+    it('allows adding a filter option after creation of the output object', function () {
+      sinon.stub(FilterNode, '_queryFFmpegForFilters')
+        .returns(filtersFixture);
+      const cropFilter = new FilterNode({
+        filterName: 'crop',
+        args: ['iw', 'ih/2', 0, 0]
+      });
+      const vflipFilter = new FilterNode({ filterName: 'vflip' });
+      const hflipFilter = new FilterNode({ filterName: 'hflip' });
+      const splitFilter = new FilterNode({
+        filterName: 'split',
+        outputsCount: 2
+      });
+      const nodes = [cropFilter, vflipFilter, hflipFilter, splitFilter];
+      const connections = [
+        [[cropFilter, '0'], [splitFilter, '0']],
+        [[splitFilter, '0'], [vflipFilter, '0']],
+        [[splitFilter, '1'], [hflipFilter, '0']]
+      ];
+      const fg = new FilterGraph(nodes, null, connections);
+      const fo = new FFmpegOutput('/some/file.mp4', new Map());
+      expect(fo.options).to.deep.eql([]);
+      const newOptions = new Map([['filter', fg],]);
+      const expected = [new FFmpegOption(
+        'filter_complex',
+        FFmpegOption.FFmpegOptionContexts.OUTPUT,
+        fg
+      ),];
+      fo.addOptions(newOptions);
+      expect(fo.options).to.deep.eql(expected);
+      FilterNode._queryFFmpegForFilters.restore();
     });
   });
 });
