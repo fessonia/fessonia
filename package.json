@@ -1,6 +1,6 @@
 {
   "name": "ffmpeg-filtergraph",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A node module for modeling and working with FFmpeg filtergraphs",
   "main": "index.js",
   "scripts": {
