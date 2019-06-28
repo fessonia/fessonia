@@ -1,7 +1,8 @@
 {
-  "name": "ffmpeg-filtergraph",
-  "version": "0.0.2",
+  "name": "@tedprivate/ffmpeg-filtergraph",
+  "version": "0.0.3",
   "description": "A node module for modeling and working with FFmpeg filtergraphs",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info test/*.test.js",
