@@ -17,16 +17,18 @@ class TestReadableStream extends Readable {
    */
   constructor (opts) {
     super(opts);
-    for (let e of ['readable', 'data', 'close', 'error', 'end']) {
+    for (let e of ['data', 'close', 'error', 'end']) {
       this.on(e, (data, eventName = e) => console.log(`Event '${eventName}' received on TestReadableStream: event data = ${data}`));
     }
   }
   /**
-   * Required _read method of Readable interface. No-op.
+   * Required _read method of Readable interface. Logging no-op.
    * 
    * @returns {void}
    */
-  _read () { }
+  _read () {
+    console.log('TestReadableStream._read() called.');
+  }
 }
 
 /* eslint-enable no-console */
