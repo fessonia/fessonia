@@ -1,3 +1,3 @@
 nodeBuild {
-  node_target = 'ecs-staging-node8.16.0'
+  node_target = 'ecs-staging-node10.16.0'
 }
