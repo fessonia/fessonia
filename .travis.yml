@@ -6,5 +6,7 @@ node_js:
   - "node"
 notifications:
   email:
+    recipients:
+      - video-dev@ted.com
     on_success: change
     on_failure: always
