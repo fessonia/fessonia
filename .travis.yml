@@ -1,5 +1,10 @@
 language: node_js
 node_js:
+  - "lts/carbon"
+  - "lts/dubnium"
   - "lts/*"
   - "node"
-
+notifications:
+  email:
+    on_success: change
+    on_failure: always
