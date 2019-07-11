@@ -66,3 +66,6 @@ typings/
 
 # Editor config
 .vscode
+
+# Sonar config
+.scannerwork
