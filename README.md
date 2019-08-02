@@ -1,4 +1,4 @@
-# ![Fessonia](/docs/img/Fessonia_logo.png)
+<h1><img src="https://raw.githubusercontent.com/tedconf/fessonia/master/docs/img/Fessonia_logo_social_preview_1280x640.png" alt="Fessonia: easing the burden of ffmpeg automation from node.js" title="Fessonia: easing the burden of ffmpeg automation from node.js" /></h1>
 
 [![Build Status](https://travis-ci.com/tedconf/ffmpeg-filtergraph.svg?branch=master)](https://travis-ci.com/tedconf/ffmpeg-filtergraph)
 
