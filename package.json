@@ -1,9 +1,9 @@
 {
-  "name": "ffmpeg-filtergraph",
-  "version": "0.0.4",
-  "description": "A node module for modeling and working with FFmpeg filtergraphs",
+  "name": "fessonia",
+  "version": "0.0.5",
+  "description": "A node module for modeling FFmpeg commands and working with FFmpeg",
   "main": "index.js",
-  "private": true,
+  "private": false,
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info test/*.test.js",
     "lint": "./node_modules/.bin/eslint ./{lib,test}/**/*.js",
@@ -11,11 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tedconf/ffmpeg-filtergraph.git"
+    "url": "git+https://github.com/tedconf/fessonia.git"
   },
   "keywords": [
+    "fessonia",
     "ffmpeg",
-    "filtergraph"
+    "filtergraph",
+    "node",
+    "javascript",
+    "nodejs"
   ],
   "directories": {
     "lib": "./lib",
