@@ -12,7 +12,9 @@ body {
   color: #f68e01;
   font-style: italic;
 }
-.lnb .lnb-api a, .lnb .lnb-examples a {
+.lnb .lnb-api a,
+.lnb .lnb-api a h3,
+.lnb .lnb-examples a {
   color: #f68e01;
 }
 .lnb .member-type {
