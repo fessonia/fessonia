@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tutorial: Example: Overlaying Images on Video | fessonia</title>
+    <title>Tutorial: Code of Conduct | fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -32,7 +32,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">fessonia</a></h1>
         
-            <span class="version">v0.0.5</span>
+            <span class="version">v0.0.6</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -60,58 +60,41 @@
     <header>
         
 
-        <h2>Example: Overlaying Images on Video</h2>
+        <h2>Code of Conduct</h2>
     </header>
 
     
         <article class="readme">
-            <p>The ffmpeg command to overlay images on video is a bit more complex. The
-following command, for example, adds two logos, one on each bottom corner
-of the video, copying any audio.</p>
-<pre class="prettyprint source lang-{bash}"><code>ffmpeg -i input.mov -i logo1.png -i logo2.png -filter_complex 'overlay=x=10:y=main_h-overlay_h-10,overlay=x=main_w-overlay_w-10:y=main_h-overlay_h-10' -c:a copy output.mp4
-</code></pre>
-<p>To construct this in JavaScript using the library, you can use the following.</p>
-<pre class="prettyprint source lang-{javascript}"><code>// Create command
-const cmd = new fessonia.FFmpegCommand({});
-
-// Add inputs
-['input.mov', 'logo1.png', 'logo2.png']
-  .forEach((ffin) => cmd.addInput(new fessonia.FFmpegInput(ffin, {}));
-
-// Generate filtergraph
-const overlay1 = new FilterNode({
-  filterName: 'overlay',
-  /* args can be specified as named arguments */
-  args: [
-    {name: 'x', value: 10},
-    {name: 'y', value: 'main_h-overlay_h-10'}
-  ]
-});
-const overlay2 = new FilterNode({
-  filterName: 'overlay',
-  /* or args can be specified as ordered arguments */
-  args: ['main_w-overlay_w-10', 'main_h-overlay_h-10']
-});
-const filtergraph = new fessonia.FilterGraph(
-  [overlay1,overlay2], /* the list of nodes in the filtergraph */
-  [overlay1], /* where the filtergraph starts */
-  [ /* connections between nodes in the filtergraph */
-    [[overlay1, 0], [overlay2, 0]]
-  ]
-);
-
-// Construct and add the output using the filtergraph
-const ffout = new fessonia.FFmpegOutput('output.mp4', new Map([
-  ['filter', filtergraph],
-  ['c:a', 'copy']
-]));
-cmd.addOutput(ffout);
-
-// ... handle events, etc.
-
-// Execute the command
-cmd.spawn();
-</code></pre>
+            <h2>Our Pledge</h2>
+<p>In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.</p>
+<h2>Our Standards</h2>
+<p>Examples of behavior that contributes to creating a positive environment include:</p>
+<ul>
+<li>Using welcoming and inclusive language</li>
+<li>Being respectful of differing viewpoints and experiences</li>
+<li>Gracefully accepting constructive criticism</li>
+<li>Focusing on what is best for the community</li>
+<li>Showing empathy towards other community members</li>
+</ul>
+<p>Examples of unacceptable behavior by participants include:</p>
+<ul>
+<li>The use of sexualized language or imagery and unwelcome sexual attention or advances</li>
+<li>Trolling, insulting/derogatory comments, and personal or political attacks</li>
+<li>Public or private harassment</li>
+<li>Publishing others’ private information, such as a physical or electronic address, without explicit permission</li>
+<li>Other conduct which could reasonably be considered inappropriate in a professional setting</li>
+</ul>
+<h2>Our Responsibilities</h2>
+<p>Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.</p>
+<p>Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.</p>
+<h2>Scope</h2>
+<p>This Code of Conduct applies within all project spaces, and it also applies when an individual is representing the project or its community in public spaces. Examples of representing a project or community include using an official project e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event. Representation of a project may be further defined and clarified by project maintainers.</p>
+<h2>Enforcement</h2>
+<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at <a href="mailto:fessonia@ted.com">fessonia@ted.com</a>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.</p>
+<p>Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project’s leadership.</p>
+<h2>Attribution</h2>
+<p>This Code of Conduct is adapted from the Contributor Covenant, version 1.4, available at <a href="https://www.contributor-covenant.org/version/1/4/code-of-conduct.html">https://www.contributor-covenant.org/version/1/4/code-of-conduct.html</a>.</p>
+<p>For answers to common questions about this code of conduct, see <a href="https://www.contributor-covenant.org/faq">https://www.contributor-covenant.org/faq</a>.</p>
         </article>
     
 </section>

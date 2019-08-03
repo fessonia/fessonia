@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/ffmpeg_progress_emitter.js | fessonia</title>
+    <title>Tutorial: Contributing to Fessonia | fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -34,7 +32,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">fessonia</a></h1>
         
-            <span class="version">v0.0.5</span>
+            <span class="version">v0.0.6</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -58,145 +56,78 @@
 <div class="main" id="main">
     
 
+<section>
+    <header>
+        
 
+        <h2>Contributing to Fessonia</h2>
+    </header>
 
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const { Writable } = require('stream');
-
-/**
- * A class that implements a progress event emitter for FFmpegCommand executions
- *
- * @extends stream.Writable
- */
-class FFmpegProgressEmitter extends Writable {
-  /**
-   * Create an FFmpegProgressEmitter object for use in monitoring execution progress
-   * Can maybe remove the constructor here for simplicity
-   * 
-   * @param {Object} options - options for the Writable stream
-   */
-  constructor (options) {
-    super(options);
-    this.bufferedData = [];
-  }
-
-  /**
-   * Return the last n chunks pushed into the stream
-   * @param {number} n - the number of chunks to return (default: 1)
-   * 
-   * @returns {string|Array&lt;string>} - the last chunk (default) or an array of n chunks (for n > 1)
-   */
-  last (n = 1) {
-    if (this.bufferedData.length === 0) { return this.bufferedData; }
-    if (n === 1) { return this.bufferedData[this.bufferedData.length - 1]; }
-    const start = Math.max(this.bufferedData.length - n, 0);
-    return this.bufferedData.slice(start);
-  }
-  
-  /**
-   * Return the all chunks pushed into the stream from the buffer
-   * 
-   * @returns {string|Array&lt;string>} - the last chunk (default) or an array of n chunks (for n > 1)
-   */
-  logData () {
-    return this.bufferedData;
-  }
-  
-  /**
-    * Parse data packets from the stream and emit update event
-    * This method is called internally by Writable stream
-    *
-    * @param {Buffer|string} chunk - the data packet from the piped stream
-    * @param {string} encoding - how the packet is encoded (utf8, buffer)
-    * @param {Function} callback - callback to call when processing complete
-    *
-    * @fires FFmpegProgressEmitter#update
-    *
-    * @returns {void}
-    */
-  _write (chunk, encoding, callback) {
-    const data = encoding === 'buffer' ? chunk.toString() : chunk.toString(encoding);
-    this.bufferedData.push(data);
-    const
-      inputMatch = data.match(/Input \#(\d+)/),
-      timeMatch = data.match(/time=\s*(\d{2}:\d{2}:\d{2}.\d{2})/),
-      etaMatch = data.match(/eta=\s*(\d{2}:\d{2}:\d{2}.\d{2})/),
-      frameMatch = data.match(/frame=\s*(\d+)/),
-      fpsMatch = data.match(/fps=\s*([\d\.]+)/),
-      qMatch = data.match(/q=\s*(\-?[\d\.]+)/),
-      sizeMatch = data.match(/size=\s*([\d\.]+[kMG]?B)/),
-      bitrateMatch = data.match(/bitrate=\s*([\d\.]+[kMG]?bits\/s)/),
-      speedMatch = data.match(/speed=\s*(\d+\.\d+x)/);
-            
-
-    let progressType, newTime, newETA, newFrame, newFPS, newQ, newSize, newBitrate, newSpeed;
-    if (timeMatch != null) {
-      newTime = FFmpegProgressEmitter._parseTimestamp(timeMatch[1]);
-    }
-    if (etaMatch != null) {
-      newETA  = FFmpegProgressEmitter._parseTimestamp(etaMatch[1]);
-    }
-    if (frameMatch != null) {
-      newFrame = parseInt(frameMatch[1]);
-      progressType = 'video';
-    } else {
-      progressType = 'audio';
-    }
-    if (fpsMatch != null) { newFPS = parseFloat(fpsMatch[1]); }
-    if (qMatch != null) { newQ = parseFloat(qMatch[1]); }
-    if (sizeMatch != null) { newSize = sizeMatch[1]; }
-    if (bitrateMatch != null) { newBitrate = bitrateMatch[1]; }
-    if (speedMatch != null) { newSpeed = speedMatch[1]; }
-    const eventData = {
-      currentTime   : newTime,
-      timeRemaining : newETA,
-      streamType    : progressType,
-      frame         : newFrame,
-      fps           : newFPS,
-      q             : newQ,
-      size          : newSize,
-      bitrate       : newBitrate,
-      speed         : newSpeed
-    }
-    /**
-      * update event
-      *
-      * @event FFmpegProgressEmitter#update
-      * @type {object}
-      * @property {number|undefined} currentTime - current time in seconds into the media ffmpeg has completed processing
-      * @property {number|undefined} timeRemaining - the estimated number of wall-clock seconds of processing remaining
-      * @property {string|undefined} streamType - the type of stream currently being processed
-      * @property {number|undefined} frame - the count of frames processed so far
-      * @property {number|undefined} fps - the estimated frames per second
-      * @property {number|undefined} q - the bitrate quantizer scale
-      * @property {string|undefined} size - the total data size processed
-      * @property {string|undefined} bitrate - the bitrate 
-      */
-    this.emit('update', eventData);
-
-    callback();
-  }
-
-  /**
-   * Parses timestamp strings into a number of seconds
-   * @param {string} timestamp - the timestamp string
-   *
-   * @returns {number} the number of seconds represented by the timestamp
-   */
-  static _parseTimestamp (timestamp) {
-    const parts = timestamp.split(':');
-    const seconds = (parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10)) * 60 + parseFloat(parts[2]);
-    return seconds;
-  }
-}
-
-module.exports = FFmpegProgressEmitter;
+        <article class="readme">
+            <p>We're so glad you're interested in helping to build this library. Before we get started, there are a few ground rules you should know about to ensure we all have a great experience.</p>
+<h2>Rules of the Road</h2>
+<ul>
+<li><strong>Identify an issue.</strong> When you start looking at implementing something on the library, ensure there's a corresponding Github Issue associated with the bug or feature. If there isn't one, please feel free to create one using one of our issue templates.</li>
+<li><strong>Assign the issue to yourself.</strong> Let others know that you're working on this, so we can avoid several folks working on the same thing.</li>
+<li><strong>Discuss large changes first.</strong> Before putting in a lot of work on a large feature or refactor, please discuss the idea with the maintainers in an Issue conversation. This ensures that what you're intending works with the road map for the library and won't conflict with use cases for the library you may not be aware of at the moment.</li>
+<li><strong>Keep your work scoped.</strong> When tackling a change to the library, be sure to keep your change limited to one particular issue, and don't include commits that are out-of-scope for the Issue you're working on. If you notice something out of scope that needs to be done, please create a new Issue for that.</li>
+<li><strong>Create tests for your code.</strong> Any code you add should have tests that provide proof that your work fixes the issue or correctly implements the feature identified in the Issue. If you need help with this, please ask on the Issue.</li>
+<li><strong>Commit your work with descriptive commit messages.</strong> Ensure that your work is committed to version control with descriptive messages that, to the best of your ability, identify what parts of the library are impacted by the commit.</li>
+<li><strong>Don't squash others' commits.</strong> Everyone deserves credit for the work they've contributed to the library, so please don't squash commits that others have made. That said, if there are several of your own smaller commits that are very similar in nature, you can feel free to squash those into a single commit with a descriptive message that covers all the changes made.</li>
+<li><strong>Run the tests and make sure they pass.</strong> Pull requests that don't pass the test suite will not be merged. If there's something that's not passing tests, please fix it. If you need help, please create a Draft PR (see the next bullet) and ask for assistance.</li>
+<li><strong>Update and regenerate documentation.</strong> Please make sure that if you've modified something that requires an update to the library documentation, you include the updated documentation in your pull request. (To do that, see <em>Generating Documentation</em> below.)</li>
+<li><strong>Submit a pull request.</strong> Once you've pushed up your branch and are ready to create a pull request, please fill out as much of the PR template as you can. If your work is still in progress or not yet passing tests, be sure to create a <em>Draft</em> Pull Request instead of a regular one. (You can do this by clicking the dropdown on the right end of the &quot;Create pull request&quot; button.)</li>
+<li><strong>Be civil and treat others with respect.</strong> Please assume good intent from others and keep your conversation civil in Issue and PR conversations. At TED, we care about maintaining a welcoming and inclusive atmosphere, and that applies to our development practices too. For more details on that, please take a look at our <a href="tutorial-5_code_of_conduct.html">Code of Conduct</a>.</li>
+</ul>
+<h2>Developing on the Library</h2>
+<p>Now, finally, here's a brief guide to getting setup and developing on this library. We look forward to seeing what you contribute!</p>
+<h3>Structure</h3>
+<p>The library is structured in the following folders:</p>
+<ul>
+<li><code>/lib</code> - the location for all library runtime code</li>
+<li><code>/test</code> - the location for all library testing code, including fixtures and test helpers</li>
+<li><code>/scripts</code> - the location for any utility scripts</li>
+<li><code>/docs</code> - the location for generated documentation</li>
+<li><code>/coverage</code> - the location for generated test coverage reports</li>
+</ul>
+<h3>Prerequisites</h3>
+<p>To get started, you'll need an installation of <a href="https://nodejs.org/">node.js</a>, preferably with <a href="https://github.com/nvm-sh/nvm"><code>nvm</code></a> to manage versions (or <a href="https://github.com/coreybutler/nvm-windows"><code>nvm-windows</code></a> if you're using Windows). You'll also need a locally installed <a href="http://ffmpeg.org/"><code>ffmpeg</code></a>.</p>
+<p>The current build version of the library can be seen in the <code>.nvmrc</code> file in the repo root, but the library is also built via Travis CI daily using LTS versions from 8.x up, as well as the most current stable version (12.x at the time of writing).</p>
+<p>For ease of operation, you may also be interested in <a href="https://github.com/wbyoung/avn"><code>avn</code></a>, a tool that auto-selects the version of node used by the project based on the <code>.nvmrc</code> file in the repo root when you enter a directory at the command line.</p>
+<p>You'll also need a package manager for node packages installed. In this document, I'll use <code>npm</code> for reference, but corresponding <code>yarn</code> commands should also work just fine.</p>
+<h3>Setup</h3>
+<p>You may wish to fork this repo in order to contribute. To do so, click the &quot;Fork&quot; button in the top right of <a href="https://github.com/tedconf/fessonia">the main repo page on github.com</a>.</p>
+<p>First, clone this repo locally and enter the directory.</p>
+<pre class="prettyprint source lang-{bash}"><code>git clone git@github.com:tedconf/fessonia.git
+cd fessonia
 </code></pre>
+<p>Change the name of the git remote from <code>origin</code> to <code>upstream</code>, and add your fork of the repo as the <code>origin</code>. (The below command assumes your Github username is in an environment variable <code>GITHUB_USERNAME</code>.)</p>
+<pre class="prettyprint source lang-{bash}"><code>git remote rename origin upstream
+git remote add origin git@github.com:${GITHUB_USERNAME}/fessonia.git
+</code></pre>
+<p>To get setup for development, ensure you're using the correct node version, either via <code>nvm use</code> or automatically via <code>avn</code>.</p>
+<p>Then, install the development dependencies:</p>
+<pre class="prettyprint source lang-{bash}"><code>npm install
+</code></pre>
+<p>To be sure things are working, run the tests:</p>
+<pre class="prettyprint source lang-{bash}"><code>npm test
+</code></pre>
+<h3>Testing</h3>
+<p>All tests are contained in the <code>/test</code> folder, and test files generally end in <code>.test.js</code>.</p>
+<p>For testing, this library uses a combination of <code>mocha</code>, <code>chai</code>, and <code>sinon</code>, with <code>nyc</code> and <code>istanbul</code> for test coverage reporting.</p>
+<h3>Generating Documentation</h3>
+<p>Documentation generation is handled through JSdoc 3. For any code changes you make, you'll need to ensure that the JSdoc comments are up to date and match your changes, then regenerate documentation accordingly.</p>
+<p>Docs generation is handled via a shell script in the <code>/scripts</code> folder, but can be run via the <code>npm</code> task:</p>
+<pre class="prettyprint source lang-{bash}"><code>npm run generate-docs
+</code></pre>
+<h3>Continuous Integration via Travis CI</h3>
+<p>Travis CI is setup to run a build against LTS node versions 8.x and up, as well as the latest stable node version, on each commit to any branch on the repo and each pull request submitted against the repo.</p>
+<p>Travis CI also runs a similar build at least once daily to ensure that the build doesn't break due to lack of maintenance. This cron-based build is only run if there has not been a build in the last 24 hours.</p>
+<p>You can see the results of Travis CI runs at <a href="https://travis-ci.com/tedconf/fessonia">https://travis-ci.com/tedconf/fessonia</a>.</p>
         </article>
-    </section>
-
+    
+</section>
 
 
 
@@ -212,13 +143,7 @@ module.exports = FFmpegProgressEmitter;
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = '_sub'.replace(/"/g, '_');
-        var selectedApi = document.getElementById(id); // do not use jquery selector
-        var $selectedApi = $(selectedApi);
-
-        $selectedApi.removeClass('hidden');
-        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-        showLnbApi();
+        showLnbExamples();
     </script>
 
 </body>

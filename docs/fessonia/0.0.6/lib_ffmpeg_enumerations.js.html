@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: index.js | fessonia</title>
+    <title>Source: lib/ffmpeg_enumerations.js | fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -34,7 +34,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">fessonia</a></h1>
         
-            <span class="version">v0.0.5</span>
+            <span class="version">v0.0.6</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -64,23 +64,38 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @description "Fessonia"
- * @author "Ryan B. Harvey &lt;ryan.b.harvey@ted.com>"
+ * FFmpeg filter-related constants
  */
 
-module.exports = {
-  FFmpegCommand: require('./lib/ffmpeg_command'),
-  FFmpegInput: require('./lib/ffmpeg_input'),
-  FFmpegOutput: require('./lib/ffmpeg_output'),
-  FFmpegOption: require('./lib/ffmpeg_option'),
-  FilterNode: require('./lib/filter_node'),
-  FilterGraph: require('./lib/filter_graph'),
-  FFmpegProgressEmitter: require('./lib/ffmpeg_progress_emitter'),
-  Util: {
-    config: require('./lib/util/config')(),
-    logger: require('./lib/util/logger')('ffmpeg-filtergraph:root')
-  }
+FFmpegEnumerations = {
+  /** Enumeration of filter commands */
+  FilterCommands: {
+    /** Constant value for the '-filter' command option */
+    FILTER: '-filter',
+    /** Constant value for the '-filter_complex' command option */
+    COMPLEX: '-filter_complex',
+  },
+  /** Enumeration of filter I/O types */
+  FilterIOTypes: {
+    /** Constant value representing a filter with both input(s) and output(s) */
+    GENERIC: 0,
+    /** Constant value representing a source filter with only output(s) */
+    SOURCE: 1,
+    /** Constant value representing a sink filter with only input(s) */
+    SINK: 2,
+  },
+  /** Enumeration of filter media types */
+  FilterMediaTypes: {
+    /** Constant value representing non-stream-specified media type */
+    GENERIC: '',
+    /** Constant value representing an audio stream specifier */
+    AUDIO: ':a',
+    /** Constant value representing a video stream specifier */
+    VIDEO: ':v',
+  },
 };
+
+module.exports = FFmpegEnumerations;
 </code></pre>
         </article>
     </section>

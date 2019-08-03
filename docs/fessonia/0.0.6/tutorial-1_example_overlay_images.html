@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tutorial: About Fessonia | fessonia</title>
+    <title>Tutorial: Example: Overlaying Images on Video | fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -32,7 +32,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">fessonia</a></h1>
         
-            <span class="version">v0.0.5</span>
+            <span class="version">v0.0.6</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -60,80 +60,58 @@
     <header>
         
 
-        <h2>About Fessonia</h2>
+        <h2>Example: Overlaying Images on Video</h2>
     </header>
 
     
         <article class="readme">
-            <p>This library was designed to make the composition of <code>ffmpeg</code> commands clearer and easier to understand.</p>
-<h2>The Structure of an FFmpeg Command</h2>
-<p>FFmpeg <strong>commands</strong> are structured with several components:</p>
-<ul>
-<li>a collection of <strong>inputs</strong>, which may have <em>options</em>, and may make use of source <em>filters</em></li>
-<li>a collection of <strong>outputs</strong>, which may have <em>options</em>, and may process media through <em>filters</em></li>
-<li><strong>filter graphs</strong>, which we'll also refer to more generally as <strong>filters</strong>, which may contain one or more <em>filter chains</em> composed of <em>filter nodes</em>, or one or more individual <em>filter nodes</em></li>
-<li><strong>filter chains</strong>, which are linear combinations of one or more <em>filter nodes</em></li>
-<li><strong>filter nodes</strong>, which represent single instances of given <em>filters</em>, and which may have several <strong>arguments</strong></li>
-<li><strong>options</strong>, which may apply at the <em>input</em> level, at the <em>output</em> level, or globally at the <em>command</em> level, and which may have an <em>argument</em> or <em>argument string</em></li>
-<li>some set of <strong>mappings</strong> from output streams of <em>inputs</em> and <em>filters</em> to input stream indices of <em>outputs</em></li>
-</ul>
-<p>A single <em>command</em> wraps all of these in a chain of connections that represent a processing pipeline that takes the <em>inputs</em> and produces the <em>outputs</em>.</p>
-<h3>An Example for Some Clarity</h3>
-<p>As an example, we can look at the following command:</p>
-<pre class="prettyprint source lang-{bash}"><code>ffmpeg -y -threads 8 -ss 5110.77 -i &quot;/path/to/some/input.mov&quot; -itsoffset 0 -ss 5110.77 -i &quot;/path/to/some/input.mov&quot; -acodec libfdk_aac -ac 1 -b:a 48k -vcodec libx264 -b:v 400k -filter:v &quot;scale=640:-1,ass=filename=/path/to/some/subtitles.ass&quot; -f mp4 -map 0:2 -map 1:0 -t 642.517 -movflags faststart -preset:v ultrafast -tune film -pix_fmt yuv420p -threads 8 &quot;/path/to/output.mp4&quot;
+            <p>The ffmpeg command to overlay images on video is a bit more complex. The
+following command, for example, adds two logos, one on each bottom corner
+of the video, copying any audio.</p>
+<pre class="prettyprint source lang-{bash}"><code>ffmpeg -i input.mov -i logo1.png -i logo2.png -filter_complex 'overlay=x=10:y=main_h-overlay_h-10,overlay=x=main_w-overlay_w-10:y=main_h-overlay_h-10' -c:a copy output.mp4
 </code></pre>
-<p>Taking this apart into the various components, we can see the following parts that make up this <em>command</em>:</p>
-<ul>
-<li>two <em>inputs</em>, each specifying the same file:
-<ul>
-<li><code>-threads 8 -ss 5110.77 -i &quot;/path/to/input.mov&quot;</code> (with options <code>-threads 8</code> and <code>-ss 5110.77</code>)</li>
-<li><code>-itsoffset 0 -ss 5110.77 -i &quot;/path/to/input.mov&quot;</code> (with options <code>-itsoffset 0</code> and <code>-ss 5110.77</code>)</li>
-</ul>
-</li>
-<li>one <em>output</em>: <code>-acodec libfdk_aac -ac 1 -b:a 48k -vcodec libx264 -b:v 400k -filter:v &quot;scale=640:-1,ass=filename=/path/to/subtitles.ass&quot; -f mp4 -map 0:2 -map 1:0 -t 642.517 -movflags faststart -preset:v ultrafast -tune film -pix_fmt yuv420p -threads 8 &quot;/path/to/output.mp4&quot;</code>, which has:
-<ul>
-<li>13 <em>options</em>:
-<ul>
-<li>a <code>filter:v</code> <em>option</em> with a <em>filter graph</em> <em>argument string</em>: <code>&quot;scale=640:-1,ass=filename=/path/to/subtitles.ass&quot;</code>, containing a single <em>filter chain</em> with 2 <em>filter nodes</em>:
-<ul>
-<li>a <code>scale</code> <em>filter node</em> with arguments <code>640</code> and <code>-1</code></li>
-<li>an <code>ass</code> <em>filter node</em> with a named argument <code>filename</code> with value <code>/path/to/subtitles.ass</code></li>
-</ul>
-</li>
-<li>12 other <em>options</em>, most with single <em>arguments</em></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>two <em>mappings</em>:
-<ul>
-<li><code>0:2</code>, mapping the stream index 2 (the third stream) of the first input (index 0) into the first stream of the output file (by ordering of the mappings)</li>
-<li><code>1:0</code>, mapping the stream index 0 (the first stream) of the second input (index 0) into the second stream of the output file (also by ordering of the mappings)</li>
-</ul>
-</li>
-<li>one globally applied <em>option</em> <code>-y</code></li>
-</ul>
-<p>Deconstructing the command in this way, it becomes easier to see the processing pipeline, and how the command will work. This library attempts to use the clarity of this insight to help construct new commands in the same way.</p>
-<h2>Visualizing the Structure of a Command</h2>
-<p>Sometimes a picture is helpful. We can visualize this hierarchical structure of an <code>ffmpeg</code> command as in the diagram below.</p>
-<p><img src="ffmpeg-command-hierarchy.png" alt="FFmpeg command structure diagram"></p>
-<h2>How this Structure is Reflected in the Design of Fessonia</h2>
-<p>The Fessonia library is largely designed around this structure.</p>
-<p>There is a class module for each major element in the structure of a command, with the exception of:</p>
-<ul>
-<li><strong>arguments</strong>, which are modeled within <code>FFmpegOption</code> (a private class used internally for validation) and <code>FilterNode</code> as needed</li>
-<li><strong>filter chains</strong>, which are not needed because all filter pipelines are modelled with explicit internal mappings as <em>filter graphs</em></li>
-<li><strong>mappings</strong> (currently a work-in-progress), which are modelled in the context of adding <strong>outputs</strong> to a <strong>command</strong></li>
-</ul>
-<p>When constructing a command, you first start with the components, then add them to the containing structures as needed, building up the command as in the diagram above. To see how this works in practice, take a look at the <a href="tutorial-0_getting_started.html">Getting Started with Fessonia</a> tutorial.</p>
-<h2>About the Name Fessonia and the Butterfly Logo</h2>
-<p>The name Fessonia comes from the ancient Roman goddess Fessonia, apparently referenced by Augustine in his <em>City of God</em> (iv, 21), and <a href="https://pantheon.org/articles/f/fessonia.html">understood to be</a></p>
-<blockquote>
-<p>The goddess of weary persons, who is invoked to provide refreshment.</p>
-</blockquote>
-<p>You can learn more about the goddess Fessonia, including some conjectures based on little evidence, at <a href="http://www.thaliatook.com/OGOD/fessonia.html">her entry in the Obscure Goddess Online Dictionary</a>.</p>
-<p>What does that obscure goddess have to do with this library, you ask? Because the intent of this library was to provide refreshment from the author's weariness of dealing with FFmpeg command line invocations in his work of automating video encoding pipelines using FFmpeg, that name seemed quite fitting.</p>
-<p>The logo (drawn digitally by the author) is a representation of <a href="https://www.butterfliesofamerica.com/adelpha_f_fessonia.htm">the butterfly <em>Adelpha f. fessonia</em></a>, also known as the <em>Band-celled Sister</em>.</p>
+<p>To construct this in JavaScript using the library, you can use the following.</p>
+<pre class="prettyprint source lang-{javascript}"><code>// Create command
+const cmd = new fessonia.FFmpegCommand({});
+
+// Add inputs
+['input.mov', 'logo1.png', 'logo2.png']
+  .forEach((ffin) => cmd.addInput(new fessonia.FFmpegInput(ffin, {}));
+
+// Generate filtergraph
+const overlay1 = new FilterNode({
+  filterName: 'overlay',
+  /* args can be specified as named arguments */
+  args: [
+    {name: 'x', value: 10},
+    {name: 'y', value: 'main_h-overlay_h-10'}
+  ]
+});
+const overlay2 = new FilterNode({
+  filterName: 'overlay',
+  /* or args can be specified as ordered arguments */
+  args: ['main_w-overlay_w-10', 'main_h-overlay_h-10']
+});
+const filtergraph = new fessonia.FilterGraph(
+  [overlay1,overlay2], /* the list of nodes in the filtergraph */
+  [overlay1], /* where the filtergraph starts */
+  [ /* connections between nodes in the filtergraph */
+    [[overlay1, 0], [overlay2, 0]]
+  ]
+);
+
+// Construct and add the output using the filtergraph
+const ffout = new fessonia.FFmpegOutput('output.mp4', new Map([
+  ['filter', filtergraph],
+  ['c:a', 'copy']
+]));
+cmd.addOutput(ffout);
+
+// ... handle events, etc.
+
+// Execute the command
+cmd.spawn();
+</code></pre>
         </article>
     
 </section>
