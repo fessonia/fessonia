@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/util/config.js | fessonia</title>
+    <title>Source: index.js | fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -34,7 +34,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">fessonia</a></h1>
         
-            <span class="version">v0.0.5</span>
+            <span class="version">v0.0.6</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -63,59 +63,24 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const CONFIG_KEY = Symbol.for('FFmpegFiltergraph.Config');
-const DEFAULTS = {
-  ffmpeg_bin: '/usr/local/bin/ffmpeg',
-  ffprobe_bin: '/usr/local/bin/ffprobe',
-  logger: require('./logger')
-};
-const configLogger = DEFAULTS.logger('config');
-const _configData = global[CONFIG_KEY] || DEFAULTS;
-
-const updateConfigWithOptions = function (options) {
-  Object.keys(DEFAULTS).forEach((key) => {
-    if (!this.hasOwnProperty(key)) {
-      Object.defineProperty(this, key, {
-        get: () => _configData[key]
-      });
-    }
-  });
-  Object.keys(options).forEach((key) => {
-    _configData[key] = options[key];
-    if (!this.hasOwnProperty(key)) {
-      Object.defineProperty(this, key, {
-        get: () => _configData[key]
-      });
-    }
-  });
-};
-
-/**
- * Get the config object, optionally updated with new options
- * 
- * Options understood by this configuration object include:
- * * `ffmpeg_bin` - the location of your `ffmpeg` binary
- * * `ffprobe_bin` - the location of your `ffprobe` binary
- * * `logger` - a function that creates a logger object (see &lt;code>getLogger&lt;/code>)
- * @see getLogger
- * 
- * @function
- * @param {Object} options - (optional) options object (default: {})
- * 
- * @returns {Object} - singleton object with config data
+            <pre class="prettyprint source linenums"><code>/**
+ * @description "Fessonia"
+ * @author "Ryan B. Harvey &lt;ryan.b.harvey@ted.com>"
  */
-function getConfig (options = {}) {
-  try {
-    updateConfigWithOptions(options);
-    global[CONFIG_KEY] = _configData;
-    configLogger.info(`Created config object: ${configLogger.format(global[CONFIG_KEY])}`);
-  } catch (e) {
-    configLogger.warn(`Invalid attempt to update frozen configuration. Using current config: ${configLogger.format(global[CONFIG_KEY])}`);
-  }
-  return global[CONFIG_KEY];
-};
 
-module.exports = getConfig;
+module.exports = {
+  FFmpegCommand: require('./lib/ffmpeg_command'),
+  FFmpegInput: require('./lib/ffmpeg_input'),
+  FFmpegOutput: require('./lib/ffmpeg_output'),
+  FFmpegOption: require('./lib/ffmpeg_option'),
+  FilterNode: require('./lib/filter_node'),
+  FilterGraph: require('./lib/filter_graph'),
+  FFmpegProgressEmitter: require('./lib/ffmpeg_progress_emitter'),
+  Util: {
+    config: require('./lib/util/config')(),
+    logger: require('./lib/util/logger')('ffmpeg-filtergraph:root')
+  }
+};
 </code></pre>
         </article>
     </section>

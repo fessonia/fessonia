@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: DefaultLogger | fessonia</title>
+    <title>Class: FFmpegInput | fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -32,7 +32,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">fessonia</a></h1>
         
-            <span class="version">v0.0.5</span>
+            <span class="version">v0.0.6</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -63,19 +63,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>DefaultLogger<span class="signature">(context, _parent, _opts)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>FFmpegInput<span class="signature">(url, options)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Class representing a Console-based default logger.</p>
-<p>You can replace this logger with any logger that supports the following methods:</p>
-<ul>
-<li><code>trace</code></li>
-<li><code>debug</code></li>
-<li><code>info</code></li>
-<li><code>warn</code></li>
-<li><code>error</code></li>
-<li><code>fatal</code></li>
-</ul>
-<p>To specify a different logger, specify a <code>logger</code> option when using <a href="global.html#getConfig"><code>getConfig</code></a>.</p></div>
+            <div class="class-description"><p>Class representing an FFmpeg input file (<code>-i</code>)</p></div>
         
     
 </header>
@@ -88,14 +78,14 @@
 
 <dt>
     
-        <h4 class="name" id="DefaultLogger">
+        <h4 class="name" id="FFmpegInput">
             
-                new <span class="type-signature"></span>DefaultLogger<span class="signature">(context, _parent, _opts)</span><span class="type-signature"></span>
+                new <span class="type-signature"></span>FFmpegInput<span class="signature">(url, options)</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line53">line 53</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line20">line 20</a></code>
             </div>
             
         </h4>
@@ -107,7 +97,7 @@
 
     
     <div class="description">
-        <p>Create a new DefaultLogger instance</p>
+        <p>Create an input for an FFmpeg command</p>
     </div>
     
 
@@ -143,13 +133,19 @@
 
         <tr>
             
-                <td class="name"><code>context</code></td>
+                <td class="name"><code>url</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="FilterNode.html">FilterNode</a></span>
+|
+
+<span class="param-type"><a href="FilterGraph.html">FilterGraph</a></span>
 
 
             
@@ -159,37 +155,14 @@
 
             
 
-            <td class="description last"><p>the context for this logger instance</p></td>
+            <td class="description last"><p>the address of the input file, or a filter object to use as input</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>_parent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="DefaultLogger.html">DefaultLogger</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(optional) the parent logger instance</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_opts</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
@@ -205,7 +178,7 @@
 
             
 
-            <td class="description last"><p>an options object for the logger</p></td>
+            <td class="description last"><p>the options for the input</p></td>
         </tr>
 
     
@@ -228,6 +201,81 @@
     
 
     
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the url for the input, post-validation</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the options for the input, post-validation</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 <dl class="details">
@@ -291,12 +339,12 @@
             
 
 <dt>
-<h4 class="name" id=".LOG_LEVELS">
-    <span class="type-signature"><span class="icon green">static</span> </span>LOG_LEVELS<span class="type-signature"></span>
+<h4 class="name" id="inputLabel">
+    <span class="type-signature"></span>inputLabel<span class="type-signature"></span>
     
     <div class="container-source members">
-        <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-        <code><a href="lib_util_logger.js.html#line36">line 36</a></code>
+        <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+        <code><a href="lib_ffmpeg_input.js.html#line50">line 50</a></code>
     </div>
     
 </h4>
@@ -306,7 +354,76 @@
 <dd>
     
     <div class="description">
-        <p>Get LOG_LEVELS mapping (key to numeric value)</p>
+        <p>Set the label for this input object.</p>
+    </div>
+    
+
+    <!--
+    
+    -->
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+
+<dt>
+<h4 class="name" id="inputLabel">
+    <span class="type-signature"></span>inputLabel<span class="type-signature"></span>
+    
+    <div class="container-source members">
+        <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+        <code><a href="lib_ffmpeg_input.js.html#line38">line 38</a></code>
+    </div>
+    
+</h4>
+
+
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Return the label for this input object.</p>
     </div>
     
 
@@ -367,14 +484,14 @@
 
 <dt>
     
-        <h4 class="name" id="child">
+        <h4 class="name" id=".validateOptions">
             
-                <span class="type-signature"></span>child<span class="signature">(context)</span><span class="type-signature"> &rarr; {<a href="DefaultLogger.html">DefaultLogger</a>}</span>
+                <span class="type-signature"><span class="icon green">static</span> </span>validateOptions<span class="signature">(options)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="FFmpegOption.html">FFmpegOption</a>>}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line76">line 76</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line180">line 180</a></code>
             </div>
             
         </h4>
@@ -386,7 +503,7 @@
 
     
     <div class="description">
-        <p>Create a child logger connected to this logger</p>
+        <p>Validate the options passed into the constructor</p>
     </div>
     
 
@@ -422,13 +539,179 @@
 
         <tr>
             
-                <td class="name"><code>context</code></td>
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the options for the input</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Array.&lt;<a href="FFmpegOption.html">FFmpegOption</a>></span>
+
+
+
+
+
+- <p>array of validated FFmpegOption objects; errors if invalid</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id=".validateUrl">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>validateUrl<span class="signature">(url)</span><span class="type-signature"> &rarr; {Object}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line149">line 149</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Validate the url passed into the constructor</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="FilterNode.html">FilterNode</a></span>
+|
+
+<span class="param-type"><a href="FilterGraph.html">FilterGraph</a></span>
 
 
             
@@ -438,7 +721,7 @@
 
             
 
-            <td class="description last"><p>the context for this logger instance</p></td>
+            <td class="description last"><p>the url for the input</p></td>
         </tr>
 
     
@@ -466,13 +749,13 @@
 
 
 
-<span class="param-type"><a href="DefaultLogger.html">DefaultLogger</a></span>
+<span class="param-type">Object</span>
 
 
 
 
 
-- <p>the logger instance</p>
+- <p>results of the validation; errors if invalid</p>
 
 
 
@@ -527,14 +810,14 @@
 
 <dt>
     
-        <h4 class="name" id="debug">
+        <h4 class="name" id="inspect">
             
-                <span class="type-signature"></span>debug<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {undefined}</span>
+                <span class="type-signature"></span>inspect<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line100">line 100</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line140">line 140</a></code>
             </div>
             
         </h4>
@@ -546,7 +829,7 @@
 
     
     <div class="description">
-        <p>Pass arguments through to debug function on Console</p>
+        <p>Generate a developer-friendly string representing for this FFmpeg input</p>
     </div>
     
 
@@ -556,572 +839,6 @@
 
     
 
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>All arguments for this function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-returns">
-        <h5>Returns:</h5>
-        
-                
-
-
-
-<span class="param-type">undefined</span>
-
-
-
-
-
-- <p>no return value</p>
-
-
-
-
-            
-    </div>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="error">
-            
-                <span class="type-signature"></span>error<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {undefined}</span>
-                
-            
-            <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line136">line 136</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Pass arguments through to error function on Console</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>All arguments for this function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-returns">
-        <h5>Returns:</h5>
-        
-                
-
-
-
-<span class="param-type">undefined</span>
-
-
-
-
-
-- <p>no return value</p>
-
-
-
-
-            
-    </div>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="fatal">
-            
-                <span class="type-signature"></span>fatal<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {undefined}</span>
-                
-            
-            <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line148">line 148</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Pass arguments through to error function on Console</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>All arguments for this function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-returns">
-        <h5>Returns:</h5>
-        
-                
-
-
-
-<span class="param-type">undefined</span>
-
-
-
-
-
-- <p>no return value</p>
-
-
-
-
-            
-    </div>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="format">
-            
-                <span class="type-signature"></span>format<span class="signature">(stuff)</span><span class="type-signature"> &rarr; {string}</span>
-                
-            
-            <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line161">line 161</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Format any object (including nested ones) for readable output in the logs</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>stuff</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">any</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the thing to be formatted for inclusion in the logs</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
     
 
     
@@ -1148,7 +865,7 @@
 
 
 
-- <p>formatted string version of the input</p>
+- <p>the string representation</p>
 
 
 
@@ -1203,14 +920,14 @@
 
 <dt>
     
-        <h4 class="name" id="info">
+        <h4 class="name" id="markTrackMapped">
             
-                <span class="type-signature"></span>info<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {undefined}</span>
+                <span class="type-signature"></span>markTrackMapped<span class="signature">(track)</span><span class="type-signature"> &rarr; {void}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line112">line 112</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line75">line 75</a></code>
             </div>
             
         </h4>
@@ -1222,7 +939,7 @@
 
     
     <div class="description">
-        <p>Pass arguments through to info function on Console</p>
+        <p>Mark a track/stream on this input as mapped</p>
     </div>
     
 
@@ -1246,8 +963,6 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -1260,33 +975,23 @@
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>track</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">number</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>All arguments for this function</p></td>
+            <td class="description last"><p>the track index to mark as mapped</p></td>
         </tr>
 
     
@@ -1314,13 +1019,11 @@
 
 
 
-<span class="param-type">undefined</span>
+<span class="param-type">void</span>
 
 
 
 
-
-- <p>no return value</p>
 
 
 
@@ -1375,14 +1078,14 @@
 
 <dt>
     
-        <h4 class="name" id="trace">
+        <h4 class="name" id="nextAvailableOutputTrack">
             
-                <span class="type-signature"></span>trace<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {undefined}</span>
+                <span class="type-signature"></span>nextAvailableOutputTrack<span class="signature">(options)</span><span class="type-signature"> &rarr; {number}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line88">line 88</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line90">line 90</a></code>
             </div>
             
         </h4>
@@ -1394,7 +1097,7 @@
 
     
     <div class="description">
-        <p>Pass arguments through to trace function on Console</p>
+        <p>Get next available unmapped track, optionally specifying streamType</p>
     </div>
     
 
@@ -1418,9 +1121,9 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -1432,33 +1135,32 @@
 
         <tr>
             
-                <td class="name"><code>args</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">null</span>
+|
+
+<span class="param-type">Object</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
 
+            
+                <td class="default">
                 
-
-                
-                    &lt;repeatable><br>
+                    null
                 
                 </td>
             
 
-            
-
-            <td class="description last"><p>All arguments for this function</p></td>
+            <td class="description last"><p>an options object</p></td>
         </tr>
 
     
@@ -1486,13 +1188,15 @@
 
 
 
-<span class="param-type">undefined</span>
+<span class="param-type">number</span>
 
 
 
 
 
-- <p>no return value</p>
+- <ul>
+<li>the track number</li>
+</ul>
 
 
 
@@ -1547,14 +1251,14 @@
 
 <dt>
     
-        <h4 class="name" id="warn">
+        <h4 class="name" id="toCommandArray">
             
-                <span class="type-signature"></span>warn<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {undefined}</span>
+                <span class="type-signature"></span>toCommandArray<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line124">line 124</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line109">line 109</a></code>
             </div>
             
         </h4>
@@ -1566,7 +1270,7 @@
 
     
     <div class="description">
-        <p>Pass arguments through to warn function on Console</p>
+        <p>Generate the command array segment for this FFmpeg input</p>
     </div>
     
 
@@ -1576,68 +1280,6 @@
 
     
 
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>All arguments for this function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
     
 
     
@@ -1658,13 +1300,233 @@
 
 
 
-<span class="param-type">undefined</span>
+<span class="param-type">Array</span>
 
 
 
 
 
-- <p>no return value</p>
+- <p>the command array segment</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="toCommandString">
+            
+                <span class="type-signature"></span>toCommandString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line122">line 122</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Generate the command string segment for this FFmpeg input</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">string</span>
+
+
+
+
+
+- <p>the command string segment</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="toString">
+            
+                <span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line132">line 132</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Generate a developer-friendly string representing for this FFmpeg input</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">string</span>
+
+
+
+
+
+- <p>the string representation</p>
 
 
 
@@ -1739,7 +1601,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'DefaultLogger_sub'.replace(/"/g, '_');
+        var id = 'FFmpegInput_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

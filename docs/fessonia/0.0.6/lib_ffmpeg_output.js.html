@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tutorial: License | fessonia</title>
+    <title>Source: lib/ffmpeg_output.js | fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -32,7 +34,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">fessonia</a></h1>
         
-            <span class="version">v0.0.5</span>
+            <span class="version">v0.0.6</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -56,22 +58,97 @@
 <div class="main" id="main">
     
 
-<section>
-    <header>
-        
 
-        <h2>License</h2>
-    </header>
 
     
-        <article class="readme">
-            <p>Copyright © 2019 TED Conferences</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const config = new require('./util/config')(),
+  logger = config.logger('FFmpegOutput');
+
+/** Class representing an FFmpeg output file */
+class FFmpegOutput {
+  /**
+   * Create an output for an FFmpeg command
+   * @param {string} url - the location of the output file
+   * @param {Object} options - the options for the output 
+   */
+  constructor (url, options = new Map()) {
+    if (!url) {
+      throw new Error('Invalid arguments: url parameter is required');
+    }
+    this.url = url;
+    this.options = FFmpegOutput.validateOptions(options);
+  }
+
+  /**
+   * Generate the command array segment for this FFmpeg output
+   * @return {Array} the command array segment
+   */
+  toCommandArray () {
+    // Note: FFmpeg options on outputs prepend the output filename
+    let cmd = [];
+    this.options.forEach((o) => { cmd = cmd.concat(o.toCommandArray()); });
+    cmd.push(`${this.url}`);
+    return cmd;
+  }
+
+  /**
+   * Generate the command string segment for this FFmpeg output
+   * @return {string} the command string segment
+   */
+  toCommandString () {
+    return this.toCommandArray()
+      .map((elt) => elt.startsWith('-') ? elt : `"${elt.replace(/\"/g, '\\"')}"`)
+      .join(' ');
+  }
+
+  /**
+   * 
+   * @param {Object} options - the options to be added to the output
+   * @returns {void}
+   */
+  addOptions (options) {
+    const optObjects = FFmpegOutput.validateOptions(options);
+    this.options = this.options.concat(optObjects);
+  }
+  
+  /**
+   * Validate the options passed into the constructor
+   * @param {Object} options - the options for the output
+   * @return {Array&lt;FFmpegOption>} array of validated FFmpegOption objects
+   */
+  static validateOptions (options) {
+    const FFmpegOption = FFmpegOutput._loadFFmpegOption();
+    logger.info(`Validating options: ${JSON.stringify(options)}`);
+    let opts = options;
+    if (!(opts instanceof Map)) {
+      opts = new Map(Object.entries(options));
+    }
+    const ctx = FFmpegOption.FFmpegOptionContexts.OUTPUT;
+    const optObjects = Array.from(opts)
+      .map(([name, arg]) => new FFmpegOption(name, ctx, arg));
+    logger.info(`Completed validating options: ${JSON.stringify(optObjects)}`);
+    return (optObjects);
+  }
+
+  /**
+   * Load the FFmpegOption class and return it
+   * 
+   * @returns {FFmpegOption} - the FFmpegOption class
+   *
+   * @private
+   */
+  static _loadFFmpegOption () {
+    return require('./ffmpeg_option');
+  }
+}
+
+module.exports = FFmpegOutput;
+</code></pre>
         </article>
-    
-</section>
+    </section>
+
 
 
 
@@ -87,7 +164,13 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        showLnbExamples();
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
     </script>
 
 </body>

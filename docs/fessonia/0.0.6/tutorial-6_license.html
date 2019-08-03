@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/ffmpeg_option.js | fessonia</title>
+    <title>Tutorial: License | fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -34,7 +32,7 @@
     <div class="title">
         <h1><a href="index.html" class="link">fessonia</a></h1>
         
-            <span class="version">v0.0.5</span>
+            <span class="version">v0.0.6</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -58,134 +56,22 @@
 <div class="main" id="main">
     
 
+<section>
+    <header>
+        
 
+        <h2>License</h2>
+    </header>
 
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * FFmpegOption
- * @private
- */
-
-const FilterGraph = require('./filter_graph');
-
-/**
- * Enumeration of option context values
- *
- * @private
- */
-const OPTION_CONTEXTS = {
-  GLOBAL: 0,
-  INPUT: 1,
-  OUTPUT: 2
-};
-
-/**
- * List of option names that refer to filters
- *
- * @private
- */
-const FILTER_OPTIONS = [
-  'filter',
-  'filter:v',
-  'vf',
-  'filter:a',
-  'af',
-  'filter_complex',
-  'lavfi'
-];
-
-/**
- * Class representing an FFmpeg option
- * 
- * NOTE: This class is for internal use, intended for validation and 
- * serialization of options added to an FFmpeg command. It is not 
- * intended for use as a library interface to other code.
- *
- * @private
- */
-class FFmpegOption {
-  /**
-   * Create an option for an FFmpeg command
-   * @param {string} name - the option name
-   * @param {FFmpegOption.FFmpegOptionContexts} context - the context in which to apply the option
-   * @param {string|FilterGraph} arg - the argument for this option (default: null)
-   */
-  constructor (name, context, arg = null) {
-    if (FILTER_OPTIONS.includes(name) &amp;&amp; arg instanceof FilterGraph) {
-      name = 'filter_complex';
-      this.filterGraph = arg;
-      arg = arg.toString();
-      context = FFmpegOption.FFmpegOptionContexts.GLOBAL;
-    }
-    const validated = this.validate(name, context, arg);
-    this.name = validated.name;
-    this.optionName = `-${validated.name}`;
-    this.arg = validated.arg;
-    this.context = validated.context;
-  }
-
-  /**
-   * Generate the command array segment for this FFmpeg option
-   * @return {Array} the command array segment
-   */
-  toCommandArray () {
-    if (this.arg === null) { return [this.optionName]; }
-    return [this.optionName, this.arg];
-  }
-
-  /**
-   * Generate the command string segment for this FFmpeg option
-   * @return {string} the command string segment
-   */
-  toCommandString () {
-    if (this.arg === null) { return this.optionName; }
-    return `${this.optionName} ${this.arg}`;
-  }
-
-  /**
-   * Validate input for this FFmpeg Option
-   * @param {string} name - the option name
-   * @param {FFmpegOption.FFmpegOptionContexts} context - the context in which to apply the option
-   * @param {string} arg - the argument for this option
-   * 
-   * @returns {Object} - validated values; throws error if invalid
-   */
-  validate (name, context, arg) {
-    if (!Object.values(FFmpegOption.FFmpegOptionContexts).includes(context)) {
-      throw new Error('InvalidArgument: context must be one of the enumerations of FFmpegOption.FFmpegOptionContexts');
-    }
-    if (arg === undefined) {
-      arg = null;
-    }
-    if (typeof arg !== 'string' &amp;&amp; arg !== null) {
-      if (arg instanceof Map || Array.isArray(arg)) {
-        throw new Error('InvalidArgument: arg must be a string value or null, or must be a single-value type and have a toString method');
-      } else if (arg.toString !== undefined &amp;&amp; typeof arg.toString === 'function' &amp;&amp; arg.toString() !== '[object Object]') {
-        arg = arg.toString();
-      } else {
-        throw new Error('InvalidArgument: arg must be a string value or null, or must have a toString method');
-      }
-    }
-    // TODO: validate that option name is valid for given context (via FFmpeg help)
-    // TODO: validate that arg value is valid for option name
-    return {
-      name: name,
-      context: context,
-      arg: arg
-    };
-  }
-}
-
-FFmpegOption.FFmpegOptionContexts = OPTION_CONTEXTS;
-FFmpegOption.FFmpegFilterOptions = FILTER_OPTIONS;
-
-module.exports = FFmpegOption;
-</code></pre>
+        <article class="readme">
+            <p>Copyright © 2019 TED Conferences</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
         </article>
-    </section>
-
+    
+</section>
 
 
 
@@ -201,13 +87,7 @@ module.exports = FFmpegOption;
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = '_sub'.replace(/"/g, '_');
-        var selectedApi = document.getElementById(id); // do not use jquery selector
-        var $selectedApi = $(selectedApi);
-
-        $selectedApi.removeClass('hidden');
-        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-        showLnbApi();
+        showLnbExamples();
     </script>
 
 </body>
