@@ -13,7 +13,7 @@ body {
   font-style: italic;
 }
 .lnb .lnb-api a,
-.lnb .lnb-api a h3,
+.lnb .lnb-api h3 a,
 .lnb .lnb-examples a {
   color: #f68e01;
 }
