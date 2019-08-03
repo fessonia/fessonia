@@ -1,6 +1,6 @@
 {
   "name": "fessonia",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A node module easing the burden of automating ffmpeg from node.js",
   "main": "index.js",
   "private": false,
@@ -34,7 +34,6 @@
   "homepage": "https://github.com/tedconf/ffmpeg-filtergraph#readme",
   "devDependencies": {
     "chai": "^4.2.0",
-    "docdash": "^1.1.1",
     "eslint": "^5.8.0",
     "istanbul": "^0.4.5",
     "jsdoc": "^3.6.3",
@@ -43,7 +42,5 @@
     "sinon": "^7.1.1",
     "tui-jsdoc-template": "^1.2.2"
   },
-  "dependencies": {
-    "braintree-jsdoc-template": "^3.3.0"
-  }
+  "dependencies": {}
 }
