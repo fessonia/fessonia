@@ -1,0 +1,27 @@
+body {
+  font-size: 16px;
+}
+
+.lnb {
+  color: #f3f3f3;
+}
+.lnb h1 {
+  display: none;
+}
+.lnb h3 {
+  color: #f68e01;
+  font-style: italic;
+}
+.lnb .lnb-api a, .lnb .lnb-examples a {
+  color: #f68e01;
+}
+.lnb .member-type {
+  color: #00beaa
+}
+
+footer {
+  background-color: #000;
+}
+footer img.logo {
+  display: none;
+}

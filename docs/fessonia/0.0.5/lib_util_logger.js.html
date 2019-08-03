@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: lib/util/logger.js | fessonia</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+        
+            <link type="text/css" rel="stylesheet" href="overrides.css">
+        
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 250px; height: 94px">
+        
+            <a href="index.html" rel="noopener noreferrer" target="_blank">
+                <img src="../../img/Fessonia_logo.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">fessonia</a></h1>
+        
+            <span class="version">v0.0.5</span>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+        <ol class="lnb-tab">
+            <li id="api-tab">
+                <a href="#"><h4>API</h4></a>
+            </li>
+            <li id="examples-tab">
+                <a href="#"><h4>Guides</h4></a>
+            </li>
+        </ol>
+    
+    <div class="lnb-examples hidden"><h3>Guides</h3><ul><li><a href="tutorial-0_getting_started.html">Getting Started with Fessonia</a><div class="hidden" id="0_getting_started_sub"></div></li><li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a><div class="hidden" id="1_example_overlay_images_sub"></div></li><li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a><div class="hidden" id="2_example_generate_test_video_sub"></div></li><li><a href="tutorial-3_about_fessonia.html">About Fessonia</a><div class="hidden" id="3_about_fessonia_sub"></div></li><li><a href="tutorial-4_contributing.html">Contributing to Fessonia</a><div class="hidden" id="4_contributing_sub"></div></li><li><a href="tutorial-5_code_of_conduct.html">Code of Conduct</a><div class="hidden" id="5_code_of_conduct_sub"></div></li><li><a href="tutorial-6_license.html">License</a><div class="hidden" id="6_license_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="DefaultLogger.html">DefaultLogger</a><div class="hidden" id="DefaultLogger_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="DefaultLogger.html#.LOG_LEVELS">LOG_LEVELS</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="DefaultLogger.html#child">child</a></li><li><a href="DefaultLogger.html#debug">debug</a></li><li><a href="DefaultLogger.html#error">error</a></li><li><a href="DefaultLogger.html#fatal">fatal</a></li><li><a href="DefaultLogger.html#format">format</a></li><li><a href="DefaultLogger.html#info">info</a></li><li><a href="DefaultLogger.html#trace">trace</a></li><li><a href="DefaultLogger.html#warn">warn</a></li></ul></div></li><li><a href="FFmpegCommand.html">FFmpegCommand</a><div class="hidden" id="FFmpegCommand_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegCommand.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegCommand.html#addFilterGraph">addFilterGraph</a></li><li><a href="FFmpegCommand.html#addInput">addInput</a></li><li><a href="FFmpegCommand.html#addOutput">addOutput</a></li><li><a href="FFmpegCommand.html#connect">connect</a></li><li><a href="FFmpegCommand.html#execute">execute</a></li><li><a href="FFmpegCommand.html#filterGraphs">filterGraphs</a></li><li><a href="FFmpegCommand.html#getMappingParameterValue">getMappingParameterValue</a></li><li><a href="FFmpegCommand.html#inputs">inputs</a></li><li><a href="FFmpegCommand.html#mappedIO">mappedIO</a></li><li><a href="FFmpegCommand.html#outputs">outputs</a></li><li><a href="FFmpegCommand.html#processMappings">processMappings</a></li><li><a href="FFmpegCommand.html#spawn">spawn</a></li><li><a href="FFmpegCommand.html#toCommand">toCommand</a></li><li><a href="FFmpegCommand.html#toString">toString</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegCommand.html#event:error">error</a></li><li><a href="FFmpegCommand.html#event:failure">failure</a></li><li><a href="FFmpegCommand.html#event:success">success</a></li></ul></div></li><li><a href="FFmpegInput.html">FFmpegInput</a><div class="hidden" id="FFmpegInput_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegInput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegInput.html#.validateUrl">validateUrl</a></li><li><a href="FFmpegInput.html#inspect">inspect</a></li><li><a href="FFmpegInput.html#markTrackMapped">markTrackMapped</a></li><li><a href="FFmpegInput.html#nextAvailableOutputTrack">nextAvailableOutputTrack</a></li><li><a href="FFmpegInput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegInput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegInput.html#toString">toString</a></li></ul></div></li><li><a href="FFmpegOutput.html">FFmpegOutput</a><div class="hidden" id="FFmpegOutput_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegOutput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegOutput.html#addOptions">addOptions</a></li><li><a href="FFmpegOutput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegOutput.html#toCommandString">toCommandString</a></li></ul></div></li><li><a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a><div class="hidden" id="FFmpegProgressEmitter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#._parseTimestamp">_parseTimestamp</a></li><li><a href="FFmpegProgressEmitter.html#_write">_write</a></li><li><a href="FFmpegProgressEmitter.html#last">last</a></li><li><a href="FFmpegProgressEmitter.html#logData">logData</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#event:update">update</a></li></ul></div></li><li><a href="FilterGraph.html">FilterGraph</a><div class="hidden" id="FilterGraph_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterGraph.html#connect">connect</a></li><li><a href="FilterGraph.html#connectInput">connectInput</a></li><li><a href="FilterGraph.html#connectNodes">connectNodes</a></li><li><a href="FilterGraph.html#findOutputNodes">findOutputNodes</a></li><li><a href="FilterGraph.html#processConnections">processConnections</a></li><li><a href="FilterGraph.html#processInputPads">processInputPads</a></li><li><a href="FilterGraph.html#processOutputPads">processOutputPads</a></li><li><a href="FilterGraph.html#toString">toString</a></li><li><a href="FilterGraph.html#validateNodeTypes">validateNodeTypes</a></li></ul></div></li><li><a href="FilterNode.html">FilterNode</a><div class="hidden" id="FilterNode_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterNode.html#.initialize">initialize</a></li><li><a href="FilterNode.html#inspect">inspect</a></li><li><a href="FilterNode.html#markInputPadMapped">markInputPadMapped</a></li><li><a href="FilterNode.html#markOutputPadMapped">markOutputPadMapped</a></li><li><a href="FilterNode.html#nextAvailableInputPadIndex">nextAvailableInputPadIndex</a></li><li><a href="FilterNode.html#nextAvailableOutputPadIndex">nextAvailableOutputPadIndex</a></li><li><a href="FilterNode.html#toString">toString</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#FFmpegEnumerations">FFmpegEnumerations</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getLogger">getLogger</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// const config = require('./config')();
+const path = require('path');
+
+/**
+ * Base context for this logger - defaults to app name via npm; app name per package.json; then "application"
+ * @private
+ */
+const _npmPkgName = process.env.npm_package_name;
+let pkgJsonName;
+try {
+  pkgJsonName = require(path.join(path.dirname(require.main.filename), 'package.json')).name;
+} catch (e) {
+  pkgJsonName = undefined;
+}
+let baseContext = ( _npmPkgName ? _npmPkgName : ( pkgJsonName ? pkgJsonName : 'application'));
+module.exports.baseContext = baseContext;
+
+/**
+ * Class representing a Console-based default logger.
+ * 
+ * You can replace this logger with any logger that supports the following methods:
+ * * `trace`
+ * * `debug`
+ * * `info`
+ * * `warn`
+ * * `error`
+ * * `fatal`
+ *
+ * To specify a different logger, specify a `logger` option when using {@linkcode getConfig}.
+ */
+class DefaultLogger {
+  /**
+   * Get LOG_LEVELS mapping (key to numeric value)
+   * @returns {Object} the mapping
+   */
+  static get LOG_LEVELS () {
+    return {
+      TRACE: 0,
+      DEBUG: 10,
+      INFO: 20,
+      WARN: 30,
+      ERROR: 40,
+      FATAL: 50
+    };
+  }
+
+  /**
+   * Create a new DefaultLogger instance
+   * @param {string} context - the context for this logger instance
+   * @param {DefaultLogger} _parent - (optional) the parent logger instance
+   * @param {Object} _opts - an options object for the logger
+   */
+  constructor (context, _parent = undefined, _opts = {}) {
+    if (!!_parent &amp;&amp; !(_parent instanceof DefaultLogger)) {
+      throw new Error('InvalidArguments: _parent must be an instance of DefaultLogger');
+    }
+    if (!!_opts.level &amp;&amp; DefaultLogger.LOG_LEVELS.hasOwnProperty(_opts.level)) {
+      this.level = DefaultLogger.LOG_LEVELS[_opts.level];
+    } else if (!!process.env.LOG_LEVEL &amp;&amp; DefaultLogger.LOG_LEVELS.hasOwnProperty(process.env.LOG_LEVEL)) {
+      this.level = DefaultLogger.LOG_LEVELS[process.env.LOG_LEVEL];
+    } else {
+      this.level = DefaultLogger.LOG_LEVELS['INFO'];
+    }
+    this.context = context;
+    this._parent = _parent;
+    this.options = _opts;
+    this._children = [];
+  }
+
+  /**
+   * Create a child logger connected to this logger
+   * @param {string} context - the context for this logger instance
+   * 
+   * @returns {DefaultLogger} the logger instance
+   */
+  child (context) {
+    const childLogger = new DefaultLogger(context, _parent = this, _opts = this.options);
+    this._children.push(childLogger);
+    return childLogger;
+  }
+
+  /**
+   * Pass arguments through to trace function on Console
+   * @param {...Array} args - All arguments for this function
+   * 
+   * @returns {undefined} no return value
+   */
+  trace (...args) {
+    if (this.level &lt;= DefaultLogger.LOG_LEVELS['TRACE']) {
+      // eslint-disable-next-line no-console
+      console.trace.apply(console, args);
+    }
+  }
+  /**
+   * Pass arguments through to debug function on Console
+   * @param {...Array} args - All arguments for this function
+   * 
+   * @returns {undefined} no return value
+   */
+  debug (...args) {
+    if (this.level &lt;= DefaultLogger.LOG_LEVELS['DEBUG']) {
+      // eslint-disable-next-line no-console
+      console.log.apply(console, args);
+    }
+  }
+  /**
+   * Pass arguments through to info function on Console
+   * @param {...Array} args - All arguments for this function
+   * 
+   * @returns {undefined} no return value
+   */
+  info (...args) {
+    if (this.level &lt;= DefaultLogger.LOG_LEVELS['INFO']) {
+      // eslint-disable-next-line no-console
+      console.info.apply(console, args);
+    }
+  }
+  /**
+   * Pass arguments through to warn function on Console
+   * @param {...Array} args - All arguments for this function
+   * 
+   * @returns {undefined} no return value
+   */
+  warn (...args) {
+    if (this.level &lt;= DefaultLogger.LOG_LEVELS['WARN']) {
+      // eslint-disable-next-line no-console
+      console.warn.apply(console, args);
+    }
+  }
+  /**
+   * Pass arguments through to error function on Console
+   * @param {...Array} args - All arguments for this function
+   * 
+   * @returns {undefined} no return value
+   */
+  error (...args) {
+    if (this.level &lt;= DefaultLogger.LOG_LEVELS['ERROR']) {
+      // eslint-disable-next-line no-console
+      console.error.apply(console, args);
+    }
+  }
+  /**
+   * Pass arguments through to error function on Console
+   * @param {...Array} args - All arguments for this function
+   * 
+   * @returns {undefined} no return value
+   */
+  fatal (...args) {
+    if (this.level &lt;= DefaultLogger.LOG_LEVELS['FATAL']) {
+      // eslint-disable-next-line no-console
+      console.error.apply(console, args);
+    }
+  }
+
+  /**
+   * Format any object (including nested ones) for readable output in the logs
+   * @param {any} stuff - the thing to be formatted for inclusion in the logs
+   * 
+   * @return {string} formatted string version of the input
+   */
+  format (stuff) {
+    if (typeof stuff === 'undefined' || stuff === null) {
+      return stuff;
+    }
+    if (typeof stuff === 'string') {
+      return `"${stuff}"`;
+    }
+    if (Array.isArray(stuff)) {
+      return `[${stuff.map((e) => this.format(e)).join(',')}]`;
+    }
+    if (stuff instanceof Map) {
+      return `Map${this.format([...stuff.entries()])}`;
+    }
+    if (typeof stuff === 'function') {
+      return 'function (...) {...}';
+    }
+    if (typeof stuff === 'object') {
+      if (typeof stuff.inspect === 'function') {
+        return stuff.inspect();
+      }
+      return `{${Object.keys(stuff).map((k) => (stuff.hasOwnProperty(k) ? `"${k}": ${this.format(stuff[k])}` : ''))}}`;
+    }
+    return stuff.toString();
+  }
+}
+
+/**
+ * Get a logger instance
+ * @param {string} context - context name for the logger
+ * @param {class} loggerType - the logger class to use when creating a logger (optional, default: DefaultLogger, requires: parentLogger = null)
+ * @param {DefaultLogger} parentLogger - the logger instance for which you would like to create a child logger (optional, default: base logger created by this module)
+ * 
+ * @returns {Object} logger instance
+ */
+const getLogger = function (context = 'root',
+  loggerType = DefaultLogger,
+  parentLogger = module.exports.baseLogger) {
+  if (parentLogger === null || typeof parentLogger === 'undefined') {
+    return new loggerType(`${module.exports.baseContext}:${context}`);
+  } else if (parentLogger.hasOwnProperty('child')) {
+    return parentLogger.child(`${module.exports.baseContext}:${context}`);
+  }
+  return parentLogger;
+}; 
+
+/**
+ * Create the base logger.
+ * @private
+ */
+let _logger;
+if (module.exports.baseLogger === undefined) {
+  _logger = new DefaultLogger(`${module.exports.baseContext}:root`, null);
+  module.exports.baseLogger = _logger;
+  _logger.info(`Created logger and registered as base logger: ${_logger.format(_logger)}`);
+} else {
+  _logger = module.exports.baseLogger;
+  _logger.info(`Using logger already available in config module: ${_logger.format(_logger)}`);
+}
+
+/**
+ * Check that all required interface methods exist on the specified logger.
+  * @private
+ */
+const _missing_methods = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
+  .filter((method) => {
+    // logger.debug(method, logger, typeof logger[method], logger[method]);
+    return (typeof _logger[method] !== 'function');
+  });
+
+// logger.debug(`filter complete : _missing_methods = ${JSON.stringify(_missing_methods)}`);
+if (_missing_methods.length > 0) {
+  throw new Error(`Specified logger is missing the following logger interface methods: ${_logger.format(_missing_methods)}`);
+}
+
+module.exports = getLogger;
+module.exports.DefaultLogger = DefaultLogger;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="../../img/Fessonia_logo.png" style="width: 250px; height: 94px">
+    <div class="footer-text">Made with ♥️ by TED</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>

@@ -1,3 +1,8 @@
+/**
+ * @description "Fessonia"
+ * @author "Ryan B. Harvey <ryan.b.harvey@ted.com>"
+ */
+
 module.exports = {
   FFmpegCommand: require('./lib/ffmpeg_command'),
   FFmpegInput: require('./lib/ffmpeg_input'),

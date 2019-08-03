@@ -1,13 +1,14 @@
 {
   "name": "fessonia",
-  "version": "0.0.5",
-  "description": "A node module for modeling FFmpeg commands and working with FFmpeg",
+  "version": "0.0.6",
+  "description": "A node module easing the burden of automating ffmpeg from node.js",
   "main": "index.js",
   "private": false,
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info test/*.test.js",
     "lint": "./node_modules/.bin/eslint ./{lib,test}/**/*.js",
-    "watch": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info --watch test/*.test.js"
+    "watch": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info --watch test/*.test.js",
+    "generate-docs": "scripts/generate-docs.sh"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,7 @@
     "lib": "./lib",
     "test": "./test"
   },
-  "author": "Ryan Harvey <ryan.b.harvey@ted.com>",
+  "author": "Ryan B. Harvey <ryan.b.harvey@ted.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tedconf/ffmpeg-filtergraph/issues"
@@ -35,9 +36,11 @@
     "chai": "^4.2.0",
     "eslint": "^5.8.0",
     "istanbul": "^0.4.5",
+    "jsdoc": "^3.6.3",
     "mocha": "^5.2.0",
     "nyc": "^14.1.1",
-    "sinon": "^7.1.1"
+    "sinon": "^7.1.1",
+    "tui-jsdoc-template": "^1.2.2"
   },
   "dependencies": {}
 }

@@ -1,0 +1,56 @@
+{
+  "tags": {
+    "allowUnknownTags": false
+  },
+  "source": {
+    "include": [
+      "./index.js",
+      "./lib",
+      "./docs/tutorials",
+      "./LICENSE"
+    ]
+  },
+  "sourceType": "module",
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "opts": {
+    "template": "node_modules/tui-jsdoc-template",
+    "encoding": "utf8",
+    "destination": "docs/",
+    "recurse": true,
+    "verbose": true,
+    "readme": "./docs/HOME.md",
+    "package": "./package.json",
+    "tutorials": "./docs/tutorials"
+  },
+  "templates": {
+    "logo": {
+      "url": "../../img/Fessonia_logo.png",
+      "link": "index.html",
+      "width": "250px",
+      "height": "94px"
+    },
+    "tabNames": {
+      "api": "API",
+      "tutorials": "Guides"
+    },
+    "footerText": "Made with ♥️ by TED",
+    "useCollapsibles": false,
+    "default": {
+      "staticFiles": {
+        "include": [
+          "./docs/styles",
+          "./docs/img"
+        ]
+      }
+    },
+    "css": [
+      "overrides.css"
+    ],
+    "resources": {
+      "Contribute on Github": "https://github.com/tedconf/fessonia",
+      "Read the FFmpeg Docs": "http://ffmpeg.org/documentation.html"
+    }
+  }
+}
