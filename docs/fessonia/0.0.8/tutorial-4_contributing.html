@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Contributing to Fessonia | @tedconf/fessonia</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+        
+            <link type="text/css" rel="stylesheet" href="overrides.css">
+        
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 250px; height: 94px">
+        
+            <a href="index.html" rel="noopener noreferrer" target="_blank">
+                <img src="../../img/Fessonia_logo.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
+        
+            <span class="version">v0.0.8</span>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+        <ol class="lnb-tab">
+            <li id="api-tab">
+                <a href="#"><h4>API</h4></a>
+            </li>
+            <li id="examples-tab">
+                <a href="#"><h4>Guides</h4></a>
+            </li>
+        </ol>
+    
+    <div class="lnb-examples hidden"><h3>Guides</h3><ul><li><a href="tutorial-0_getting_started.html">Getting Started with Fessonia</a><div class="hidden" id="0_getting_started_sub"></div></li><li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a><div class="hidden" id="1_example_overlay_images_sub"></div></li><li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a><div class="hidden" id="2_example_generate_test_video_sub"></div></li><li><a href="tutorial-3_about_fessonia.html">About Fessonia</a><div class="hidden" id="3_about_fessonia_sub"></div></li><li><a href="tutorial-4_contributing.html">Contributing to Fessonia</a><div class="hidden" id="4_contributing_sub"></div></li><li><a href="tutorial-5_code_of_conduct.html">Code of Conduct</a><div class="hidden" id="5_code_of_conduct_sub"></div></li><li><a href="tutorial-6_license.html">License</a><div class="hidden" id="6_license_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="DefaultLogger.html">DefaultLogger</a><div class="hidden" id="DefaultLogger_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="DefaultLogger.html#.LOG_LEVELS">LOG_LEVELS</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="DefaultLogger.html#child">child</a></li><li><a href="DefaultLogger.html#debug">debug</a></li><li><a href="DefaultLogger.html#error">error</a></li><li><a href="DefaultLogger.html#fatal">fatal</a></li><li><a href="DefaultLogger.html#format">format</a></li><li><a href="DefaultLogger.html#info">info</a></li><li><a href="DefaultLogger.html#trace">trace</a></li><li><a href="DefaultLogger.html#warn">warn</a></li></ul></div></li><li><a href="FFmpegCommand.html">FFmpegCommand</a><div class="hidden" id="FFmpegCommand_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegCommand.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegCommand.html#addFilterGraph">addFilterGraph</a></li><li><a href="FFmpegCommand.html#addInput">addInput</a></li><li><a href="FFmpegCommand.html#addOutput">addOutput</a></li><li><a href="FFmpegCommand.html#connect">connect</a></li><li><a href="FFmpegCommand.html#execute">execute</a></li><li><a href="FFmpegCommand.html#filterGraphs">filterGraphs</a></li><li><a href="FFmpegCommand.html#getMappingParameterValue">getMappingParameterValue</a></li><li><a href="FFmpegCommand.html#inputs">inputs</a></li><li><a href="FFmpegCommand.html#mappedIO">mappedIO</a></li><li><a href="FFmpegCommand.html#outputs">outputs</a></li><li><a href="FFmpegCommand.html#processMappings">processMappings</a></li><li><a href="FFmpegCommand.html#spawn">spawn</a></li><li><a href="FFmpegCommand.html#toCommand">toCommand</a></li><li><a href="FFmpegCommand.html#toString">toString</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegCommand.html#event:error">error</a></li><li><a href="FFmpegCommand.html#event:failure">failure</a></li><li><a href="FFmpegCommand.html#event:success">success</a></li></ul></div></li><li><a href="FFmpegInput.html">FFmpegInput</a><div class="hidden" id="FFmpegInput_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegInput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegInput.html#.validateUrl">validateUrl</a></li><li><a href="FFmpegInput.html#inspect">inspect</a></li><li><a href="FFmpegInput.html#markTrackMapped">markTrackMapped</a></li><li><a href="FFmpegInput.html#nextAvailableOutputTrack">nextAvailableOutputTrack</a></li><li><a href="FFmpegInput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegInput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegInput.html#toString">toString</a></li></ul></div></li><li><a href="FFmpegOutput.html">FFmpegOutput</a><div class="hidden" id="FFmpegOutput_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegOutput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegOutput.html#addOptions">addOptions</a></li><li><a href="FFmpegOutput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegOutput.html#toCommandString">toCommandString</a></li></ul></div></li><li><a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a><div class="hidden" id="FFmpegProgressEmitter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#._parseTimestamp">_parseTimestamp</a></li><li><a href="FFmpegProgressEmitter.html#_write">_write</a></li><li><a href="FFmpegProgressEmitter.html#last">last</a></li><li><a href="FFmpegProgressEmitter.html#logData">logData</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#event:update">update</a></li></ul></div></li><li><a href="FilterGraph.html">FilterGraph</a><div class="hidden" id="FilterGraph_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterGraph.html#connect">connect</a></li><li><a href="FilterGraph.html#connectInput">connectInput</a></li><li><a href="FilterGraph.html#connectNodes">connectNodes</a></li><li><a href="FilterGraph.html#findOutputNodes">findOutputNodes</a></li><li><a href="FilterGraph.html#processConnections">processConnections</a></li><li><a href="FilterGraph.html#processInputPads">processInputPads</a></li><li><a href="FilterGraph.html#processOutputPads">processOutputPads</a></li><li><a href="FilterGraph.html#toString">toString</a></li><li><a href="FilterGraph.html#validateNodeTypes">validateNodeTypes</a></li></ul></div></li><li><a href="FilterNode.html">FilterNode</a><div class="hidden" id="FilterNode_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterNode.html#.initialize">initialize</a></li><li><a href="FilterNode.html#inspect">inspect</a></li><li><a href="FilterNode.html#markInputPadMapped">markInputPadMapped</a></li><li><a href="FilterNode.html#markOutputPadMapped">markOutputPadMapped</a></li><li><a href="FilterNode.html#nextAvailableInputPadIndex">nextAvailableInputPadIndex</a></li><li><a href="FilterNode.html#nextAvailableOutputPadIndex">nextAvailableOutputPadIndex</a></li><li><a href="FilterNode.html#toString">toString</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#FFmpegEnumerations">FFmpegEnumerations</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getLogger">getLogger</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+<section>
+    <header>
+        
+
+        <h2>Contributing to Fessonia</h2>
+    </header>
+
+    
+        <article class="readme">
+            <p>We're so glad you're interested in helping to build this library. Before we get started, there are a few ground rules you should know about to ensure we all have a great experience.</p>
+<h2>Rules of the Road</h2>
+<ul>
+<li><strong>Identify an issue.</strong> When you start looking at implementing something on the library, ensure there's a corresponding Github Issue associated with the bug or feature. If there isn't one, please feel free to create one using one of our issue templates.</li>
+<li><strong>Assign the issue to yourself.</strong> Let others know that you're working on this, so we can avoid several folks working on the same thing.</li>
+<li><strong>Discuss large changes first.</strong> Before putting in a lot of work on a large feature or refactor, please discuss the idea with the maintainers in an Issue conversation. This ensures that what you're intending works with the road map for the library and won't conflict with use cases for the library you may not be aware of at the moment.</li>
+<li><strong>Keep your work scoped.</strong> When tackling a change to the library, be sure to keep your change limited to one particular issue, and don't include commits that are out-of-scope for the Issue you're working on. If you notice something out of scope that needs to be done, please create a new Issue for that.</li>
+<li><strong>Create tests for your code.</strong> Any code you add should have tests that provide proof that your work fixes the issue or correctly implements the feature identified in the Issue. If you need help with this, please ask on the Issue.</li>
+<li><strong>Commit your work with descriptive commit messages.</strong> Ensure that your work is committed to version control with descriptive messages that, to the best of your ability, identify what parts of the library are impacted by the commit.</li>
+<li><strong>Don't squash others' commits.</strong> Everyone deserves credit for the work they've contributed to the library, so please don't squash commits that others have made. That said, if there are several of your own smaller commits that are very similar in nature, you can feel free to squash those into a single commit with a descriptive message that covers all the changes made.</li>
+<li><strong>Run the tests and make sure they pass.</strong> Pull requests that don't pass the test suite will not be merged. If there's something that's not passing tests, please fix it. If you need help, please create a Draft PR (see the next bullet) and ask for assistance.</li>
+<li><strong>Update and regenerate documentation.</strong> Please make sure that if you've modified something that requires an update to the library documentation, you include the updated documentation in your pull request. (To do that, see <em>Generating Documentation</em> below.)</li>
+<li><strong>Submit a pull request.</strong> Once you've pushed up your branch and are ready to create a pull request, please fill out as much of the PR template as you can. If your work is still in progress or not yet passing tests, be sure to create a <em>Draft</em> Pull Request instead of a regular one. (You can do this by clicking the dropdown on the right end of the &quot;Create pull request&quot; button.)</li>
+<li><strong>Be civil and treat others with respect.</strong> Please assume good intent from others and keep your conversation civil in Issue and PR conversations. At TED, we care about maintaining a welcoming and inclusive atmosphere, and that applies to our development practices too. For more details on that, please take a look at our <a href="tutorial-5_code_of_conduct.html">Code of Conduct</a>.</li>
+</ul>
+<h2>Developing on the Library</h2>
+<p>Now, finally, here's a brief guide to getting setup and developing on this library. We look forward to seeing what you contribute!</p>
+<h3>Structure</h3>
+<p>The library is structured in the following folders:</p>
+<ul>
+<li><code>/lib</code> - the location for all library runtime code</li>
+<li><code>/test</code> - the location for all library testing code, including fixtures and test helpers</li>
+<li><code>/scripts</code> - the location for any utility scripts</li>
+<li><code>/docs</code> - the location for generated documentation</li>
+<li><code>/coverage</code> - the location for generated test coverage reports</li>
+</ul>
+<h3>Prerequisites</h3>
+<p>To get started, you'll need an installation of <a href="https://nodejs.org/">node.js</a>, preferably with <a href="https://github.com/nvm-sh/nvm"><code>nvm</code></a> to manage versions (or <a href="https://github.com/coreybutler/nvm-windows"><code>nvm-windows</code></a> if you're using Windows). You'll also need a locally installed <a href="http://ffmpeg.org/"><code>ffmpeg</code></a>.</p>
+<p>The current build version of the library can be seen in the <code>.nvmrc</code> file in the repo root, but the library is also built via Travis CI daily using LTS versions from 8.x up, as well as the most current stable version (12.x at the time of writing).</p>
+<p>For ease of operation, you may also be interested in <a href="https://github.com/wbyoung/avn"><code>avn</code></a>, a tool that auto-selects the version of node used by the project based on the <code>.nvmrc</code> file in the repo root when you enter a directory at the command line.</p>
+<p>You'll also need a package manager for node packages installed. In this document, I'll use <code>npm</code> for reference, but corresponding <code>yarn</code> commands should also work just fine.</p>
+<h3>Setup</h3>
+<p>You may wish to fork this repo in order to contribute. To do so, click the &quot;Fork&quot; button in the top right of <a href="https://github.com/tedconf/fessonia">the main repo page on github.com</a>.</p>
+<p>First, clone this repo locally and enter the directory.</p>
+<pre class="prettyprint source lang-{bash}"><code>git clone git@github.com:tedconf/fessonia.git
+cd fessonia
+</code></pre>
+<p>Change the name of the git remote from <code>origin</code> to <code>upstream</code>, and add your fork of the repo as the <code>origin</code>. (The below command assumes your Github username is in an environment variable <code>GITHUB_USERNAME</code>.)</p>
+<pre class="prettyprint source lang-{bash}"><code>git remote rename origin upstream
+git remote add origin git@github.com:${GITHUB_USERNAME}/fessonia.git
+</code></pre>
+<p>To get setup for development, ensure you're using the correct node version, either via <code>nvm use</code> or automatically via <code>avn</code>.</p>
+<p>Then, install the development dependencies:</p>
+<pre class="prettyprint source lang-{bash}"><code>npm install
+</code></pre>
+<p>To be sure things are working, run the tests:</p>
+<pre class="prettyprint source lang-{bash}"><code>npm test
+</code></pre>
+<h3>Testing</h3>
+<p>All tests are contained in the <code>/test</code> folder, and test files generally end in <code>.test.js</code>.</p>
+<p>For testing, this library uses a combination of <code>mocha</code>, <code>chai</code>, and <code>sinon</code>, with <code>nyc</code> and <code>istanbul</code> for test coverage reporting.</p>
+<h3>Generating Documentation</h3>
+<p>Documentation generation is handled through JSdoc 3. For any code changes you make, you'll need to ensure that the JSdoc comments are up to date and match your changes, then regenerate documentation accordingly.</p>
+<p>Docs generation is handled via a shell script in the <code>/scripts</code> folder, but can be run via the <code>npm</code> task:</p>
+<pre class="prettyprint source lang-{bash}"><code>npm run generate-docs
+</code></pre>
+<h3>Continuous Integration via Travis CI</h3>
+<p>Travis CI is setup to run a build against LTS node versions 8.x and up, as well as the latest stable node version, on each commit to any branch on the repo and each pull request submitted against the repo.</p>
+<p>Travis CI also runs a similar build at least once daily to ensure that the build doesn't break due to lack of maintenance. This cron-based build is only run if there has not been a build in the last 24 hours.</p>
+<p>You can see the results of Travis CI runs at <a href="https://travis-ci.com/tedconf/fessonia">https://travis-ci.com/tedconf/fessonia</a>.</p>
+        </article>
+    
+</section>
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="../../img/Fessonia_logo.png" style="width: 250px; height: 94px">
+    <div class="footer-text">Made with ♥️ by TED</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        showLnbExamples();
+    </script>
+
+</body>
+</html>
