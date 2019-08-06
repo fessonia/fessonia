@@ -3,13 +3,13 @@
 Install via `npm`:
 
 ```{bash}
-npm i fessonia
+npm i @tedconf/fessonia
 ```
 
 Or via `yarn`
 
 ```{bash}
-yarn i fessonia
+yarn i @tedconf/fessonia
 ```
 
 ## Import
@@ -17,13 +17,13 @@ yarn i fessonia
 You can import the whole library:
 
 ```{javascript}
-const fessonia = require('fessonia');
+const fessonia = require('@tedconf/fessonia');
 ```
 
 Or you can use destructuring to import individual classes:
 
 ```{javascript}
-const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('fessonia');
+const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('@tedconf/fessonia');
 ```
 
 ## Understanding the library

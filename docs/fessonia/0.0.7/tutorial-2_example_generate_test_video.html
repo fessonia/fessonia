@@ -75,7 +75,7 @@ filter for video and the <code>sine</code> filter for audio.</p>
   -c:v &quot;libx264&quot; -c:a &quot;aac&quot; -pix_fmt &quot;yuv420p&quot; -aspect &quot;16:9&quot; -vframes &quot;500&quot; &quot;gen.mov&quot;
 </code></pre>
 <p>To do the same using Fessonia in JavaScript, you would do the following.</p>
-<pre class="prettyprint source lang-{javascript}"><code>const { FilterNode, FilterGraph, FFmpegInput, FFmpegOutput, FFmpegCommand } = require('fessonia');
+<pre class="prettyprint source lang-{javascript}"><code>const { FilterNode, FilterGraph, FFmpegInput, FFmpegOutput, FFmpegCommand } = require('@tedconf/fessonia');
 
 // Construct the video filtergraph and corresponding input
 const lifeFilter = new FilterNode({

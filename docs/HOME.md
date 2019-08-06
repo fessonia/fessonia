@@ -2,6 +2,7 @@
 
 <p align="center">
 <a href="https://travis-ci.com/tedconf/fessonia" target="_blank"><img src="https://travis-ci.com/tedconf/fessonia.svg?branch=master" alt="Build Status" title="Build Status" /></a>
+<a href="https://github.com/tedconf/fessonia"><img src="https://img.shields.io/david/tedconf/fessonia" alt="Dependencies" title="Dependencies" /></a>
 </p>
 
 Fessonia is a node module for working with FFmpeg, allowing for modeling inputs, outputs, filtergraphs, and entire ffmpeg commands in JavaScript code.

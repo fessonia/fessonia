@@ -9,6 +9,8 @@ ffmpeg -i input.mov -i logo1.png -i logo2.png -filter_complex 'overlay=x=10:y=ma
 To construct this in JavaScript using the library, you can use the following.
 
 ```{javascript}
+const fessonia = require('@tedconf/fessonia');
+
 // Create command
 const cmd = new fessonia.FFmpegCommand({});
 
@@ -17,7 +19,7 @@ const cmd = new fessonia.FFmpegCommand({});
   .forEach((ffin) => cmd.addInput(new fessonia.FFmpegInput(ffin, {}));
 
 // Generate filtergraph
-const overlay1 = new FilterNode({
+const overlay1 = new fessonia.FilterNode({
   filterName: 'overlay',
   /* args can be specified as named arguments */
   args: [
@@ -25,7 +27,7 @@ const overlay1 = new FilterNode({
     {name: 'y', value: 'main_h-overlay_h-10'}
   ]
 });
-const overlay2 = new FilterNode({
+const overlay2 = new fessonia.FilterNode({
   filterName: 'overlay',
   /* or args can be specified as ordered arguments */
   args: ['main_w-overlay_w-10', 'main_h-overlay_h-10']
