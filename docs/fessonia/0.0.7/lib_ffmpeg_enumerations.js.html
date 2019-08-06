@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Global | fessonia</title>
+    <title>Source: lib/ffmpeg_enumerations.js | @tedconf/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -30,9 +32,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">fessonia</a></h1>
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
         
-            <span class="version">v0.0.6</span>
+            <span class="version">v0.0.7</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -58,514 +60,45 @@
 
 
 
-
-<section>
-
-<header>
-    
-        <h2>Global</h2>
-    
-</header>
-
-<article>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        <dl>
-            
-
-<dt>
-<h4 class="name" id="FFmpegEnumerations">
-    <span class="type-signature"></span>FFmpegEnumerations<span class="type-signature"></span>
-    
-    <div class="container-source members">
-        <code><a href="lib_ffmpeg_enumerations.js.html">lib/ffmpeg_enumerations.js</a></code>,
-        <code><a href="lib_ffmpeg_enumerations.js.html#line5">line 5</a></code>
-    </div>
-    
-</h4>
-
-
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>FFmpeg filter-related constants</p>
-    </div>
-    
-
-    <!--
-    
-    -->
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-    
-</dd>
-
-        </dl>
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-                
-
-<dt>
-    
-        <h4 class="name" id="getConfig">
-            
-                <span class="type-signature"></span>getConfig<span class="signature">(options)</span><span class="type-signature"> &rarr; {Object}</span>
-                
-            
-            <div class="container-source members">
-                <code><a href="lib_util_config.js.html">lib/util/config.js</a></code>,
-                <code><a href="lib_util_config.js.html#line42">line 42</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get the config object, optionally updated with new options</p>
-<p>Options understood by this configuration object include:</p>
-<ul>
-<li><code>ffmpeg_bin</code> - the location of your <code>ffmpeg</code> binary</li>
-<li><code>ffprobe_bin</code> - the location of your <code>ffprobe</code> binary</li>
-<li><code>logger</code> - a function that creates a logger object (see <code>getLogger</code>)</li>
-</ul>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(optional) options object (default: {})</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-returns">
-        <h5>Returns:</h5>
-        
-                
-
-
-
-<span class="param-type">Object</span>
-
-
-
-
-
-- <ul>
-<li>singleton object with config data</li>
-</ul>
-
-
-
-
-            
-    </div>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="global.html#getLogger">getLogger</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            
-                
-
-<dt>
-    
-        <h4 class="name" id="getLogger">
-            
-                <span class="type-signature"></span>getLogger<span class="signature">(context, loggerType, parentLogger)</span><span class="type-signature"> &rarr; {Object}</span>
-                
-            
-            <div class="container-source members">
-                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
-                <code><a href="lib_util_logger.js.html#line195">line 195</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get a logger instance</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>context</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    root
-                
-                </td>
-            
-
-            <td class="description last"><p>context name for the logger</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>loggerType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">class</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>the logger class to use when creating a logger (optional, default: DefaultLogger, requires: parentLogger = null)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>parentLogger</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="DefaultLogger.html">DefaultLogger</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>the logger instance for which you would like to create a child logger (optional, default: base logger created by this module)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-returns">
-        <h5>Returns:</h5>
-        
-                
-
-
-
-<span class="param-type">Object</span>
-
-
-
-
-
-- <p>logger instance</p>
-
-
-
-
-            
-    </div>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-            </dl>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * FFmpeg filter-related constants
+ */
+
+FFmpegEnumerations = {
+  /** Enumeration of filter commands */
+  FilterCommands: {
+    /** Constant value for the '-filter' command option */
+    FILTER: '-filter',
+    /** Constant value for the '-filter_complex' command option */
+    COMPLEX: '-filter_complex',
+  },
+  /** Enumeration of filter I/O types */
+  FilterIOTypes: {
+    /** Constant value representing a filter with both input(s) and output(s) */
+    GENERIC: 0,
+    /** Constant value representing a source filter with only output(s) */
+    SOURCE: 1,
+    /** Constant value representing a sink filter with only input(s) */
+    SINK: 2,
+  },
+  /** Enumeration of filter media types */
+  FilterMediaTypes: {
+    /** Constant value representing non-stream-specified media type */
+    GENERIC: '',
+    /** Constant value representing an audio stream specifier */
+    AUDIO: ':a',
+    /** Constant value representing a video stream specifier */
+    VIDEO: ':v',
+  },
+};
+
+module.exports = FFmpegEnumerations;
+</code></pre>
+        </article>
+    </section>
 
 
 

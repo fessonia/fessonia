@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/util/config.js | fessonia</title>
+    <title>Home | @tedconf/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -32,9 +30,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">fessonia</a></h1>
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
         
-            <span class="version">v0.0.6</span>
+            <span class="version">v0.0.7</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -61,64 +59,35 @@
 
 
     
+
+
+
+
+
+
+
+
+
+    
+
+
     <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const CONFIG_KEY = Symbol.for('FFmpegFiltergraph.Config');
-const DEFAULTS = {
-  ffmpeg_bin: '/usr/local/bin/ffmpeg',
-  ffprobe_bin: '/usr/local/bin/ffprobe',
-  logger: require('./logger')
-};
-const configLogger = DEFAULTS.logger('config');
-const _configData = global[CONFIG_KEY] || DEFAULTS;
-
-const updateConfigWithOptions = function (options) {
-  Object.keys(DEFAULTS).forEach((key) => {
-    if (!this.hasOwnProperty(key)) {
-      Object.defineProperty(this, key, {
-        get: () => _configData[key]
-      });
-    }
-  });
-  Object.keys(options).forEach((key) => {
-    _configData[key] = options[key];
-    if (!this.hasOwnProperty(key)) {
-      Object.defineProperty(this, key, {
-        get: () => _configData[key]
-      });
-    }
-  });
-};
-
-/**
- * Get the config object, optionally updated with new options
- * 
- * Options understood by this configuration object include:
- * * `ffmpeg_bin` - the location of your `ffmpeg` binary
- * * `ffprobe_bin` - the location of your `ffprobe` binary
- * * `logger` - a function that creates a logger object (see &lt;code>getLogger&lt;/code>)
- * @see getLogger
- * 
- * @function
- * @param {Object} options - (optional) options object (default: {})
- * 
- * @returns {Object} - singleton object with config data
- */
-function getConfig (options = {}) {
-  try {
-    updateConfigWithOptions(options);
-    global[CONFIG_KEY] = _configData;
-    configLogger.info(`Created config object: ${configLogger.format(global[CONFIG_KEY])}`);
-  } catch (e) {
-    configLogger.warn(`Invalid attempt to update frozen configuration. Using current config: ${configLogger.format(global[CONFIG_KEY])}`);
-  }
-  return global[CONFIG_KEY];
-};
-
-module.exports = getConfig;
-</code></pre>
-        </article>
+        <article class="readme"><h1 align="center"><img src="Fessonia_logo_social_preview_1280x640.png" alt="Fessonia: easing the burden of automating ffmpeg from node.js" title="Fessonia: easing the burden of automating ffmpeg from node.js" width="100%"/></h1>
+<p align="center">
+<a href="https://travis-ci.com/tedconf/fessonia" target="_blank"><img src="https://travis-ci.com/tedconf/fessonia.svg?branch=master" alt="Build Status" title="Build Status" /></a>
+</p>
+<p>Fessonia is a node module for working with FFmpeg, allowing for modeling inputs, outputs, filtergraphs, and entire ffmpeg commands in JavaScript code.</p>
+<h2>Getting Started</h2>
+<p>For a quick intro to the library, take a look at the <a href="tutorial-0_getting_started.html">Getting Started with Fessonia</a> tutorial.</p>
+<h2>About the Library</h2>
+<p>For an introduction to the design approach of the library, the goals, and other assorted information, take a look at the <a href="tutorial-3_about_fessonia.html">About Fessonia</a> doc.</p>
+<h2>Contributing</h2>
+<p>Your contributions are welcome! To get started developing on this library, take a look at the <a href="tutorial-4_contributing.html">Contributing to Fessonia</a> doc.</p>
+<h2>License</h2>
+<p>This project was made with ♥️ by TED, and is licensed under the MIT license. For more details, see the <a href="tutorial-6_license.html">License</a> file.</p></article>
     </section>
+
+
 
 
 
@@ -135,7 +104,7 @@ module.exports = getConfig;
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = '_sub'.replace(/"/g, '_');
+        var id = 'package:@tedconf/fessonia_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

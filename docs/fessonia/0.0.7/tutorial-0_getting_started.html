@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tutorial: Code of Conduct | fessonia</title>
+    <title>Tutorial: Getting Started with Fessonia | @tedconf/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -30,9 +30,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">fessonia</a></h1>
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
         
-            <span class="version">v0.0.6</span>
+            <span class="version">v0.0.7</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -60,41 +60,106 @@
     <header>
         
 
-        <h2>Code of Conduct</h2>
+        <h2>Getting Started with Fessonia</h2>
     </header>
 
     
         <article class="readme">
-            <h2>Our Pledge</h2>
-<p>In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to making participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.</p>
-<h2>Our Standards</h2>
-<p>Examples of behavior that contributes to creating a positive environment include:</p>
+            <h2>Install</h2>
+<p>Install via <code>npm</code>:</p>
+<pre class="prettyprint source lang-{bash}"><code>npm i fessonia
+</code></pre>
+<p>Or via <code>yarn</code></p>
+<pre class="prettyprint source lang-{bash}"><code>yarn i fessonia
+</code></pre>
+<h2>Import</h2>
+<p>You can import the whole library:</p>
+<pre class="prettyprint source lang-{javascript}"><code>const fessonia = require('fessonia');
+</code></pre>
+<p>Or you can use destructuring to import individual classes:</p>
+<pre class="prettyprint source lang-{javascript}"><code>const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('fessonia');
+</code></pre>
+<h2>Understanding the library</h2>
+<p>If, for example, you wanted convert an <code>mp4</code> video into <code>avi</code> format,
+the <code>ffmpeg</code> CLI command would look like this:</p>
+<pre class="prettyprint source lang-{bash}"><code>ffmpeg -i input.mp4 output.avi
+</code></pre>
+<p>The library constructs this in pieces: first the input, then the output, then the command:</p>
+<pre class="prettyprint source lang-{javascript}"><code>const ffin = new fessonia.FFmpegInput('input.mp4', {});
+const ffout = new fessonia.FFmpegOutput('output.avi', {});
+
+const cmd = new fessonia.FFmpegCommand({});
+cmd.addInput(ffin);
+cmd.addOutput(ffout);
+
+console.log(cmd.toString()); //=> /path/to/ffmpeg -i &quot;input.mp4&quot; &quot;output.avi&quot;
+</code></pre>
+<h3>Events</h3>
+<p>The <code>FFmpegCommand</code> object is an <code>EventEmitter</code>, so you can attach handlers
+for the <code>update</code>, <code>success</code>, <code>failure</code> and <code>error</code> events:</p>
+<pre class="prettyprint source lang-{javascript}"><code>cmd.on('update', (data) => {
+  console.log(`Received update on ffmpeg process:`, data);
+  // handle the update here
+});
+
+cmd.on('success', (data) => {
+  assert(data.exitCode === 0);
+  assert(data.hasOwnProperty('progressData'));
+  console.log(`Completed successfully with exit code ${data.exitCode}`, data.progressData);
+  // handle the success here
+});
+
+cmd.on('failure', (data) => {
+  console.log('Failure in ffmpeg execution', data);
+  // handle the failure here
+});
+
+cmd.on('error', (err) => {
+  console.log(err.message, err.stack);
+  // handle the error here
+});
+</code></pre>
+<h3>Executing the Command</h3>
+<p>To execute the command <strong>synchronously</strong>, you can use the <code>execute</code> method:</p>
+<pre class="prettyprint source lang-{javascript}"><code>cmd.execute();
+</code></pre>
+<p>To execute the command <strong>asynchronously</strong>, you can use the <code>spawn</code> method:</p>
+<pre class="prettyprint source lang-{javascript}"><code>cmd.spawn();
+</code></pre>
+<h2>Why the complexity?</h2>
+<p>With the very simple example above, you may wonder why we need the
+added complexity of the library's objects and classes. As you deal
+with more complex <code>ffmpeg</code> commands, it becomes more and more difficult
+to construct/parse the command syntax, and constructing it in pieces
+makes things much easier.</p>
+<p>There are 5 key pieces you can construct using the library:</p>
 <ul>
-<li>Using welcoming and inclusive language</li>
-<li>Being respectful of differing viewpoints and experiences</li>
-<li>Gracefully accepting constructive criticism</li>
-<li>Focusing on what is best for the community</li>
-<li>Showing empathy towards other community members</li>
+<li><strong>The <code>FFmpegCommand</code> object</strong> -- provides the mechanism for handling global
+scoped options, assembling command components into a complete command,
+executing the command, and reporting progress, success or failure via events.</li>
+<li><strong>The <code>FFmpegInput</code> object</strong> -- handles the construction of an input to the
+<code>ffmpeg</code> command, including inputs using files, URIs or filters as sources.</li>
+<li><strong>The <code>FilterNode</code> object</strong> -- handles the assembly and validation of a single
+filter node in an <code>ffmpeg</code> filter graph.</li>
+<li><strong>The <code>FilterGraph</code> object</strong> -- handles assembling filter nodes into a graph
+usable as an input source or on an output processing chain.</li>
+<li><strong>The <code>FFmpegOutput</code> object</strong> -- handles the construction and validation of
+an output specification for the <code>ffmpeg</code> command, including application of
+output processing options.</li>
 </ul>
-<p>Examples of unacceptable behavior by participants include:</p>
-<ul>
-<li>The use of sexualized language or imagery and unwelcome sexual attention or advances</li>
-<li>Trolling, insulting/derogatory comments, and personal or political attacks</li>
-<li>Public or private harassment</li>
-<li>Publishing others’ private information, such as a physical or electronic address, without explicit permission</li>
-<li>Other conduct which could reasonably be considered inappropriate in a professional setting</li>
-</ul>
-<h2>Our Responsibilities</h2>
-<p>Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.</p>
-<p>Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.</p>
-<h2>Scope</h2>
-<p>This Code of Conduct applies within all project spaces, and it also applies when an individual is representing the project or its community in public spaces. Examples of representing a project or community include using an official project e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event. Representation of a project may be further defined and clarified by project maintainers.</p>
-<h2>Enforcement</h2>
-<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at <a href="mailto:fessonia@ted.com">fessonia@ted.com</a>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.</p>
-<p>Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project’s leadership.</p>
-<h2>Attribution</h2>
-<p>This Code of Conduct is adapted from the Contributor Covenant, version 1.4, available at <a href="https://www.contributor-covenant.org/version/1/4/code-of-conduct.html">https://www.contributor-covenant.org/version/1/4/code-of-conduct.html</a>.</p>
-<p>For answers to common questions about this code of conduct, see <a href="https://www.contributor-covenant.org/faq">https://www.contributor-covenant.org/faq</a>.</p>
+<p>By assembling these pieces, you can construct an <code>ffmpeg</code> command that is
+quite complex with ease.</p>
+<h2>A few more complex examples</h2>
+<p>Often, the work we need to do with <code>ffmpeg</code> is quite complex. For example,
+we may want to overlay images on top of a video stream or generate test
+video streams with accompanying audio.</p>
+<p>The following examples each provide both a practical, real-life command, as
+well as the code for constructing and executing it in the library. For brevity,
+event handling is omitted (but would be handled as above).</p>
+<ol>
+<li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a></li>
+<li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a></li>
+</ol>
         </article>
     
 </section>

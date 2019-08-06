@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tutorial: Example: Generating Test Video | fessonia</title>
+    <title>Global | @tedconf/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -30,9 +30,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">fessonia</a></h1>
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
         
-            <span class="version">v0.0.6</span>
+            <span class="version">v0.0.7</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -56,94 +56,517 @@
 <div class="main" id="main">
     
 
+
+
+
 <section>
-    <header>
+
+<header>
+    
+        <h2>Global</h2>
+    
+</header>
+
+<article>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+
+<dt>
+<h4 class="name" id="FFmpegEnumerations">
+    <span class="type-signature"></span>FFmpegEnumerations<span class="type-signature"></span>
+    
+    <div class="container-source members">
+        <code><a href="lib_ffmpeg_enumerations.js.html">lib/ffmpeg_enumerations.js</a></code>,
+        <code><a href="lib_ffmpeg_enumerations.js.html#line5">line 5</a></code>
+    </div>
+    
+</h4>
+
+
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>FFmpeg filter-related constants</p>
+    </div>
+    
+
+    <!--
+    
+    -->
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+                
+
+<dt>
+    
+        <h4 class="name" id="getConfig">
+            
+                <span class="type-signature"></span>getConfig<span class="signature">(options)</span><span class="type-signature"> &rarr; {Object}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_util_config.js.html">lib/util/config.js</a></code>,
+                <code><a href="lib_util_config.js.html#line42">line 42</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get the config object, optionally updated with new options</p>
+<p>Options understood by this configuration object include:</p>
+<ul>
+<li><code>ffmpeg_bin</code> - the location of your <code>ffmpeg</code> binary</li>
+<li><code>ffprobe_bin</code> - the location of your <code>ffprobe</code> binary</li>
+<li><code>logger</code> - a function that creates a logger object (see <code>getLogger</code>)</li>
+</ul>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
         
 
-        <h2>Example: Generating Test Video</h2>
-    </header>
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>(optional) options object (default: {})</p></td>
+        </tr>
 
     
-        <article class="readme">
-            <p>To generate test video usually requires using source filters to generate
-video and audio streams, which results in very complex <code>ffmpeg</code> commands.</p>
-<p>For example, the following command generates a video using the <code>life</code>
-filter for video and the <code>sine</code> filter for audio.</p>
-<pre class="prettyprint source lang-{bash}"><code>ffmpeg -r &quot;23.976&quot; -f &quot;lavfi&quot; -i \
-  &quot;life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080&quot; \
-  -f &quot;lavfi&quot; -i &quot;sine=frequency=620:beep_factor=4:duration=999999:sample_rate=48000&quot; \
-  -c:v &quot;libx264&quot; -c:a &quot;aac&quot; -pix_fmt &quot;yuv420p&quot; -aspect &quot;16:9&quot; -vframes &quot;500&quot; &quot;gen.mov&quot;
-</code></pre>
-<p>To do the same using Fessonia in JavaScript, you would do the following.</p>
-<pre class="prettyprint source lang-{javascript}"><code>const { FilterNode, FilterGraph, FFmpegInput, FFmpegOutput, FFmpegCommand } = require('fessonia');
+    </tbody>
+</table>
 
-// Construct the video filtergraph and corresponding input
-const lifeFilter = new FilterNode({
-  filterName: 'life',
-  args: [
-    { name: 'size', value: '320x240' },
-    { name: 'mold', value: 10 },
-    { name: 'rate', value: 23.976 },
-    { name: 'ratio', value: 0.5 },
-    { name: 'death_color', value: '#C83232' },
-    { name: 'life_color', value: '#00ff00' },
-    { name: 'stitch', value: 0 }
-  ]
-});
-const scaleFilter = new FilterNode({
-  filterName: 'scale',
-  args: [1920, 1080]
-});
-const videoGraph = new FilterGraph(
-  [lifeFilter, scaleFilter],
-  null,
-  [
-    [[lifeFilter, '0'], [scaleFilter, '0']]
-  ]
-);
-const videoIn = new FFmpegInput(videoGraph, new Map([
-  ['r', 23.976],
-  ['f', 'lavfi']
-]));
-
-// Construct the audio filtergraph and corresponding input
-const sineFilter = new FilterNode({
-  filterName: 'sine',
-  args: [
-    { name: 'frequency', value: 620 },
-    { name: 'beep_factor', value: 4 },
-    { name: 'duration', value: 999999 },
-    { name: 'sample_rate', value: 48000 }
-  ]
-});
-const audioGraph = new FilterGraph([sineFilter], null, []);
-const audioIn = new FFmpegInput(audioGraph, new Map([
-  ['f', 'lavfi']
-]));
-
-// Construct the output
-const out = new FFmpegOutput('gen.mov', new Map([
-  ['c:v', 'libx264'],
-  ['c:a', 'aac'],
-  ['pix_fmt', 'yuv420p'],
-  ['aspect', '16:9'],
-  ['vframes', 500]
-]));
-
-// Construct the command and add inputs and outputs
-const cmd = new FFmpegCommand({});
-cmd.addInput(videoIn);
-cmd.addInput(audioIn);
-cmd.addOutput(out);
-
-// Handle events...
-
-// Execute the command
-cmd.spawn();
-</code></pre>
-        </article>
+    </div>
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Object</span>
+
+
+
+
+
+- <ul>
+<li>singleton object with config data</li>
+</ul>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="global.html#getLogger">getLogger</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="getLogger">
+            
+                <span class="type-signature"></span>getLogger<span class="signature">(context, loggerType, parentLogger)</span><span class="type-signature"> &rarr; {Object}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_util_logger.js.html">lib/util/logger.js</a></code>,
+                <code><a href="lib_util_logger.js.html#line195">line 195</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get a logger instance</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    root
+                
+                </td>
+            
+
+            <td class="description last"><p>context name for the logger</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>loggerType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">class</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>the logger class to use when creating a logger (optional, default: DefaultLogger, requires: parentLogger = null)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parentLogger</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="DefaultLogger.html">DefaultLogger</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>the logger instance for which you would like to create a child logger (optional, default: base logger created by this module)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Object</span>
+
+
+
+
+
+- <p>logger instance</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            </dl>
+    
+
+    
+
+    
+</article>
+
 </section>
+
 
 
 
@@ -159,7 +582,13 @@ cmd.spawn();
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        showLnbExamples();
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
     </script>
 
 </body>

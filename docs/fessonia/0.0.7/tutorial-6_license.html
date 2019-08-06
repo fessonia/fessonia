@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/ffmpeg_enumerations.js | fessonia</title>
+    <title>Tutorial: License | @tedconf/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -32,9 +30,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">fessonia</a></h1>
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
         
-            <span class="version">v0.0.6</span>
+            <span class="version">v0.0.7</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -58,48 +56,22 @@
 <div class="main" id="main">
     
 
+<section>
+    <header>
+        
 
+        <h2>License</h2>
+    </header>
 
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * FFmpeg filter-related constants
- */
-
-FFmpegEnumerations = {
-  /** Enumeration of filter commands */
-  FilterCommands: {
-    /** Constant value for the '-filter' command option */
-    FILTER: '-filter',
-    /** Constant value for the '-filter_complex' command option */
-    COMPLEX: '-filter_complex',
-  },
-  /** Enumeration of filter I/O types */
-  FilterIOTypes: {
-    /** Constant value representing a filter with both input(s) and output(s) */
-    GENERIC: 0,
-    /** Constant value representing a source filter with only output(s) */
-    SOURCE: 1,
-    /** Constant value representing a sink filter with only input(s) */
-    SINK: 2,
-  },
-  /** Enumeration of filter media types */
-  FilterMediaTypes: {
-    /** Constant value representing non-stream-specified media type */
-    GENERIC: '',
-    /** Constant value representing an audio stream specifier */
-    AUDIO: ':a',
-    /** Constant value representing a video stream specifier */
-    VIDEO: ':v',
-  },
-};
-
-module.exports = FFmpegEnumerations;
-</code></pre>
+        <article class="readme">
+            <p>Copyright © 2019 TED Conferences</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
         </article>
-    </section>
-
+    
+</section>
 
 
 
@@ -115,13 +87,7 @@ module.exports = FFmpegEnumerations;
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = '_sub'.replace(/"/g, '_');
-        var selectedApi = document.getElementById(id); // do not use jquery selector
-        var $selectedApi = $(selectedApi);
-
-        $selectedApi.removeClass('hidden');
-        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-        showLnbApi();
+        showLnbExamples();
     </script>
 
 </body>

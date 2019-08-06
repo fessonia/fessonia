@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: FFmpegProgressEmitter | fessonia</title>
+    <title>Class: FilterNode | @tedconf/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -30,9 +30,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">fessonia</a></h1>
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
         
-            <span class="version">v0.0.6</span>
+            <span class="version">v0.0.7</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -63,9 +63,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>FFmpegProgressEmitter<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>FilterNode<span class="signature">(options)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>A class that implements a progress event emitter for FFmpegCommand executions</p></div>
+            <div class="class-description"><p>Class representing a single node in an FFmpeg filter graph</p></div>
         
     
 </header>
@@ -78,14 +78,14 @@
 
 <dt>
     
-        <h4 class="name" id="FFmpegProgressEmitter">
+        <h4 class="name" id="FilterNode">
             
-                new <span class="type-signature"></span>FFmpegProgressEmitter<span class="signature">(options)</span><span class="type-signature"></span>
+                new <span class="type-signature"></span>FilterNode<span class="signature">(options)</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_ffmpeg_progress_emitter.js.html">lib/ffmpeg_progress_emitter.js</a></code>,
-                <code><a href="lib_ffmpeg_progress_emitter.js.html#line15">line 15</a></code>
+                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
+                <code><a href="lib_filter_node.js.html#line12">line 12</a></code>
             </div>
             
         </h4>
@@ -97,8 +97,7 @@
 
     
     <div class="description">
-        <p>Create an FFmpegProgressEmitter object for use in monitoring execution progress
-Can maybe remove the constructor here for simplicity</p>
+        <p>Create a filter for use in an FFmpeg filter graph</p>
     </div>
     
 
@@ -150,7 +149,7 @@ Can maybe remove the constructor here for simplicity</p>
 
             
 
-            <td class="description last"><p>options for the Writable stream</p></td>
+            <td class="description last"><p>the options for the filter</p></td>
         </tr>
 
     
@@ -218,17 +217,6 @@ Can maybe remove the constructor here for simplicity</p>
     
 
     
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li>stream.Writable</li>
-    </ul>
-
-
-    
 
     
 
@@ -250,14 +238,14 @@ Can maybe remove the constructor here for simplicity</p>
 
 <dt>
     
-        <h4 class="name" id="._parseTimestamp">
+        <h4 class="name" id=".initialize">
             
-                <span class="type-signature"><span class="icon green">static</span> </span>_parseTimestamp<span class="signature">(timestamp)</span><span class="type-signature"> &rarr; {number}</span>
+                <span class="type-signature"><span class="icon green">static</span> </span>initialize<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_ffmpeg_progress_emitter.js.html">lib/ffmpeg_progress_emitter.js</a></code>,
-                <code><a href="lib_ffmpeg_progress_emitter.js.html#line123">line 123</a></code>
+                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
+                <code><a href="lib_filter_node.js.html#line34">line 34</a></code>
             </div>
             
         </h4>
@@ -269,7 +257,7 @@ Can maybe remove the constructor here for simplicity</p>
 
     
     <div class="description">
-        <p>Parses timestamp strings into a number of seconds</p>
+        <p>Initialize the validation data for this class</p>
     </div>
     
 
@@ -279,56 +267,6 @@ Can maybe remove the constructor here for simplicity</p>
 
     
 
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>timestamp</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the timestamp string</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
     
 
     
@@ -349,13 +287,13 @@ Can maybe remove the constructor here for simplicity</p>
 
 
 
-<span class="param-type">number</span>
+<span class="param-type">void</span>
 
 
 
 
 
-- <p>the number of seconds represented by the timestamp</p>
+- <p>no return value</p>
 
 
 
@@ -410,14 +348,14 @@ Can maybe remove the constructor here for simplicity</p>
 
 <dt>
     
-        <h4 class="name" id="_write">
+        <h4 class="name" id="inspect">
             
-                <span class="type-signature"></span>_write<span class="signature">(chunk, encoding, callback)</span><span class="type-signature"> &rarr; {void}</span>
+                <span class="type-signature"></span>inspect<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_ffmpeg_progress_emitter.js.html">lib/ffmpeg_progress_emitter.js</a></code>,
-                <code><a href="lib_ffmpeg_progress_emitter.js.html#line54">line 54</a></code>
+                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
+                <code><a href="lib_filter_node.js.html#line52">line 52</a></code>
             </div>
             
         </h4>
@@ -429,8 +367,118 @@ Can maybe remove the constructor here for simplicity</p>
 
     
     <div class="description">
-        <p>Parse data packets from the stream and emit update event
-This method is called internally by Writable stream</p>
+        <p>Generate a developer-friendly string defining this FFmpeg filter node
+for use in logging and debugging</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">string</span>
+
+
+
+
+
+- <p>the filter argument string</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="markInputPadMapped">
+            
+                <span class="type-signature"></span>markInputPadMapped<span class="signature">(padIndex)</span><span class="type-signature"> &rarr; {void}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
+                <code><a href="lib_filter_node.js.html#line62">line 62</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Mark the specified input pad as mapped</p>
     </div>
     
 
@@ -466,16 +514,13 @@ This method is called internally by Writable stream</p>
 
         <tr>
             
-                <td class="name"><code>chunk</code></td>
+                <td class="name"><code>padIndex</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Buffer</span>
-|
-
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -485,53 +530,7 @@ This method is called internally by Writable stream</p>
 
             
 
-            <td class="description last"><p>the data packet from the piped stream</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>encoding</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>how the packet is encoded (utf8, buffer)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>callback to call when processing complete</p></td>
+            <td class="description last"><p>the input pad index to mark</p></td>
         </tr>
 
     
@@ -543,11 +542,6 @@ This method is called internally by Writable stream</p>
 
     
 
-    
-    <h5>Fires:</h5>
-    <ul>
-        <li><a href="FFmpegProgressEmitter.html#event:update">FFmpegProgressEmitter#event:update</a></li>
-    </ul>
     
 
     
@@ -623,14 +617,14 @@ This method is called internally by Writable stream</p>
 
 <dt>
     
-        <h4 class="name" id="last">
+        <h4 class="name" id="markOutputPadMapped">
             
-                <span class="type-signature"></span>last<span class="signature">(n)</span><span class="type-signature"> &rarr; {string|Array.&lt;string>}</span>
+                <span class="type-signature"></span>markOutputPadMapped<span class="signature">(padIndex)</span><span class="type-signature"> &rarr; {void}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_ffmpeg_progress_emitter.js.html">lib/ffmpeg_progress_emitter.js</a></code>,
-                <code><a href="lib_ffmpeg_progress_emitter.js.html#line26">line 26</a></code>
+                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
+                <code><a href="lib_filter_node.js.html#line78">line 78</a></code>
             </div>
             
         </h4>
@@ -642,7 +636,7 @@ This method is called internally by Writable stream</p>
 
     
     <div class="description">
-        <p>Return the last n chunks pushed into the stream</p>
+        <p>Mark the specified output pad as mapped</p>
     </div>
     
 
@@ -668,8 +662,6 @@ This method is called internally by Writable stream</p>
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -680,7 +672,7 @@ This method is called internally by Writable stream</p>
 
         <tr>
             
-                <td class="name"><code>n</code></td>
+                <td class="name"><code>padIndex</code></td>
             
 
             <td class="type">
@@ -695,14 +687,8 @@ This method is called internally by Writable stream</p>
             
 
             
-                <td class="default">
-                
-                    1
-                
-                </td>
-            
 
-            <td class="description last"><p>the number of chunks to return (default: 1)</p></td>
+            <td class="description last"><p>the output pad index to mark</p></td>
         </tr>
 
     
@@ -730,18 +716,11 @@ This method is called internally by Writable stream</p>
 
 
 
-<span class="param-type">string</span>
-|
-
-<span class="param-type">Array.&lt;string></span>
+<span class="param-type">void</span>
 
 
 
 
-
-- <ul>
-<li>the last chunk (default) or an array of n chunks (for n &gt; 1)</li>
-</ul>
 
 
 
@@ -796,14 +775,14 @@ This method is called internally by Writable stream</p>
 
 <dt>
     
-        <h4 class="name" id="logData">
+        <h4 class="name" id="nextAvailableInputPadIndex">
             
-                <span class="type-signature"></span>logData<span class="signature">()</span><span class="type-signature"> &rarr; {string|Array.&lt;string>}</span>
+                <span class="type-signature"></span>nextAvailableInputPadIndex<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_ffmpeg_progress_emitter.js.html">lib/ffmpeg_progress_emitter.js</a></code>,
-                <code><a href="lib_ffmpeg_progress_emitter.js.html#line38">line 38</a></code>
+                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
+                <code><a href="lib_filter_node.js.html#line93">line 93</a></code>
             </div>
             
         </h4>
@@ -815,7 +794,227 @@ This method is called internally by Writable stream</p>
 
     
     <div class="description">
-        <p>Return the all chunks pushed into the stream from the buffer</p>
+        <p>Get the next unmapped input pad on this filter node</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">number</span>
+
+
+
+
+
+- <p>input pad index</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="nextAvailableOutputPadIndex">
+            
+                <span class="type-signature"></span>nextAvailableOutputPadIndex<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
+                <code><a href="lib_filter_node.js.html#line102">line 102</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get the next unmapped output pad on this filter node</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">number</span>
+
+
+
+
+
+- <p>output pad index</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="toString">
+            
+                <span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
+                <code><a href="lib_filter_node.js.html#line43">line 43</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Generate the argument string defining this FFmpeg filter node</p>
     </div>
     
 
@@ -846,17 +1045,12 @@ This method is called internally by Writable stream</p>
 
 
 <span class="param-type">string</span>
-|
-
-<span class="param-type">Array.&lt;string></span>
 
 
 
 
 
-- <ul>
-<li>the last chunk (default) or an array of n chunks (for n &gt; 1)</li>
-</ul>
+- <p>the filter argument string</p>
 
 
 
@@ -912,346 +1106,6 @@ This method is called internally by Writable stream</p>
     
 
     
-        <h3 class="subsection-title">Events</h3>
-
-        <dl>
-            
-
-<dt>
-    
-        <h4 class="name" id="event:update">
-            
-                update
-                
-            
-            <div class="container-source members">
-                <code><a href="lib_ffmpeg_progress_emitter.js.html">lib/ffmpeg_progress_emitter.js</a></code>,
-                <code><a href="lib_ffmpeg_progress_emitter.js.html#line98">line 98</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>update event</p>
-    </div>
-    
-
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">object</span>
-
-
-            </li>
-        </ul>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>currentTime</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>current time in seconds into the media ffmpeg has completed processing</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>timeRemaining</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the estimated number of wall-clock seconds of processing remaining</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>streamType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the type of stream currently being processed</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>frame</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the count of frames processed so far</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fps</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the estimated frames per second</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>q</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the bitrate quantizer scale</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>size</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the total data size processed</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>bitrate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">undefined</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the bitrate</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-    
-
-</dd>
-
-        </dl>
-    
 </article>
 
 </section>
@@ -1271,7 +1125,7 @@ This method is called internally by Writable stream</p>
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'FFmpegProgressEmitter_sub'.replace(/"/g, '_');
+        var id = 'FilterNode_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

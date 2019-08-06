@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: FilterNode | fessonia</title>
+    <title>Class: FFmpegInput | @tedconf/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -30,9 +30,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">fessonia</a></h1>
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
         
-            <span class="version">v0.0.6</span>
+            <span class="version">v0.0.7</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -63,9 +63,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>FilterNode<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>FFmpegInput<span class="signature">(url, options)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Class representing a single node in an FFmpeg filter graph</p></div>
+            <div class="class-description"><p>Class representing an FFmpeg input file (<code>-i</code>)</p></div>
         
     
 </header>
@@ -78,14 +78,14 @@
 
 <dt>
     
-        <h4 class="name" id="FilterNode">
+        <h4 class="name" id="FFmpegInput">
             
-                new <span class="type-signature"></span>FilterNode<span class="signature">(options)</span><span class="type-signature"></span>
+                new <span class="type-signature"></span>FFmpegInput<span class="signature">(url, options)</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
-                <code><a href="lib_filter_node.js.html#line12">line 12</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line20">line 20</a></code>
             </div>
             
         </h4>
@@ -97,7 +97,7 @@
 
     
     <div class="description">
-        <p>Create a filter for use in an FFmpeg filter graph</p>
+        <p>Create an input for an FFmpeg command</p>
     </div>
     
 
@@ -133,6 +133,35 @@
 
         <tr>
             
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="FilterNode.html">FilterNode</a></span>
+|
+
+<span class="param-type"><a href="FilterGraph.html">FilterGraph</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the address of the input file, or a filter object to use as input</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>options</code></td>
             
 
@@ -149,7 +178,7 @@
 
             
 
-            <td class="description last"><p>the options for the filter</p></td>
+            <td class="description last"><p>the options for the input</p></td>
         </tr>
 
     
@@ -172,6 +201,81 @@
     
 
     
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the url for the input, post-validation</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the options for the input, post-validation</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 <dl class="details">
@@ -229,6 +333,148 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+
+<dt>
+<h4 class="name" id="inputLabel">
+    <span class="type-signature"></span>inputLabel<span class="type-signature"></span>
+    
+    <div class="container-source members">
+        <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+        <code><a href="lib_ffmpeg_input.js.html#line50">line 50</a></code>
+    </div>
+    
+</h4>
+
+
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Set the label for this input object.</p>
+    </div>
+    
+
+    <!--
+    
+    -->
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+
+<dt>
+<h4 class="name" id="inputLabel">
+    <span class="type-signature"></span>inputLabel<span class="type-signature"></span>
+    
+    <div class="container-source members">
+        <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+        <code><a href="lib_ffmpeg_input.js.html#line38">line 38</a></code>
+    </div>
+    
+</h4>
+
+
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Return the label for this input object.</p>
+    </div>
+    
+
+    <!--
+    
+    -->
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -238,14 +484,14 @@
 
 <dt>
     
-        <h4 class="name" id=".initialize">
+        <h4 class="name" id=".validateOptions">
             
-                <span class="type-signature"><span class="icon green">static</span> </span>initialize<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span>
+                <span class="type-signature"><span class="icon green">static</span> </span>validateOptions<span class="signature">(options)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="FFmpegOption.html">FFmpegOption</a>>}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
-                <code><a href="lib_filter_node.js.html#line34">line 34</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line180">line 180</a></code>
             </div>
             
         </h4>
@@ -257,7 +503,7 @@
 
     
     <div class="description">
-        <p>Initialize the validation data for this class</p>
+        <p>Validate the options passed into the constructor</p>
     </div>
     
 
@@ -267,6 +513,56 @@
 
     
 
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the options for the input</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
     
 
     
@@ -287,13 +583,179 @@
 
 
 
-<span class="param-type">void</span>
+<span class="param-type">Array.&lt;<a href="FFmpegOption.html">FFmpegOption</a>></span>
 
 
 
 
 
-- <p>no return value</p>
+- <p>array of validated FFmpegOption objects; errors if invalid</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id=".validateUrl">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>validateUrl<span class="signature">(url)</span><span class="type-signature"> &rarr; {Object}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line149">line 149</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Validate the url passed into the constructor</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="FilterNode.html">FilterNode</a></span>
+|
+
+<span class="param-type"><a href="FilterGraph.html">FilterGraph</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the url for the input</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Object</span>
+
+
+
+
+
+- <p>results of the validation; errors if invalid</p>
 
 
 
@@ -354,8 +816,8 @@
                 
             
             <div class="container-source members">
-                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
-                <code><a href="lib_filter_node.js.html#line52">line 52</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line140">line 140</a></code>
             </div>
             
         </h4>
@@ -367,8 +829,7 @@
 
     
     <div class="description">
-        <p>Generate a developer-friendly string defining this FFmpeg filter node
-for use in logging and debugging</p>
+        <p>Generate a developer-friendly string representing for this FFmpeg input</p>
     </div>
     
 
@@ -404,7 +865,7 @@ for use in logging and debugging</p>
 
 
 
-- <p>the filter argument string</p>
+- <p>the string representation</p>
 
 
 
@@ -459,14 +920,14 @@ for use in logging and debugging</p>
 
 <dt>
     
-        <h4 class="name" id="markInputPadMapped">
+        <h4 class="name" id="markTrackMapped">
             
-                <span class="type-signature"></span>markInputPadMapped<span class="signature">(padIndex)</span><span class="type-signature"> &rarr; {void}</span>
+                <span class="type-signature"></span>markTrackMapped<span class="signature">(track)</span><span class="type-signature"> &rarr; {void}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
-                <code><a href="lib_filter_node.js.html#line62">line 62</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line75">line 75</a></code>
             </div>
             
         </h4>
@@ -478,7 +939,7 @@ for use in logging and debugging</p>
 
     
     <div class="description">
-        <p>Mark the specified input pad as mapped</p>
+        <p>Mark a track/stream on this input as mapped</p>
     </div>
     
 
@@ -514,7 +975,7 @@ for use in logging and debugging</p>
 
         <tr>
             
-                <td class="name"><code>padIndex</code></td>
+                <td class="name"><code>track</code></td>
             
 
             <td class="type">
@@ -530,7 +991,7 @@ for use in logging and debugging</p>
 
             
 
-            <td class="description last"><p>the input pad index to mark</p></td>
+            <td class="description last"><p>the track index to mark as mapped</p></td>
         </tr>
 
     
@@ -617,14 +1078,14 @@ for use in logging and debugging</p>
 
 <dt>
     
-        <h4 class="name" id="markOutputPadMapped">
+        <h4 class="name" id="nextAvailableOutputTrack">
             
-                <span class="type-signature"></span>markOutputPadMapped<span class="signature">(padIndex)</span><span class="type-signature"> &rarr; {void}</span>
+                <span class="type-signature"></span>nextAvailableOutputTrack<span class="signature">(options)</span><span class="type-signature"> &rarr; {number}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
-                <code><a href="lib_filter_node.js.html#line78">line 78</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line90">line 90</a></code>
             </div>
             
         </h4>
@@ -636,7 +1097,7 @@ for use in logging and debugging</p>
 
     
     <div class="description">
-        <p>Mark the specified output pad as mapped</p>
+        <p>Get next available unmapped track, optionally specifying streamType</p>
     </div>
     
 
@@ -662,6 +1123,8 @@ for use in logging and debugging</p>
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -672,13 +1135,16 @@ for use in logging and debugging</p>
 
         <tr>
             
-                <td class="name"><code>padIndex</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">null</span>
+|
+
+<span class="param-type">Object</span>
 
 
             
@@ -687,8 +1153,14 @@ for use in logging and debugging</p>
             
 
             
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
 
-            <td class="description last"><p>the output pad index to mark</p></td>
+            <td class="description last"><p>an options object</p></td>
         </tr>
 
     
@@ -716,11 +1188,15 @@ for use in logging and debugging</p>
 
 
 
-<span class="param-type">void</span>
+<span class="param-type">number</span>
 
 
 
 
+
+- <ul>
+<li>the track number</li>
+</ul>
 
 
 
@@ -775,14 +1251,14 @@ for use in logging and debugging</p>
 
 <dt>
     
-        <h4 class="name" id="nextAvailableInputPadIndex">
+        <h4 class="name" id="toCommandArray">
             
-                <span class="type-signature"></span>nextAvailableInputPadIndex<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span>
+                <span class="type-signature"></span>toCommandArray<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
-                <code><a href="lib_filter_node.js.html#line93">line 93</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line109">line 109</a></code>
             </div>
             
         </h4>
@@ -794,7 +1270,7 @@ for use in logging and debugging</p>
 
     
     <div class="description">
-        <p>Get the next unmapped input pad on this filter node</p>
+        <p>Generate the command array segment for this FFmpeg input</p>
     </div>
     
 
@@ -824,13 +1300,13 @@ for use in logging and debugging</p>
 
 
 
-<span class="param-type">number</span>
+<span class="param-type">Array</span>
 
 
 
 
 
-- <p>input pad index</p>
+- <p>the command array segment</p>
 
 
 
@@ -885,14 +1361,14 @@ for use in logging and debugging</p>
 
 <dt>
     
-        <h4 class="name" id="nextAvailableOutputPadIndex">
+        <h4 class="name" id="toCommandString">
             
-                <span class="type-signature"></span>nextAvailableOutputPadIndex<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span>
+                <span class="type-signature"></span>toCommandString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
                 
             
             <div class="container-source members">
-                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
-                <code><a href="lib_filter_node.js.html#line102">line 102</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line122">line 122</a></code>
             </div>
             
         </h4>
@@ -904,7 +1380,7 @@ for use in logging and debugging</p>
 
     
     <div class="description">
-        <p>Get the next unmapped output pad on this filter node</p>
+        <p>Generate the command string segment for this FFmpeg input</p>
     </div>
     
 
@@ -934,13 +1410,13 @@ for use in logging and debugging</p>
 
 
 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
 
 
-- <p>output pad index</p>
+- <p>the command string segment</p>
 
 
 
@@ -1001,8 +1477,8 @@ for use in logging and debugging</p>
                 
             
             <div class="container-source members">
-                <code><a href="lib_filter_node.js.html">lib/filter_node.js</a></code>,
-                <code><a href="lib_filter_node.js.html#line43">line 43</a></code>
+                <code><a href="lib_ffmpeg_input.js.html">lib/ffmpeg_input.js</a></code>,
+                <code><a href="lib_ffmpeg_input.js.html#line132">line 132</a></code>
             </div>
             
         </h4>
@@ -1014,7 +1490,7 @@ for use in logging and debugging</p>
 
     
     <div class="description">
-        <p>Generate the argument string defining this FFmpeg filter node</p>
+        <p>Generate a developer-friendly string representing for this FFmpeg input</p>
     </div>
     
 
@@ -1050,7 +1526,7 @@ for use in logging and debugging</p>
 
 
 
-- <p>the filter argument string</p>
+- <p>the string representation</p>
 
 
 
@@ -1125,7 +1601,7 @@ for use in logging and debugging</p>
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'FilterNode_sub'.replace(/"/g, '_');
+        var id = 'FFmpegInput_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

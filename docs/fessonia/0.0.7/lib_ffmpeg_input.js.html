@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/util/logger.js | fessonia</title>
+    <title>Source: lib/ffmpeg_input.js | @tedconf/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -32,9 +32,9 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">fessonia</a></h1>
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
         
-            <span class="version">v0.0.6</span>
+            <span class="version">v0.0.7</span>
         
     </div>
     <div class="search-container" id="search-container">
@@ -63,242 +63,249 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// const config = require('./config')();
-const path = require('path');
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileOverview lib/ffmpeg_input.js - Defines and exports the FFmpegInput class
+ */
+
+const config = new require('./util/config')(),
+  logger = config.logger('FFmpegInput');
 
 /**
- * Base context for this logger - defaults to app name via npm; app name per package.json; then "application"
- * @private
+ * Class representing an FFmpeg input file (`-i`)
  */
-const _npmPkgName = process.env.npm_package_name;
-let pkgJsonName;
-try {
-  pkgJsonName = require(path.join(path.dirname(require.main.filename), 'package.json')).name;
-} catch (e) {
-  pkgJsonName = undefined;
-}
-let baseContext = ( _npmPkgName ? _npmPkgName : ( pkgJsonName ? pkgJsonName : 'application'));
-module.exports.baseContext = baseContext;
-
-/**
- * Class representing a Console-based default logger.
- * 
- * You can replace this logger with any logger that supports the following methods:
- * * `trace`
- * * `debug`
- * * `info`
- * * `warn`
- * * `error`
- * * `fatal`
- *
- * To specify a different logger, specify a `logger` option when using {@linkcode getConfig}.
- */
-class DefaultLogger {
+class FFmpegInput {
   /**
-   * Get LOG_LEVELS mapping (key to numeric value)
-   * @returns {Object} the mapping
+   * Create an input for an FFmpeg command
+   * @param {string|FilterNode|FilterGraph} url - the address of the input file, or a filter object to use as input
+   * @param {Object} options - the options for the input
+   *
+   * @property {Object} url - the url for the input, post-validation
+   * @property {Object} options - the options for the input, post-validation
    */
-  static get LOG_LEVELS () {
-    return {
-      TRACE: 0,
-      DEBUG: 10,
-      INFO: 20,
-      WARN: 30,
-      ERROR: 40,
-      FATAL: 50
-    };
+  constructor (url, options = new Map()) {
+    const urlValidation = FFmpegInput.validateUrl(url);
+    for (let key of Object.getOwnPropertyNames(urlValidation)) {
+      this[key] = urlValidation[key];
+    }
+    if (!this.hasOwnProperty('tracks')) {
+      FFmpegInput._interrogateForTracks(url);
+    }
+    logger.info(`Pre-validation: ${logger.format(options)}`);
+    this.options = FFmpegInput.validateOptions(options);
+    logger.info(`Post-validation: ${logger.format(this.options)}`);
+    this._inputLabel = null;
   }
 
   /**
-   * Create a new DefaultLogger instance
-   * @param {string} context - the context for this logger instance
-   * @param {DefaultLogger} _parent - (optional) the parent logger instance
-   * @param {Object} _opts - an options object for the logger
+   * Return the label for this input object.
+   * @returns {string} - the label defined on this object.
    */
-  constructor (context, _parent = undefined, _opts = {}) {
-    if (!!_parent &amp;&amp; !(_parent instanceof DefaultLogger)) {
-      throw new Error('InvalidArguments: _parent must be an instance of DefaultLogger');
+  get inputLabel () {
+    if (this._inputLabel === null) {
+      logger.warn(`Attempt to retrieve inputLabel before one was set on ${logger.format(this)}`);
+      return undefined;
     }
-    if (!!_opts.level &amp;&amp; DefaultLogger.LOG_LEVELS.hasOwnProperty(_opts.level)) {
-      this.level = DefaultLogger.LOG_LEVELS[_opts.level];
-    } else if (!!process.env.LOG_LEVEL &amp;&amp; DefaultLogger.LOG_LEVELS.hasOwnProperty(process.env.LOG_LEVEL)) {
-      this.level = DefaultLogger.LOG_LEVELS[process.env.LOG_LEVEL];
-    } else {
-      this.level = DefaultLogger.LOG_LEVELS['INFO'];
-    }
-    this.context = context;
-    this._parent = _parent;
-    this.options = _opts;
-    this._children = [];
+    return this._inputLabel;
   }
 
   /**
-   * Create a child logger connected to this logger
-   * @param {string} context - the context for this logger instance
-   * 
-   * @returns {DefaultLogger} the logger instance
+   * Set the label for this input object.
+   * @param {string} newLabel - the new value for the label for this input object.
    */
-  child (context) {
-    const childLogger = new DefaultLogger(context, _parent = this, _opts = this.options);
-    this._children.push(childLogger);
-    return childLogger;
-  }
-
-  /**
-   * Pass arguments through to trace function on Console
-   * @param {...Array} args - All arguments for this function
-   * 
-   * @returns {undefined} no return value
-   */
-  trace (...args) {
-    if (this.level &lt;= DefaultLogger.LOG_LEVELS['TRACE']) {
-      // eslint-disable-next-line no-console
-      console.trace.apply(console, args);
-    }
-  }
-  /**
-   * Pass arguments through to debug function on Console
-   * @param {...Array} args - All arguments for this function
-   * 
-   * @returns {undefined} no return value
-   */
-  debug (...args) {
-    if (this.level &lt;= DefaultLogger.LOG_LEVELS['DEBUG']) {
-      // eslint-disable-next-line no-console
-      console.log.apply(console, args);
-    }
-  }
-  /**
-   * Pass arguments through to info function on Console
-   * @param {...Array} args - All arguments for this function
-   * 
-   * @returns {undefined} no return value
-   */
-  info (...args) {
-    if (this.level &lt;= DefaultLogger.LOG_LEVELS['INFO']) {
-      // eslint-disable-next-line no-console
-      console.info.apply(console, args);
-    }
-  }
-  /**
-   * Pass arguments through to warn function on Console
-   * @param {...Array} args - All arguments for this function
-   * 
-   * @returns {undefined} no return value
-   */
-  warn (...args) {
-    if (this.level &lt;= DefaultLogger.LOG_LEVELS['WARN']) {
-      // eslint-disable-next-line no-console
-      console.warn.apply(console, args);
-    }
-  }
-  /**
-   * Pass arguments through to error function on Console
-   * @param {...Array} args - All arguments for this function
-   * 
-   * @returns {undefined} no return value
-   */
-  error (...args) {
-    if (this.level &lt;= DefaultLogger.LOG_LEVELS['ERROR']) {
-      // eslint-disable-next-line no-console
-      console.error.apply(console, args);
-    }
-  }
-  /**
-   * Pass arguments through to error function on Console
-   * @param {...Array} args - All arguments for this function
-   * 
-   * @returns {undefined} no return value
-   */
-  fatal (...args) {
-    if (this.level &lt;= DefaultLogger.LOG_LEVELS['FATAL']) {
-      // eslint-disable-next-line no-console
-      console.error.apply(console, args);
-    }
-  }
-
-  /**
-   * Format any object (including nested ones) for readable output in the logs
-   * @param {any} stuff - the thing to be formatted for inclusion in the logs
-   * 
-   * @return {string} formatted string version of the input
-   */
-  format (stuff) {
-    if (typeof stuff === 'undefined' || stuff === null) {
-      return stuff;
-    }
-    if (typeof stuff === 'string') {
-      return `"${stuff}"`;
-    }
-    if (Array.isArray(stuff)) {
-      return `[${stuff.map((e) => this.format(e)).join(',')}]`;
-    }
-    if (stuff instanceof Map) {
-      return `Map${this.format([...stuff.entries()])}`;
-    }
-    if (typeof stuff === 'function') {
-      return 'function (...) {...}';
-    }
-    if (typeof stuff === 'object') {
-      if (typeof stuff.inspect === 'function') {
-        return stuff.inspect();
+  set inputLabel (newLabel) {
+    const isString = typeof newLabel === 'string';
+    const hasToString = newLabel.toString &amp;&amp; typeof newLabel.toString === 'function';
+    logger.info(`Setting inputLabel: newLabel = ${logger.format(newLabel)}, isString = ${logger.format(isString)}, hasToString = ${logger.format(hasToString)}, this._inputLabel = ${logger.format(this._inputLabel)}`);
+    if (isString || hasToString) {
+      if (this._inputLabel !== null) {
+        logger.warn(`Resetting existing inputLabel value ${this._inputLabel} on ${logger.format(this)} to new inputLabel value ${newLabel}.`);
       }
-      return `{${Object.keys(stuff).map((k) => (stuff.hasOwnProperty(k) ? `"${k}": ${this.format(stuff[k])}` : ''))}}`;
+      if (isString) {
+        this._inputLabel = newLabel;
+      }
+      if (hasToString) {
+        logger.warn(`Stringifying new inputLabel value for ${logger.format(this)}`);
+        this._inputLabel = newLabel.toString();
+      }
+    } else {
+      throw new Error('Invalid parameter: unable to stringify value of newLabel.');
     }
-    return stuff.toString();
+  }
+
+  /**
+   * Mark a track/stream on this input as mapped
+   * @param {number} track - the track index to mark as mapped
+   * @returns {void}
+   */
+  markTrackMapped (track) {
+    if (typeof track !== 'number') {
+      throw new Error(`Expected numeric value for track parameter, but got ${typeof track}: ${logger.format(track)}`);
+    }
+    if (this.tracks[track].mapped) {
+      throw new Error(`Requested track on input ${logger.format(this)} already mapped.`);
+    }
+    this.tracks[track].mapped = true;
+  }
+
+  /**
+   * Get next available unmapped track, optionally specifying streamType
+   * @param {null|Object} options - an options object
+   * @returns {number} - the track number
+   */
+  nextAvailableOutputTrack (options = null) {
+    if (options !== null &amp;&amp; options.hasOwnProperty('streamType')) {
+      this.tracks.forEach((track, index) => {
+        if (track.streamType === options.streamType &amp;&amp; !track.mapped) {
+          return index;
+        }
+      });
+      throw new Error(`No available track of type '${options.streamType}' found on ${logger.format(this)}.`);
+    }
+    this.tracks.forEach((track, index) => {
+      if (!track.mapped) return index;
+    });
+    throw new Error(`No available track found on ${logger.format(this)}.`);
+  }
+
+  /**
+   * Generate the command array segment for this FFmpeg input
+   * @returns {Array} the command array segment
+   */
+  toCommandArray () {
+    // Note: FFmpeg options on inputs prepend the -i option
+    let cmd = [];
+    this.options.forEach((o) => { cmd = cmd.concat(o.toCommandArray()); });
+    cmd.push('-i');
+    cmd.push(`${this.url}`);
+    return cmd;
+  }
+
+  /**
+   * Generate the command string segment for this FFmpeg input
+   * @returns {string} the command string segment
+   */
+  toCommandString () {
+    return this.toCommandArray()
+      .map((elt) => elt.startsWith('-') ? elt : `"${elt.replace(/\"/g, '\\"')}"`)
+      .join(' ');
+  }
+
+  /**
+   * Generate a developer-friendly string representing for this FFmpeg input
+   * @returns {string} the string representation
+   */
+  toString () {
+    return `FFmpegInput(url: "${this.url}", options: ${logger.format(this.options)})`;
+  }
+
+  /**
+   * Generate a developer-friendly string representing for this FFmpeg input
+   * @returns {string} the string representation
+   */
+  inspect () {
+    return this.toString();
+  }
+
+  /**
+   * Validate the url passed into the constructor
+   * @param {string|FilterNode|FilterGraph} url - the url for the input
+   * @returns {Object} results of the validation; errors if invalid
+   */
+  static validateUrl (url) {
+    if (!url) {
+      throw new Error('Invalid arguments: url parameter is required');
+    }
+    const result = {};
+    if (typeof url !== 'string') {
+      const FilterNode = FFmpegInput._loadFilterNode();
+      const FilterGraph = FFmpegInput._loadFilterGraph();
+      if (url instanceof FilterNode || url instanceof FilterGraph) {
+        result.filterObject = url;
+        if (url instanceof FilterNode) {
+          result.filterType = 'FilterNode';
+        } else if (url instanceof FilterGraph) {
+          result.filterType = 'FilterGraph';
+        }
+        result.url = url.toString();
+        logger.info(`Received filter object of type ${result.filterType} as input: converting object ${logger.format(url)} to string representation: "${result.url}"`);
+      } else {
+        throw new Error('Unknown input type: should be filter object or string address of file/URL');
+      }
+    } else {
+      result.url = url;
+    }
+    return (result);
+  }
+
+  /**
+   * Validate the options passed into the constructor
+   * @param {Object} options - the options for the input
+   * @returns {Array&lt;FFmpegOption>} array of validated FFmpegOption objects; errors if invalid
+   */
+  static validateOptions (options) {
+    // TODO: validate input options here
+    const FFmpegOption = FFmpegInput._loadFFmpegOption();
+    logger.info(`Validating options: ${logger.format(options)}`);
+    let opts = options;
+    if (!(opts instanceof Map)) {
+      logger.info('Validation: opts is not a Map');
+      opts = new Map(Object.entries(options));
+    }
+    logger.info(`Mid-validation: ${logger.format(opts)}`);
+    const ctx = FFmpegOption.FFmpegOptionContexts.INPUT;
+    const optObjects = Array.from(opts)
+      .map(([name, arg]) => new FFmpegOption(name, ctx, arg));
+    logger.info(`Completed validating options: ${JSON.stringify(optObjects)}`);
+    return (optObjects);
+  }
+
+  /**
+   * Interrogate file or FilterGraph/FilterNode for output tracks
+   * @param {string|FilterNode|FilterGraph} url - the source file or object
+   * @returns {Array&lt;Object>} - an array of track info objects
+   *
+   * @private
+   */
+  static _interrogateForTracks (url) {
+    // TODO: Implement this using ffprobe
+    return [];
+  }
+
+  /**
+   * Load the FilterNode class and return it
+   * 
+   * @returns {FilterNode} - the FilterNode class
+   *
+   * @private
+   */
+  static _loadFilterNode () {
+    return require('./filter_node');
+  }
+
+  /**
+   * Load the FilterGraph class and return it
+   * 
+   * @returns {FilterGraph} - the FilterGraph class
+   *
+   * @private
+   */
+  static _loadFilterGraph () {
+    return require('./filter_graph');
+  }
+
+  /**
+   * Load the FFmpegOption class and return it
+   * 
+   * @returns {FFmpegOption} - the FFmpegOption class
+   *
+   * @private
+   */
+  static _loadFFmpegOption () {
+    return require('./ffmpeg_option');
   }
 }
 
-/**
- * Get a logger instance
- * @param {string} context - context name for the logger
- * @param {class} loggerType - the logger class to use when creating a logger (optional, default: DefaultLogger, requires: parentLogger = null)
- * @param {DefaultLogger} parentLogger - the logger instance for which you would like to create a child logger (optional, default: base logger created by this module)
- * 
- * @returns {Object} logger instance
- */
-const getLogger = function (context = 'root',
-  loggerType = DefaultLogger,
-  parentLogger = module.exports.baseLogger) {
-  if (parentLogger === null || typeof parentLogger === 'undefined') {
-    return new loggerType(`${module.exports.baseContext}:${context}`);
-  } else if (parentLogger.hasOwnProperty('child')) {
-    return parentLogger.child(`${module.exports.baseContext}:${context}`);
-  }
-  return parentLogger;
-}; 
-
-/**
- * Create the base logger.
- * @private
- */
-let _logger;
-if (module.exports.baseLogger === undefined) {
-  _logger = new DefaultLogger(`${module.exports.baseContext}:root`, null);
-  module.exports.baseLogger = _logger;
-  _logger.info(`Created logger and registered as base logger: ${_logger.format(_logger)}`);
-} else {
-  _logger = module.exports.baseLogger;
-  _logger.info(`Using logger already available in config module: ${_logger.format(_logger)}`);
-}
-
-/**
- * Check that all required interface methods exist on the specified logger.
-  * @private
- */
-const _missing_methods = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
-  .filter((method) => {
-    // logger.debug(method, logger, typeof logger[method], logger[method]);
-    return (typeof _logger[method] !== 'function');
-  });
-
-// logger.debug(`filter complete : _missing_methods = ${JSON.stringify(_missing_methods)}`);
-if (_missing_methods.length > 0) {
-  throw new Error(`Specified logger is missing the following logger interface methods: ${_logger.format(_missing_methods)}`);
-}
-
-module.exports = getLogger;
-module.exports.DefaultLogger = DefaultLogger;
+module.exports = FFmpegInput;
 </code></pre>
         </article>
     </section>
