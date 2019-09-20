@@ -10,25 +10,11 @@ const { Readable } = require('stream');
  */
 class TestReadableStream extends Readable {
   /**
-   * Constructor
-   * @param {Object} opts - options for the Readable stream 
-   * 
-   * @returns {TestReadableStream} - the object instance
-   */
-  constructor (opts) {
-    super(opts);
-    for (let e of ['data', 'close', 'error', 'end']) {
-      this.on(e, (data, eventName = e) => console.log(`Event '${eventName}' received on TestReadableStream: event data = ${data}`));
-    }
-  }
-  /**
    * Required _read method of Readable interface. Logging no-op.
    * 
    * @returns {void}
    */
-  _read () {
-    console.log('TestReadableStream._read() called.');
-  }
+  _read () {}
 }
 
 /* eslint-enable no-console */
