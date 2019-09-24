@@ -94,7 +94,6 @@ describe('FilterGraph', function () {
       ];
       const fc = new FilterGraph(nodes, null, connections);
       expect(fc.outputPads).to.be.instanceof(Array);
-      // console.log(fc.outputPads);
       expect(fc.outputPads.length).to.eql(2);
       fc.outputPads.forEach((pad) => {
         expect(pad).to.have.ownProperty('node');
@@ -115,7 +114,6 @@ describe('FilterGraph', function () {
     });
     it.skip('provides a non-marked output pad as the next pad', function () {
       const fc = new FilterGraph(nodes, null, [[[cropFilter, '0'], [vFlipFilter, '0']]]);
-
     });
     it('generates a string representation of the graph', function () {
       const nodes = [cropFilter, splitFilter, vflipFilter, vflipFilter2];
@@ -125,7 +123,6 @@ describe('FilterGraph', function () {
         [[splitFilter, '1'], [vflipFilter2, '0']]
       ];
       const fc = new FilterGraph(nodes, null, connections);
-      // console.log(fc.rootNodes);
       const expected = `crop=iw:ih/2:0:0 [${cropFilter.padPrefix}_0];[${cropFilter.padPrefix}_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] vflip`;
       expect(fc.toString()).to.eql(expected);
     });

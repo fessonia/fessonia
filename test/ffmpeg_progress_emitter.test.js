@@ -71,7 +71,6 @@ describe('FFmpegProgressEmitter', function () {
   it('provides the last n writes into the stream', function (done) {
     const progress = new FFmpegProgressEmitter();
     const testData = testHelpers.createTestReadableStream();
-    // console.log(`progressChunksFixture = ${util.inspect(progressChunksFixture)}`);
     testData.on('finish', () => progress.end());
     const expected = progressChunksFixture.slice(progressChunksFixture.length - 10);
     testData.pipe(progress);
@@ -90,7 +89,6 @@ describe('FFmpegProgressEmitter', function () {
   it('provides the all writes into the stream', function (done) {
     const progress = new FFmpegProgressEmitter();
     const testData = testHelpers.createTestReadableStream();
-    // console.log(`progressChunksFixture = ${util.inspect(progressChunksFixture)}`);
     testData.on('finish', () => progress.end());
     const expected = progressChunksFixture;
     testData.pipe(progress);
