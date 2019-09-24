@@ -3,21 +3,16 @@ const chai = require('chai'),
 
 const { Readable } = require('stream');
 
-/* eslint-disable no-console */
-
 /**
  * Test readable stream class (for internal use in testing only)
  */
 class TestReadableStream extends Readable {
   /**
    * Required _read method of Readable interface. Logging no-op.
-   * 
    * @returns {void}
    */
   _read () {}
 }
-
-/* eslint-enable no-console */
 
 module.exports = {
   expectLast: function (tested, expected) {
