@@ -9,7 +9,7 @@ ffmpeg -i input.mov -i logo1.png -i logo2.png -filter_complex 'overlay=x=10:y=ma
 To construct this in JavaScript using the library, you can use the following.
 
 ```{javascript}
-const fessonia = require('@tedconf/fessonia');
+const fessonia = require('@tedconf/fessonia')();
 
 // Create command
 const cmd = new fessonia.FFmpegCommand({});

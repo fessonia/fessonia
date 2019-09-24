@@ -42,9 +42,9 @@ Deconstructing the command in this way, it becomes easier to see the processing 
 
 ## Visualizing the Structure of a Command
 
-Sometimes a picture is helpful. We can visualize this hierarchical structure of an `ffmpeg` command as in the diagram below.
+Sometimes a picture is helpful. We can visualize this structure of an `ffmpeg` command as in the diagram below.
 
-![FFmpeg command structure diagram](ffmpeg-command-hierarchy.png)
+![FFmpeg command structure diagram](ffmpeg-command-diagram.png)
 
 ## How this Structure is Reflected in the Design of Fessonia
 

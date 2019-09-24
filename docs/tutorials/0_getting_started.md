@@ -17,13 +17,31 @@ yarn i @tedconf/fessonia
 You can import the whole library:
 
 ```{javascript}
-const fessonia = require('@tedconf/fessonia');
+const fessonia = require('@tedconf/fessonia')();
 ```
 
 Or you can use destructuring to import individual classes:
 
 ```{javascript}
-const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('@tedconf/fessonia');
+const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('@tedconf/fessonia')();
+```
+
+You may also specify a few configuration options on input:
+
+* `ffmpeg_bin` - the location of the `ffmpeg` binary on the system where the library is running (default: `"ffmpeg"`)
+* `ffprobe_bin` - the location of the `ffprobe` binary on the system where the library is running (default: `"ffprobe"`)
+* `debug` - a flag indicating that debug logging should be enabled (default: `process.env.DEBUG || false`)
+* `log_warnings` - a flag indicating that warnings and errors should be logged by the library (default: `process.env.LOG_WARNINGS || false`)
+
+To do so, add the config options as an object argument to the function call:
+
+```{javascript}
+const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('@tedconf/fessonia')({
+  ffmpeg_bin: "/path/to/ffmpeg/binary/here",
+  ffprobe_bin: "/path/to/ffprobe/binary/here",
+  debug: true,
+  log_warnings: true
+});
 ```
 
 ## Understanding the library
@@ -45,7 +63,7 @@ const cmd = new fessonia.FFmpegCommand({});
 cmd.addInput(ffin);
 cmd.addOutput(ffout);
 
-console.log(cmd.toString()); //=> /path/to/ffmpeg -i "input.mp4" "output.avi"
+console.log(cmd.toString()); //=> ffmpeg -i "input.mp4" "output.avi"
 ```
 
 ### Events
@@ -79,13 +97,13 @@ cmd.on('error', (err) => {
 
 ### Executing the Command
 
-To execute the command **synchronously**, you can use the `execute` method:
+To execute the command and get a `Promise` for the `stdout` output of `ffmpeg`, you can use the `execute` method:
 
 ```{javascript}
 cmd.execute();
 ```
 
-To execute the command **asynchronously**, you can use the `spawn` method:
+To execute the command and get the actual `child_process` object back, you can use the `spawn` method:
 
 ```{javascript}
 cmd.spawn();
