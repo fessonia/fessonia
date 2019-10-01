@@ -7,14 +7,19 @@ const chai = require('chai'),
 const FFmpegOutput = require('../lib/ffmpeg_output'),
   FFmpegOption = require('../lib/ffmpeg_option'),
   FilterNode = require('../lib/filter_node'),
+  FilterChain = require('../lib/filter_chain'),
   FilterGraph = require('../lib/filter_graph'),
   filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegOutput', function () {
   it('creates an FFmpegOutput object', function () {
-    const fi = new FFmpegOutput('/some/file.mp4');
+    const fi = new FFmpegOutput('/some/file.mp4', {});
     expect(fi).to.be.instanceof(FFmpegOutput);
   });
+  it('creates an FFmpegOutput object with undefined options', () => {
+    const fi = new FFmpegOutput('/some/url')
+    expect(fi).to.be.instanceof(FFmpegOutput)
+  })
   it('disallows creating FFmpegOutput object with no file or url', function () {
     expect(() => new FFmpegOutput(null, {})).to.throw();
   });
@@ -87,31 +92,29 @@ describe('FFmpegOutput', function () {
       vflipFilter = new FilterNode({ filterName: 'vflip' });
       hflipFilter = new FilterNode({ filterName: 'hflip' });
       splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
-      const nodes = [cropFilter, vflipFilter, hflipFilter, splitFilter];
-      const connections = [
-        [[cropFilter, '0'], [splitFilter, '0']],
-        [[splitFilter, '0'], [vflipFilter, '0']],
-        [[splitFilter, '1'], [hflipFilter, '0']]
-      ];
-      fc = new FilterGraph(nodes, null, connections);
-    });
-  
-    this.afterEach(() => {
-      FilterNode._queryFFmpegForFilters.restore();
+      fc1 = new FilterChain([cropFilter, splitFilter])
+      fc2 = new FilterChain([vflipFilter])
+      fc2.addInput(fc1.streamSpecifier(0))
+      fc3 = new FilterChain([hflipFilter])
+      fc3.addInput(fc1.streamSpecifier(1))
+      fg = new FilterGraph();
+      fg.addFilterChain(fc1)
+      fg.addFilterChain(fc2)
+      fg.addFilterChain(fc3)
     });
     
     it('generates the correct command array segment', function () {
       const expectedLast = '/some/file.mp4';
       const expectedArgs = [
         ['-dn'],
-        ['-filter_complex', `crop=iw:ih/2:0:0 [${cropFilter.padPrefix}_0];[${cropFilter.padPrefix}_0] split [${splitFilter.padPrefix}_0] [${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0] vflip;[${splitFilter.padPrefix}_1] hflip`],
+        ['-filter_complex', `crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip[${vflipFilter.padPrefix}_0];[${splitFilter.padPrefix}_1]hflip[${hflipFilter.padPrefix}_0]`],
         ['-b:v', '3850k'],
         ['-f', 'mp4'],
         ['-aspect', '16:9']
       ];
       const fo = new FFmpegOutput('/some/file.mp4', new Map([
         ['dn', null],
-        ['filter', fc],
+        ['filter', fg],
         ['aspect', '16:9'],
         ['f', 'mp4'],
         ['b:v', '3850k']
