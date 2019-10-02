@@ -1,0 +1,87 @@
+{
+  "projectName": "fessonia",
+  "projectOwner": "tedconf",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "CONTRIBUTORS.md",
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "nihonjinrxs",
+      "name": "Ryan B. Harvey",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/479496?v=4",
+      "profile": "http://datascientist.guru",
+      "contributions": [
+        "code",
+        "doc",
+        "design",
+        "example",
+        "content",
+        "ideas",
+        "infra",
+        "maintenance",
+        "test",
+        "tutorial",
+        "talk"
+      ]
+    },
+    {
+      "login": "bog",
+      "name": "Mark Bogdanoff",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/267451?v=4",
+      "profile": "http://www.ted.com/",
+      "contributions": [
+        "ideas",
+        "example",
+        "code",
+        "review",
+        "question",
+        "bug",
+        "projectManagement",
+        "userTesting",
+        "test",
+        "content",
+        "design"
+      ]
+    },
+    {
+      "login": "redoPop",
+      "name": "Joe Bartlett",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/109632?v=4",
+      "profile": "http://redopop.com",
+      "contributions": [
+        "ideas",
+        "question",
+        "review",
+        "content",
+        "design"
+      ]
+    },
+    {
+      "login": "griley",
+      "name": "George Riley",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/302162?v=4",
+      "profile": "https://github.com/griley",
+      "contributions": [
+        "ideas",
+        "question"
+      ]
+    },
+    {
+      "login": "dub",
+      "name": "Aaron Weyenberg",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/39579?v=4",
+      "profile": "http://www.aaronweyenberg.com",
+      "contributions": [
+        "content",
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
