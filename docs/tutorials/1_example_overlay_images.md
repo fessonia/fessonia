@@ -16,7 +16,7 @@ const cmd = new fessonia.FFmpegCommand({});
 
 // Add inputs
 ['input.mov', 'logo1.png', 'logo2.png']
-  .forEach((ffin) => cmd.addInput(new fessonia.FFmpegInput(ffin, {}));
+  .forEach((ffin) => cmd.addInput(new fessonia.FFmpegInput(ffin)));
 
 // Generate filtergraph
 const overlay1 = new fessonia.FilterNode({
@@ -32,19 +32,11 @@ const overlay2 = new fessonia.FilterNode({
   /* or args can be specified as ordered arguments */
   args: ['main_w-overlay_w-10', 'main_h-overlay_h-10']
 });
-const filtergraph = new fessonia.FilterGraph(
-  [overlay1,overlay2], /* the list of nodes in the filtergraph */
-  [overlay1], /* where the filtergraph starts */
-  [ /* connections between nodes in the filtergraph */
-    [[overlay1, 0], [overlay2, 0]]
-  ]
-);
+const filterchain = new fessonia.FilterChain([overlay1,overlay2]);
+cmd.addFilterChain(filterchain);
 
 // Construct and add the output using the filtergraph
-const ffout = new fessonia.FFmpegOutput('output.mp4', new Map([
-  ['filter', filtergraph],
-  ['c:a', 'copy']
-]));
+const ffout = new fessonia.FFmpegOutput('output.mp4', {'c:a': 'copy'});
 cmd.addOutput(ffout);
 
 // ... handle events, etc.
