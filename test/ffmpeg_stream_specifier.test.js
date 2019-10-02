@@ -22,8 +22,6 @@ describe('FFmpegStreamSpecifier', () => {
   it('creates an FFmpegStreamSpecifier object with a FilterChain', () => {
     expect(new FFmpegStreamSpecifier(filterChain, 0))
       .to.be.instanceof(FFmpegStreamSpecifier);
-    expect(new FFmpegStreamSpecifier(filterChain, 'v'))
-      .to.be.instanceof(FFmpegStreamSpecifier);
   });
   it('creates an FFmpegStreamSpecifier object with an FFmpegInput', () => {
     expect(new FFmpegStreamSpecifier(ffmpegInput, 0))
@@ -33,6 +31,8 @@ describe('FFmpegStreamSpecifier', () => {
     expect(new FFmpegStreamSpecifier(ffmpegInput, 'a'))
       .to.be.instanceof(FFmpegStreamSpecifier);
     expect(new FFmpegStreamSpecifier(ffmpegInput, '0:v'))
+      .to.be.instanceof(FFmpegStreamSpecifier);
+    expect(new FFmpegStreamSpecifier(ffmpegInput, 'v:1'))
       .to.be.instanceof(FFmpegStreamSpecifier);
   });
   describe('toString()', () => {
