@@ -1,4 +1,5 @@
 <h1 align="center"><img src="docs/img/Fessonia_logo_social_preview_1280x640.png" alt="Fessonia: easing the burden of automating ffmpeg from node.js" title="Fessonia: easing the burden of automating ffmpeg from node.js" width="100%"/></h1>
+
 [![Build Status](https://travis-ci.com/tedconf/fessonia.svg?branch=master)](https://travis-ci.com/tedconf/fessonia)
 [![Node Versions Supported](https://img.shields.io/node/v/@tedconf/fessonia)](https://github.com/tedconf/fessonia)
 [![Dependencies](https://img.shields.io/david/tedconf/fessonia)](https://github.com/tedconf/fessonia)
