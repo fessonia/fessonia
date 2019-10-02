@@ -186,8 +186,8 @@ describe('FFmpegOutput', function () {
         audioStream
       ]);
       expect(fo.toCommandArray()).to.deep.eql([
-        '-map', '"1:v"',
-        '-map', '"1:a"',
+        '-map', '1:v',
+        '-map', '1:a',
         '/some/file.mp4'
       ]);
     });
@@ -203,7 +203,7 @@ describe('FFmpegOutput', function () {
       expect(fo.streams.length).to.eql(1);
       expect(fo.streams).to.deep.eql([ videoStream ]);
       expect(fo.toCommandArray()).to.deep.eql([
-        '-map', `"[${node.padPrefix}_0]"`,
+        '-map', `[${node.padPrefix}_0]`,
         '/some/file.mp4'
       ]);
     });
@@ -223,8 +223,8 @@ describe('FFmpegOutput', function () {
         audioStream
       ]);
       expect(fo.toCommandArray()).to.deep.eql([
-        '-map', '"1:v"',
-        '-map', '"1:a"',
+        '-map', '1:v',
+        '-map', '1:a',
         '/some/file.mp4'
       ]);
     });
@@ -246,8 +246,8 @@ describe('FFmpegOutput', function () {
       expect(fo.streams.length).to.eql(2);
       expect(fo.streams).to.deep.eql([ stream1, stream2 ]);
       expect(fo.toCommandArray()).to.deep.eql([
-        '-map', `"[${node1.padPrefix}_0]"`,
-        '-map', `"[${node2.padPrefix}_0]"`,
+        '-map', `[${node1.padPrefix}_0]`,
+        '-map', `[${node2.padPrefix}_0]`,
         '/some/file.mp4'
       ]);
     });
