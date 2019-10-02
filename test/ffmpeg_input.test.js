@@ -80,22 +80,6 @@ describe('FFmpegInput', function () {
       expect(fiMap.toCommandString()).to.eql(expected);
     });
   });
-  describe('nextAvailableOutputTrack()', function () {
-    it.skip('returns the next available output track', function () {
-      const fi = new FFmpegInput('/some/file.mp4', {});
-      expect(fi.nextAvailableOutputTrack()).to.eql(0);
-    });
-    it.skip('allows marking output tracks mapped and excludes them from available tracks', function () {
-      const fi = new FFmpegInput('/some/file.mp4', {});
-      fi.markOutputTrackMapped(0);
-      expect(fi.nextAvailableOutputTrack()).to.eql(1);
-    });
-    it.skip('returns next available output of a specific streamType', function () {
-      // TODO: Need a fixture here that has a specific track as first audio track.
-      const fi = new FFmpegInput('/some/file.mp4', {});
-      expect(fi.nextAvailableOutputTrack({ streamType: 'a' })).to.eql(2);
-    })
-  });
   describe('filters as input', function () {
     this.beforeEach(() => {
       // stub for ffmpeg interaction
