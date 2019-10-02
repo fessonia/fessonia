@@ -5,6 +5,7 @@ const chai = require('chai'),
   testHelpers = require('./helpers');
 
 const FFmpegOutput = require('../lib/ffmpeg_output'),
+  FFmpegInput = require('../lib/ffmpeg_input'),
   FFmpegOption = require('../lib/ffmpeg_option'),
   FilterNode = require('../lib/filter_node'),
   FilterChain = require('../lib/filter_chain'),
@@ -169,6 +170,86 @@ describe('FFmpegOutput', function () {
       fo.addOptions(newOptions);
       expect(fo.options).to.deep.eql(expected);
       FilterNode._queryFFmpegForFilters.restore();
+    });
+  });
+  describe('addStreams()', () => {
+    it('adds input streams to the output', () => {
+      const fo = new FFmpegOutput('/some/file.mp4');
+      const fi = new FFmpegInput('/some/input.mov');
+      fi.inputLabel = 1;
+      const videoStream = fi.streamSpecifier('v');
+      const audioStream = fi.streamSpecifier('a');
+      fo.addStreams([videoStream, audioStream]);
+      expect(fo.streams.length).to.eql(2);
+      expect(fo.streams).to.deep.eql([
+        videoStream,
+        audioStream
+      ]);
+      expect(fo.toCommandArray()).to.deep.eql([
+        '-map', '"1:v"',
+        '-map', '"1:a"',
+        '/some/file.mp4'
+      ]);
+    });
+    it('adds filterChain streams to the output', () => {
+      const fo = new FFmpegOutput('/some/file.mp4');
+      const node = new FilterNode({
+        filterName: 'scale',
+        args: [640, -1]
+      });
+      const fc = new FilterChain([node]);
+      const videoStream = fc.streamSpecifier(0);
+      fo.addStreams([ videoStream ]);
+      expect(fo.streams.length).to.eql(1);
+      expect(fo.streams).to.deep.eql([ videoStream ]);
+      expect(fo.toCommandArray()).to.deep.eql([
+        '-map', `"[${node.padPrefix}_0]"`,
+        '/some/file.mp4'
+      ]);
+    });
+  });
+  describe('addStream()', () => {
+    it('adds input streams to the output in order', () => {
+      const fo = new FFmpegOutput('/some/file.mp4');
+      const fi = new FFmpegInput('/some/input.mov');
+      fi.inputLabel = 1;
+      const videoStream = fi.streamSpecifier('v');
+      const audioStream = fi.streamSpecifier('a');
+      fo.addStream(videoStream);
+      fo.addStream(audioStream);
+      expect(fo.streams.length).to.eql(2);
+      expect(fo.streams).to.deep.eql([
+        videoStream,
+        audioStream
+      ]);
+      expect(fo.toCommandArray()).to.deep.eql([
+        '-map', '"1:v"',
+        '-map', '"1:a"',
+        '/some/file.mp4'
+      ]);
+    });
+    it('adds filterChain streams to the output in order', () => {
+      const fo = new FFmpegOutput('/some/file.mp4');
+      const node1 = new FilterNode({
+        filterName: 'scale',
+        args: [640, -1]
+      });
+      const node2 = new FilterNode({
+        filterName: 'vflip'
+      })
+      const fc1 = new FilterChain([node1]);
+      const fc2 = new FilterChain([node2]);
+      const stream1 = fc1.streamSpecifier(0);
+      const stream2 = fc2.streamSpecifier(0)
+      fo.addStream(stream1);
+      fo.addStream(stream2);
+      expect(fo.streams.length).to.eql(2);
+      expect(fo.streams).to.deep.eql([ stream1, stream2 ]);
+      expect(fo.toCommandArray()).to.deep.eql([
+        '-map', `"[${node1.padPrefix}_0]"`,
+        '-map', `"[${node2.padPrefix}_0]"`,
+        '/some/file.mp4'
+      ]);
     });
   });
 });
