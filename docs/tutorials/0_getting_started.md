@@ -136,6 +136,30 @@ There are 5 key pieces you can construct using the library:
 By assembling these pieces, you can construct an `ffmpeg` command that is
 quite complex with ease.
 
+## Where to go for more on these key pieces
+
+The `ffmpeg` documentation provides much more detailed information on how these
+pieces work, and since this library provides an interface to that software, the
+best resource to learn about these topics is from the `ffmpeg` docs.
+
+(We've intentionally kept the language here consistent with the `ffmpeg` documentation,
+so there should be no translation gap between what is described here and what is
+available in the `ffmpeg` documentation. If you find that is not true, please submit a PR!)
+
+In particular, the following topics may be helpful:
+
+* [Options](http://ffmpeg.org/ffmpeg.html#Options)
+  * [Global/Generic options](http://ffmpeg.org/ffmpeg.html#Generic-options)
+  * [Per-stream options](http://ffmpeg.org/ffmpeg.html#Main-options)
+  * [Stream specifiers](http://ffmpeg.org/ffmpeg.html#Stream-specifiers-1)
+  * [Stream selection](http://ffmpeg.org/ffmpeg.html#Stream-selection)
+* [Filtering](http://ffmpeg.org/ffmpeg.html#Filtering)
+  * [Intro to Filtering](http://ffmpeg.org/ffmpeg-filters.html#Filtering-Introduction)
+  * [List of available filters](http://ffmpeg.org/ffmpeg-filters.html#Audio-Filters)
+  * [Filtergraphs and linklabels](http://ffmpeg.org/ffmpeg-filters.html#Filtergraph-description)
+  * [Filters as input, and the `lavfi` device](http://ffmpeg.org/ffmpeg-devices.html#lavfi)
+* [Formats (demuxers & muxers)](http://ffmpeg.org/ffmpeg-formats.html)
+
 ## A few more complex examples
 
 Often, the work we need to do with `ffmpeg` is quite complex. For example,
