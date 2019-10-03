@@ -4,7 +4,6 @@ const chai = require('chai'),
   fs = require('fs');
 
 const FilterChain = require('../lib/filter_chain');
-const FFmpegStreamSpecifier = require('../lib/ffmpeg_stream_specifier');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FilterNode = require('../lib/filter_node');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
@@ -22,12 +21,30 @@ describe('FilterChain', () => {
   it('creates an FilterChain object', () => {
     expect(new FilterChain(nodes)).to.be.instanceof(FilterChain);
   });
+  it('disallows creating a FilterChain with non-FilterNode objects', () => {
+    expect(() => { new FilterChain('not an array') }).to.throw()
+    expect(() => { new FilterChain([1, 2, 3]) }).to.throw()
+    expect(() => { new FilterChain([cropFilter, 'abcdef', splitFilter]) }).to.throw()
+  })
   it('allows adding inputs', () => {
     const fc = new FilterChain(nodes);
     const inputStream = ffmpegInput.streamSpecifier('v')
     expect(() => fc.addInputs([inputStream])).not.to.throw();
     expect(fc.inputs).to.contain(inputStream);
   });
+  it('disallows adding more inputs than pads available', () => {
+    const fc = new FilterChain(nodes);
+    const inputStreams = [
+      ffmpegInput.streamSpecifier('v:0'),
+      ffmpegInput.streamSpecifier('a:1'),
+      ffmpegInput.streamSpecifier('a:2')
+    ];
+    expect(() => fc.addInputs(inputStreams)).to.throw();
+  });
+  it('disallows non-FFmpegStreamSpecifier inputs', () => {
+    const fc = new FilterChain(nodes);
+    expect(() => fc.addInputs(['not a stream specifier'])).to.throw()
+  })
   describe('getOutputPad()', () => {
     it('returns the requested output pad label', () => {
       const fc = new FilterChain(nodes);
