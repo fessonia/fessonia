@@ -21,6 +21,9 @@ describe('FilterChain', () => {
   it('creates an FilterChain object', () => {
     expect(new FilterChain(nodes)).to.be.instanceof(FilterChain);
   });
+  it('disallows creating an empty FilterChain', () => {
+    expect(() => { new FilterChain([]) }).to.throw()
+  });
   it('disallows creating a FilterChain with non-FilterNode objects', () => {
     expect(() => { new FilterChain('not an array') }).to.throw()
     expect(() => { new FilterChain([1, 2, 3]) }).to.throw()
