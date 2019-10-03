@@ -11,7 +11,10 @@
     "test": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info test/*.test.js",
     "lint": "./node_modules/.bin/eslint ./{lib,test}/**/*.js",
     "watch": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info --watch test/*.test.js",
-    "generate-docs": "scripts/generate-docs.sh"
+    "generate-docs": "scripts/generate-docs.sh",
+    "add-contributor": "./node_modules/.bin/all-contributors add",
+    "check-contributors": "./node_modules/.bin/all-contributors check",
+    "generate-contributors": "./node_modules/.bin/all-contributors generate"
   },
   "repository": {
     "type": "git",
@@ -41,6 +44,7 @@
   },
   "homepage": "https://tedconf.github.io/fessonia",
   "devDependencies": {
+    "all-contributors-cli": "^6.9.1",
     "chai": "^4.2.0",
     "eslint": "^5.8.0",
     "istanbul": "^0.4.5",

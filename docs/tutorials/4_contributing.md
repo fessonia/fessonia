@@ -86,6 +86,32 @@ Docs generation is handled via a shell script in the `/scripts` folder, but can 
 npm run generate-docs
 ```
 
+### Adding Contributors
+
+This project follows the all-contributors spec. Convenience scripts for adding contributors, checking contributors against Github, and generating the contributors table in `CONTRIBUTORS.md` are in the `package.json`.
+
+All-contributors CLI documentation is at: [https://allcontributors.org/docs/en/cli/usage](https://allcontributors.org/docs/en/cli/usage)
+
+#### Add a contributor
+
+```{bash}
+npm run add-contributor githubname <comma-separated list of contributions>
+```
+
+List of available contributions in in the all-contributors docs: [https://allcontributors.org/docs/en/emoji-key](https://allcontributors.org/docs/en/emoji-key)
+
+#### Check contributors list against Github
+
+```{bash}
+npm run check-contributors
+```
+
+#### Generate the table in the `CONTRIBUTORS.md` file
+
+```{bash}
+npm run generate-contributors
+```
+
 ### Continuous Integration via Travis CI
 
 Travis CI is setup to run a build against LTS node versions 8.x and up, as well as the latest stable node version, on each commit to any branch on the repo and each pull request submitted against the repo.
