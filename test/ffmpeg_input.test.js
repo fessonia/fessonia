@@ -23,6 +23,9 @@ describe('FFmpegInput', function () {
     it('disallows creating FFmpegInput object with no file or url', function () {
       expect(() => new FFmpegInput(null, {})).to.throw();
     });
+    it('disallows creating FFmpegInput object with non-string non-filter url', function () {
+      expect(() => new FFmpegInput(['some', 'values'])).to.throw();
+    });
     it('sets the options property on the object', function () {
       expect(new FFmpegInput('/some/file.mov', new Map()).options).to.eql([]);
       expect(new FFmpegInput('/some/file.mov', {}).options).to.eql([]);
@@ -179,6 +182,9 @@ describe('FFmpegInput', function () {
         expect(fi.inputLabel).to.eql('0');
         fi.inputLabel = 1;
         expect(fi.inputLabel).to.eql('1');
+      });
+      it('rejects setting an input label to non-stringifiable values', function () {
+        expect(() => { fi.inputLabel = undefined }).to.throw();
       });
     });
   });
