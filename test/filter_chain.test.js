@@ -15,8 +15,8 @@ describe('FilterChain', () => {
     cropFilter = new FilterNode({ filterName: 'crop', args: ['iw', 'ih/2', 0, 0] });
     vflipFilter = new FilterNode({ filterName: 'vflip' });
     splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
-    nodes = [cropFilter, vflipFilter, splitFilter]
-    ffmpegInput = new FFmpegInput('/some/uri')
+    nodes = [cropFilter, vflipFilter, splitFilter];
+    ffmpegInput = new FFmpegInput('/some/uri');
   });
   it('creates an FilterChain object', () => {
     expect(new FilterChain(nodes)).to.be.instanceof(FilterChain);
@@ -25,13 +25,13 @@ describe('FilterChain', () => {
     expect(() => { new FilterChain([]) }).to.throw()
   });
   it('disallows creating a FilterChain with non-FilterNode objects', () => {
-    expect(() => { new FilterChain('not an array') }).to.throw()
-    expect(() => { new FilterChain([1, 2, 3]) }).to.throw()
-    expect(() => { new FilterChain([cropFilter, 'abcdef', splitFilter]) }).to.throw()
+    expect(() => { new FilterChain('not an array') }).to.throw();
+    expect(() => { new FilterChain([1, 2, 3]) }).to.throw();
+    expect(() => { new FilterChain([cropFilter, 'abcdef', splitFilter]) }).to.throw();
   })
   it('allows adding inputs', () => {
     const fc = new FilterChain(nodes);
-    const inputStream = ffmpegInput.streamSpecifier('v')
+    const inputStream = ffmpegInput.streamSpecifier('v');
     expect(() => fc.addInputs([inputStream])).not.to.throw();
     expect(fc.inputs).to.contain(inputStream);
   });
@@ -46,30 +46,30 @@ describe('FilterChain', () => {
   });
   it('disallows non-FFmpegStreamSpecifier inputs', () => {
     const fc = new FilterChain(nodes);
-    expect(() => fc.addInputs(['not a stream specifier'])).to.throw()
-  })
+    expect(() => fc.addInputs(['not a stream specifier'])).to.throw();
+  });
   describe('getOutputPad()', () => {
     it('returns the requested output pad label', () => {
       const fc = new FilterChain(nodes);
-      expect(fc.getOutputPad(0)).to.eql(`${splitFilter.padPrefix}_0`)
+      expect(fc.getOutputPad(0)).to.eql(`${splitFilter.padPrefix}_0`);
     })
-  })
+  });
   describe('toString()', () => {
     it('returns the correct string representation', () => {
       const fc = new FilterChain(nodes);
-      const expected = `${cropFilter.toString()},${vflipFilter.toString()},${splitFilter.toString()}[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1]`
-      expect(fc.toString()).to.eql(expected)
+      const expected = `${cropFilter.toString()},${vflipFilter.toString()},${splitFilter.toString()}[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1]`;
+      expect(fc.toString()).to.eql(expected);
     });
     it('returns the correct string representation with inputs', () => {
       const fc = new FilterChain(nodes);
       const inputStream = ffmpegInput.streamSpecifier('v')
-      fc.addInputs([inputStream])
-      ffmpegInput.inputLabel = 1
+      fc.addInputs([inputStream]);
+      ffmpegInput.inputLabel = 1;
       const expected = `[1:v]${cropFilter.toString()},${vflipFilter.toString()},${splitFilter.toString()}[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1]`
-      expect(fc.toString()).to.eql(expected)
-    })
-  })
-  
+      expect(fc.toString()).to.eql(expected);
+    });
+  });
+
   describe('example filter graphs from real use', function () {
     it('generative video filter to be used as an input', function () {
       let lifeFilter = new FilterNode({
