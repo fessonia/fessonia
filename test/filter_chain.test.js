@@ -6,6 +6,7 @@ const chai = require('chai'),
 const FilterChain = require('../lib/filter_chain');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FilterNode = require('../lib/filter_node');
+const FFmpegStreamSpecifier = require('../lib/ffmpeg_stream_specifier');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FilterChain', () => {
@@ -48,6 +49,23 @@ describe('FilterChain', () => {
     const fc = new FilterChain(nodes);
     expect(() => fc.addInputs(['not a stream specifier'])).to.throw();
   });
+
+  describe('streamSpecifier()', () => {
+    it('returns a streamSpecifer with the proper specifier', () => {
+      const fc = new FilterChain(nodes);
+      const streamSpecifier = fc.streamSpecifier(1);
+      expect(streamSpecifier).to.be.instanceof(FFmpegStreamSpecifier);
+      expect(streamSpecifier.specifier).to.eql('1');
+    });
+
+    it('returns a streamSpecifer with the default specifier if not provided', () => {
+      const fc = new FilterChain(nodes);
+      const streamSpecifier = fc.streamSpecifier();
+      expect(streamSpecifier).to.be.instanceof(FFmpegStreamSpecifier);
+      expect(streamSpecifier.specifier).to.eql('0');
+    });
+  });
+
   describe('getOutputPad()', () => {
     it('returns the requested output pad label', () => {
       const fc = new FilterChain(nodes);
