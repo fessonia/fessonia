@@ -6,17 +6,25 @@ const chai = require('chai'),
 
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FilterGraph = require('../lib/filter_graph');
+const FilterChain = require('../lib/filter_chain');
 const FilterNode = require('../lib/filter_node');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegInput', function () {
   describe('constructor()', function () {
     it('creates an FFmpegInput object', function () {
-      const fi = new FFmpegInput('/some/file.mov');
+      const fi = new FFmpegInput('/some/file.mov', {});
       expect(fi).to.be.instanceof(FFmpegInput);
     });
+    it('creates an FFmpegInput object with undefined options', () => {
+      const fi = new FFmpegInput('/some/url')
+      expect(fi).to.be.instanceof(FFmpegInput)
+    })
     it('disallows creating FFmpegInput object with no file or url', function () {
       expect(() => new FFmpegInput(null, {})).to.throw();
+    });
+    it('disallows creating FFmpegInput object with non-string non-filter url', function () {
+      expect(() => new FFmpegInput(['some', 'values'])).to.throw();
     });
     it('sets the options property on the object', function () {
       expect(new FFmpegInput('/some/file.mov', new Map()).options).to.eql([]);
@@ -29,7 +37,7 @@ describe('FFmpegInput', function () {
   });
   describe('toCommandArray(), toCommandString()', function () {
     it('handles filenames with quotes properly', function () {
-      const fi = new FFmpegInput('/some/file with "quotes".mp4', {});
+      const fi = new FFmpegInput('/some/file with "quotes".mp4');
       const expectedCommandArray = ['-i', '/some/file with "quotes".mp4'];
       const expectedCommandString = '-i "/some/file with \\"quotes\\".mp4"';
       expect(fi.url).to.eql('/some/file with "quotes".mp4');
@@ -75,22 +83,6 @@ describe('FFmpegInput', function () {
       expect(fiMap.toCommandString()).to.eql(expected);
     });
   });
-  describe('nextAvailableOutputTrack()', function () {
-    it.skip('returns the next available output track', function () {
-      const fi = new FFmpegInput('/some/file.mp4', {});
-      expect(fi.nextAvailableOutputTrack()).to.eql(0);
-    });
-    it.skip('allows marking output tracks mapped and excludes them from available tracks', function () {
-      const fi = new FFmpegInput('/some/file.mp4', {});
-      fi.markOutputTrackMapped(0);
-      expect(fi.nextAvailableOutputTrack()).to.eql(1);
-    });
-    it.skip('returns next available output of a specific streamType', function () {
-      // TODO: Need a fixture here that has a specific track as first audio track.
-      const fi = new FFmpegInput('/some/file.mp4', {});
-      expect(fi.nextAvailableOutputTrack({ streamType: 'a' })).to.eql(2);
-    })
-  });
   describe('filters as input', function () {
     this.beforeEach(() => {
       // stub for ffmpeg interaction
@@ -100,19 +92,10 @@ describe('FFmpegInput', function () {
       vflipFilter = new FilterNode({ filterName: 'vflip' });
       splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
       nodes = [ cropFilter, vflipFilter, splitFilter ];
-      connections = [
-        [[cropFilter, 0], [splitFilter, 0]],
-        [[splitFilter, 0], [vflipFilter, 0]]
-      ];
-      fc = new FilterGraph(nodes, null, connections);
-    });
-
-    this.afterEach(() => {
-      FilterNode._queryFFmpegForFilters.restore();
+      fc = new FilterChain(nodes);
     });
 
     it('handles a single filter as input', function () {
-      let expected = '-re -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000"';
       let fInput = new FilterNode({
         filterName: 'sine',
         args: [
@@ -122,6 +105,7 @@ describe('FFmpegInput', function () {
           { name: 'sample_rate', value: 48000 }
         ]
       });
+      let expected = `-re -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000[${fInput.padPrefix}_0]"`;
       let fiObj = new FFmpegInput(fInput, new Map([
         ['re', null],
         ['f', 'lavfi']
@@ -129,8 +113,8 @@ describe('FFmpegInput', function () {
       expect(fiObj.toCommandString()).to.eql(expected);
     });
 
-    it('handles a filter graph as input', function () {
-      let lifeNode = new FilterNode({
+    it('handles a filter chain as input', function () {
+      const lifeNode = new FilterNode({
         filterName: 'life',
         args: [
           { name: 'size', value: '320x240' },
@@ -142,15 +126,42 @@ describe('FFmpegInput', function () {
           { name: 'stitch', value: 0 }
         ]
       });
-      let scaleNode = new FilterNode({
+      const scaleNode = new FilterNode({
         filterName: 'scale',
         args: [1920, 1080]
       });
-      let expected = `-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0 [${lifeNode.padPrefix}_0];[${lifeNode.padPrefix}_0] scale=1920:1080"`;
-      let nodes = [lifeNode, scaleNode];
-      let connections = [[[lifeNode, '0'], [scaleNode, '0']]];
-      let fcInput = new FilterGraph(nodes, null, connections);
-      let fiObj = new FFmpegInput(fcInput, new Map([
+      const expected = `-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080[${scaleNode.padPrefix}_0]"`;
+      const fcInput = new FilterChain([lifeNode, scaleNode]);
+      const fiObj = new FFmpegInput(fcInput, new Map([
+        ['re', null],
+        ['r', 23.976],
+        ['f', 'lavfi']
+      ]));
+      expect(fiObj.toCommandString()).to.eql(expected);
+    });
+
+    it('handles a filter graph as input', function () {
+      const lifeNode = new FilterNode({
+        filterName: 'life',
+        args: [
+          { name: 'size', value: '320x240' },
+          { name: 'mold', value: 10 },
+          { name: 'rate', value: 23.976 },
+          { name: 'ratio', value: 0.5 },
+          { name: 'death_color', value: '#C83232' },
+          { name: 'life_color', value: '#00ff00' },
+          { name: 'stitch', value: 0 }
+        ]
+      });
+      const scaleNode = new FilterNode({
+        filterName: 'scale',
+        args: [1920, 1080]
+      });
+      const expected = `-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080[${scaleNode.padPrefix}_0]"`;
+      const fc = new FilterChain([lifeNode, scaleNode]);
+      const fgInput = new FilterGraph();
+      fgInput.addFilterChain(fc);
+      const fiObj = new FFmpegInput(fgInput, new Map([
         ['re', null],
         ['r', 23.976],
         ['f', 'lavfi']
@@ -171,6 +182,9 @@ describe('FFmpegInput', function () {
         expect(fi.inputLabel).to.eql('0');
         fi.inputLabel = 1;
         expect(fi.inputLabel).to.eql('1');
+      });
+      it('rejects setting an input label to non-stringifiable values', function () {
+        expect(() => { fi.inputLabel = undefined }).to.throw();
       });
     });
   });

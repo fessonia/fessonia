@@ -3,8 +3,7 @@ const chai = require('chai'),
   fs = require('fs'),
   sinon = require('sinon');
 
-const FilterNode = require('../lib/filter_node'),
-  FFmpegEnumerations = require('../lib/ffmpeg_enumerations');
+const FilterNode = require('../lib/filter_node');
 const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 const filterInfoFixture = JSON.parse(
   fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.json`).toString()
@@ -24,7 +23,7 @@ describe('FilterNode', function () {
         },
         expectation: {
           toStringResult: 'crop=iw:ih/2:0:0',
-          filterIOType: FFmpegEnumerations.FilterIOTypes.GENERIC
+          filterIOType: FilterNode.FilterIOTypes.GENERIC
         }
       };
       // vflip filter
@@ -32,7 +31,7 @@ describe('FilterNode', function () {
         options: { filterName: 'vflip' },
         expectation: {
           toStringResult: 'vflip',
-          filterIOType: FFmpegEnumerations.FilterIOTypes.GENERIC
+          filterIOType: FilterNode.FilterIOTypes.GENERIC
         }
       };
       // array args
@@ -78,7 +77,7 @@ describe('FilterNode', function () {
           filterName: 'split'
         },
         expectation: {
-          filterIOType: FFmpegEnumerations.FilterIOTypes.GENERIC
+          filterIOType: FilterNode.FilterIOTypes.GENERIC
         }
       };
       // filter type: SOURCE
@@ -87,7 +86,7 @@ describe('FilterNode', function () {
           filterName: 'sine'
         },
         expectation: {
-          filterIOType: FFmpegEnumerations.FilterIOTypes.SOURCE
+          filterIOType: FilterNode.FilterIOTypes.SOURCE
         }
       };
       // filter type: SINK
@@ -96,7 +95,7 @@ describe('FilterNode', function () {
           filterName: 'nullsink'
         },
         expectation: {
-          filterIOType: FFmpegEnumerations.FilterIOTypes.SINK
+          filterIOType: FilterNode.FilterIOTypes.SINK
         }
       };
       // variable input filter
@@ -240,22 +239,6 @@ describe('FilterNode', function () {
     it('provides filter validation info based on ffmpeg help output', function () {
       expect(FilterNode._getValidFilterInfoFromFFmpeg()).to.deep.equal(filterInfoFixture);
     });
-    it('provides the next unmapped filter input pad index', function () {
-      let f = new FilterNode(varInputFilter.options);
-      expect(f.nextAvailableInputPadIndex()).to.eql(0);
-      f.markInputPadMapped(0);
-      expect(f.nextAvailableInputPadIndex()).to.eql(1);
-      f.markInputPadMapped(3);
-      expect(f.nextAvailableInputPadIndex()).to.eql(1);
-    });
-    it('provides the next unmapped filter output pad index', function () {
-      let f = new FilterNode(varOutputFilter.options);
-      expect(f.nextAvailableOutputPadIndex()).to.eql(0);
-      f.markOutputPadMapped(0);
-      expect(f.nextAvailableOutputPadIndex()).to.eql(1);
-      f.markOutputPadMapped(3);
-      expect(f.nextAvailableOutputPadIndex()).to.eql(1);
-    })
     // TODO: figure out how to add an un-stubbed test involving ffmpeg for FilterNode._queryFFmpegForFilters that doesn't break Jenkins
   });
 });

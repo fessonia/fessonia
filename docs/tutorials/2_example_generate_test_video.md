@@ -14,7 +14,7 @@ ffmpeg -r "23.976" -f "lavfi" -i \
 To do the same using Fessonia in JavaScript, you would do the following.
 
 ```{javascript}
-const { FilterNode, FilterGraph, FFmpegInput, FFmpegOutput, FFmpegCommand } = require('@tedconf/fessonia')();
+const { FilterNode, FilterChain, FFmpegInput, FFmpegOutput, FFmpegCommand } = require('@tedconf/fessonia')();
 
 // Construct the video filtergraph and corresponding input
 const lifeFilter = new FilterNode({
@@ -33,14 +33,8 @@ const scaleFilter = new FilterNode({
   filterName: 'scale',
   args: [1920, 1080]
 });
-const videoGraph = new FilterGraph(
-  [lifeFilter, scaleFilter],
-  null,
-  [
-    [[lifeFilter, '0'], [scaleFilter, '0']]
-  ]
-);
-const videoIn = new FFmpegInput(videoGraph, new Map([
+const videoFilters = new FilterChain([lifeFilter, scaleFilter]);
+const videoIn = new FFmpegInput(videoFilters, new Map([
   ['r', 23.976],
   ['f', 'lavfi']
 ]));
@@ -55,8 +49,8 @@ const sineFilter = new FilterNode({
     { name: 'sample_rate', value: 48000 }
   ]
 });
-const audioGraph = new FilterGraph([sineFilter], null, []);
-const audioIn = new FFmpegInput(audioGraph, new Map([
+const audioFilters = new FilterChain([sineFilter]);
+const audioIn = new FFmpegInput(audioFilters, new Map([
   ['f', 'lavfi']
 ]));
 

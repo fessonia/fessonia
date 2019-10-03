@@ -56,10 +56,10 @@ ffmpeg -i input.mp4 output.avi
 The library constructs this in pieces: first the input, then the output, then the command:
 
 ```{javascript}
-const ffin = new fessonia.FFmpegInput('input.mp4', {});
-const ffout = new fessonia.FFmpegOutput('output.avi', {});
+const ffin = new FFmpegInput('input.mp4');
+const ffout = new FFmpegOutput('output.avi');
 
-const cmd = new fessonia.FFmpegCommand({});
+const cmd = new FFmpegCommand();
 cmd.addInput(ffin);
 cmd.addOutput(ffout);
 
@@ -120,20 +120,45 @@ makes things much easier.
 There are 5 key pieces you can construct using the library:
 
 * **The `FFmpegCommand` object** -- provides the mechanism for handling global
-  scoped options, assembling command components into a complete command,
-  executing the command, and reporting progress, success or failure via events.
-* **The `FFmpegInput` object** -- handles the construction of an input to the 
+  scoped options, hosting a filter graph, assembling command components into a
+  complete command, executing the command, and reporting progress, success or
+  failure via events.
+* **The `FFmpegInput` object** -- handles the construction of an input to the
   `ffmpeg` command, including inputs using files, URIs or filters as sources.
 * **The `FilterNode` object** -- handles the assembly and validation of a single
-  filter node in an `ffmpeg` filter graph.
-* **The `FilterGraph` object** -- handles assembling filter nodes into a graph
-  usable as an input source or on an output processing chain.
+  filter node in an `ffmpeg` filter chain or graph.
+* **The `FilterChain` object** -- handles assembling filter nodes into a chain
+  usable as an input source or adding to a command's filter graph.
 * **The `FFmpegOutput` object** -- handles the construction and validation of
   an output specification for the `ffmpeg` command, including application of
   output processing options.
 
 By assembling these pieces, you can construct an `ffmpeg` command that is
 quite complex with ease.
+
+## Where to go for more on these key pieces
+
+The `ffmpeg` documentation provides much more detailed information on how these
+pieces work, and since this library provides an interface to that software, the
+best resource to learn about these topics is from the `ffmpeg` docs.
+
+(We've intentionally kept the language here consistent with the `ffmpeg` documentation,
+so there should be no translation gap between what is described here and what is
+available in the `ffmpeg` documentation. If you find that is not true, please submit a PR!)
+
+In particular, the following topics may be helpful:
+
+* [Options](http://ffmpeg.org/ffmpeg.html#Options)
+  * [Global/Generic options](http://ffmpeg.org/ffmpeg.html#Generic-options)
+  * [Per-stream options](http://ffmpeg.org/ffmpeg.html#Main-options)
+  * [Stream specifiers](http://ffmpeg.org/ffmpeg.html#Stream-specifiers-1)
+  * [Stream selection](http://ffmpeg.org/ffmpeg.html#Stream-selection)
+* [Filtering](http://ffmpeg.org/ffmpeg.html#Filtering)
+  * [Intro to Filtering](http://ffmpeg.org/ffmpeg-filters.html#Filtering-Introduction)
+  * [List of available filters](http://ffmpeg.org/ffmpeg-filters.html#Audio-Filters)
+  * [Filtergraphs and linklabels](http://ffmpeg.org/ffmpeg-filters.html#Filtergraph-description)
+  * [Filters as input, and the `lavfi` device](http://ffmpeg.org/ffmpeg-devices.html#lavfi)
+* [Formats (demuxers & muxers)](http://ffmpeg.org/ffmpeg-formats.html)
 
 ## A few more complex examples
 
