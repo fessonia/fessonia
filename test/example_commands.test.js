@@ -19,7 +19,7 @@ describe('FFmpegCommand', function () {
     });
   
     it('encodes example #1, pass 1', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [320, 180] });
+      const scaleNode = new FilterNode('scale', [320, 180]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=320:180[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "baseline" -level:v "1.3" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "112k" -minrate "100.8k" -maxrate "123.2k" -bufsize "13.44k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -46,7 +46,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #1, pass 2', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [320, 180] });
+      const scaleNode = new FilterNode('scale', [320, 180]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=320:180[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "baseline" -level:v "1.3" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "112k" -movflags "+faststart" -minrate "100.8k" -maxrate "123.2k" -bufsize "13.44k" -c:a "aac" -b:a "24k" -ar "24k" -ac "1" -f "mp4" -aspect "16:9" -pass "2" "/some/output_320x180_Low.mp4"`
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -77,7 +77,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #2, pass 1', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [320, 180] });
+      const scaleNode = new FilterNode('scale', [320, 180]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=320:180[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "fast" -profile:v "baseline" -level:v "3.0" -pix_fmt "yuv420p" -g "48" -b:v "180k" -minrate "162k" -maxrate "198k" -bufsize "36k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -103,7 +103,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #2, pass 2', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [320, 180] });
+      const scaleNode = new FilterNode('scale', [320, 180]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=320:180[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "fast" -profile:v "baseline" -level:v "3.0" -pix_fmt "yuv420p" -g "48" -b:v "180k" -movflags "+faststart" -minrate "162k" -maxrate "198k" -bufsize "36k" -c:a "libfdk_aac" -b:a "40k" -ar "44.1k" -ac "1" -f "mp4" -aspect "16:9" -pass "2" "/some/output_320x180_High.mp4"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -133,7 +133,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #3, pass 1', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [416, 234] });
+      const scaleNode = new FilterNode('scale', [416, 234]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=416:234[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "baseline" -level:v "3.0" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "300k" -minrate "270k" -maxrate "330k" -bufsize "30k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -160,7 +160,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #3, pass 2', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [416, 234] });
+      const scaleNode = new FilterNode('scale', [416, 234]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=416:234[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "baseline" -level:v "3.0" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "300k" -movflags "+faststart" -minrate "270k" -maxrate "330k" -bufsize "30k" -c:a "aac" -b:a "40k" -ar "44.1k" -ac "1" -f "mp4" -aspect "16:9" -pass "2" "/some/output_416x234_Low.mp4"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -191,7 +191,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #4, pass 1', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [416, 234] });
+      const scaleNode = new FilterNode('scale', [416, 234]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=416:234[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "fast" -profile:v "high" -level:v "3.0" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "427.5k" -minrate "384.75k" -maxrate "470.25k" -bufsize "64.125k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -218,7 +218,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #4, pass 2', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [416, 234] });
+      const scaleNode = new FilterNode('scale', [416, 234]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=416:234[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "fast" -profile:v "high" -level:v "3.0" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "427.5k" -movflags "+faststart" -minrate "384.75k" -maxrate "470.25k" -bufsize "64.125k" -c:a "libfdk_aac" -b:a "40k" -ar "44.1k" -ac "1" -f "mp4" -aspect "16:9" -pass "2" "/some/output_416x234_High.mp4"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -249,7 +249,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #5, pass 1', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [480, 270] });
+      const scaleNode = new FilterNode('scale', [480, 270]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=480:270[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "600k" -minrate "540k" -maxrate "660k" -bufsize "60k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -275,7 +275,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #5, pass 2', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [480, 270] });
+      const scaleNode = new FilterNode('scale', [480, 270]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=480:270[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "600k" -movflags "+faststart" -minrate "540k" -maxrate "660k" -bufsize "60k" -c:a "aac" -b:a "50k" -ar "44.1k" -ac "2" -f "mp4" -aspect "16:9" -pass "2" "/some/output_480x270.mp4"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -305,7 +305,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #6, pass 1', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [640, 360] });
+      const scaleNode = new FilterNode('scale', [640, 360]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=640:360[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "fast" -profile:v "high" -level:v "3.1" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "900k" -minrate "810k" -maxrate "990k" -bufsize "115k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -332,7 +332,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #6, pass 2', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [640, 360] });
+      const scaleNode = new FilterNode('scale', [640, 360]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=640:360[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "fast" -profile:v "high" -level:v "3.1" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "900k" -movflags "+faststart" -minrate "810k" -maxrate "990k" -bufsize "115k" -c:a "libfdk_aac" -b:a "75k" -ar "44.1k" -ac "2" -f "mp4" -aspect "16:9" -pass "2" "/some/output_640x360.mp4"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -363,7 +363,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #7, pass 1', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [854, 480] });
+      const scaleNode = new FilterNode('scale', [854, 480]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=854:480[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "1200k" -minrate "1080k" -maxrate "1320k" -bufsize "120k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -389,7 +389,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #7, pass 2', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [854, 480] });
+      const scaleNode = new FilterNode('scale', [854, 480]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=854:480[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "high" -level:v "3.1" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "1200k" -minrate "1080k" -maxrate "1320k" -bufsize "120k" -c:a "aac" -b:a "96k" -ar "44.1k" -ac "2" -f "mp4" -aspect "16:9" -pass "2" "/some/output_854x480.mp4"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -419,7 +419,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #8, pass 1', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [1280, 720] });
+      const scaleNode = new FilterNode('scale', [1280, 720]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=1280:720[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "3000k" -minrate "2700k" -maxrate "3300k" -bufsize "300k" -an -f "mp4" -aspect "16:9" -pass "1" "/dev/null"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});
@@ -445,7 +445,7 @@ describe('FFmpegCommand', function () {
       expect(fc.toString()).to.eql(expected);
     });
     it('encodes example #8, pass 2', function () {
-      const scaleNode = new FilterNode({ filterName: 'scale', args: [1280, 720] });
+      const scaleNode = new FilterNode('scale', [1280, 720]);
       const expected = `${config.ffmpeg_bin} -y -i "/some/input_master.mov" -filter_complex "scale=1280:720[${scaleNode.padPrefix}_0]" -c:v "libx264" -preset:v "slow" -profile:v "high" -pix_fmt "yuv420p" -coder "1" -g "48" -b:v "3000k" -movflags "+faststart" -minrate "2700k" -maxrate "3300k" -bufsize "300k" -c:a "aac" -b:a "96k" -ar "48k" -ac "2" -f "mp4" -aspect "16:9" -pass "2" "/some/output_1280x720_High.mp4"`;
       const fc = new FFmpegCommand({ y: null });
       const fi = new FFmpegInput('/some/input_master.mov', {});

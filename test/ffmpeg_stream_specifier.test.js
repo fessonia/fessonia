@@ -13,9 +13,9 @@ describe('FFmpegStreamSpecifier', () => {
   beforeEach(() => {
     // stub for ffmpeg interaction
     sinon.stub(FilterNode, '_queryFFmpegForFilters').returns(filtersFixture);
-    cropFilter = new FilterNode({ filterName: 'crop', args: ['iw', 'ih/2', 0, 0] });
-    vflipFilter = new FilterNode({ filterName: 'vflip' });
-    splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
+    cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0]);
+    vflipFilter = new FilterNode('vflip');
+    splitFilter = new FilterNode('split', [], { outputsCount: 2 });
     filterChain = new FilterChain([cropFilter, vflipFilter, splitFilter])
     ffmpegInput = new FFmpegInput('/some/uri')
   });

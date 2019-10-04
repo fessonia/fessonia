@@ -17,22 +17,16 @@ To do the same using Fessonia in JavaScript, you would do the following.
 const { FilterNode, FilterChain, FFmpegInput, FFmpegOutput, FFmpegCommand } = require('@tedconf/fessonia')();
 
 // Construct the video filtergraph and corresponding input
-const lifeFilter = new FilterNode({
-  filterName: 'life',
-  args: [
-    { name: 'size', value: '320x240' },
-    { name: 'mold', value: 10 },
-    { name: 'rate', value: 23.976 },
-    { name: 'ratio', value: 0.5 },
-    { name: 'death_color', value: '#C83232' },
-    { name: 'life_color', value: '#00ff00' },
-    { name: 'stitch', value: 0 }
-  ]
+const lifeFilter = new FilterNode('life',{
+  size: '320x240',
+  mold: 10,
+  rate: 23.976,
+  ratio: 0.5,
+  death_color: '#C83232',
+  life_color: '#00ff00',
+  stitch: 0
 });
-const scaleFilter = new FilterNode({
-  filterName: 'scale',
-  args: [1920, 1080]
-});
+const scaleFilter = new FilterNode('scale', [1920, 1080]);
 const videoFilters = new FilterChain([lifeFilter, scaleFilter]);
 const videoIn = new FFmpegInput(videoFilters, new Map([
   ['r', 23.976],
@@ -40,14 +34,11 @@ const videoIn = new FFmpegInput(videoFilters, new Map([
 ]));
 
 // Construct the audio filtergraph and corresponding input
-const sineFilter = new FilterNode({
-  filterName: 'sine',
-  args: [
-    { name: 'frequency', value: 620 },
-    { name: 'beep_factor', value: 4 },
-    { name: 'duration', value: 999999 },
-    { name: 'sample_rate', value: 48000 }
-  ]
+const sineFilter = new FilterNode('sine', {
+  frequency: 620,
+  beep_factor: 4,
+  duration: 999999,
+  sample_rate: 48000,
 });
 const audioFilters = new FilterChain([sineFilter]);
 const audioIn = new FFmpegInput(audioFilters, new Map([
