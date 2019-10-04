@@ -54,9 +54,7 @@ describe('FFmpegCommand', function () {
   describe('addFilterChain', function () {
     it('allows adding filter chains to the command filter graph', function () {
       const cmd = new FFmpegCommand();
-      const fc = new FilterChain([new FilterNode({
-        filterName: 'scale', args: [640,-1]
-      })]);
+      const fc = new FilterChain([new FilterNode('scale', [640,-1])]);
       cmd.addFilterChain(fc);
       expect(cmd.filterGraph.toString()).to.eql(fc.toString());
     });
@@ -156,23 +154,17 @@ describe('FFmpegCommand', function () {
   });
   it('generates the correct command string when IO mappings are present', function () {
     const cmd = new FFmpegCommand(new Map([['y'],]));
-    const scaleFilter = new FilterNode({
-      filterName: 'scale',
-      args: [1920, 1080]
-    });
+    const scaleFilter = new FilterNode('scale', [1920, 1080]);
     const nodes = [
-      new FilterNode({
-        filterName: 'life',
-        args: [
-          { name: 'size', value: '320x240' },
-          { name: 'mold', value: 10 },
-          { name: 'rate', value: 23.976 },
-          { name: 'ratio', value: 0.5 },
-          { name: 'death_color', value: '#C83232' },
-          { name: 'life_color', value: '#00ff00' },
-          { name: 'stitch', value: 0 }
-        ]
-      }),
+      new FilterNode('life', [
+        { name: 'size', value: '320x240' },
+        { name: 'mold', value: 10 },
+        { name: 'rate', value: 23.976 },
+        { name: 'ratio', value: 0.5 },
+        { name: 'death_color', value: '#C83232' },
+        { name: 'life_color', value: '#00ff00' },
+        { name: 'stitch', value: 0 }
+      ]),
       scaleFilter
     ];
     let scaledLife = new FilterChain(nodes);
@@ -181,15 +173,12 @@ describe('FFmpegCommand', function () {
       ['r', 23.976],
       ['f', 'lavfi']
     ]));
-    let sineFilter = new FilterNode({
-      filterName: 'sine',
-      args: [
-        { name: 'frequency', value: 620 },
-        { name: 'beep_factor', value: 4 },
-        { name: 'duration', value: 9999999999 },
-        { name: 'sample_rate', value: 48000 }
-      ]
-    });
+    let sineFilter = new FilterNode('sine', [
+      { name: 'frequency', value: 620 },
+      { name: 'beep_factor', value: 4 },
+      { name: 'duration', value: 9999999999 },
+      { name: 'sample_rate', value: 48000 }
+    ]);
     let sineInput = new FFmpegInput(sineFilter, new Map([
       ['re', null],
       ['r', 23.976],

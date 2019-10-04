@@ -55,12 +55,9 @@ describe('FFmpegOption', function () {
         sinon.stub(FilterNode, '_queryFFmpegForFilters')
           .returns(filtersFixture);
         nodes = [
-          new FilterNode({
-            filterName: 'crop',
-            args: ['iw', 'ih/2', 0, 0]
-          }),
-          new FilterNode({ filterName: 'vflip' }),
-          new FilterNode({ filterName: 'split', outputsCount: 2 })
+          new FilterNode('crop', ['iw', 'ih/2', 0, 0]),
+          new FilterNode('vflip'),
+          new FilterNode('split', [], { outputsCount: 2 })
         ];
         fc = new FilterChain(nodes);
         fg = new FilterGraph();
@@ -127,20 +124,10 @@ describe('FFmpegOption', function () {
         // stub for ffmpeg interaction
         sinon.stub(FilterNode, '_queryFFmpegForFilters')
           .returns(filtersFixture);
-        cropFilter = new FilterNode({
-          filterName: 'crop',
-          args: ['iw', 'ih/2', 0, 0]
-        })
-        splitFilter = new FilterNode({
-          filterName: 'split',
-          outputsCount: 2
-        })
-        vflipFilter1 = new FilterNode({
-          filterName: 'vflip'
-        })
-        vflipFilter2 = new FilterNode({
-          filterName: 'vflip'
-        })
+        cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0])
+        splitFilter = new FilterNode('split', [], { outputsCount: 2 })
+        vflipFilter1 = new FilterNode('vflip')
+        vflipFilter2 = new FilterNode('vflip')
         const fc1 = new FilterChain([
           cropFilter,
           splitFilter
@@ -215,20 +202,10 @@ describe('FFmpegOption', function () {
       this.beforeEach(() => {
         // stub for ffmpeg interaction
         sinon.stub(FilterNode, '_queryFFmpegForFilters').returns(filtersFixture);
-        cropFilter = new FilterNode({
-          filterName: 'crop',
-          args: ['iw', 'ih/2', 0, 0]
-        })
-        splitFilter = new FilterNode({
-          filterName: 'split',
-          outputsCount: 2
-        })
-        vflipFilter1 = new FilterNode({
-          filterName: 'vflip'
-        })
-        vflipFilter2 = new FilterNode({
-          filterName: 'vflip'
-        })
+        cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0])
+        splitFilter = new FilterNode('split', [], { outputsCount: 2 })
+        vflipFilter1 = new FilterNode('vflip')
+        vflipFilter2 = new FilterNode('vflip')
         const fc1 = new FilterChain([
           cropFilter,
           splitFilter

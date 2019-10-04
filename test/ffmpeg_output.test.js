@@ -86,13 +86,10 @@ describe('FFmpegOutput', function () {
       // stub for ffmpeg interaction
       sinon.stub(FilterNode, '_queryFFmpegForFilters')
         .returns(filtersFixture);
-      cropFilter = new FilterNode({
-        filterName: 'crop',
-        args: ['iw', 'ih/2', 0, 0]
-      });
-      vflipFilter = new FilterNode({ filterName: 'vflip' });
-      hflipFilter = new FilterNode({ filterName: 'hflip' });
-      splitFilter = new FilterNode({ filterName: 'split', outputsCount: 2 });
+      cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0]);
+      vflipFilter = new FilterNode('vflip');
+      hflipFilter = new FilterNode('hflip');
+      splitFilter = new FilterNode('split', [], { outputsCount: 2 });
       fc1 = new FilterChain([cropFilter, splitFilter])
       fc2 = new FilterChain([vflipFilter])
       fc2.addInput(fc1.streamSpecifier(0))
@@ -142,16 +139,10 @@ describe('FFmpegOutput', function () {
     it('allows adding a filter option after creation of the output object', function () {
       sinon.stub(FilterNode, '_queryFFmpegForFilters')
         .returns(filtersFixture);
-      const cropFilter = new FilterNode({
-        filterName: 'crop',
-        args: ['iw', 'ih/2', 0, 0]
-      });
-      const vflipFilter = new FilterNode({ filterName: 'vflip' });
-      const hflipFilter = new FilterNode({ filterName: 'hflip' });
-      const splitFilter = new FilterNode({
-        filterName: 'split',
-        outputsCount: 2
-      });
+      const cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0]);
+      const vflipFilter = new FilterNode('vflip');
+      const hflipFilter = new FilterNode('hflip');
+      const splitFilter = new FilterNode('split', [], { outputsCount: 2 });
       const nodes = [cropFilter, vflipFilter, hflipFilter, splitFilter];
       const connections = [
         [[cropFilter, '0'], [splitFilter, '0']],
@@ -193,10 +184,7 @@ describe('FFmpegOutput', function () {
     });
     it('adds filterChain streams to the output', () => {
       const fo = new FFmpegOutput('/some/file.mp4');
-      const node = new FilterNode({
-        filterName: 'scale',
-        args: [640, -1]
-      });
+      const node = new FilterNode('scale', [640, -1]);
       const fc = new FilterChain([node]);
       const videoStream = fc.streamSpecifier(0);
       fo.addStreams([ videoStream ]);
@@ -230,13 +218,8 @@ describe('FFmpegOutput', function () {
     });
     it('adds filterChain streams to the output in order', () => {
       const fo = new FFmpegOutput('/some/file.mp4');
-      const node1 = new FilterNode({
-        filterName: 'scale',
-        args: [640, -1]
-      });
-      const node2 = new FilterNode({
-        filterName: 'vflip'
-      })
+      const node1 = new FilterNode('scale', [640, -1]);
+      const node2 = new FilterNode('vflip');
       const fc1 = new FilterChain([node1]);
       const fc2 = new FilterChain([node2]);
       const stream1 = fc1.streamSpecifier(0);
