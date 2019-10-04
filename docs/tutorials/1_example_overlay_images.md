@@ -12,26 +12,24 @@ To construct this in JavaScript using the library, you can use the following.
 const fessonia = require('@tedconf/fessonia')();
 
 // Create command
-const cmd = new fessonia.FFmpegCommand({});
+const cmd = new fessonia.FFmpegCommand();
 
 // Add inputs
 ['input.mov', 'logo1.png', 'logo2.png']
   .forEach((ffin) => cmd.addInput(new fessonia.FFmpegInput(ffin)));
 
-// Generate filtergraph
-const overlay1 = new fessonia.FilterNode({
-  filterName: 'overlay',
+// Generate a filter chain and add it to the command's filter graph
+const overlay1 = new fessonia.FilterNode(
+  /* the ffmpeg filter name */
+  'overlay',
   /* args can be specified as named arguments */
-  args: [
-    {name: 'x', value: 10},
-    {name: 'y', value: 'main_h-overlay_h-10'}
-  ]
-});
-const overlay2 = new fessonia.FilterNode({
-  filterName: 'overlay',
+  { x: 10, y: 'main_h-overlay_h-10' }
+);
+const overlay2 = new fessonia.FilterNode(
+  'overlay',
   /* or args can be specified as ordered arguments */
-  args: ['main_w-overlay_w-10', 'main_h-overlay_h-10']
-});
+  ['main_w-overlay_w-10', 'main_h-overlay_h-10']
+);
 const filterchain = new fessonia.FilterChain([overlay1,overlay2]);
 cmd.addFilterChain(filterchain);
 
