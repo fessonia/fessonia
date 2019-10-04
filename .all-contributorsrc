@@ -5,7 +5,8 @@
   "repoHost": "https://github.com",
   "files": [
     "CONTRIBUTORS.md",
-    "README.md"
+    "README.md",
+    "docs/tutorials/3_about_fessonia.md"
   ],
   "imageSize": 100,
   "commit": false,

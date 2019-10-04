@@ -28,3 +28,9 @@ footer {
 footer img.logo {
   display: none;
 }
+
+#contributors > table td {
+  width: 150px;
+  border: 1px #eee solid;
+  padding: 10px 5px;
+}
