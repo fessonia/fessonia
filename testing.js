@@ -7,32 +7,29 @@ let {
   FFmpegInput,
   FFmpegOutput,
   FilterNode,
-  FilterGraph,
-  Config
+  FilterChain
 } = Fessonia;
 
 console.info(FFmpegOutput)
 const ffmpegOutput = new FFmpegOutput('/some/url/path', { 'f': 'mp4' })
 console.info(ffmpegOutput)
-console.info(Config)
 console.info(FFmpegCommand)
 console.info(FFmpegInput)
 console.info(FilterNode)
-console.info(FilterGraph)
+console.info(FilterChain)
 
 
 process.env.DEBUG = false
 Fessonia = require('./index')({
   ffmpeg_bin: '/usr/local/bin/ffmpeg',
   ffprobe_bin: '/usr/local/bin/ffprobe',
-  debug: false
+  debug: true
 });
 FFmpegCommand = Fessonia.FFmpegCommand
 FFmpegInput = Fessonia.FFmpegInput
 FFmpegOutput = Fessonia.FFmpegOutput
 FilterNode = Fessonia.FilterNode
-FilterGraph = Fessonia.FilterGraph
-Config = Fessonia.Config
+FilterChain = Fessonia.FilterChain
 
 const scaleFilter = new FilterNode({
  filterName: 'scale',
@@ -40,12 +37,10 @@ const scaleFilter = new FilterNode({
 })
 const subtitlesFilter = new FilterNode({
  filterName: 'subtitles',
- args: [{ name: 'filename', value: '/encode-support/speaker.ass' }]
+ args: [{ name: 'filename', value: 'speakerWarning.srt' }]
 })
-const filters = new FilterGraph(
- [ scaleFilter, subtitlesFilter ],
- [ scaleFilter ],
- [ [ scaleFilter, 0 ], [ subtitlesFilter, 0 ] ]
+const filters = new FilterChain(
+ [ scaleFilter, subtitlesFilter ]
 )
 const video = new FFmpegInput(
  '/sources/2018S-RES0601-S02-DMX.mov',
@@ -73,6 +68,6 @@ console.log(output)
 console.log(scaleFilter)
 console.log(subtitlesFilter)
 console.log(filters)
-// console.log(cmd)
+console.log(cmd)
 console.log(cmd.toString())
 console.log(cmd.toCommand())
