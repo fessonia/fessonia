@@ -1,16 +1,20 @@
 const chai = require('chai'),
   expect = chai.expect,
+  chaiAsPromised = require('chai-as-promised'),
   sinon = require('sinon'),
   events = require('events'),
   stream = require('stream'),
   childProcess = require('child_process'),
   testHelpers = require('./helpers');
 
+chai.use(chaiAsPromised);
+
 const FFmpegCommand = require('../lib/ffmpeg_command');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FFmpegOutput = require('../lib/ffmpeg_output');
 const FilterNode = require('../lib/filter_node');
 const FilterChain = require('../lib/filter_chain');
+const FFmpegError = require('../lib/ffmpeg_error');
 const config = require('../lib/util/config')();
 
 describe('FFmpegCommand', function () {
@@ -210,6 +214,24 @@ describe('FFmpegCommand', function () {
     cmd.addOutput(output, mappings = [[lifeInput, 0], [sineInput, 0], [sineInput, 0]]);
     const expected = `${config.ffmpeg_bin} -y -re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080[${scaleFilter.padPrefix}_0]" -re -r "23.976" -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000[${sineFilter.padPrefix}_0]" -c:v "prores" -c:a "pcm_s24le" -aspect "16:9" -map "0:0" -map "1:0" -map "1:0" "gen.mov"`;
     expect(cmd.toString()).to.eql(expected);
+  });
+
+  describe('execute()', () => {
+    let cmd;
+    beforeEach(() => {
+      cmd = new FFmpegCommand();
+    });
+    it('should resolve if execFile successful', (done) => {
+      const mock = sinon.mock(childProcess);
+      mock.expects('execFile').once().yieldsAsync(null, 'stdout', 'stderr');
+      expect(cmd.execute()).to.eventually.eql({ stdout: 'stdout', stderr: 'stderr' }).notify(done);
+    });
+
+    it('should reject with FFmpegError if execFile fails', (done) => {
+      const mock = sinon.mock(childProcess);
+      mock.expects('execFile').once().yieldsAsync(new Error('failed'), 'stdout', 'stderr');
+      expect(cmd.execute()).to.be.rejectedWith(FFmpegError, 'failed').notify(done);
+    });
   });
 
   describe('event emits', function () {
