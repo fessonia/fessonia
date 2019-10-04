@@ -15,18 +15,11 @@ describe('FilterGraph', function () {
     sinon.stub(FilterNode, '_queryFFmpegForFilters')
       .returns(filtersFixture);
     scaleFilter = new FilterNode('scale', [640, -1])
-    subtitlesFilter = new FilterNode('subtitles', [{
-      name: 'filename',
-      value: 'subtitles.srt'
-    }])
-    alimiterFilter = new FilterNode('alimiter', [{
-      name: 'limit',
-      value: 0.8
-    }])
-    denoiserFilter = new FilterNode('atadenoise', [{
-      name: 's',
-      value: 31
-    }])
+    subtitlesFilter = new FilterNode('subtitles', {
+      filename: 'subtitles.srt'
+    })
+    alimiterFilter = new FilterNode('alimiter', { limit: 0.8 })
+    denoiserFilter = new FilterNode('atadenoise', { s: 31 })
     video = new FFmpegInput(
       '/sources/2018S-RES0601-S02-DMX.mov',
       { 'ss': 5110.77 }

@@ -47,12 +47,12 @@ describe('FilterNode', function () {
       // keyword args
       keywordArgsFilter = {
         filterName: 'crop',
-        args: [
-          { name: 'w', value: 100 },
-          { name: 'h', value: 100 },
-          { name: 'x', value: 12 },
-          { name: 'y', value: 34 }
-        ],
+        args: {
+          w: 100,
+          h: 100,
+          x: 12,
+          y: 34
+        },
         options: undefined,
         expectation: {
           toStringResult: 'crop=w=100:h=100:x=12:y=34'
@@ -61,7 +61,7 @@ describe('FilterNode', function () {
       // mixed args (this is horrible - don't do this - but we test anyway)
       mixedArgsFilter = {
         filterName: 'crop',
-        args: [ { name: 'x', value: 12 }, { name: 'y', value: 34 }, 100, 100 ],
+        args: [{ x: 12, y: 34 }, 100, 100 ],
         options: undefined,
         inputs: [{ alias: 'tmp'}],
         outputs: [{ alias: 'cropped'}],
@@ -145,21 +145,11 @@ describe('FilterNode', function () {
       // invalid arguments syntax
       badFilterDef4 = {
         filterName: 'crop',
-        args: [
-          { title: 'x', val: 12 },
-          { title: 'y', val: 34 },
-          { title: 'w', val: 100 },
-          { title: 'h', val: 100 }
-        ],
-        options: undefined
-      };
-      badFilterDef5 = {
-        filterName: 'crop',
         args: [ undefined, 3, null ],
         options: undefined
       };
       // unrecognized filterName
-      badFilterDef6 = {
+      badFilterDef5 = {
         filterName: 'asldfa3tgj23dghsdg',
         args: [],
         options: {}
@@ -197,14 +187,13 @@ describe('FilterNode', function () {
       expect(() => new FilterNode(badFilterDef2.filterName, badFilterDef2.args, badFilterDef2.options)).to.throw();
       expect(() => new FilterNode(badFilterDef3.filterName, badFilterDef3.args, badFilterDef3.options)).to.throw();
       expect(() => new FilterNode(badFilterDef4.filterName, badFilterDef4.args, badFilterDef4.options)).to.throw();
-      expect(() => new FilterNode(badFilterDef5.filterName, badFilterDef5.args, badFilterDef5.options)).to.throw();
 
       /*
       // TODO: Figure out how to stub this properly.
       const stubbedLogger = require('../lib/util/logger')('FilterNode(stubbed-logger)');
       stubbedLogger.warn = sinon.spy();
       sinon.stub(FilterNode, 'logger').returns(stubbedLogger);
-      new FilterNode(badFilterDef6.filterName, badFilterDef6.args, badFilterDef6.options);
+      new FilterNode(badFilterDef5.filterName, badFilterDef5.args, badFilterDef5.options);
       expect(stubbedLogger.warn.calledOnce()).to.be.true();
       */
     });

@@ -96,12 +96,12 @@ describe('FFmpegInput', function () {
     });
 
     it('handles a single filter as input', function () {
-      let fInput = new FilterNode('sine', [
-        { name: 'frequency', value: 620 },
-        { name: 'beep_factor', value: 4 },
-        { name: 'duration', value: 9999999999 },
-        { name: 'sample_rate', value: 48000 }
-      ]);
+      let fInput = new FilterNode('sine', {
+        frequency: 620,
+        beep_factor: 4,
+        duration: 9999999999,
+        sample_rate: 48000
+      });
       let expected = `-re -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000[${fInput.padPrefix}_0]"`;
       let fiObj = new FFmpegInput(fInput, new Map([
         ['re', null],
@@ -111,15 +111,15 @@ describe('FFmpegInput', function () {
     });
 
     it('handles a filter chain as input', function () {
-      const lifeNode = new FilterNode('life', [
-        { name: 'size', value: '320x240' },
-        { name: 'mold', value: 10 },
-        { name: 'rate', value: 23.976 },
-        { name: 'ratio', value: 0.5 },
-        { name: 'death_color', value: '#C83232' },
-        { name: 'life_color', value: '#00ff00' },
-        { name: 'stitch', value: 0 }
-      ]);
+      const lifeNode = new FilterNode('life', {
+        size: '320x240',
+        mold: 10,
+        rate: 23.976,
+        ratio: 0.5,
+        death_color: '#C83232',
+        life_color: '#00ff00',
+        stitch: 0
+      });
       const scaleNode = new FilterNode('scale', [1920, 1080]);
       const expected = `-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080[${scaleNode.padPrefix}_0]"`;
       const fcInput = new FilterChain([lifeNode, scaleNode]);
@@ -132,15 +132,15 @@ describe('FFmpegInput', function () {
     });
 
     it('handles a filter graph as input', function () {
-      const lifeNode = new FilterNode('life', [
-        { name: 'size', value: '320x240' },
-        { name: 'mold', value: 10 },
-        { name: 'rate', value: 23.976 },
-        { name: 'ratio', value: 0.5 },
-        { name: 'death_color', value: '#C83232' },
-        { name: 'life_color', value: '#00ff00' },
-        { name: 'stitch', value: 0 }
-      ]);
+      const lifeNode = new FilterNode('life', {
+        size: '320x240',
+        mold: 10,
+        rate: 23.976,
+        ratio: 0.5,
+        death_color: '#C83232',
+        life_color: '#00ff00',
+        stitch: 0
+      });
       const scaleNode = new FilterNode('scale', [1920, 1080]);
       const expected = `-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080[${scaleNode.padPrefix}_0]"`;
       const fc = new FilterChain([lifeNode, scaleNode]);

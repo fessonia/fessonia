@@ -90,15 +90,15 @@ describe('FilterChain', () => {
 
   describe('example filter graphs from real use', function () {
     it('generative video filter to be used as an input', function () {
-      let lifeFilter = new FilterNode('life', [
-        { name: 'size', value: '320x240' },
-        { name: 'mold', value: 10 },
-        { name: 'rate', value: 23.976 },
-        { name: 'ratio', value: 0.5 },
-        { name: 'death_color', value: '#C83232' },
-        { name: 'life_color', value: '#00ff00' },
-        { name: 'stitch', value: 0 }
-      ]);
+      let lifeFilter = new FilterNode('life', {
+        size: '320x240',
+        mold: 10,
+        rate: 23.976,
+        ratio: 0.5,
+        death_color: '#C83232',
+        life_color: '#00ff00',
+        stitch: 0
+      });
       let scaleFilter = new FilterNode('scale', [1920, 1080]);
       let nodes = [lifeFilter, scaleFilter];
       let fc = new FilterChain(nodes);
@@ -106,12 +106,12 @@ describe('FilterChain', () => {
       expect(fc.toString()).to.eql(expected);
     });
     it('generative audio filter to be used as input', function () {
-      let sineFilter = new FilterNode('sine', [
-        { name: 'frequency', value: 620 },
-        { name: 'beep_factor', value: 4 },
-        { name: 'duration', value: 9999999999 },
-        { name: 'sample_rate', value: 48000 }
-      ]);
+      let sineFilter = new FilterNode('sine', {
+        frequency: 620,
+        beep_factor: 4,
+        duration: 9999999999,
+        sample_rate: 48000
+      });
       let expected = `sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000[${sineFilter.padPrefix}_0]`;
       let fc = new FilterChain([sineFilter]);
       expect(fc.toString()).to.eql(expected);
