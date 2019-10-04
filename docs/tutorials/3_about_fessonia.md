@@ -68,6 +68,6 @@ The name Fessonia comes from the ancient Roman goddess Fessonia, apparently refe
 
 You can learn more about the goddess Fessonia, including some conjectures based on little evidence, at [her entry in the Obscure Goddess Online Dictionary](http://www.thaliatook.com/OGOD/fessonia.html).
 
-What does that obscure goddess have to do with this library, you ask? Because the intent of this library was to provide refreshment from the author's weariness of dealing with FFmpeg command line invocations in his work of automating video encoding pipelines using FFmpeg, that name seemed quite fitting.
+What does that obscure goddess have to do with this library, you ask? Because the intent of this library was to provide refreshment for the author and his team from the weariness of dealing with FFmpeg command line invocations in their work automating video encoding pipelines using FFmpeg, that name seemed quite fitting.
 
-The logo (drawn digitally by the author) is a representation of [the butterfly *Adelpha f. fessonia*](https://www.butterfliesofamerica.com/adelpha_f_fessonia.htm), also known as the *Band-celled Sister*.
+The logo (drawn digitally by maintainer @nihonjinrxs) is a representation of [the butterfly *Adelpha f. fessonia*](https://www.butterfliesofamerica.com/adelpha_f_fessonia.htm), also known as the *Band-celled Sister*.
