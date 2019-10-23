@@ -14,7 +14,7 @@ For a quick intro to the library, take a look at the [Getting Started with Fesso
 
 ## About the Library
 
-For an introduction to the design approach of the library, the goals, and other assorted information, take a look at the [About Fessonia](docs/tutorials/4_about_fessonia.md) doc.
+For an introduction to the design approach of the library, the goals, and other assorted information, take a look at the [About Fessonia](docs/tutorials/3_about_fessonia.md) doc.
 
 ## Contributing
 
