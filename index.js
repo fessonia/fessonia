@@ -16,7 +16,8 @@ const getFessonia = (opts = {}) => {
     FFmpegInput: require('./lib/ffmpeg_input'),
     FFmpegOutput: require('./lib/ffmpeg_output'),
     FilterNode: require('./lib/filter_node'),
-    FilterChain: require('./lib/filter_chain')
+    FilterChain: require('./lib/filter_chain'),
+    FilterGraph: require('./lib/filter_graph')
   };
   return Fessonia;
 }

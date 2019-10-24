@@ -46,7 +46,7 @@ describe('FilterGraph', function () {
   })
   describe('addFilterChain()', () => {
     it('allows adding filter chains', () => {
-      const fg = new FilterGraph();
+      const fg = new FilterGraph()
       expect(fg.chains).to.be.instanceof(Array);
       expect(fg.chains.length).to.eql(0)
       fg.addFilterChain(videoFilters)
@@ -56,7 +56,17 @@ describe('FilterGraph', function () {
       expect(fg.chains.length).to.eql(2)
       expect(fg.chains[1]).to.eql(audioFilters)
     });
-    it('fails on non-FilterChain chains argument', () => {
+    it('allows adding a filter graph', () => {
+      const fg1 = new FilterGraph()
+      fg1.addFilterChain(videoFilters)
+      fg1.addFilterChain(audioFilters)
+      const fg2 = new FilterGraph()
+      fg2.addFilterGraph(fg1)
+      expect(fg2.chains.length).to.eql(2)
+      expect(fg2.chains[0]).to.eql(videoFilters)
+      expect(fg2.chains[1]).to.eql(audioFilters)
+    });
+    it('fails on non-FilterChain/FilterGraph chains argument', () => {
       expect(() => {
         const f = new FilterGraph()
         f.addFilterChain('abc')
