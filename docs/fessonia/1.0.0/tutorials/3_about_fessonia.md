@@ -76,6 +76,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/griley"><img src="https://avatars0.githubusercontent.com/u/302162?v=4" width="100px;" alt="George Riley"/><br /><sub><b>George Riley</b></sub></a><br /><a href="#ideas-griley" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-griley" title="Answering Questions">💬</a></td>
     <td align="center"><a href="http://www.aaronweyenberg.com"><img src="https://avatars2.githubusercontent.com/u/39579?v=4" width="100px;" alt="Aaron Weyenberg"/><br /><sub><b>Aaron Weyenberg</b></sub></a><br /><a href="#content-dub" title="Content">🖋</a> <a href="#design-dub" title="Design">🎨</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://iame.li/"><img src="https://avatars2.githubusercontent.com/u/257909?v=4" width="100px;" alt="Eli Mallon"/><br /><sub><b>Eli Mallon</b></sub></a><br /><a href="https://github.com/tedconf/fessonia/commits?author=iameli" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://vinspee.me"><img src="https://avatars3.githubusercontent.com/u/582828?v=4" width="100px;" alt="Vince Speelman"/><br /><sub><b>Vince Speelman</b></sub></a><br /><a href="#review-VinSpee" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/DanielRussell"><img src="https://avatars3.githubusercontent.com/u/1772291?v=4" width="100px;" alt="DanielRussell"/><br /><sub><b>DanielRussell</b></sub></a><br /><a href="#review-DanielRussell" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->

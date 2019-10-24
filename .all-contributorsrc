@@ -82,7 +82,34 @@
         "content",
         "design"
       ]
+    },
+    {
+      "login": "iameli",
+      "name": "Eli Mallon",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/257909?v=4",
+      "profile": "https://iame.li/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "VinSpee",
+      "name": "Vince Speelman",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/582828?v=4",
+      "profile": "http://vinspee.me",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "DanielRussell",
+      "name": "DanielRussell",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1772291?v=4",
+      "profile": "https://github.com/DanielRussell",
+      "contributions": [
+        "review"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 5
 }
