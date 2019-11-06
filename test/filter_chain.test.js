@@ -50,6 +50,34 @@ describe('FilterChain', () => {
     expect(() => fc.addInputs(['not a stream specifier'])).to.throw();
   });
 
+  describe('appendNodes()', () => {
+    it('adds additional nodes to the end of the nodes array', () => {
+      const chain = new FilterChain([cropFilter]);
+      chain.appendNodes(vflipFilter, splitFilter);
+      expect(chain.nodes).to.eql([cropFilter, vflipFilter, splitFilter]);
+    });
+
+    it('supports appending one node', () => {
+      const chain = new FilterChain([cropFilter]);
+      chain.appendNodes(vflipFilter);
+      expect(chain.nodes).to.eql([cropFilter, vflipFilter]);
+    });
+  });
+
+  describe('prependNodes()', () => {
+    it('adds additional nodes to the beginning of the nodes array', () => {
+      const chain = new FilterChain([cropFilter]);
+      chain.prependNodes(vflipFilter, splitFilter);
+      expect(chain.nodes).to.eql([vflipFilter, splitFilter, cropFilter]);
+    });
+
+    it('supports prepending one node', () => {
+      const chain = new FilterChain([cropFilter]);
+      chain.prependNodes(vflipFilter);
+      expect(chain.nodes).to.eql([vflipFilter, cropFilter]);
+    });
+  });
+
   describe('streamSpecifier()', () => {
     it('returns a streamSpecifer with the proper specifier', () => {
       const fc = new FilterChain(nodes);
