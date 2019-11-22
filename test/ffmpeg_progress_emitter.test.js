@@ -114,7 +114,7 @@ describe('FFmpegProgressEmitter', function () {
       const lastOne = progress.lastProgressChunks();
       const lastTen = progress.lastProgressChunks(10);
       expect(lastTen).to.almost.eql(expected);
-      expect(lastOne).to.almost.eql(expected[expected.length - 1]);
+      expect(lastOne).to.almost.eql(expected.slice(expected.length - 1));
       done();
     });
   });
