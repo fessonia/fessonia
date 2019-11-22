@@ -20,8 +20,6 @@ describe('FFmpegProgressEmitter', function () {
     const progressChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x';
     progress.on('update', (data) => {
       expect(data).to.be.an('object');
-      expect(data).to.have.ownProperty('streamType');
-      expect(data.streamType).to.eql('video');
       expect(data).to.have.ownProperty('time');
       expect(data.time).to.eql(74.55);
       expect(data).to.have.ownProperty('frame');
@@ -48,8 +46,6 @@ describe('FFmpegProgressEmitter', function () {
     const progressChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x';
     progress.on('update', (data) => {
       expect(data).to.be.an('object');
-      expect(data).to.have.ownProperty('streamType');
-      expect(data.streamType).to.eql('video');
       expect(data).to.have.ownProperty('time');
       expect(data.time).to.eql(74.55);
       expect(data).to.have.ownProperty('frame');
@@ -84,7 +80,7 @@ describe('FFmpegProgressEmitter', function () {
       const lastOne = progress.last();
       const lastTen = progress.last(10);
       expect(lastTen).to.deep.eql(expected);
-      expect(lastOne).to.eql(expected[expected.length - 1]);
+      expect(lastOne).to.eql(expected.slice(expected.length - 1));
       done();
     });
   });
