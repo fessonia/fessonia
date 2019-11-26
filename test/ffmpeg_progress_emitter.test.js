@@ -8,125 +8,276 @@ const FFmpegProgressEmitter = require('../lib/ffmpeg_progress_emitter');
 const videoProgressChunksFixture = require('./fixtures/ffmpeg-video-progress-chunks.js'),
   videoProgressBufferFixture = require('./fixtures/ffmpeg-video-progress-progressBuffer'),
   videoLogBufferFixture = require('./fixtures/ffmpeg-video-progress-logBuffer');
+const audioProgressChunksFixture = require('./fixtures/ffmpeg-audio-progress-chunks.js'),
+  audioProgressBufferFixture = require('./fixtures/ffmpeg-audio-progress-progressBuffer'),
+  audioLogBufferFixture = require('./fixtures/ffmpeg-audio-progress-logBuffer');
+const interspersedProgressChunksFixture = require('./fixtures/ffmpeg-interspersed-progress-chunks.js'),
+  interspersedProgressBufferFixture = require('./fixtures/ffmpeg-interspersed-progress-progressBuffer'),
+  interspersedLogBufferFixture = require('./fixtures/ffmpeg-interspersed-progress-logBuffer');
 
 describe('FFmpegProgressEmitter', function () {
   it('creates an FFmpegProgressEmitter object', function () {
     const progress = new FFmpegProgressEmitter();
     expect(progress).to.be.instanceof(FFmpegProgressEmitter);
   });
-  it('emits the update event when video stream progress data is pushed into it', function (done) {
-    const progress = new FFmpegProgressEmitter();
-    const progressChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x   \r';
-    progress.on('update', (data) => {
-      expect(data).to.be.an('object');
-      expect(data).to.have.ownProperty('time');
-      expect(data.time).to.eql(74.55);
-      expect(data).to.have.ownProperty('frame');
-      expect(data.frame).to.eql(1781);
-      expect(data).to.have.ownProperty('fps');
-      expect(data.fps).to.eql(161);
-      expect(data).to.have.ownProperty('q');
-      expect(data.q).to.eql(28.0);
-      expect(data).to.have.ownProperty('size');
-      expect(data.size).to.eql('2304kB');
-      expect(data).to.have.ownProperty('bitrate');
-      expect(data.bitrate).to.eql('253.1kbits/s');
-      expect(data).to.have.ownProperty('speed');
-      expect(data.speed).to.eql('6.75x');
-      done();
-    });
-    const testData = testHelpers.createTestReadableStream();
-    testData.pipe(progress);
-    testData.push(Buffer.from(progressChunk, 'utf8'));
-  });
-  it('emits the update event when audio stream progress data is pushed into it', function (done) {
-    // TODO: find an audio stream example here
-    const progress = new FFmpegProgressEmitter();
-    const progressChunk = 'size=    2560kB time=00:07:53.79 bitrate=  44.3kbits/s speed= 135x    \r';
-    progress.on('update', (data) => {
-      expect(data).to.be.an('object');
-      expect(data).to.have.ownProperty('time');
-      expect(data.time).to.eql(7 * 60 + 53.79);
-      expect(data).to.have.ownProperty('size');
-      expect(data.size).to.eql('2560kB');
-      expect(data).to.have.ownProperty('bitrate');
-      expect(data.bitrate).to.eql('44.3kbits/s');
-      expect(data).to.have.ownProperty('speed');
-      expect(data.speed).to.eql('135x');
-      done();
-    });
-    const testData = testHelpers.createTestReadableStream();
-    testData.pipe(progress);
-    testData.push(Buffer.from(progressChunk, 'utf8'));
-  });
-  it('provides the last n log data writes into the stream', function (done) {
-    const progress = new FFmpegProgressEmitter();
-    const testData = testHelpers.createTestReadableStream();
-    testData.on('finish', () => progress.end());
-    const expected = videoLogBufferFixture
-      .slice(videoLogBufferFixture.length - 10);
-    testData.pipe(progress);
-    for (let progressChunk of videoProgressChunksFixture) {
+  describe('video output handling', () => {
+    it('emits the update event when video stream progress data is pushed into it', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const progressChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x   \r';
+      progress.on('update', (data) => {
+        expect(data).to.be.an('object');
+        expect(data).to.have.ownProperty('time');
+        expect(data.time).to.eql(74.55);
+        expect(data).to.have.ownProperty('frame');
+        expect(data.frame).to.eql(1781);
+        expect(data).to.have.ownProperty('fps');
+        expect(data.fps).to.eql(161);
+        expect(data).to.have.ownProperty('q');
+        expect(data.q).to.eql(28.0);
+        expect(data).to.have.ownProperty('size');
+        expect(data.size).to.eql('2304kB');
+        expect(data).to.have.ownProperty('bitrate');
+        expect(data.bitrate).to.eql('253.1kbits/s');
+        expect(data).to.have.ownProperty('speed');
+        expect(data.speed).to.eql('6.75x');
+        done();
+      });
+      const testData = testHelpers.createTestReadableStream();
+      testData.pipe(progress);
       testData.push(Buffer.from(progressChunk, 'utf8'));
-    }
-    testData.push(null);
-    progress.on('finish', () => {
-      const lastOne = progress.last();
-      const lastTen = progress.last(10);
-      expect(lastTen).to.deep.eql(expected);
-      expect(lastOne).to.eql(expected.slice(expected.length - 1));
-      done();
+    });
+    it('provides the last n log data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = videoLogBufferFixture
+        .slice(videoLogBufferFixture.length - 10);
+      testData.pipe(progress);
+      for (let progressChunk of videoProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const lastOne = progress.last();
+        const lastTen = progress.last(10);
+        expect(lastTen).to.deep.eql(expected);
+        expect(lastOne).to.eql(expected.slice(expected.length - 1));
+        done();
+      });
+    });
+    it('provides all log data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = videoLogBufferFixture;
+      testData.pipe(progress);
+      for (let progressChunk of videoProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const buffered = progress.logData();
+        expect(buffered).to.deep.eql(expected);
+        done();
+      });
+    });
+    it('provides the last n progress data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = videoProgressBufferFixture
+        .slice(videoProgressBufferFixture.length - 10);
+      testData.pipe(progress);
+      for (let progressChunk of videoProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const lastOne = progress.lastProgressChunks();
+        const lastTen = progress.lastProgressChunks(10);
+        expect(lastTen).to.almost.eql(expected);
+        expect(lastOne).to.almost.eql(expected.slice(expected.length - 1));
+        done();
+      });
+    });
+    it('provides all progress data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = videoProgressBufferFixture;
+      testData.pipe(progress);
+      for (let progressChunk of videoProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const buffered = progress.progressChunks();
+        expect(buffered).to.almost.eql(expected);
+        done();
+      });
     });
   });
-  it('provides all log data writes into the stream', function (done) {
-    const progress = new FFmpegProgressEmitter();
-    const testData = testHelpers.createTestReadableStream();
-    testData.on('finish', () => progress.end());
-    const expected = videoLogBufferFixture;
-    testData.pipe(progress);
-    for (let progressChunk of videoProgressChunksFixture) {
+  describe('audio output handling', () => {
+    it('emits the update event when audio stream progress data is pushed into it', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const progressChunk = 'size=    2560kB time=00:07:53.79 bitrate=  44.3kbits/s speed= 135x    \r';
+      progress.on('update', (data) => {
+        expect(data).to.be.an('object');
+        expect(data).to.have.ownProperty('time');
+        expect(data.time).to.eql(7 * 60 + 53.79);
+        expect(data).to.have.ownProperty('size');
+        expect(data.size).to.eql('2560kB');
+        expect(data).to.have.ownProperty('bitrate');
+        expect(data.bitrate).to.eql('44.3kbits/s');
+        expect(data).to.have.ownProperty('speed');
+        expect(data.speed).to.eql('135x');
+        done();
+      });
+      const testData = testHelpers.createTestReadableStream();
+      testData.pipe(progress);
       testData.push(Buffer.from(progressChunk, 'utf8'));
-    }
-    testData.push(null);
-    progress.on('finish', () => {
-      const buffered = progress.logData();
-      expect(buffered).to.deep.eql(expected);
-      done();
+    });
+    it('provides the last n log data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = audioLogBufferFixture
+        .slice(audioLogBufferFixture.length - 10);
+      testData.pipe(progress);
+      for (let progressChunk of audioProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const lastOne = progress.last();
+        const lastTen = progress.last(10);
+        expect(lastTen).to.deep.eql(expected);
+        expect(lastOne).to.eql(expected.slice(expected.length - 1));
+        done();
+      });
+    });
+    it('provides all log data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = audioLogBufferFixture;
+      testData.pipe(progress);
+      for (let progressChunk of audioProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const buffered = progress.logData();
+        expect(buffered).to.deep.eql(expected);
+        done();
+      });
+    });
+    it('provides the last n progress data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = audioProgressBufferFixture
+        .slice(audioProgressBufferFixture.length - 10);
+      testData.pipe(progress);
+      for (let progressChunk of audioProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const lastOne = progress.lastProgressChunks();
+        const lastTen = progress.lastProgressChunks(10);
+        expect(lastTen).to.almost.eql(expected);
+        expect(lastOne).to.almost.eql(expected.slice(expected.length - 1));
+        done();
+      });
+    });
+    it('provides all progress data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = audioProgressBufferFixture;
+      testData.pipe(progress);
+      for (let progressChunk of audioProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const buffered = progress.progressChunks();
+        expect(buffered).to.almost.eql(expected);
+        done();
+      });
     });
   });
-  it('provides the last n progress data writes into the stream', function (done) {
-    const progress = new FFmpegProgressEmitter();
-    const testData = testHelpers.createTestReadableStream();
-    testData.on('finish', () => progress.end());
-    const expected = videoProgressBufferFixture
-      .slice(videoProgressBufferFixture.length - 10);
-    testData.pipe(progress);
-    for (let progressChunk of videoProgressChunksFixture) {
-      testData.push(Buffer.from(progressChunk, 'utf8'));
-    }
-    testData.push(null);
-    progress.on('finish', () => {
-      const lastOne = progress.lastProgressChunks();
-      const lastTen = progress.lastProgressChunks(10);
-      expect(lastTen).to.almost.eql(expected);
-      expect(lastOne).to.almost.eql(expected.slice(expected.length - 1));
-      done();
+  describe('interspersed output handling', () => {
+    it('provides the last n log data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = interspersedLogBufferFixture
+        .slice(interspersedLogBufferFixture.length - 10);
+      testData.pipe(progress);
+      for (let progressChunk of interspersedProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const lastOne = progress.last();
+        const lastTen = progress.last(10);
+        expect(lastTen).to.deep.eql(expected);
+        expect(lastOne).to.eql(expected.slice(expected.length - 1));
+        done();
+      });
     });
-  });
-  it('provides all progress data writes into the stream', function (done) {
-    const progress = new FFmpegProgressEmitter();
-    const testData = testHelpers.createTestReadableStream();
-    testData.on('finish', () => progress.end());
-    const expected = videoProgressBufferFixture;
-    testData.pipe(progress);
-    for (let progressChunk of videoProgressChunksFixture) {
-      testData.push(Buffer.from(progressChunk, 'utf8'));
-    }
-    testData.push(null);
-    progress.on('finish', () => {
-      const buffered = progress.progressChunks();
-      expect(buffered).to.almost.eql(expected);
-      done();
+    it('provides all log data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = interspersedLogBufferFixture;
+      testData.pipe(progress);
+      for (let progressChunk of interspersedProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const buffered = progress.logData();
+        expect(buffered).to.deep.eql(expected);
+        done();
+      });
+    });
+    it('provides the last n progress data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = interspersedProgressBufferFixture
+        .slice(interspersedProgressBufferFixture.length - 10);
+      testData.pipe(progress);
+      for (let progressChunk of interspersedProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const lastOne = progress.lastProgressChunks();
+        const lastTen = progress.lastProgressChunks(10);
+        expect(lastTen).to.almost.eql(expected);
+        expect(lastOne).to.almost.eql(expected.slice(expected.length - 1));
+        done();
+      });
+    });
+    it('provides all progress data writes into the stream', function (done) {
+      const progress = new FFmpegProgressEmitter();
+      const testData = testHelpers.createTestReadableStream();
+      testData.on('finish', () => progress.end());
+      const expected = interspersedProgressBufferFixture;
+      testData.pipe(progress);
+      for (let progressChunk of interspersedProgressChunksFixture) {
+        testData.push(Buffer.from(progressChunk, 'utf8'));
+      }
+      testData.push(null);
+      progress.on('finish', () => {
+        const buffered = progress.progressChunks();
+        expect(buffered).to.almost.eql(expected);
+        done();
+      });
     });
   });
   describe('parsing internals', () => {
@@ -162,14 +313,14 @@ describe('FFmpegProgressEmitter', function () {
         expect(result).to.have.property('continueProgressMode');
         expect(result.continueProgressMode).to.be.a('boolean');
       });
-      it('returns type progress if progressMode is true', () => {
-        const testChunk = 'abcdefghijklmnopqr\nstuvwxyz';
+      it('returns type progress if progressMode is true and chunk is parseable as progress', () => {
+        const testChunk = 'abcde=fghijklmnopqr\nstuvwxyz';
         progress.progressMode = true;
         const result = progress._nextProcessablePiece(testChunk);
         expect(result.type).to.eql('progress');
       });
       it('returns type progress if there is a CR before a newline', () => {
-        const testChunk = 'abcdefghi\rjklmnopqr\nstuvwxyz';
+        const testChunk = 'abcd=efghi\rjklmnopqr\nstuvwxyz';
         progress.progressMode = true;
         let result = progress._nextProcessablePiece(testChunk);
         expect(result.type).to.eql('progress');
@@ -178,7 +329,7 @@ describe('FFmpegProgressEmitter', function () {
         expect(result.type).to.eql('progress');
       });
       it('returns type progress if there is a CR and no newline', () => {
-        const testChunk = 'abcdefghi\rjklmnopqrstuvwxyz';
+        const testChunk = 'abcd=efghi\rjklmnopqrstuvwxyz';
         progress.progressMode = true;
         let result = progress._nextProcessablePiece(testChunk);
         expect(result.type).to.eql('progress');
@@ -187,7 +338,7 @@ describe('FFmpegProgressEmitter', function () {
         expect(result.type).to.eql('progress');
       });
       it('returns type log if progressMode is false and there is a newline before a CR', () => {
-        const testChunk = 'abcdefghi\njklmnopqr\rstuvwxyz';
+        const testChunk = 'abcdefghi\njklm=nopqr\rstuvwxyz';
         progress.progressMode = false;
         const result = progress._nextProcessablePiece(testChunk);
         expect(result.type).to.eql('log');
@@ -199,14 +350,14 @@ describe('FFmpegProgressEmitter', function () {
         expect(result.type).to.eql('log');
       });
       it('returns continueProgressMode true if there is a CR next', () => {
-        let testChunk = 'abcdefghi\rjklmnopqrstuvwxyz';
+        let testChunk = 'abcd=efghi\rjklmnopqrstuvwxyz';
         progress.progressMode = true;
         let result = progress._nextProcessablePiece(testChunk);
         expect(result.continueProgressMode).to.eql(true);
         progress.progressMode = false;
         result = progress._nextProcessablePiece(testChunk);
         expect(result.continueProgressMode).to.eql(true);
-        testChunk = 'abcdefghi\rjklmnopqr\nstuvwxyz';
+        testChunk = 'abcd=efghi\rjklmnopqr\nstuvwxyz';
         progress.progressMode = true;
         result = progress._nextProcessablePiece(testChunk);
         expect(result.continueProgressMode).to.eql(true);
@@ -215,7 +366,7 @@ describe('FFmpegProgressEmitter', function () {
         expect(result.continueProgressMode).to.eql(true);
       });
       it('returns continueProgressMode false if already true and there is a newline next', () => {
-        let testChunk = 'abcdefghi\njklmnopqr\rstuvwxyz';
+        let testChunk = 'abcdefghi\njklmn=opqr\rstuvwxyz';
         progress.progressMode = true;
         let result = progress._nextProcessablePiece(testChunk);
         expect(result.continueProgressMode).to.eql(false);
@@ -224,12 +375,19 @@ describe('FFmpegProgressEmitter', function () {
         expect(result.continueProgressMode).to.eql(false);
       });
       it('returns continueProgressMode false if already false and there is no CR next', () => {
-        let testChunk = 'abcdefghi\njklmnopqr\rstuvwxyz';
+        let testChunk = 'abcdefghi\njklmn=opqr\rstuvwxyz';
         progress.progressMode = false;
         let result = progress._nextProcessablePiece(testChunk);
         expect(result.continueProgressMode).to.eql(false);
         testChunk = 'abcdefghi\njklmnopqrstuvwxyz';
         result = progress._nextProcessablePiece(testChunk);
+        expect(result.continueProgressMode).to.eql(false);
+      });
+      it('returns type log and continueProgressMode false if next chunk unparseable as progress', () => {
+        let testChunk = 'abcdefghi\njklmnopqrstuvwxyz';
+        progress.progressMode = true;
+        let result = progress._nextProcessablePiece(testChunk);
+        expect(result.type).to.eql('log');
         expect(result.continueProgressMode).to.eql(false);
       });
     });
