@@ -223,6 +223,27 @@ describe('FFmpegCommand', function () {
     });
   });
 
+  describe('spawn()', () => {
+    beforeEach(() => {
+      mockProcess = new events.EventEmitter();
+      mockProcess.stderr = new stream.Readable();
+      mockProcess.stderr._read = sinon.spy();
+      stub = sinon.stub(childProcess, 'spawn').returns(mockProcess);
+    });
+
+    it('should add progress option if emitting events', () => {
+      const cmd = new FFmpegCommand();
+      cmd.spawn();
+      expect(cmd.options.get('progress')).to.eql('pipe:2');
+    });
+
+    it('should not add progress option if not emitting events', () => {
+      const cmd = new FFmpegCommand();
+      cmd.spawn(false);
+      expect(cmd.options.has('progress')).to.be.false;
+    });
+  });
+
   describe('event emits', function () {
     beforeEach(() => {
       mockProcess = new events.EventEmitter();
