@@ -303,124 +303,52 @@ describe('FFmpegProgressEmitter', function () {
       });
     });
     describe('#_nextProcessablePiece', () => {
-      it('returns an object with the correct fields', () => {
+      it('returns an valid index into the string', () => {
         const testChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x   \rframe= 1781 fps=161 ';
         const result = progress._nextProcessablePiece(testChunk);
-        expect(result).to.have.property('index');
-        expect(result.index).to.be.a('number');
-        expect(result).to.have.property('type');
-        expect(result.type).to.be.a('string');
-        expect(result).to.have.property('continueProgressMode');
-        expect(result.continueProgressMode).to.be.a('boolean');
+        expect(result).to.be.a('number');
+        expect(result).to.be.lessThan(testChunk.length);
+        expect(result).to.be.greaterThan(-1);
       });
-      it('returns type progress if progressMode is true and chunk is parseable as progress', () => {
-        const testChunk = 'abcde=fghijklmnopqr\nstuvwxyz';
-        progress.progressMode = true;
-        const result = progress._nextProcessablePiece(testChunk);
-        expect(result.type).to.eql('progress');
-      });
-      it('returns type progress if there is a CR before a newline', () => {
-        const testChunk = 'abcd=efghi\rjklmnopqr\nstuvwxyz';
-        progress.progressMode = true;
+      it('returns the index to a newline if a newline is next', () => {
+        let testChunk = 'abcdefghi\njklmnopqr\rstuvwxyz';
         let result = progress._nextProcessablePiece(testChunk);
-        expect(result.type).to.eql('progress');
-        progress.progressMode = false;
-        result = progress._nextProcessablePiece(testChunk);
-        expect(result.type).to.eql('progress');
-      });
-      it('returns type progress if there is a CR and no newline', () => {
-        const testChunk = 'abcd=efghi\rjklmnopqrstuvwxyz';
-        progress.progressMode = true;
-        let result = progress._nextProcessablePiece(testChunk);
-        expect(result.type).to.eql('progress');
-        progress.progressMode = false;
-        result = progress._nextProcessablePiece(testChunk);
-        expect(result.type).to.eql('progress');
-      });
-      it('returns type log if progressMode is false and there is a newline before a CR', () => {
-        const testChunk = 'abcdefghi\njklm=nopqr\rstuvwxyz';
-        progress.progressMode = false;
-        const result = progress._nextProcessablePiece(testChunk);
-        expect(result.type).to.eql('log');
-      });
-      it('returns type log if progressMode is false and there is a newline and no CR', () => {
-        const testChunk = 'abcdefghi\njklmnopqrstuvwxyz';
-        progress.progressMode = false;
-        const result = progress._nextProcessablePiece(testChunk);
-        expect(result.type).to.eql('log');
-      });
-      it('returns continueProgressMode true if there is a CR next', () => {
-        let testChunk = 'abcd=efghi\rjklmnopqrstuvwxyz';
-        progress.progressMode = true;
-        let result = progress._nextProcessablePiece(testChunk);
-        expect(result.continueProgressMode).to.eql(true);
-        progress.progressMode = false;
-        result = progress._nextProcessablePiece(testChunk);
-        expect(result.continueProgressMode).to.eql(true);
-        testChunk = 'abcd=efghi\rjklmnopqr\nstuvwxyz';
-        progress.progressMode = true;
-        result = progress._nextProcessablePiece(testChunk);
-        expect(result.continueProgressMode).to.eql(true);
-        progress.progressMode = false;
-        result = progress._nextProcessablePiece(testChunk);
-        expect(result.continueProgressMode).to.eql(true);
-      });
-      it('returns continueProgressMode false if already true and there is a newline next', () => {
-        let testChunk = 'abcdefghi\njklmn=opqr\rstuvwxyz';
-        progress.progressMode = true;
-        let result = progress._nextProcessablePiece(testChunk);
-        expect(result.continueProgressMode).to.eql(false);
+        expect(testChunk[result]).to.eql('\n');
         testChunk = 'abcdefghi\njklmnopqrstuvwxyz';
         result = progress._nextProcessablePiece(testChunk);
-        expect(result.continueProgressMode).to.eql(false);
+        expect(testChunk[result]).to.eql('\n');
       });
-      it('returns continueProgressMode false if already false and there is no CR next', () => {
-        let testChunk = 'abcdefghi\njklmn=opqr\rstuvwxyz';
-        progress.progressMode = false;
+      it('returns the index to a CR if a is CR next', () => {
+        let testChunk = 'abcdefghi\rjklmnopqr\nstuvwxyz';
         let result = progress._nextProcessablePiece(testChunk);
-        expect(result.continueProgressMode).to.eql(false);
-        testChunk = 'abcdefghi\njklmnopqrstuvwxyz';
+        expect(testChunk[result]).to.eql('\r');
+        testChunk = 'abcdefghi\rjklmnopqrstuvwxyz';
         result = progress._nextProcessablePiece(testChunk);
-        expect(result.continueProgressMode).to.eql(false);
-      });
-      it('returns type log and continueProgressMode false if next chunk unparseable as progress', () => {
-        let testChunk = 'abcdefghi\njklmnopqrstuvwxyz';
-        progress.progressMode = true;
-        let result = progress._nextProcessablePiece(testChunk);
-        expect(result.type).to.eql('log');
-        expect(result.continueProgressMode).to.eql(false);
-      });
-    });
-    describe('#_processPiece', () => {
-      it('calls #_processProgress when mode is progress', () => {
-        const stub = sinon.stub(progress, '_processProgress');
-        progress._processPiece('some string', 'progress');
-        expect(stub.calledOnceWithExactly('some string')).to.eql(true);
-      });
-      it('calls #_processLog when mode is log', () => {
-        const stub = sinon.stub(progress, '_processLog');
-        progress._processPiece('some string', 'log');
-        expect(stub.calledOnceWithExactly('some string')).to.eql(true);
+        expect(testChunk[result]).to.eql('\r');
       });
     });
     describe('#_processProgress', () => {
       it('calls _parseProgress', () => {
-        const testChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x   ';
+        const testChunk = 'frame=538\nfps=75.44\nstream_0_0_q=27.0\nbitrate= 406.3kbits/s\ntotal_size=1048624\nout_time_us=20645667\nout_time_ms=20645667\nout_time=00:00:20.645667\ndup_frames=0\ndrop_frames=0\nspeed= 2.9x\nprogress=continue\n';
         const stub = sinon.stub(progress, '_parseProgress');
         sinon.stub(progress, '_emitUpdateEvent');
         progress._processProgress(testChunk);
         expect(stub.calledOnceWithExactly(testChunk)).to.eql(true);
       });
       it('calls _emitUpdateEvent', () => {
-        const testChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x   ';
+        const testChunk = 'frame=538\nfps=75.44\nstream_0_0_q=27.0\nbitrate= 406.3kbits/s\ntotal_size=1048624\nout_time_us=20645667\nout_time_ms=20645667\nout_time=00:00:20.645667\ndup_frames=0\ndrop_frames=0\nspeed= 2.9x\nprogress=continue\n';
         const parsed = {
-          frame: 1781,
-          fps: 161,
-          q: 28,
-          size: '2304kB',
-          time: 74.55,
-          bitrate: '253.1kbits/s',
-          speed: '6.75x'
+          frame: 538,
+          fps: 75.44,
+          stream_0_0_q: 27,
+          bitrate: '406.3kbits/s',
+          total_size: 1048624,
+          out_time_us: 20645667,
+          out_time_ms: 20645667,
+          out_time: 20.645667,
+          dup_frames: 0,
+          drop_frames: 0,
+          speed: '2.9x'
         };
         sinon.stub(progress, '_parseProgress').returns(parsed);
         const stub = sinon.stub(progress, '_emitUpdateEvent');
@@ -428,15 +356,19 @@ describe('FFmpegProgressEmitter', function () {
         expect(stub.calledOnceWithExactly(parsed)).to.eql(true);
       });
       it('adds parsed progress data to the progress buffer', () => {
-        const testChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x   ';
+        const testChunk = 'frame=538\nfps=75.44\nstream_0_0_q=27.0\nbitrate= 406.3kbits/s\ntotal_size=1048624\nout_time_us=20645667\nout_time_ms=20645667\nout_time=00:00:20.645667\ndup_frames=0\ndrop_frames=0\nspeed= 2.9x\nprogress=continue\n';
         const parsed = {
-          frame: 1781,
-          fps: 161,
-          q: 28,
-          size: '2304kB',
-          time: 74.55,
-          bitrate: '253.1kbits/s',
-          speed: '6.75x'
+          frame: 538,
+          fps: 75.44,
+          stream_0_0_q: 27,
+          bitrate: '406.3kbits/s',
+          total_size: 1048624,
+          out_time_us: 20645667,
+          out_time_ms: 20645667,
+          out_time: 20.645667,
+          dup_frames: 0,
+          drop_frames: 0,
+          speed: '2.9x'
         };
         sinon.stub(progress, '_parseProgress').returns(parsed);
         sinon.stub(progress, '_emitUpdateEvent');
@@ -448,22 +380,27 @@ describe('FFmpegProgressEmitter', function () {
     describe('#_processLog', () => {
       it('adds the string to the log buffer', () => {
         const testChunk = 'abcdefghijklmnopqrstuvwxyz';
+        sinon.stub(progress, 'lastMediaTime').returns(0);
+        const expected = '(0) abcdefghijklmnopqrstuvwxyz';
         progress._processLog(testChunk);
         const buf = progress.logBuffer;
-        expect(buf[buf.length - 1]).to.eql(testChunk);
+        expect(buf[buf.length - 1]).to.eql(expected);
       });
       it('trims whitespace from the right before adding', () => {
         const testChunk = 'abcdefghijklmnopqrstuvwxyz      \t  ';
-        const expected = 'abcdefghijklmnopqrstuvwxyz';
+        sinon.stub(progress, 'lastMediaTime').returns(0);
+        const expected = '(0) abcdefghijklmnopqrstuvwxyz';
         progress._processLog(testChunk);
         const buf = progress.logBuffer;
         expect(buf[buf.length - 1]).to.eql(expected);
       });
       it('does not trim whitespace from the left before adding', () => {
         const testChunk = '  \t   abcdefghijklmnopqrstuvwxyz';
+        sinon.stub(progress, 'lastMediaTime').returns(0);
+        const expected = '(0)   \t   abcdefghijklmnopqrstuvwxyz';
         progress._processLog(testChunk);
         const buf = progress.logBuffer;
-        expect(buf[buf.length - 1]).to.eql(testChunk);
+        expect(buf[buf.length - 1]).to.eql(expected);
       });
       it('does not add empty lines to the log buffer', () => {
         const testChunk = '';
@@ -477,38 +414,50 @@ describe('FFmpegProgressEmitter', function () {
         const buf = progress.logBuffer;
         expect(buf.length).to.eql(0);
       });
+      it('prefixes the line with the last received media time', () => {
+        const testChunk = 'abcdefghijklmnopqrstuvwxyz';
+        sinon.stub(progress, 'lastMediaTime').returns(27.639568);
+        const expected = '(27.639568) abcdefghijklmnopqrstuvwxyz';
+        progress._processLog(testChunk);
+        const buf = progress.logBuffer;
+        expect(buf[buf.length - 1]).to.eql(expected);
+      });
     });
     describe('#_parseProgress', () => {
       it('parses key value pairs from a string', () => {
-        const testChunk = 'abc=def ghi=jkl';
+        const testChunk = 'abc=def\nghi=jkl';
         const expected = { abc: 'def', ghi: 'jkl' };
         expect(progress._parseProgress(testChunk)).to.eql(expected);
       });
       it('parses key value pairs with space between = and value', () => {
-        const testChunk = 'abc=   def ghi=   jkl';
+        const testChunk = 'abc=   def\nghi=   jkl';
         const expected = { abc: 'def', ghi: 'jkl' };
         expect(progress._parseProgress(testChunk)).to.eql(expected);
       });
       it('converts number values into numbers', () => {
-        const testChunk = 'abc=   14.25 ghi=   321';
+        const testChunk = 'abc=   14.25\nghi=   321';
         const expected = { abc: 14.25, ghi: 321 };
         expect(progress._parseProgress(testChunk)).to.eql(expected);
       });
       it('parses timestamp formatted values into number of seconds', () => {
-        const testChunk = 'abc=def ghi=jkl time=00:01:14.55';
+        const testChunk = 'abc=def\nghi=jkl\ntime=00:01:14.55';
         const expected = { abc: 'def', ghi: 'jkl', time: 74.55 };
         expect(progress._parseProgress(testChunk)).to.eql(expected);
       });
       it('correctly parses an example progress line', () => {
-        const testChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x   ';
+        const testChunk = 'frame=1145\nfps=75.03\nstream_0_1_q=40.0\nbitrate= 214.6kbits/s\ntotal_size=1310768\nout_time_us=48874667\nout_time_ms=48874667\nout_time=00:00:48.874667\ndup_frames=0\ndrop_frames=0\nspeed= 3.2x\nprogress=continue\n';
         const expected = {
-          frame: 1781,
-          fps: 161,
-          q: 28,
-          size: '2304kB',
-          time: 74.55,
-          bitrate: '253.1kbits/s',
-          speed: '6.75x'
+          frame: 1145,
+          fps: 75.03,
+          stream_0_1_q: 40,
+          bitrate: '214.6kbits/s',
+          total_size: 1310768,
+          out_time_us: 48874667,
+          out_time_ms: 48874667,
+          out_time: 48.874667,
+          dup_frames: 0,
+          drop_frames: 0,
+          speed: '3.2x'
         };
         expect(progress._parseProgress(testChunk)).to.eql(expected);
       });
