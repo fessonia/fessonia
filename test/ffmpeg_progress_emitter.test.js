@@ -206,6 +206,22 @@ describe('FFmpegProgressEmitter', function () {
       });
     });
   });
+  describe('formattedLog', () => {
+    let progress;
+    beforeEach(() => {
+      progress = new FFmpegProgressEmitter();
+    });
+
+    it('should provide a string of logs formatted with ffmpeg times', () => {
+      progress.logBuffer = [
+        { time: '0', text: 'something happened\n' },
+        { time: '00:00:03.34523', text: 'even more happened\n' }
+      ];
+      expect(progress.formattedLog()).to.eql(
+        '(0) something happened\n(00:00:03.34523) even more happened\n'
+      );
+    });
+  });
   describe('parsing internals', () => {
     let progress;
     beforeEach(() => {
