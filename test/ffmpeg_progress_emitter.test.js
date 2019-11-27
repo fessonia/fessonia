@@ -23,23 +23,31 @@ describe('FFmpegProgressEmitter', function () {
   describe('video output handling', () => {
     it('emits the update event when video stream progress data is pushed into it', function (done) {
       const progress = new FFmpegProgressEmitter();
-      const progressChunk = 'frame= 1781 fps=161 q=28.0 size=    2304kB time=00:01:14.55 bitrate= 253.1kbits/s speed=6.75x   \r';
+      const progressChunk = 'frame=1258\nfps=75.01\nstream_0_1_q=40.0\nbitrate= 234.9kbits/s\ntotal_size=1572912\nout_time_us=53568000\nout_time_ms=53568000\nout_time=00:00:53.568000\ndup_frames=0\ndrop_frames=0\nspeed=3.19x\nprogress=continue\n';
       progress.on('update', (data) => {
         expect(data).to.be.an('object');
-        expect(data).to.have.ownProperty('time');
-        expect(data.time).to.eql(74.55);
         expect(data).to.have.ownProperty('frame');
-        expect(data.frame).to.eql(1781);
+        expect(data.frame).to.eql(1258);
         expect(data).to.have.ownProperty('fps');
-        expect(data.fps).to.eql(161);
-        expect(data).to.have.ownProperty('q');
-        expect(data.q).to.eql(28.0);
-        expect(data).to.have.ownProperty('size');
-        expect(data.size).to.eql('2304kB');
+        expect(data.fps).to.eql(75.01);
+        expect(data).to.have.ownProperty('stream_0_1_q');
+        expect(data.stream_0_1_q).to.eql(40.0);
         expect(data).to.have.ownProperty('bitrate');
-        expect(data.bitrate).to.eql('253.1kbits/s');
+        expect(data.bitrate).to.eql('234.9kbits/s');
+        expect(data).to.have.ownProperty('total_size');
+        expect(data.total_size).to.eql(1572912);
+        expect(data).to.have.ownProperty('out_time_us');
+        expect(data.out_time_us).to.eql(53568000);
+        expect(data).to.have.ownProperty('out_time_ms');
+        expect(data.out_time_ms).to.eql(53568000);
+        expect(data).to.have.ownProperty('out_time');
+        expect(data.out_time).to.eql('00:00:53.568000')
+        expect(data).to.have.ownProperty('dup_frames');
+        expect(data.dup_frames).to.eql(0);
+        expect(data).to.have.ownProperty('drop_frames');
+        expect(data.drop_frames).to.eql(0);
         expect(data).to.have.ownProperty('speed');
-        expect(data.speed).to.eql('6.75x');
+        expect(data.speed).to.eql('3.19x');
         done();
       });
       const testData = testHelpers.createTestReadableStream();
@@ -345,7 +353,7 @@ describe('FFmpegProgressEmitter', function () {
           total_size: 1048624,
           out_time_us: 20645667,
           out_time_ms: 20645667,
-          out_time: 20.645667,
+          out_time: '00:00:20.645667',
           dup_frames: 0,
           drop_frames: 0,
           speed: '2.9x'
@@ -365,7 +373,7 @@ describe('FFmpegProgressEmitter', function () {
           total_size: 1048624,
           out_time_us: 20645667,
           out_time_ms: 20645667,
-          out_time: 20.645667,
+          out_time: '00:00:20.645667',
           dup_frames: 0,
           drop_frames: 0,
           speed: '2.9x'
@@ -454,7 +462,7 @@ describe('FFmpegProgressEmitter', function () {
           total_size: 1310768,
           out_time_us: 48874667,
           out_time_ms: 48874667,
-          out_time: 48.874667,
+          out_time: '00:00:48.874667',
           dup_frames: 0,
           drop_frames: 0,
           speed: '3.2x'
