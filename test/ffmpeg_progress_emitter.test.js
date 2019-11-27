@@ -462,27 +462,5 @@ describe('FFmpegProgressEmitter', function () {
         expect(progress._parseProgress(testChunk)).to.eql(expected);
       });
     });
-    describe('#_parseTimestamp', () => {
-      it('correctly parses a timestamp string with only seconds', () => {
-        const ts = '00:00:13.57';
-        const expected = 13.57;
-        expect(progress._parseTimestamp(ts)).to.eql(expected);
-      });
-      it('correctly parses a timestamp string with only minutes', () => {
-        const ts = '00:53:00.00';
-        const expected = 53 * 60;
-        expect(progress._parseTimestamp(ts)).to.eql(expected);
-      });
-      it('correctly parses a timestamp string with only hours', () => {
-        const ts = '17:00:00.00';
-        const expected = 17 * 60 * 60;
-        expect(progress._parseTimestamp(ts)).to.eql(expected);
-      });
-      it('correctly parses a timestamp string with all fields', () => {
-        const ts = '17:53:13.57';
-        const expected = 17 * 60 * 60 + 53 * 60 + 13.57;
-        expect(progress._parseTimestamp(ts)).to.eql(expected);
-      });
-    });
   });
 });
