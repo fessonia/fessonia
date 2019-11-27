@@ -215,7 +215,7 @@ describe('FFmpegProgressEmitter', function () {
       it('should add to logBuffer if not a progress string', () => {
         const testChunk = 'this is not= a progress chunk\n';
         progress.write(testChunk);
-        expect(progress.logBuffer).to.include(testChunk);
+        expect(progress.logData()).to.include(testChunk);
       });
 
       it('should call _parseProgress if a progress string', () => {
@@ -229,7 +229,7 @@ describe('FFmpegProgressEmitter', function () {
       it('should drop lines ending in \\r', () => {
         const testChunk = 'this should not appear in the log\r';
         progress.write(testChunk);
-        expect(progress.logBuffer).to.not.include(testChunk);
+        expect(progress.logData()).to.not.include(testChunk);
       });
     });
     describe('#_parseProgress', () => {
