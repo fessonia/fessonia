@@ -45,7 +45,7 @@ describe('FFmpegProgressEmitter', function () {
         expect(data).to.have.ownProperty('out_time_us');
         expect(data.out_time_us).to.eql(53568000);
         expect(data).to.have.ownProperty('out_time_ms');
-        expect(data.out_time_ms).to.eql(53568000);
+        expect(data.out_time_ms).to.eql(53568);
         expect(data).to.have.ownProperty('out_time');
         expect(data.out_time).to.eql('00:00:53.568000')
         expect(data).to.have.ownProperty('dup_frames');
@@ -122,7 +122,7 @@ describe('FFmpegProgressEmitter', function () {
         expect(data).to.have.ownProperty('drop_frames');
         expect(data.drop_frames).to.eql(0);
         expect(data).to.have.ownProperty('out_time_ms');
-        expect(data.out_time_ms).to.eql(330048000);
+        expect(data.out_time_ms).to.eql(330048);
         expect(data).to.have.ownProperty('out_time_us');
         expect(data.out_time_us).to.eql(330048000);
         done();
@@ -285,6 +285,41 @@ describe('FFmpegProgressEmitter', function () {
         progress.partialProgressData = progressData;
         progress._emitUpdateEvent();
         expect(progress.partialProgressData).to.eql({});
+      });
+
+      // https://trac.ffmpeg.org/ticket/7345
+      it('should fix out_time_ms', () => {
+        progress.partialProgressData = {
+          out_time_ms: 1000,
+          out_time_us: 1000
+        };
+        progress._emitUpdateEvent();
+        expect(progress.progressData.out_time_ms).to.eql(1);
+      });
+
+      it('should not fix out_time_ms if no out_time_us', () => {
+        progress.partialProgressData = {
+          out_time_ms: 1000
+        };
+        progress._emitUpdateEvent();
+        expect(progress.progressData.out_time_ms).to.eql(1000);
+      });
+
+      it('should not fix out_time_ms if no out_time_ms', () => {
+        progress.partialProgressData = {
+          out_time_us: 1000
+        };
+        progress._emitUpdateEvent();
+        expect(progress.progressData.out_time_ms).to.be.undefined;
+      });
+
+      it('should not fix out_time_ms if different from out_time_us', () => {
+        progress.partialProgressData = {
+          out_time_us: 1000,
+          out_time_ms: 2000
+        };
+        progress._emitUpdateEvent();
+        expect(progress.progressData.out_time_ms).to.eql(2000);
       });
     });
   });
