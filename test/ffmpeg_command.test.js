@@ -266,7 +266,8 @@ describe('FFmpegCommand', function () {
       const fc = new FFmpegCommand();
       fc.on('success', (data) => {
         expect(data).to.have.ownProperty('exitCode');
-        expect(data).to.have.ownProperty('progressData');
+        expect(data).to.have.ownProperty('log');
+        expect(data).to.have.ownProperty('progress');
         expect(data.exitCode).to.eql(0);
         done();
       });
@@ -289,7 +290,9 @@ describe('FFmpegCommand', function () {
       });
       fc.on('failure', (data) => {
         expect(data).to.have.ownProperty('exitCode');
-        expect(data).to.have.ownProperty('progressData');
+        expect(data).to.have.ownProperty('log');
+        expect(data).to.have.ownProperty('logLines');
+        expect(data).to.have.ownProperty('progress');
         expect(data.exitCode).to.eql(1);
         done();
       });
