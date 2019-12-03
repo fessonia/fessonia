@@ -223,8 +223,31 @@ describe('FFmpegCommand', function () {
     });
   });
 
-  describe('event emits', function () {
+  describe('spawn()', () => {
     beforeEach(() => {
+      mockProcess = new events.EventEmitter();
+      mockProcess.stderr = new stream.Readable();
+      mockProcess.stderr._read = sinon.spy();
+      stub = sinon.stub(childProcess, 'spawn').returns(mockProcess);
+    });
+
+    it('should add progress option if emitting events', () => {
+      const cmd = new FFmpegCommand();
+      cmd.spawn();
+      expect(cmd.options.get('progress')).to.eql('pipe:2');
+    });
+
+    it('should not add progress option if not emitting events', () => {
+      const cmd = new FFmpegCommand();
+      cmd.spawn(false);
+      expect(cmd.options.has('progress')).to.be.false;
+    });
+  });
+
+  describe('event emits', function () {
+    let errorLogBuffer;
+    beforeEach(() => {
+      errorLogBuffer = require('./fixtures/ffmpeg-error-logbuffer');
       mockProcess = new events.EventEmitter();
       mockProcess.stderr = new stream.Readable();
       mockProcess.stderr._read = sinon.spy();
@@ -245,31 +268,79 @@ describe('FFmpegCommand', function () {
       const fc = new FFmpegCommand();
       fc.on('success', (data) => {
         expect(data).to.have.ownProperty('exitCode');
-        expect(data).to.have.ownProperty('progressData');
+        expect(data).to.have.ownProperty('log');
+        expect(data).to.have.ownProperty('progress');
         expect(data.exitCode).to.eql(0);
         done();
       });
       fc.on('error', (err) => {
         throw new Error(`Expected success event but error event received: ${err.message}`);
       });
-      fc.on('failure', (data) => {
-        throw new Error(`Expected success event but received failure event with data ${JSON.stringify(data)}`);
+      fc.spawn();
+      mockProcess.emit('exit', 0, null);
+    })
+    it('emits a success event with the formattedLog', function (done) {
+      const fc = new FFmpegCommand();
+      fc._progressEmitter.logBuffer = errorLogBuffer;
+      fc.on('success', (data) => {
+        expect(data.log).to.eql(fc._progressEmitter.formattedLog());
+        done();
       });
       fc.spawn();
       mockProcess.emit('exit', 0, null);
     });
-    it('emits a failure event when the process spawns but fails to execute successfully', function (done) {
+    it('emits a success event with the progress object', function (done) {
       const fc = new FFmpegCommand();
       fc.on('success', (data) => {
-        throw new Error(`Expected failure event but received success event with data ${JSON.stringify(data)}.`);
+        expect(data.progress).to.eql(fc._progressEmitter);
+        done();
       });
-      fc.on('error', (err) => {
-        throw new Error(`Expected failure event but error event received: ${err.message}`);
+      fc.spawn();
+      mockProcess.emit('exit', 0, null);
+    });
+    it('emits a error event when the process spawns but fails to execute successfully', function (done) {
+      const fc = new FFmpegCommand();
+      fc._progressEmitter.logBuffer = errorLogBuffer;
+      fc.on('success', (data) => {
+        throw new Error(`Expected error event but received success event with data ${JSON.stringify(data)}.`);
       });
-      fc.on('failure', (data) => {
-        expect(data).to.have.ownProperty('exitCode');
-        expect(data).to.have.ownProperty('progressData');
-        expect(data.exitCode).to.eql(1);
+      fc.on('error', (error) => {
+        expect(error).to.be.instanceof(FFmpegError);
+        expect(error).to.have.ownProperty('code');
+        expect(error).to.have.ownProperty('message');
+        expect(error).to.have.ownProperty('log');
+        expect(error).to.have.ownProperty('cmd');
+        expect(error).to.have.ownProperty('progress');
+        expect(error.code).to.eql(1);
+        done();
+      });
+      fc.spawn();
+      mockProcess.emit('exit', 1, null);
+    });
+    it('emits a error event with the formattedLog', function (done) {
+      const fc = new FFmpegCommand();
+      fc._progressEmitter.logBuffer = errorLogBuffer;
+      fc.on('error', (error) => {
+        expect(error.message).to.eql(fc._progressEmitter.last().pop());
+        expect(error.log).to.eql(fc._progressEmitter.formattedLog());
+        done();
+      });
+      fc.spawn();
+      mockProcess.emit('exit', 1, null);
+    });
+    it('emits a error event with the command string', function (done) {
+      const fc = new FFmpegCommand();
+      fc.on('error', (error) => {
+        expect(error.cmd).to.eql(fc.toString());
+        done();
+      });
+      fc.spawn();
+      mockProcess.emit('exit', 1, null);
+    });
+    it('emits a error event with the progress object', function (done) {
+      const fc = new FFmpegCommand();
+      fc.on('error', (error) => {
+        expect(error.progress).to.eql(fc._progressEmitter);
         done();
       });
       fc.spawn();
