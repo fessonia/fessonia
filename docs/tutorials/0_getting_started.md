@@ -69,7 +69,7 @@ console.log(cmd.toString()); //=> ffmpeg -i "input.mp4" "output.avi"
 ### Events
 
 The `FFmpegCommand` object is an `EventEmitter`, so you can attach handlers
-for the `update`, `success`, `failure` and `error` events:
+for the `update`, `success` and `error` events:
 
 ```{javascript}
 cmd.on('update', (data) => {
@@ -84,14 +84,9 @@ cmd.on('success', (data) => {
   // handle the success here
 });
 
-cmd.on('failure', (data) => {
-  console.log('Failure in ffmpeg execution', data);
-  // handle the failure here
-});
-
 cmd.on('error', (err) => {
   console.log(err.message, err.stack);
-  // handle the error here
+  // inspect and handle the error here
 });
 ```
 

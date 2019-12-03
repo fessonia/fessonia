@@ -69,7 +69,7 @@ console.log(cmd.toString()); //=> ffmpeg -i "input.mp4" "output.avi"
 ### Events
 
 The `FFmpegCommand` object is an `EventEmitter`, so you can attach handlers
-for the `update`, `success`, `failure` and `error` events:
+for the `update`, `success` and `error` events:
 
 ```{javascript}
 cmd.on('update', (data) => {
@@ -84,26 +84,21 @@ cmd.on('success', (data) => {
   // handle the success here
 });
 
-cmd.on('failure', (data) => {
-  console.log('Failure in ffmpeg execution', data);
-  // handle the failure here
-});
-
 cmd.on('error', (err) => {
   console.log(err.message, err.stack);
-  // handle the error here
+  // inspect and handle the error here
 });
 ```
 
-> #### A Note on Progress Events
-> 
-> In order to manage progress updates through events, the library by default modifies the FFmpeg command you specify upon execution by `spawn`, adding the global `-progress` option (ref: [FFmpeg "Options"](http://ffmpeg.org/ffmpeg.html#Options), search for `-progress`).
-> 
-> To disable this, you can disable progress event emitting by passing `false` as an argument to `FFmpegCommand`'s `spawn` method. Process events `success`, `failure` and `error` will still be emitted. See {@link FFmpegCommand#spawn}.
-> 
-> ```{javascript}
-> cmd.spawn(false); // 'update' events will not be emitted
-> ```
+#### A Note on Progress Events
+
+In order to manage progress updates through events, the library by default modifies the FFmpeg command you specify upon execution by `spawn`, adding the global `-progress` option if not already specified (ref: [FFmpeg "Options"](http://ffmpeg.org/ffmpeg.html#Options), search for `-progress`).
+
+To disable this, you can disable progress event emitting by passing `false` as an argument to `FFmpegCommand`'s `spawn` method. `spawn` returns the `childProcess` object so you can interpret `stderr` on your own. Process events `success`, `failure` and `error` will still be emitted. See {@link FFmpegCommand#spawn}.
+
+```{javascript}
+cmd.spawn(false); // 'update' events will not be emitted
+```
 
 ### Executing the Command
 
