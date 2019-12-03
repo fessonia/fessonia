@@ -45,11 +45,13 @@ describe('FFmpegError', function () {
       originalError.signal = 'SIGINT';
       originalError.code = 1;
       originalError.cmd = 'ffmpeg -i';
+      originalError.progress = { progressObject: true };
       const error = new FFmpegError(originalError);
       expect(error.killed).to.eql(originalError.killed);
       expect(error.signal).to.eql(originalError.signal);
       expect(error.code).to.eql(originalError.code);
       expect(error.cmd).to.eql(originalError.cmd);
+      expect(error.progress).to.eql(originalError.progress);
     });
 
     it('should not copy other properties from the original object', () => {
