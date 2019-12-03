@@ -95,6 +95,16 @@ cmd.on('error', (err) => {
 });
 ```
 
+> #### A Note on Progress Events
+> 
+> In order to manage progress updates through events, the library by default modifies the FFmpeg command you specify upon execution by `spawn`, adding the global `-progress` option (ref: [FFmpeg "Options"](http://ffmpeg.org/ffmpeg.html#Options), search for `-progress`).
+> 
+> To disable this, you can disable progress event emitting by passing `false` as an argument to `FFmpegCommand`'s `spawn` method. Process events `success`, `failure` and `error` will still be emitted. See {@link FFmpegCommand#spawn}.
+> 
+> ```{javascript}
+> cmd.spawn(false); // 'update' events will not be emitted
+> ```
+
 ### Executing the Command
 
 To execute the command and get a `Promise` for the `stdout` output of `ffmpeg`, you can use the `execute` method:
