@@ -1,5 +1,22 @@
 # CHANGE LOG
 
+## 2.0.0 (2019-12-03)
+
+* [View the commits.](https://github.com/tedconf/fessonia/compare/1.0.1...2.0.0)
+* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.0.0/)
+
+## Breaking Changes
+
+This release alters the way run log and progress log output from ffmpeg is handled by the library:
+
+* The library now modifies the specified ffmpeg command by default, adding the `-progress` global option for use in eventing on progress updates. To disable this, you can pass `false` to the `spawn` method of `FFmpegCommand`.
+* Run log returned by `FFmpegCommand` no longer includes progress lines, as those are treated as ephemeral and only used to generate the events.
+* The `FFmpegCommand` no longer emits `failure` events, instead emitting `error` events with appropriate information on any `ffmpeg` failure with a new `FFmpegError` object.
+
+### Documentation Changes
+
+Documentation has been updated to reflect the new progress and log handling.
+
 ## 1.0.1 (2019-11-06)
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/1.0.0...1.0.1)
