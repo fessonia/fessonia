@@ -4,6 +4,7 @@ const chai = require('chai'),
   fs = require('fs');
 
 const FFmpegError = require('../lib/ffmpeg_error');
+const FFmpegProgressEmitter = require('../lib/ffmpeg_progress_emitter');
 
 describe('FFmpegError', function () {
   describe('constructor()', function () {
@@ -37,7 +38,7 @@ describe('FFmpegError', function () {
     it('creates an FFmpegError object with stderr set to original message', () => {
       originalError.message = 'first line\nsecond line\nlast line';
       const error = new FFmpegError(originalError);
-      expect(error.stderr).to.eql(originalError.message);
+      expect(error.log).to.eql(originalError.message);
     });
 
     it('should copy some properties from the original object', () => {
@@ -45,7 +46,7 @@ describe('FFmpegError', function () {
       originalError.signal = 'SIGINT';
       originalError.code = 1;
       originalError.cmd = 'ffmpeg -i';
-      originalError.progress = { progressObject: true };
+      originalError.progress = new FFmpegProgressEmitter;
       const error = new FFmpegError(originalError);
       expect(error.killed).to.eql(originalError.killed);
       expect(error.signal).to.eql(originalError.signal);

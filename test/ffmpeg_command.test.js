@@ -245,7 +245,9 @@ describe('FFmpegCommand', function () {
   });
 
   describe('event emits', function () {
+    let errorLogBuffer;
     beforeEach(() => {
+      errorLogBuffer = require('./fixtures/ffmpeg-error-logbuffer');
       mockProcess = new events.EventEmitter();
       mockProcess.stderr = new stream.Readable();
       mockProcess.stderr._read = sinon.spy();
@@ -278,12 +280,10 @@ describe('FFmpegCommand', function () {
       mockProcess.emit('exit', 0, null);
     })
     it('emits a success event with the formattedLog', function (done) {
-      const formattedLog = 'some text\nand more\nlast line\n';
       const fc = new FFmpegCommand();
-      const mock = sinon.mock(fc._progressEmitter);
-      mock.expects('formattedLog').once().returns(formattedLog);
+      fc._progressEmitter.logBuffer = errorLogBuffer;
       fc.on('success', (data) => {
-        expect(data.log).to.eql(formattedLog);
+        expect(data.log).to.eql(fc._progressEmitter.formattedLog());
         done();
       });
       fc.spawn();
@@ -300,6 +300,7 @@ describe('FFmpegCommand', function () {
     });
     it('emits a error event when the process spawns but fails to execute successfully', function (done) {
       const fc = new FFmpegCommand();
+      fc._progressEmitter.logBuffer = errorLogBuffer;
       fc.on('success', (data) => {
         throw new Error(`Expected error event but received success event with data ${JSON.stringify(data)}.`);
       });
@@ -307,7 +308,7 @@ describe('FFmpegCommand', function () {
         expect(error).to.be.instanceof(FFmpegError);
         expect(error).to.have.ownProperty('code');
         expect(error).to.have.ownProperty('message');
-        expect(error).to.have.ownProperty('stderr');
+        expect(error).to.have.ownProperty('log');
         expect(error).to.have.ownProperty('cmd');
         expect(error).to.have.ownProperty('progress');
         expect(error.code).to.eql(1);
@@ -317,14 +318,11 @@ describe('FFmpegCommand', function () {
       mockProcess.emit('exit', 1, null);
     });
     it('emits a error event with the formattedLog', function (done) {
-      const formattedLog = 'some text\nand more\nlast line\n';
       const fc = new FFmpegCommand();
-      const mock = sinon.mock(fc._progressEmitter);
-      mock.expects('formattedLog').once().returns(formattedLog);
+      fc._progressEmitter.logBuffer = errorLogBuffer;
       fc.on('error', (error) => {
-        mock.verify();
-        expect(error.message).to.eql('last line');
-        expect(error.stderr).to.eql(formattedLog);
+        expect(error.message).to.eql(fc._progressEmitter.last().pop());
+        expect(error.log).to.eql(fc._progressEmitter.formattedLog());
         done();
       });
       fc.spawn();
