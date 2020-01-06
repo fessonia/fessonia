@@ -1,6 +1,9 @@
-version: 1.0
+version: 1.1
 vertical: video
 production:
   endpoint_url:
 staging:
   endpoint_url:
+ci_url: https://travis-ci.com/tedconf/fessonia
+primary_languages:
+  - node
