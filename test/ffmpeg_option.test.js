@@ -10,40 +10,24 @@ const FilterChain = require('../lib/filter_chain');
 const FilterNode = require('../lib/filter_node');
 
 describe('FFmpegOption', function () {
-  it('provides option contexts', function () {
-    expect(FFmpegOption.FFmpegOptionContexts).to.not.be.null;
-  });
   it('creates an FFmpegOption object', function () {
     expect(new FFmpegOption(
-      'ss',
-      FFmpegOption.FFmpegOptionContexts.GLOBAL
+      'ss'
     )).to.be.instanceof(FFmpegOption);
   });
   describe('input validation', function () {
-    it('does not fail if the context is valid', function () {
-      const C = FFmpegOption.FFmpegOptionContexts;
-      expect(() => new FFmpegOption('y', C.GLOBAL)).not.to.throw();
-      expect(() => new FFmpegOption('ss', C.INPUT)).not.to.throw();
-      expect(() => new FFmpegOption('ss', C.OUTPUT)).not.to.throw();
-    });
-    it('fails if the context is invalid', function () {
-      expect(() => new FFmpegOption('ss', false)).to.throw();
-    });
     it('sets the argument when arg is a string', function () {
-      const C = FFmpegOption.FFmpegOptionContexts;
-      const fo = new FFmpegOption('ss', C.INPUT, '2545');
+      const fo = new FFmpegOption('ss', '2545');
       expect(fo.arg).to.be.a('string');
       expect(fo.arg).to.eql('2545');
     });
     it('sets the argument when arg is stringifiable', function () {
-      const C = FFmpegOption.FFmpegOptionContexts;
-      const fo = new FFmpegOption('ss', C.INPUT, 2545);
+      const fo = new FFmpegOption('ss', 2545);
       expect(fo.arg).to.eql(2545);
     });
     it('fails if arg is a composite value', function () {
-      const C = FFmpegOption.FFmpegOptionContexts;
-      expect(() => new FFmpegOption('ss', C.INPUT, new Map([[2545, null]]))).to.throw();
-      expect(() => new FFmpegOption('ss', C.INPUT, [2545])).to.throw();
+      expect(() => new FFmpegOption('ss', new Map([[2545, null]]))).to.throw();
+      expect(() => new FFmpegOption('ss', [2545])).to.throw();
     });
 
     describe('with filters', function () {
@@ -59,12 +43,10 @@ describe('FFmpegOption', function () {
       });
 
       it('handles all filter options as filter_complex with GLOBAL context', function () {
-        const C = FFmpegOption.FFmpegOptionContexts;
         let fo;
         FFmpegOption.FFmpegFilterOptions.forEach((opt) => {
-          fo = new FFmpegOption(opt, C.OUTPUT, fg);
+          fo = new FFmpegOption(opt, fg);
           expect(fo.optionName).to.eql('-filter_complex');
-          expect(fo.context).to.eql(C.GLOBAL);
         });
       });
     });
@@ -73,8 +55,7 @@ describe('FFmpegOption', function () {
   describe('toCommandArray()', function () {
     it('generates the correct command array segment for a global option', function () {
       const o = new FFmpegOption(
-        'y',
-        FFmpegOption.FFmpegOptionContexts.GLOBAL
+        'y'
       );
       const expected = ['-y'];
       expect(o.toCommandArray()).to.deep.eql(expected);
@@ -82,12 +63,10 @@ describe('FFmpegOption', function () {
     it('generates the correct command array segment for an input option', function () {
       const options = [
         new FFmpegOption(
-          'bitexact',
-          FFmpegOption.FFmpegOptionContexts.INPUT
+          'bitexact'
         ),
         new FFmpegOption(
           'ss',
-          FFmpegOption.FFmpegOptionContexts.INPUT,
           '5110.77'
         )
       ];
@@ -99,12 +78,10 @@ describe('FFmpegOption', function () {
     it('generates the correct command array segment for an output option', function () {
       const options = [
         new FFmpegOption(
-          'dn',
-          FFmpegOption.FFmpegOptionContexts.OUTPUT
+          'dn'
         ),
         new FFmpegOption(
           'f',
-          FFmpegOption.FFmpegOptionContexts.OUTPUT,
           'mp4'
         )
       ];
@@ -137,7 +114,6 @@ describe('FFmpegOption', function () {
         // create FilterGraph object
         const option = new FFmpegOption(
           'filter',
-          FFmpegOption.FFmpegOptionContexts.OUTPUT,
           fg
         );
         const expected = ['-filter_complex', `crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip;[${splitFilter.padPrefix}_1]vflip`];
@@ -149,8 +125,7 @@ describe('FFmpegOption', function () {
   describe('toCommandString()', function () {
     it('generates the correct command string segment for a global option', function () {
       const o = new FFmpegOption(
-        'y',
-        FFmpegOption.FFmpegOptionContexts.GLOBAL
+        'y'
       );
       const expected = '-y';
       expect(o.toCommandString()).to.eql(expected);
@@ -158,12 +133,10 @@ describe('FFmpegOption', function () {
     it('generates the correct command array segment for an input option', function () {
       const options = [
         new FFmpegOption(
-          'bitexact',
-          FFmpegOption.FFmpegOptionContexts.INPUT
+          'bitexact'
         ),
         new FFmpegOption(
           'ss',
-          FFmpegOption.FFmpegOptionContexts.INPUT,
           '5110.77'
         )
       ];
@@ -175,12 +148,10 @@ describe('FFmpegOption', function () {
     it('generates the correct command array segment for an output option', function () {
       const options = [
         new FFmpegOption(
-          'dn',
-          FFmpegOption.FFmpegOptionContexts.OUTPUT
+          'dn'
         ),
         new FFmpegOption(
           'f',
-          FFmpegOption.FFmpegOptionContexts.OUTPUT,
           'mp4'
         )
       ];
@@ -213,7 +184,6 @@ describe('FFmpegOption', function () {
         // create FilterGraph object
         const option = new FFmpegOption(
           'filter',
-          FFmpegOption.FFmpegOptionContexts.OUTPUT,
           fg
         );
         const expected = `-filter_complex crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip;[${splitFilter.padPrefix}_1]vflip`;

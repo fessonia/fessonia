@@ -127,7 +127,6 @@ describe('FFmpegOutput', function () {
       const expected = Array.from(newOptions).map(
         ([name, arg]) => new FFmpegOption(
           name,
-          FFmpegOption.FFmpegOptionContexts.OUTPUT,
           arg
         )
       );
@@ -151,7 +150,6 @@ describe('FFmpegOutput', function () {
       const newOptions = new Map([['filter', fg],]);
       const expected = [new FFmpegOption(
         'filter_complex',
-        FFmpegOption.FFmpegOptionContexts.OUTPUT,
         fg
       ),];
       fo.addOptions(newOptions);
