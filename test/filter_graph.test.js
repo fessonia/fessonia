@@ -7,13 +7,9 @@ const FilterGraph = require('../lib/filter_graph');
 const FilterNode = require('../lib/filter_node');
 const FilterChain = require('../lib/filter_chain');
 const FFmpegInput = require('../lib/ffmpeg_input');
-const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FilterGraph', function () {
   this.beforeEach(() => {
-    // stub for ffmpeg interaction
-    sinon.stub(FilterNode, '_queryFFmpegForFilters')
-      .returns(filtersFixture);
     scaleFilter = new FilterNode('scale', [640, -1])
     subtitlesFilter = new FilterNode('subtitles', {
       filename: 'subtitles.srt'
@@ -37,7 +33,7 @@ describe('FilterGraph', function () {
     ])
     audioFilters.addInput(delayedAudio.streamSpecifier('a'))
   });
-  
+
   describe('creates a filter graph', function () {
     it('creates a FilterGraph', () => {
       const fg = new FilterGraph();
@@ -70,7 +66,7 @@ describe('FilterGraph', function () {
       fg.addFilterChain(audioFilters)
       video.inputLabel = 0
       delayedAudio.inputLabel = 1
-      const expected = `[0:v]scale=640:-1,subtitles=filename=subtitles.srt[${subtitlesFilter.padPrefix}_0];[1:a]alimiter=limit=0.8,atadenoise=s=31[${denoiserFilter.padPrefix}_0]`
+      const expected = `[0:v]scale=640:-1,subtitles=filename=subtitles.srt;[1:a]alimiter=limit=0.8,atadenoise=s=31`
       expect(fg.toString()).to.eql(expected)
     })
   })

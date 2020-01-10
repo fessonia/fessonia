@@ -7,12 +7,9 @@ const FFmpegStreamSpecifier = require('../lib/ffmpeg_stream_specifier');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FilterChain = require('../lib/filter_chain');
 const FilterNode = require('../lib/filter_node');
-const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegStreamSpecifier', () => {
   beforeEach(() => {
-    // stub for ffmpeg interaction
-    sinon.stub(FilterNode, '_queryFFmpegForFilters').returns(filtersFixture);
     cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0]);
     vflipFilter = new FilterNode('vflip');
     splitFilter = new FilterNode('split', [], { outputsCount: 2 });

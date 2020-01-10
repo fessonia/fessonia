@@ -9,8 +9,7 @@ const FFmpegOutput = require('../lib/ffmpeg_output'),
   FFmpegOption = require('../lib/ffmpeg_option'),
   FilterNode = require('../lib/filter_node'),
   FilterChain = require('../lib/filter_chain'),
-  FilterGraph = require('../lib/filter_graph'),
-  filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
+  FilterGraph = require('../lib/filter_graph');
 
 describe('FFmpegOutput', function () {
   it('creates an FFmpegOutput object', function () {
@@ -83,22 +82,19 @@ describe('FFmpegOutput', function () {
   });
   describe('with filter option', function () {
     this.beforeEach(() => {
-      // stub for ffmpeg interaction
-      sinon.stub(FilterNode, '_queryFFmpegForFilters')
-        .returns(filtersFixture);
       cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0]);
       vflipFilter = new FilterNode('vflip');
       hflipFilter = new FilterNode('hflip');
-      splitFilter = new FilterNode('split', [], { outputsCount: 2 });
-      fc1 = new FilterChain([cropFilter, splitFilter])
-      fc2 = new FilterChain([vflipFilter])
-      fc2.addInput(fc1.streamSpecifier(0))
-      fc3 = new FilterChain([hflipFilter])
-      fc3.addInput(fc1.streamSpecifier(1))
+      splitFilter = new FilterNode('split');
+      fc1 = new FilterChain([cropFilter, splitFilter]);
+      fc2 = new FilterChain([vflipFilter]);
+      fc2.addInput(fc1.streamSpecifier(0));
+      fc3 = new FilterChain([hflipFilter]);
+      fc3.addInput(fc1.streamSpecifier(1));
       fg = new FilterGraph();
-      fg.addFilterChain(fc1)
-      fg.addFilterChain(fc2)
-      fg.addFilterChain(fc3)
+      fg.addFilterChain(fc1);
+      fg.addFilterChain(fc2);
+      fg.addFilterChain(fc3);
     });
 
     it('generates the correct command array segment', function () {
@@ -116,9 +112,11 @@ describe('FFmpegOutput', function () {
         ['aspect', '16:9'],
         ['f', 'mp4'],
         ['b:v', '3850k']
-      ])).toCommandArray();
-      testHelpers.expectLast(fo, expectedLast);
-      testHelpers.expectSequences(fo, expectedArgs);
+      ]));
+      fo.addStreams([fc2.streamSpecifier(), fc3.streamSpecifier()]);
+      const commandArray = fo.toCommandArray();
+      testHelpers.expectLast(commandArray, expectedLast);
+      testHelpers.expectSequences(commandArray, expectedArgs);
     });
   });
   describe('addOptions', function () {
@@ -137,8 +135,6 @@ describe('FFmpegOutput', function () {
       expect(fo.options).to.deep.eql(expected);
     });
     it('allows adding a filter option after creation of the output object', function () {
-      sinon.stub(FilterNode, '_queryFFmpegForFilters')
-        .returns(filtersFixture);
       const cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0]);
       const vflipFilter = new FilterNode('vflip');
       const hflipFilter = new FilterNode('hflip');
@@ -160,7 +156,6 @@ describe('FFmpegOutput', function () {
       ),];
       fo.addOptions(newOptions);
       expect(fo.options).to.deep.eql(expected);
-      FilterNode._queryFFmpegForFilters.restore();
     });
   });
   describe('addStreams()', () => {

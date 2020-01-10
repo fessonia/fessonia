@@ -8,7 +8,6 @@ const FFmpegOption = require('../lib/ffmpeg_option');
 const FilterGraph = require('../lib/filter_graph');
 const FilterChain = require('../lib/filter_chain');
 const FilterNode = require('../lib/filter_node');
-const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegOption', function () {
   it('provides option contexts', function () {
@@ -39,21 +38,16 @@ describe('FFmpegOption', function () {
     it('sets the argument when arg is stringifiable', function () {
       const C = FFmpegOption.FFmpegOptionContexts;
       const fo = new FFmpegOption('ss', C.INPUT, 2545);
-      expect(fo.arg).to.be.a('string');
-      expect(fo.arg).to.eql((2545).toString());
+      expect(fo.arg).to.eql(2545);
     });
-    it('fails if arg is not a string', function () {
+    it('fails if arg is a composite value', function () {
       const C = FFmpegOption.FFmpegOptionContexts;
       expect(() => new FFmpegOption('ss', C.INPUT, new Map([[2545, null]]))).to.throw();
-      expect(() => new FFmpegOption('ss', C.INPUT, { 2545: null })).to.throw();
       expect(() => new FFmpegOption('ss', C.INPUT, [2545])).to.throw();
     });
 
     describe('with filters', function () {
       this.beforeEach(() => {
-        // stub for ffmpeg interaction
-        sinon.stub(FilterNode, '_queryFFmpegForFilters')
-          .returns(filtersFixture);
         nodes = [
           new FilterNode('crop', ['iw', 'ih/2', 0, 0]),
           new FilterNode('vflip'),
@@ -121,11 +115,8 @@ describe('FFmpegOption', function () {
     });
     describe('with filters', function () {
       this.beforeEach(() => {
-        // stub for ffmpeg interaction
-        sinon.stub(FilterNode, '_queryFFmpegForFilters')
-          .returns(filtersFixture);
         cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0])
-        splitFilter = new FilterNode('split', [], { outputsCount: 2 })
+        splitFilter = new FilterNode('split')
         vflipFilter1 = new FilterNode('vflip')
         vflipFilter2 = new FilterNode('vflip')
         const fc1 = new FilterChain([
@@ -149,7 +140,7 @@ describe('FFmpegOption', function () {
           FFmpegOption.FFmpegOptionContexts.OUTPUT,
           fg
         );
-        const expected = ['-filter_complex', `crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip[${vflipFilter1.padPrefix}_0];[${splitFilter.padPrefix}_1]vflip[${vflipFilter2.padPrefix}_0]`];
+        const expected = ['-filter_complex', `crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip;[${splitFilter.padPrefix}_1]vflip`];
         expect(option.toCommandArray()).to.deep.eql(expected);
       });
     });
@@ -200,10 +191,8 @@ describe('FFmpegOption', function () {
     });
     describe('with filters', function () {
       this.beforeEach(() => {
-        // stub for ffmpeg interaction
-        sinon.stub(FilterNode, '_queryFFmpegForFilters').returns(filtersFixture);
         cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0])
-        splitFilter = new FilterNode('split', [], { outputsCount: 2 })
+        splitFilter = new FilterNode('split')
         vflipFilter1 = new FilterNode('vflip')
         vflipFilter2 = new FilterNode('vflip')
         const fc1 = new FilterChain([
@@ -227,7 +216,7 @@ describe('FFmpegOption', function () {
           FFmpegOption.FFmpegOptionContexts.OUTPUT,
           fg
         );
-        const expected = `-filter_complex crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip[${vflipFilter1.padPrefix}_0];[${splitFilter.padPrefix}_1]vflip[${vflipFilter2.padPrefix}_0]`;
+        const expected = `-filter_complex crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip;[${splitFilter.padPrefix}_1]vflip`;
         expect(option.toCommandString()).to.deep.eql(expected);
       });
     });
