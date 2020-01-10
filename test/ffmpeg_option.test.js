@@ -75,7 +75,7 @@ describe('FFmpegOption', function () {
       });
     });
   });
-  
+
   describe('toCommandArray()', function () {
     it('generates the correct command array segment for a global option', function () {
       const o = new FFmpegOption(

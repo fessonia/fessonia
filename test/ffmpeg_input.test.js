@@ -158,7 +158,7 @@ describe('FFmpegInput', function () {
       beforeEach(function () {
         fi = new FFmpegInput('/some/file.mov');
       });
-      
+
       it('returns an undefined label prior to setting', function () {
         expect(fi.inputLabel).to.be.undefined;
       });

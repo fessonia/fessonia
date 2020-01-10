@@ -100,7 +100,7 @@ describe('FFmpegOutput', function () {
       fg.addFilterChain(fc2)
       fg.addFilterChain(fc3)
     });
-    
+
     it('generates the correct command array segment', function () {
       const expectedLast = '/some/file.mp4';
       const expectedArgs = [
