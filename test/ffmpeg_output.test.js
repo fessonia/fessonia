@@ -101,7 +101,7 @@ describe('FFmpegOutput', function () {
       const expectedLast = '/some/file.mp4';
       const expectedArgs = [
         ['-dn'],
-        ['-filter_complex', `crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip[${vflipFilter.padPrefix}_0];[${splitFilter.padPrefix}_1]hflip[${hflipFilter.padPrefix}_0]`],
+        ['-filter_complex', `crop=iw:ih/2:0:0,split[chain0_split_0][chain0_split_1];[chain0_split_0]vflip[chain1_vflip_0];[chain0_split_1]hflip[chain2_hflip_0]`],
         ['-b:v', '3850k'],
         ['-f', 'mp4'],
         ['-aspect', '16:9']
@@ -184,7 +184,7 @@ describe('FFmpegOutput', function () {
       expect(fo.streams.length).to.eql(1);
       expect(fo.streams).to.deep.eql([ videoStream ]);
       expect(fo.toCommandArray()).to.deep.eql([
-        '-map', `[${node.padPrefix}_0]`,
+        '-map', `[chain0_scale_0]`,
         '/some/file.mp4'
       ]);
     });
@@ -216,14 +216,14 @@ describe('FFmpegOutput', function () {
       const fc1 = new FilterChain([node1]);
       const fc2 = new FilterChain([node2]);
       const stream1 = fc1.streamSpecifier(0);
-      const stream2 = fc2.streamSpecifier(0)
+      const stream2 = fc2.streamSpecifier(0);
       fo.addStream(stream1);
       fo.addStream(stream2);
       expect(fo.streams.length).to.eql(2);
       expect(fo.streams).to.deep.eql([ stream1, stream2 ]);
       expect(fo.toCommandArray()).to.deep.eql([
-        '-map', `[${node1.padPrefix}_0]`,
-        '-map', `[${node2.padPrefix}_0]`,
+        '-map', `[chain0_scale_0]`,
+        '-map', `[chain0_vflip_0]`,
         '/some/file.mp4'
       ]);
     });

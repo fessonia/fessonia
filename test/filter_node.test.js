@@ -20,10 +20,6 @@ describe('FilterNode', function () {
     let f = new FilterNode(filterName, { parity: 'tff' });
     expect(f.args).to.deep.eql(filterArgs);
   });
-  it('creates a unique pad prefix', function () {
-    let f1 = new FilterNode(filterName, filterArgs);
-    expect(f1.padPrefix).to.be.a('string');
-  });
   // array-only arguments
   it('generates the correct arguments string representation for array-only arguments', function () {
     let f1 = new FilterNode('scale', [1920, 1080]);
@@ -38,5 +34,13 @@ describe('FilterNode', function () {
   it('generates the correct arguments string representation for mixed arguments', function () {
     let f = new FilterNode('crop', [{ x: 12, y: 34 }, 100, 100 ]);
     expect(f.toString()).to.deep.eql('crop=100:100:x=12:y=34');
+  });
+
+  describe('getOutputPad', () => {
+    it('should return a string based on the filterName and specifier provided', () => {
+      const node = new FilterNode('yadif');
+      expect(node.getOutputPad(0)).to.eql('yadif_0');
+      expect(node.getOutputPad(3)).to.eql('yadif_3');
+    });
   });
 });

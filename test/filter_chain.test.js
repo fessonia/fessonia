@@ -86,7 +86,7 @@ describe('FilterChain', () => {
   describe('getOutputPad()', () => {
     it('returns the requested output pad label', () => {
       const fc = new FilterChain(nodes);
-      expect(fc.getOutputPad(0)).to.eql(`${splitFilter.padPrefix}_0`);
+      expect(fc.getOutputPad(0)).to.eql(`split_0`);
     })
   });
   describe('toString()', () => {

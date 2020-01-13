@@ -68,6 +68,23 @@ describe('FilterGraph', function () {
       delayedAudio.inputLabel = 1
       const expected = `[0:v]scale=640:-1,subtitles=filename=subtitles.srt;[1:a]alimiter=limit=0.8,atadenoise=s=31`
       expect(fg.toString()).to.eql(expected)
-    })
-  })
+    });
+  });
+
+  describe('multiple nodes of the same name', () => {
+    it('should not create naming collisions', () => {
+      const vflip1 = new FilterNode('vflip');
+      const chain1 = new FilterChain([vflip1]);
+      const vflip2 = new FilterNode('vflip');
+      const chain2 = new FilterChain([vflip2]);
+      chain2.addInput(chain1.streamSpecifier());
+      chain2.streamSpecifier();
+
+      const graph = new FilterGraph;
+      graph.addFilterChain(chain1);
+      graph.addFilterChain(chain2);
+
+      expect(graph.toString()).to.eql('vflip[chain0_vflip_0];[chain0_vflip_0]vflip[chain1_vflip_0]');
+    });
+  });
 });

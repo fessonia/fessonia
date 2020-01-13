@@ -116,7 +116,7 @@ describe('FFmpegOption', function () {
           'filter',
           fg
         );
-        const expected = ['-filter_complex', `crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip;[${splitFilter.padPrefix}_1]vflip`];
+        const expected = ['-filter_complex', `crop=iw:ih/2:0:0,split[chain0_split_0][chain0_split_1];[chain0_split_0]vflip;[chain0_split_1]vflip`];
         expect(option.toCommandArray()).to.deep.eql(expected);
       });
     });
@@ -186,7 +186,7 @@ describe('FFmpegOption', function () {
           'filter',
           fg
         );
-        const expected = `-filter_complex crop=iw:ih/2:0:0,split[${splitFilter.padPrefix}_0][${splitFilter.padPrefix}_1];[${splitFilter.padPrefix}_0]vflip;[${splitFilter.padPrefix}_1]vflip`;
+        const expected = `-filter_complex crop=iw:ih/2:0:0,split[chain0_split_0][chain0_split_1];[chain0_split_0]vflip;[chain0_split_1]vflip`;
         expect(option.toCommandString()).to.deep.eql(expected);
       });
     });
