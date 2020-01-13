@@ -58,6 +58,12 @@ describe('FilterGraph', function () {
         f.addFilterChain('abc')
       }).to.throw();
     });
+    it('sets filterGraph on the chain', () => {
+      expect(videoFilters.filterGraph).to.be.undefined;
+      const fg = new FilterGraph();
+      fg.addFilterChain(videoFilters);
+      expect(videoFilters.filterGraph).to.eql(fg);
+    });
   })
   describe('toString()', () => {
     it('returns the correct string representation', () => {
@@ -68,6 +74,16 @@ describe('FilterGraph', function () {
       delayedAudio.inputLabel = 1
       const expected = `[0:v]scale=640:-1,subtitles=filename=subtitles.srt;[1:a]alimiter=limit=0.8,atadenoise=s=31`
       expect(fg.toString()).to.eql(expected)
+    });
+  });
+
+  describe('chainPosition()', () => {
+    it('should return the position of the requested chain', () => {
+      const fg = new FilterGraph();
+      fg.addFilterChain(videoFilters);
+      fg.addFilterChain(audioFilters);
+      expect(fg.chainPosition(videoFilters)).to.eql(0);
+      expect(fg.chainPosition(audioFilters)).to.eql(1);
     });
   });
 

@@ -3,6 +3,7 @@ const chai = require('chai'),
   sinon = require('sinon'),
   fs = require('fs');
 
+const FilterGraph = require('../lib/filter_graph');
 const FilterChain = require('../lib/filter_chain');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FilterNode = require('../lib/filter_node');
@@ -86,9 +87,44 @@ describe('FilterChain', () => {
   describe('getOutputPad()', () => {
     it('returns the requested output pad label', () => {
       const fc = new FilterChain(nodes);
-      expect(fc.getOutputPad(0)).to.eql(`split_0`);
-    })
+      expect(fc.getOutputPad('0')).to.eql(`chain0_split_0`);
+    });
+
+    it('returns a name based on the last output node', () => {
+      const fc = new FilterChain(nodes);
+      const mock = sinon.mock(splitFilter);
+      mock.expects('getOutputPad').once().withArgs('0').returns('splitFilterOutput');
+      expect(fc.getOutputPad('0')).to.eql(`chain0_splitFilterOutput`);
+      mock.verify();
+    });
+
+    it('returns a name based on the chain position', () => {
+      const fc = new FilterChain(nodes);
+      const mock = sinon.mock(fc);
+      mock.expects('position').once().returns(24);
+      expect(fc.getOutputPad('0')).to.eql(`chain24_split_0`);
+      mock.verify();
+    });
   });
+
+  describe('position', () => {
+    it('should return 0 if not in a FilterGraph', () => {
+      const fc = new FilterChain(nodes);
+      expect(fc.filterGraph).to.be.undefined;
+      expect(fc.position()).to.eql(0);
+    });
+
+    it('should return the result of its FilterGraph\'s chainPosition', () => {
+      const fg = new FilterGraph;
+      const fc = new FilterChain(nodes);
+      fg.addFilterChain(fc);
+      const mock = sinon.mock(fg);
+      mock.expects('chainPosition').once().withArgs(fc).returns(20);
+      expect(fc.position()).to.eql(20);
+      mock.verify();
+    });
+  });
+
   describe('toString()', () => {
     it('returns the correct string representation', () => {
       const fc = new FilterChain(nodes);
