@@ -7,12 +7,9 @@ const FFmpegStreamSpecifier = require('../lib/ffmpeg_stream_specifier');
 const FFmpegInput = require('../lib/ffmpeg_input');
 const FilterChain = require('../lib/filter_chain');
 const FilterNode = require('../lib/filter_node');
-const filtersFixture = fs.readFileSync(`${__dirname}/fixtures/ffmpeg-filters.out`).toString();
 
 describe('FFmpegStreamSpecifier', () => {
   beforeEach(() => {
-    // stub for ffmpeg interaction
-    sinon.stub(FilterNode, '_queryFFmpegForFilters').returns(filtersFixture);
     cropFilter = new FilterNode('crop', ['iw', 'ih/2', 0, 0]);
     vflipFilter = new FilterNode('vflip');
     splitFilter = new FilterNode('split', [], { outputsCount: 2 });
@@ -37,10 +34,10 @@ describe('FFmpegStreamSpecifier', () => {
   });
   describe('toString()', () => {
     it('returns the correct stream specifier for a FilterChain', () => {
-      const s1 = new FFmpegStreamSpecifier(filterChain, 0)
-      expect(s1.toString()).to.eql(`[${splitFilter.padPrefix}_0]`)
-      const s2 = new FFmpegStreamSpecifier(filterChain, 1)
-      expect(s2.toString()).to.eql(`[${splitFilter.padPrefix}_1]`)
+      const s1 = new FFmpegStreamSpecifier(filterChain, 0);
+      expect(s1.toString()).to.eql(`[chain0_split_0]`);
+      const s2 = new FFmpegStreamSpecifier(filterChain, 1);
+      expect(s2.toString()).to.eql(`[chain0_split_1]`);
     });
     it('returns the correct stream specifier for an FFmpegInput', () => {
       const s1 = new FFmpegStreamSpecifier(ffmpegInput, 1)

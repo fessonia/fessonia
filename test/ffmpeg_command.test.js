@@ -201,7 +201,7 @@ describe('FFmpegCommand', function () {
       sineInput.streamSpecifier(0)
     ]);
     cmd.addOutput(output, mappings = [[lifeInput, 0], [sineInput, 0], [sineInput, 0]]);
-    const expected = `${config.ffmpeg_bin} -y -re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080[${scaleFilter.padPrefix}_0]" -re -r "23.976" -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000[${sineFilter.padPrefix}_0]" -c:v "prores" -c:a "pcm_s24le" -aspect "16:9" -map "0:0" -map "1:0" -map "1:0" "gen.mov"`;
+    const expected = `${config.ffmpeg_bin} -y -re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080" -re -r "23.976" -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000" -c:v "prores" -c:a "pcm_s24le" -aspect "16:9" -map "0:0" -map "1:0" -map "1:0" "gen.mov"`;
     expect(cmd.toString()).to.eql(expected);
   });
 
