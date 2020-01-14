@@ -58,58 +58,7 @@ For the remaining elements, internal classes are used, accessed only through met
 * **arguments** - Created on the fly as you create other objects that use them. (private class `FFmpegOption`)
 * **mappings** - Created by adding stream specifiers to FilterChain objects using the `addInputs` and `addInput` methods and to FFmpegOutput objects using the `addStream` and `addStreams` methods. Stream specifiers can be retrieved from `FFmpegInput` and `FilterChain` objects using the `streamSpecifier` method. (private class `FFmpegStreamSpecifier`)
 
-When constructing a command, you first start with the components, then add them to the containing structures as needed, building up the command as in the diagram above. To see how this works in practice, take a look at the {@tutorial 0_getting_started} tutorial.
-
-### A Note on Stream Specifiers and Mappings
-
-Stream specifiers are used by the library to create explicit names for streams from input files and filter chains.
-
-When an `FFmpegInput` is added to the `FFmpegCommand` object, the order of addition is tracked, and its positional index is used as an identifier in any stream specifiers requested for it. Stream specifiers on inputs mapped to a `FilterChain` are added to the beginning of the string representation of the filter chain, and those mapped to an `FFmpegOutput` are used with the `-map` `ffmpeg` option.
-
-Similarly, when a stream specifier is requested for a `FilterChain` output pad, the positional index of that filter chain within the `FFmpegCommand`'s `FilterGraph` object is used to generate a unique output pad name. That pad name is then appended to the end of the string representation of that filter chain, and is used with the `-map` option to map the output stream from that filter into that output file.
-
-For example, in the following code, we request a stream specifier for the `videoInput`'s video stream and `audioInput`'s audio stream, as well as a stream specifier for the output of `videoFilters` and those stream specifiers are used in the filter graph and mappings of the resulting command.
-
-```{javascript}
-const cmd = new FFmpegCommand();
-
-const videoInput = new FFmpegInput('/path/to/some/video.mov', {/*...*/});
-cmd.addInput(videoInput);
-
-const audioInput = new FFmpegInput('/path/to/some/audio.aiff', {/*...*/});
-cmd.addInput(audioInput);
-
-const videoFilters = new FilterChain([
-  new FilterNode('edgedetect', { mode: 'colormix', high: 0 })
-]);
-videoFilters.addInput(videoInput.streamSpecifier('v'));
-cmd.addFilterChain(videoFilters);
-
-const output = new FFmpegOutput('/path/to/output.mp4', {/*...*/});
-output.addStreams(videoFilters.streamSpecifier(), audioInput.streamSpecifier('a'));
-cmd.addOutput(output);
-
-console.log(cmd.toString());
-```
-
-This would result in the following `ffmpeg` command, with the label `0` applied to `videoInput` and the label `1` applied to `audioInput`, in the order they were added to the command, and a generated name `[chain0_edgedetect_0]` for the single output pad of the video filter chain `videoFilters`.
-
-```{text}
-ffmpeg -i "/path/to/some/video.mov" -i "/path/to/some/audio.aiff" -filter_complex "[0:v]edgedetect=mode=colormix:high=0[chain0_edgedetect_0]" -map "[chain0_edgedetect_0]" -map "1:a" "/path/to/output.mp4"
-```
-
-If no stream specifiers are requested, no explicit names will be added to the command, allowing `ffmpeg` to use its implicit mapping capabilities.
-
-For example, the following code would result in the command: `ffmpeg -i "/path/to/input.mov" "/path/to/output.mp4"`.
-
-```{javascript}
-const video = FFmpegInput('/path/to/input.mov');
-const output = FFmpegOutput('/path/to/output.mp4');
-const cmd = FFmpegCommand();
-cmd.addInput(video);
-cmd.addOutput(output);
-console.log(cmd.toString());
-```
+When constructing a command, you first start with the components, then add them to the containing structures as needed, building up the command as in the diagram above. To see how this works in practice, take a look at the {@tutorial 0.0_getting_started} tutorial. For more detail on how stream specifiers and mappings work, take a look at the {@tutorial 0.1_stream_specifiers_mappings} tutorial.
 
 ## Contributors ✨
 

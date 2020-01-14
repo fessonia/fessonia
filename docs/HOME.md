@@ -11,7 +11,7 @@ Fessonia is a node module for working with FFmpeg, allowing for modeling inputs,
 
 ## Getting Started
 
-For a quick intro to the library, take a look at the [Getting Started with Fessonia](tutorial-0_getting_started.html) tutorial.
+For a quick intro to the library, take a look at the [Getting Started with Fessonia](tutorial-0.0_getting_started.html) tutorial.
 
 ## About the Library
 

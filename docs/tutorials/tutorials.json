@@ -1,6 +1,9 @@
 {
-  "0_getting_started": {
+  "0.0_getting_started": {
     "title": "Getting Started with Fessonia"
+  },
+  "0.1_stream_specifiers_mappings": {
+    "title": "Stream Specifiers and Mappings"
   },
   "1_example_overlay_images": {
     "title": "Example: Overlaying Images on Video"
