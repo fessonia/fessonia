@@ -60,6 +60,16 @@ For the remaining elements, internal classes are used, accessed only through met
 
 When constructing a command, you first start with the components, then add them to the containing structures as needed, building up the command as in the diagram above. To see how this works in practice, take a look at the {@tutorial 0_getting_started} tutorial.
 
+### A Note on Stream Specifiers and Mappings
+
+Stream specifiers are used by the library to create explicit names for streams from input files and filter chains.
+
+When an `FFmpegInput` is added to the `FFmpegCommand` object, the order of addition is tracked, and its positional index is used as an identifier in any stream specifiers requested for it. Stream specifiers on inputs mapped to a `FilterChain` are added to the beginning of the string representation of the filter chain, and those mapped to an `FFmpegOutput` are used with the `-map` `ffmpeg` option.
+
+Similarly, when a stream specifier is requested for a `FilterChain` output pad, the positional index of that filter chain within the `FFmpegCommand`'s `FilterGraph` object is used to generate a unique output pad name. That pad name is then appended to the end of the string representation of that filter chain, and is used with the `-map` option to map the output stream from that filter into that output file.
+
+If no stream specifiers are requested, no explicit names will be added to the command, allowing `ffmpeg` to use its implicit mapping capabilities.
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
