@@ -1,5 +1,25 @@
 # CHANGE LOG
 
+## 2.1.0 (2020-01-14)
+
+* [View the commits.](https://github.com/tedconf/fessonia/compare/2.0.0...2.1.0)
+* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.1.0/)
+
+## Bug Fixes
+
+This release alters the way filter pad names are handled by the library.
+
+* `FilterChain` output pad names are only applied in the command output (`cmd.toString()` and `cmd.toCommand()`) when `streamSpecifier()` is called on the `FilterChain` object. This fixes bug #24 (explicit output pad names added to commands where streams were not explicitly mapped, breaking resulting the `ffmpeg` command).
+
+## Internal Changes
+
+* The library now applies predictable names to output pads of `FilterChain` objects, replacing the previously used salted hash with a structure that provides for replication of output when running the same code multiple times.
+* The `FilterNode` class has been altered to remove live `ffmpeg`-based validation and information retrieval for filters and their arguments, relying on `ffmpeg` to error when filters and arguments are not correct. This decision was made because the complexity in code and automated testing added by this validation were considered to be far greater than the protection provided by such validation.
+
+## Documentation Changes
+
+* A section has been added to the *About Fessonia* guide explaining how stream specifiers are used and what to expect when using explicit mappings.
+
 ## 2.0.0 (2019-12-03)
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/1.0.1...2.0.0)
