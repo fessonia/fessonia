@@ -8,9 +8,9 @@
     "access": "public"
   },
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info test/*.test.js",
+    "test": "NODE_ENV=test ./node_modules/.bin/c8 --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info test/*.test.js",
     "lint": "./node_modules/.bin/eslint ./{lib,test}/**/*.js",
-    "watch": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info --watch test/*.test.js",
+    "watch": "NODE_ENV=test ./node_modules/.bin/c8 --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info --watch test/*.test.js",
     "generate-docs": "scripts/generate-docs.sh",
     "add-contributor": "./node_modules/.bin/all-contributors add",
     "check-contributors": "./node_modules/.bin/all-contributors check",
@@ -45,16 +45,14 @@
   "homepage": "https://tedconf.github.io/fessonia",
   "devDependencies": {
     "all-contributors-cli": "^6.9.1",
+    "c8": "^7.0.1",
     "chai": "^4.2.0",
     "chai-almost": "^1.0.1",
     "chai-as-promised": "^7.1.1",
     "eslint": "^5.8.0",
-    "istanbul": "^0.4.5",
     "jsdoc": "^3.6.3",
     "mocha": "^5.2.0",
-    "nyc": "^14.1.1",
     "sinon": "^7.1.1",
     "tui-jsdoc-template": "^1.2.2"
-  },
-  "dependencies": {}
+  }
 }
