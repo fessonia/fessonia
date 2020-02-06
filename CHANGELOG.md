@@ -1,5 +1,18 @@
 # CHANGE LOG
 
+## On master since the last release...
+
+* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.0...master)
+
+## CI Changes
+
+* Convert from using the `nyc` library for test coverage reporting to using `c8`, which uses V8's internal coverage metrics. This change was made due to bug instanbuljs/nyc#619, whereby reported line numbers in error stack traces from tests are incorrect, as well as for generally more simplicity in the test run. 
+
+## Documentation Changes
+
+* A stray symlink causing a page load failure in the documentation site was removed.
+* The _Talks about this Library_ section of the _About Fessonia_ page in the docs site was updated.
+
 ## 2.1.0 (2020-01-14)
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/2.0.0...2.1.0)
