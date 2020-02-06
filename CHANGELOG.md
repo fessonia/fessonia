@@ -4,11 +4,11 @@
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.0...master)
 
-## CI Changes
+### CI Changes
 
 * Convert from using the `nyc` library for test coverage reporting to using `c8`, which uses V8's internal coverage metrics. This change was made due to bug instanbuljs/nyc#619, whereby reported line numbers in error stack traces from tests are incorrect, as well as for generally more simplicity in the test run. 
 
-## Documentation Changes
+### Documentation Changes
 
 * A stray symlink causing a page load failure in the documentation site was removed.
 * The _Talks about this Library_ section of the _About Fessonia_ page in the docs site was updated.
@@ -18,18 +18,18 @@
 * [View the commits.](https://github.com/tedconf/fessonia/compare/2.0.0...2.1.0)
 * [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.1.0/)
 
-## Bug Fixes
+### Bug Fixes
 
 This release alters the way filter pad names are handled by the library.
 
 * `FilterChain` output pad names are only applied in the command output (`cmd.toString()` and `cmd.toCommand()`) when `streamSpecifier()` is called on the `FilterChain` object. This fixes bug #24 (explicit output pad names added to commands where streams were not explicitly mapped, breaking resulting the `ffmpeg` command).
 
-## Internal Changes
+### Internal Changes
 
 * The library now applies predictable names to output pads of `FilterChain` objects, replacing the previously used salted hash with a structure that provides for replication of output when running the same code multiple times.
 * The `FilterNode` class has been altered to remove live `ffmpeg`-based validation and information retrieval for filters and their arguments, relying on `ffmpeg` to error when filters and arguments are not correct. This decision was made because the complexity in code and automated testing added by this validation were considered to be far greater than the protection provided by such validation.
 
-## Documentation Changes
+### Documentation Changes
 
 * A section has been added to the *About Fessonia* guide explaining how stream specifiers are used and what to expect when using explicit mappings.
 
@@ -38,7 +38,7 @@ This release alters the way filter pad names are handled by the library.
 * [View the commits.](https://github.com/tedconf/fessonia/compare/1.0.1...2.0.0)
 * [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.0.0/)
 
-## Breaking Changes
+### Breaking Changes
 
 This release alters the way run log and progress log output from ffmpeg is handled by the library:
 
