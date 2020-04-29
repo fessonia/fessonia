@@ -8,11 +8,13 @@
 
 * Remove node 8 from Travis CI config, and bump the default node version to 12.15.0. This is in response to the [Node.js February 2020 security releases](https://nodejs.org/en/blog/vulnerability/february-2020-security-releases/) addressing CVEs [CVE-2019-15604](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-15604), [CVE-2019-15605](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-15605), and [CVE-2019-15606](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-15606).
 * Convert from using the `nyc` library for test coverage reporting to using `c8`, which uses V8's internal coverage metrics. This change was made due to bug instanbuljs/nyc#619, whereby reported line numbers in error stack traces from tests are incorrect, as well as for generally more simplicity in the test run. 
+* Dependabot update of dev dependency acorn. No impact to production code. ([PR #32](https://github.com/tedconf/fessonia/pull/32))
 
 ### Documentation Changes
 
 * A stray symlink causing a page load failure in the documentation site was removed.
 * The _Talks about this Library_ section of the _About Fessonia_ page in the docs site was updated.
+* A documentation bug in the _Events_ section of the _Getting Started_ page in the docs ([#35](https://github.com/tedconf/fessonia/issues/35)) was found and fixed ([PR #34](https://github.com/tedconf/fessonia/pull/34) by [@glensc](https://github.com/glensc).
 
 ## 2.1.0 (2020-01-14)
 
