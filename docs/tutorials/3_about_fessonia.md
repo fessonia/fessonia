@@ -80,7 +80,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://iame.li/"><img src="https://avatars2.githubusercontent.com/u/257909?v=4" width="100px;" alt="Eli Mallon"/><br /><sub><b>Eli Mallon</b></sub></a><br /><a href="https://github.com/tedconf/fessonia/commits?author=iameli" title="Documentation">📖</a></td>
     <td align="center"><a href="http://vinspee.me"><img src="https://avatars3.githubusercontent.com/u/582828?v=4" width="100px;" alt="Vince Speelman"/><br /><sub><b>Vince Speelman</b></sub></a><br /><a href="#review-VinSpee" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/DanielRussell"><img src="https://avatars3.githubusercontent.com/u/1772291?v=4" width="100px;" alt="DanielRussell"/><br /><sub><b>DanielRussell</b></sub></a><br /><a href="#review-DanielRussell" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/glensc"><img src="https://avatars1.githubusercontent.com/u/199095?v=4" width="100px;" alt="Elan Ruusamäe"/><br /><sub><b>Elan Ruusamäe</b></sub></a><br /><a href="https://github.com/tedconf/fessonia/commits?author=glensc" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/glensc"><img src="https://avatars1.githubusercontent.com/u/199095?v=4" width="100px;" alt="Elan Ruusamäe"/><br /><sub><b>Elan Ruusamäe</b></sub></a><br /><a href="https://github.com/tedconf/fessonia/issues?q=author%3Aglensc" title="Bug reports">🐛</a> <a href="#ideas-glensc" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/tedconf/fessonia/commits?author=glensc" title="Documentation">📖</a></td>
   </tr>
 </table>
 
