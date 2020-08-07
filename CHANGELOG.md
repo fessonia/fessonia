@@ -4,7 +4,7 @@
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.1...master)
 
-## 2.1.0 (2020-01-14)
+## 2.1.1 (2020-08-07)
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.0...2.1.1)
 * [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.1.1/)
