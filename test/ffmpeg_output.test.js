@@ -30,6 +30,27 @@ describe('FFmpegOutput', function () {
   it('sets the url property on the object', function () {
     expect(new FFmpegOutput('/some/file.mp4', {}).url).to.eql('/some/file.mp4');
   });
+  it('quotes arguments properly', function () {
+    const expectedLast = '/some/file.mov';
+    const expectedArgs = [
+      ['-coder', '0'],
+      ['-subq', '3'],
+      ['-map_metadata', '-1'],
+      ['-map_chapters', '-1']
+    ];
+    const expectedCommandString =
+      '-coder "0" -subq "3" -map_metadata "-1" -map_chapters "-1" "/some/file.mov"';
+    const fo = new FFmpegOutput('/some/file.mov', {
+      coder: 0,
+      subq: 3,
+      map_metadata: -1,
+      map_chapters: -1
+    });
+    expect(fo.toCommandString()).to.eql(expectedCommandString);
+    const foCmdArray = fo.toCommandArray();
+    testHelpers.expectLast(foCmdArray, expectedLast);
+    testHelpers.expectSequences(foCmdArray, expectedArgs);
+  });
   it('handles filenames with quotes properly', function () {
     const fo = new FFmpegOutput('/some/file with "quotes".mp4', {});
     const expectedCommandArray = ['/some/file with "quotes".mp4'];
