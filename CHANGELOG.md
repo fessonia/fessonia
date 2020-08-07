@@ -2,7 +2,16 @@
 
 ## On master since the last release...
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.0...master)
+* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.1...master)
+
+## 2.1.0 (2020-01-14)
+
+* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.0...2.1.1)
+* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.1.1/)
+
+### Bug Fixes
+
+* A bug ([Issue #38](https://github.com/tedconf/fessonia/issues/38)) in command string generation preventing quoting of option values starting with `-` was fixed. ([PR #39](https://github.com/tedconf/fessonia/pull/39))
 
 ### CI Changes
 
@@ -10,6 +19,8 @@
 * Convert from using the `nyc` library for test coverage reporting to using `c8`, which uses V8's internal coverage metrics. This change was made due to bug [instanbuljs/nyc#619](https://github.com/istanbuljs/nyc/issues/619), whereby reported line numbers in error stack traces from tests are incorrect, as well as for generally more simplicity in the test run. 
 * Dependabot update of dev dependency acorn. No impact to production code. ([PR #32](https://github.com/tedconf/fessonia/pull/32))
 * Dependency update of dev dependency minimist. No impact to production code. ([4b63ea2](https://github.com/tedconf/fessonia/commit/4b63ea2d0631e1d32b8b65cd16731b794f3bb84e))
+* Dependabot update of dev dependency lodash. No impact to production code. ([PR #37](https://github.com/tedconf/fessonia/pull/37))
+* Dependency update of dev dependencies c8 and all-contributors-cli. No impact to production code. ([7de5991](https://github.com/tedconf/fessonia/commit/7de59913deebf1a1d41751bd79ce9885ef890ad6))
 
 ### Documentation Changes
 
