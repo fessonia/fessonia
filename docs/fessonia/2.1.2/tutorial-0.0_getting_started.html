@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Getting Started with Fessonia | @tedconf/fessonia</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+        
+            <link type="text/css" rel="stylesheet" href="overrides.css">
+        
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 250px; height: 94px">
+        
+            <a href="index.html" rel="noopener noreferrer" target="_blank">
+                <img src="../../img/Fessonia_logo.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
+        
+            <span class="version">v2.1.2</span>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+        <ol class="lnb-tab">
+            <li id="api-tab">
+                <a href="#"><h4>API</h4></a>
+            </li>
+            <li id="examples-tab">
+                <a href="#"><h4>Guides</h4></a>
+            </li>
+        </ol>
+    
+    <div class="lnb-examples hidden"><h3>Guides</h3><ul><li><a href="tutorial-0.0_getting_started.html">Getting Started with Fessonia</a><div class="hidden" id="0.0_getting_started_sub"></div></li><li><a href="tutorial-0.1_stream_specifiers_mappings.html">Stream Specifiers and Mappings</a><div class="hidden" id="0.1_stream_specifiers_mappings_sub"></div></li><li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a><div class="hidden" id="1_example_overlay_images_sub"></div></li><li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a><div class="hidden" id="2_example_generate_test_video_sub"></div></li><li><a href="tutorial-3_about_fessonia.html">About Fessonia</a><div class="hidden" id="3_about_fessonia_sub"></div></li><li><a href="tutorial-4_contributing.html">Contributing to Fessonia</a><div class="hidden" id="4_contributing_sub"></div></li><li><a href="tutorial-5_code_of_conduct.html">Code of Conduct</a><div class="hidden" id="5_code_of_conduct_sub"></div></li><li><a href="tutorial-6_license.html">License</a><div class="hidden" id="6_license_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="FFmpegCommand.html">FFmpegCommand</a><div class="hidden" id="FFmpegCommand_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegCommand.html#filterGraph">filterGraph</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegCommand.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegCommand.html#addFilterChain">addFilterChain</a></li><li><a href="FFmpegCommand.html#addInput">addInput</a></li><li><a href="FFmpegCommand.html#addOutput">addOutput</a></li><li><a href="FFmpegCommand.html#execute">execute</a></li><li><a href="FFmpegCommand.html#inputs">inputs</a></li><li><a href="FFmpegCommand.html#logData">logData</a></li><li><a href="FFmpegCommand.html#logLines">logLines</a></li><li><a href="FFmpegCommand.html#outputs">outputs</a></li><li><a href="FFmpegCommand.html#spawn">spawn</a></li><li><a href="FFmpegCommand.html#toCommand">toCommand</a></li><li><a href="FFmpegCommand.html#toString">toString</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegCommand.html#event:error">error</a></li><li><a href="FFmpegCommand.html#event:success">success</a></li><li><a href="FFmpegCommand.html#event:update">update</a></li></ul></div></li><li><a href="FFmpegError.html">FFmpegError</a><div class="hidden" id="FFmpegError_sub"></div></li><li><a href="FFmpegInput.html">FFmpegInput</a><div class="hidden" id="FFmpegInput_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegInput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegInput.html#.validateUrl">validateUrl</a></li><li><a href="FFmpegInput.html#streamSpecifier">streamSpecifier</a></li><li><a href="FFmpegInput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegInput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegInput.html#toString">toString</a></li></ul></div></li><li><a href="FFmpegOutput.html">FFmpegOutput</a><div class="hidden" id="FFmpegOutput_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegOutput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegOutput.html#addOptions">addOptions</a></li><li><a href="FFmpegOutput.html#addStream">addStream</a></li><li><a href="FFmpegOutput.html#addStreams">addStreams</a></li><li><a href="FFmpegOutput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegOutput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegOutput.html#toString">toString</a></li><li><a href="FFmpegOutput.html#validateStreams">validateStreams</a></li></ul></div></li><li><a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a><div class="hidden" id="FFmpegProgressEmitter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#formattedLog">formattedLog</a></li><li><a href="FFmpegProgressEmitter.html#last">last</a></li><li><a href="FFmpegProgressEmitter.html#lastMediaTime">lastMediaTime</a></li><li><a href="FFmpegProgressEmitter.html#logData">logData</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#event:update">update</a></li></ul></div></li><li><a href="FilterChain.html">FilterChain</a><div class="hidden" id="FilterChain_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FilterChain.html#inputNode">inputNode</a></li><li><a href="FilterChain.html#inputPads">inputPads</a></li><li><a href="FilterChain.html#outputNode">outputNode</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterChain.html#.wrap">wrap</a></li><li><a href="FilterChain.html#addInput">addInput</a></li><li><a href="FilterChain.html#addInputs">addInputs</a></li><li><a href="FilterChain.html#appendNodes">appendNodes</a></li><li><a href="FilterChain.html#getOutputPad">getOutputPad</a></li><li><a href="FilterChain.html#position">position</a></li><li><a href="FilterChain.html#prependNodes">prependNodes</a></li><li><a href="FilterChain.html#streamSpecifier">streamSpecifier</a></li><li><a href="FilterChain.html#toString">toString</a></li><li><a href="FilterChain.html#validateInputs">validateInputs</a></li></ul></div></li><li><a href="FilterGraph.html">FilterGraph</a><div class="hidden" id="FilterGraph_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterGraph.html#.wrap">wrap</a></li><li><a href="FilterGraph.html#addFilterChain">addFilterChain</a></li><li><a href="FilterGraph.html#chainPosition">chainPosition</a></li><li><a href="FilterGraph.html#toString">toString</a></li></ul></div></li><li><a href="FilterNode.html">FilterNode</a><div class="hidden" id="FilterNode_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterNode.html#getOutputPad">getOutputPad</a></li><li><a href="FilterNode.html#toString">toString</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#createCommandString">createCommandString</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getFessonia">getFessonia</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+<section>
+    <header>
+        
+
+        <h2>Getting Started with Fessonia</h2>
+    </header>
+
+    
+        <article class="readme">
+            <h2>Install</h2>
+<p>Install via <code>npm</code>:</p>
+<pre class="prettyprint source lang-{bash}"><code>npm i @tedconf/fessonia
+</code></pre>
+<p>Or via <code>yarn</code></p>
+<pre class="prettyprint source lang-{bash}"><code>yarn i @tedconf/fessonia
+</code></pre>
+<h2>Import</h2>
+<p>You can import the whole library:</p>
+<pre class="prettyprint source lang-{javascript}"><code>const fessonia = require('@tedconf/fessonia')();
+</code></pre>
+<p>Or you can use destructuring to import individual classes:</p>
+<pre class="prettyprint source lang-{javascript}"><code>const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('@tedconf/fessonia')();
+</code></pre>
+<p>You may also specify a few configuration options on input:</p>
+<ul>
+<li><code>ffmpeg_bin</code> - the location of the <code>ffmpeg</code> binary on the system where the library is running (default: <code>&quot;ffmpeg&quot;</code>)</li>
+<li><code>ffprobe_bin</code> - the location of the <code>ffprobe</code> binary on the system where the library is running (default: <code>&quot;ffprobe&quot;</code>)</li>
+<li><code>debug</code> - a flag indicating that debug logging should be enabled (default: <code>process.env.DEBUG || false</code>)</li>
+<li><code>log_warnings</code> - a flag indicating that warnings and errors should be logged by the library (default: <code>process.env.LOG_WARNINGS || false</code>)</li>
+</ul>
+<p>To do so, add the config options as an object argument to the function call:</p>
+<pre class="prettyprint source lang-{javascript}"><code>const { FFmpegCommand, FFmpegInput, FFmpegOutput } = require('@tedconf/fessonia')({
+  ffmpeg_bin: &quot;/path/to/ffmpeg/binary/here&quot;,
+  ffprobe_bin: &quot;/path/to/ffprobe/binary/here&quot;,
+  debug: true,
+  log_warnings: true
+});
+</code></pre>
+<h2>Understanding the library</h2>
+<p>If, for example, you wanted convert an <code>mp4</code> video into <code>avi</code> format,
+the <code>ffmpeg</code> CLI command would look like this:</p>
+<pre class="prettyprint source lang-{bash}"><code>ffmpeg -i input.mp4 output.avi
+</code></pre>
+<p>The library constructs this in pieces: first the input, then the output, then the command:</p>
+<pre class="prettyprint source lang-{javascript}"><code>const ffin = new FFmpegInput('input.mp4');
+const ffout = new FFmpegOutput('output.avi');
+
+const cmd = new FFmpegCommand();
+cmd.addInput(ffin);
+cmd.addOutput(ffout);
+
+console.log(cmd.toString()); //=> ffmpeg -i &quot;input.mp4&quot; &quot;output.avi&quot;
+</code></pre>
+<h3>Events</h3>
+<p>The <code>FFmpegCommand</code> object is an <code>EventEmitter</code>, so you can attach handlers
+for the <code>update</code>, <code>success</code> and <code>error</code> events:</p>
+<pre class="prettyprint source lang-{javascript}"><code>cmd.on('update', (data) => {
+  console.log(`Received update on ffmpeg process:`, data);
+  // handle the update here
+});
+
+cmd.on('success', (data) => {
+  assert(data.exitCode === 0);
+  assert(data.hasOwnProperty('progress'));
+  assert(data.progress.hasOwnProperty('progressData'));
+  console.log(`Completed successfully with exit code ${data.exitCode}`, data.progress.progressData);
+  // handle the success here
+});
+
+cmd.on('error', (err) => {
+  console.log(err.message, err.stack);
+  // inspect and handle the error here
+});
+</code></pre>
+<h4>A Note on Progress Events</h4>
+<p>In order to manage progress updates through events, the library by default modifies the FFmpeg command you specify upon execution by <code>spawn</code>, adding the global <code>-progress</code> option if not already specified (ref: <a href="http://ffmpeg.org/ffmpeg.html#Options">FFmpeg &quot;Options&quot;</a>, search for <code>-progress</code>).</p>
+<p>To disable this, you can disable progress event emitting by passing <code>false</code> as an argument to <code>FFmpegCommand</code>'s <code>spawn</code> method. <code>spawn</code> returns the <code>childProcess</code> object so you can interpret <code>stderr</code> on your own. Process events <code>success</code>, <code>failure</code> and <code>error</code> will still be emitted. See <a href="FFmpegCommand.html#spawn">FFmpegCommand#spawn</a>.</p>
+<pre class="prettyprint source lang-{javascript}"><code>cmd.spawn(false); // 'update' events will not be emitted
+</code></pre>
+<h3>Executing the Command</h3>
+<p>To execute the command and get a <code>Promise</code> for the <code>stdout</code> output of <code>ffmpeg</code>, you can use the <code>execute</code> method:</p>
+<pre class="prettyprint source lang-{javascript}"><code>cmd.execute();
+</code></pre>
+<p>To execute the command and get the actual <code>child_process</code> object back, you can use the <code>spawn</code> method:</p>
+<pre class="prettyprint source lang-{javascript}"><code>cmd.spawn();
+</code></pre>
+<h2>Why the complexity?</h2>
+<p>With the very simple example above, you may wonder why we need the
+added complexity of the library's objects and classes. As you deal
+with more complex <code>ffmpeg</code> commands, it becomes more and more difficult
+to construct/parse the command syntax, and constructing it in pieces
+makes things much easier.</p>
+<p>There are 5 key pieces you can construct using the library:</p>
+<ul>
+<li><strong>The <code>FFmpegCommand</code> object</strong> -- provides the mechanism for handling global
+scoped options, hosting a filter graph, assembling command components into a
+complete command, executing the command, and reporting progress, success or
+failure via events.</li>
+<li><strong>The <code>FFmpegInput</code> object</strong> -- handles the construction of an input to the
+<code>ffmpeg</code> command, including inputs using files, URIs or filters as sources.</li>
+<li><strong>The <code>FilterNode</code> object</strong> -- handles the assembly and validation of a single
+filter node in an <code>ffmpeg</code> filter chain or graph.</li>
+<li><strong>The <code>FilterChain</code> object</strong> -- handles assembling filter nodes into a chain
+usable as an input source or adding to a command's filter graph.</li>
+<li><strong>The <code>FFmpegOutput</code> object</strong> -- handles the construction and validation of
+an output specification for the <code>ffmpeg</code> command, including application of
+output processing options.</li>
+</ul>
+<p>By assembling these pieces, you can construct an <code>ffmpeg</code> command that is
+quite complex with ease.</p>
+<h2>Where to go for more on these key pieces</h2>
+<p>To learn more about stream specifiers and mappings, and how they are implemented
+and used in this library, take a look at the <a href="tutorial-0.1_stream_specifiers_mappings.html">Stream Specifiers and Mappings</a>
+tutorial.</p>
+<p>The <code>ffmpeg</code> documentation provides much more detailed information on how these
+pieces work, and since this library provides an interface to that software, the
+best resource to learn about these topics is from the <code>ffmpeg</code> docs.</p>
+<p>(We've intentionally kept the language here consistent with the <code>ffmpeg</code> documentation,
+so there should be no translation gap between what is described here and what is
+available in the <code>ffmpeg</code> documentation. If you find that is not true, please submit a PR!)</p>
+<p>In particular, the following topics may be helpful:</p>
+<ul>
+<li><a href="http://ffmpeg.org/ffmpeg.html#Options">Options</a>
+<ul>
+<li><a href="http://ffmpeg.org/ffmpeg.html#Generic-options">Global/Generic options</a></li>
+<li><a href="http://ffmpeg.org/ffmpeg.html#Main-options">Per-stream options</a></li>
+<li><a href="http://ffmpeg.org/ffmpeg.html#Stream-specifiers-1">Stream specifiers</a></li>
+<li><a href="http://ffmpeg.org/ffmpeg.html#Stream-selection">Stream selection</a></li>
+</ul>
+</li>
+<li><a href="http://ffmpeg.org/ffmpeg.html#Filtering">Filtering</a>
+<ul>
+<li><a href="http://ffmpeg.org/ffmpeg-filters.html#Filtering-Introduction">Intro to Filtering</a></li>
+<li><a href="http://ffmpeg.org/ffmpeg-filters.html#Audio-Filters">List of available filters</a></li>
+<li><a href="http://ffmpeg.org/ffmpeg-filters.html#Filtergraph-description">Filtergraphs and linklabels</a></li>
+<li><a href="http://ffmpeg.org/ffmpeg-devices.html#lavfi">Filters as input, and the <code>lavfi</code> device</a></li>
+</ul>
+</li>
+<li><a href="http://ffmpeg.org/ffmpeg-formats.html">Formats (demuxers &amp; muxers)</a></li>
+</ul>
+<h2>A few more complex examples</h2>
+<p>Often, the work we need to do with <code>ffmpeg</code> is quite complex. For example,
+we may want to overlay images on top of a video stream or generate test
+video streams with accompanying audio.</p>
+<p>The following examples each provide both a practical, real-life command, as
+well as the code for constructing and executing it in the library. For brevity,
+event handling is omitted (but would be handled as above).</p>
+<ol>
+<li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a></li>
+<li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a></li>
+</ol>
+        </article>
+    
+</section>
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="../../img/Fessonia_logo.png" style="width: 250px; height: 94px">
+    <div class="footer-text">Made with ♥️ by TED</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        showLnbExamples();
+    </script>
+
+</body>
+</html>
