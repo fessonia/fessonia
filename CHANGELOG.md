@@ -2,7 +2,16 @@
 
 ## On master since the last release...
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.1...master)
+* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.2...master)
+
+## 2.1.2 (2020-08-07)
+
+* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.1...2.1.2)
+* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.1.2/)
+
+### Internal Changes
+
+* Refactor of command string creation within `FFmpegCommand`, `FFmpegOutput` and `FFmpegInput` to reduce repeated code for concatenation and option value quote handling. ([PR #40](https://github.com/tedconf/fessonia/pull/40))
 
 ## 2.1.1 (2020-08-07)
 
