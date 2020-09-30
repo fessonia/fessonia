@@ -12,6 +12,7 @@
     "lint": "./node_modules/.bin/eslint ./{lib,test}/**/*.js",
     "watch": "NODE_ENV=test ./node_modules/.bin/c8 --reporter=clover --reporter=lcov --reporter=text ./node_modules/.bin/mocha --reporter spec --level info --watch test/*.test.js",
     "generate-docs": "scripts/generate-docs.sh",
+    "generate-types": "npx typescript",
     "add-contributor": "./node_modules/.bin/all-contributors add",
     "check-contributors": "./node_modules/.bin/all-contributors check",
     "generate-contributors": "./node_modules/.bin/all-contributors generate"
