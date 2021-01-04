@@ -1,12 +1,12 @@
 module.exports = [
   { text:
      'ffmpeg version N-94663-g02a44ed0c8-TED-2019-08-26 Copyright (c) 2000-2019 the FFmpeg developers\n',
-    time: '0' },
+  time: '0' },
   { text: '  built with gcc 6.3.0 (Debian 6.3.0-18+deb9u1) 20170516\n',
     time: '0' },
   { text:
      '  configuration: --extra-version=TED-2019-08-26 --enable-gpl --enable-version3 --enable-postproc --disable-debug --enable-libmp3lame --enable-libfdk_aac --enable-pthreads --enable-libx264 --enable-libx265 --enable-libaom --enable-nonfree --enable-libass --enable-libfreetype --disable-ffplay --enable-libvmaf\n',
-    time: '0' },
+  time: '0' },
   { text: '  libavutil      56. 33.100 / 56. 33.100\n',
     time: '0' },
   { text: '  libavcodec     58. 55.101 / 58. 55.101\n',
@@ -25,7 +25,7 @@ module.exports = [
     time: '0' },
   { text:
      'Input #0, mov,mp4,m4a,3gp,3g2,mj2, from \'/z/Users/bog/Downloads/Jones_Bill-T-02_2015_CLEAN-iw.mov\':\n',
-    time: '0' },
+  time: '0' },
   { text: '  Metadata:\n', time: '0' },
   { text: '    major_brand     : qt  \n', time: '0' },
   { text: '    minor_version   : 0\n', time: '0' },
@@ -34,21 +34,21 @@ module.exports = [
     time: '0' },
   { text:
      '    com.apple.quicktime.description: This video is about Jones_Bill-T-02_2015_CLEAN\n',
-    time: '0' },
+  time: '0' },
   { text: '    com.apple.quicktime.author: Isaac Wayton\n',
     time: '0' },
   { text:
      '    com.apple.quicktime.displayname: Jones_Bill-T-02_2015_CLEAN\n',
-    time: '0' },
+  time: '0' },
   { text:
      '    com.apple.quicktime.title: Jones_Bill-T-02_2015_CLEAN\n',
-    time: '0' },
+  time: '0' },
   { text:
      '  Duration: 00:06:13.25, start: 0.000000, bitrate: 117814 kb/s\n',
-    time: '0' },
+  time: '0' },
   { text:
      '    Stream #0:0(und): Video: prores (Standard) (apcn / 0x6E637061), yuv422p10le(tv, bt709, progressive), 1920x1080, 115441 kb/s, SAR 1:1 DAR 16:9, 23.98 fps, 23.98 tbr, 24k tbn, 24k tbc (default)\n',
-    time: '0' },
+  time: '0' },
   { text: '    Metadata:\n', time: '0' },
   { text: '      creation_time   : 2015-04-02T20:46:08.000000Z\n',
     time: '0' },
@@ -59,7 +59,7 @@ module.exports = [
   { text: '      timecode        : 00:00:00:00\n', time: '0' },
   { text:
      '    Stream #0:1(und): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, stereo, s32 (24 bit), 2304 kb/s (default)\n',
-    time: '0' },
+  time: '0' },
   { text: '    Metadata:\n', time: '0' },
   { text: '      creation_time   : 2015-04-02T20:46:08.000000Z\n',
     time: '0' },
@@ -67,7 +67,7 @@ module.exports = [
     time: '0' },
   { text:
      '    Stream #0:2(und): Data: none (tmcd / 0x64636D74) (default)\n',
-    time: '0' },
+  time: '0' },
   { text: '    Metadata:\n', time: '0' },
   { text: '      creation_time   : 2015-04-02T20:46:08.000000Z\n',
     time: '0' },
@@ -80,9 +80,9 @@ module.exports = [
   { text: 'Press [q] to stop, [?] for help\n', time: '0' },
   { text:
      '[libx264 @ 0x56393e867e00] width not divisible by 2 (1281x720)\n',
-    time: '0' },
+  time: '0' },
   { text:
      'Error initializing output stream 0:0 -- Error while opening encoder for output stream #0:0 - maybe incorrect parameters such as bit_rate, rate, width or height\n',
-    time: '0' },
+  time: '0' },
   { text: 'Conversion failed!\n', time: '0' }
 ];

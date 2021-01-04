@@ -30,7 +30,7 @@
     "video"
   ],
   "engines": {
-    "node": ">=8.0"
+    "node": ">=8.10.0"
   },
   "directories": {
     "lib": "./lib",
