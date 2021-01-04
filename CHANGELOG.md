@@ -4,6 +4,10 @@
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.2...master)
 
+### Bug fixes
+
+* Fix improper use of the Config singleton object, and update docs accordingly ([PR #43](https://github.com/tedconf/fessonia/pull/43) by [@universalhandle](https://github.com/universalhandle))
+
 ## 2.1.2 (2020-08-07)
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.1...2.1.2)
