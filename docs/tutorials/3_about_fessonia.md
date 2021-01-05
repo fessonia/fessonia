@@ -96,8 +96,9 @@ specification. [Contributions of any kind are welcome!]{@tutorial 4_contributing
 ## Talks about this Library <a name="talk-nihonjinrxs"></a>
 
 * ["Modeling the Conceptual Structure of `ffmpeg` in JavaScript"](https://devfest2019.gdgneworleans.com/#ryan) - Ryan B. Harvey @ DevFest New Orleans, October 5, 2019. ([slides](http://bit.ly/fessonia-intro-slides))
-* ["Modeling the Conceptual Structure of `ffmpeg` in JavaScript"](https://2019.demuxed.com/#schedule) - Ryan B. Harvey @ Demuxed, October 23, 2019. ([slides](https://bit.ly/fessonia-intro-slides))
+* ["Modeling the Conceptual Structure of `ffmpeg` in JavaScript"](https://2019.demuxed.com/#schedule) - Ryan B. Harvey @ Demuxed, October 23, 2019. ([slides](https://bit.ly/fessonia-intro-slides), [video](https://www.youtube.com/watch?v=1MUgs42_D8I&list=PLkyaYNWEKcOf_C_6W45abNvXMb40xUUqh&index=4&t=2s))
 * ["Evolving an API to Match a Conceptual Model: Expressing `ffmpeg` in JavaScript"](https://www.meetup.com/no-fun/events/268424936/) - Ryan B. Harvey @ New Orleans Functional Programming Meetup, February 5, 2020. ([slides](https://bit.ly/fessonia-evolving-api))
+* "Evolving Fessonia: An update on the Fessonia ffmpeg interface library for Node.js" - Ryan B. Harvey @ Demuxed (Lightning Talk), October 29, 2020. ([slides](http://bit.ly/evolving-fessonia-slides), [video](https://youtu.be/SHFJOqJtczs?t=953))
 
 ## About the Name Fessonia and the Butterfly Logo
 
