@@ -17,6 +17,7 @@ declare class FFmpegProgressEmitter extends Writable {
     formattedLog(): string;
     /** Return the last n log data chunks pushed into the stream */
     last(n?: 1): string;
+    /** Return the last n log data chunks pushed into the stream */
     last(n: number): string[];
     /** Get latest media timestamp seen in progress updates from ffmpeg */
     lastMediaTime(): string;
