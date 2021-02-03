@@ -3,6 +3,8 @@ import FFmpegStreamSpecifier from './ffmpeg_stream_specifier';
 
 export default FilterChain;
 
+type ArrayOfOneOrMore<T> = [T, ...T[]];
+
 /** Class representing an FFmpeg filter chain */
 declare class FilterChain {
     inputNode: FilterNode;
@@ -12,7 +14,7 @@ declare class FilterChain {
     inputs: FFmpegStreamSpecifier[];
     streamSpecifiers: FFmpegStreamSpecifier[];
 
-    constructor(nodes: FilterNode[]);
+    constructor(nodes: ArrayOfOneOrMore<FilterNode>);
 
     addInput(input: FFmpegStreamSpecifier): void
     addInputs(inputs: FFmpegStreamSpecifier[]): void;
