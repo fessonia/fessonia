@@ -23,7 +23,7 @@ declare class FFmpegOption {
      * @param name the option name
      * @param arg - the argument for this option (default: null)
      */
-    constructor(name: string, arg?: FFmpegOption.OptionValue);
+    constructor(name: string, arg?: FFmpegOption.OptionValue | null);
 }
 
 declare namespace FFmpegOption {

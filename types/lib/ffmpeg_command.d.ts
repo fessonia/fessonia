@@ -41,5 +41,5 @@ declare class FFmpegCommand extends EventEmitter {
 
 declare namespace FFmpegCommand {
     /** The global options for the command. */
-    export type Options = Map<string, any>;
+    export type Options = Map<string, any> | { [key: string]: any };
 }
