@@ -3,6 +3,7 @@
   "version": "2.1.2",
   "description": "A node module easing the burden of automating ffmpeg from node.js",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
