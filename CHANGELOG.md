@@ -11,7 +11,7 @@
 
 ### New Features
 
-* Added TypeScript support with types defined in the `types` folder. ([PR #44](https://github.com/tedconf/fesso    nia/pull/44) by [@universalhandle](https://github.com/universalhandle) and [@glensc](https://github.com/glensc))
+* Added TypeScript support with types defined in the `types` folder. ([PR #44](https://github.com/tedconf/fessonia/pull/44) by [@universalhandle](https://github.com/universalhandle) and [@glensc](https://github.com/glensc))
 
 ### Bug fixes
 
