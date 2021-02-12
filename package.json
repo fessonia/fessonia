@@ -1,6 +1,6 @@
 {
   "name": "@tedconf/fessonia",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "A node module easing the burden of automating ffmpeg from node.js",
   "main": "index.js",
   "types": "types/index.d.ts",
