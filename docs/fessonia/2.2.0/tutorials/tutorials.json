@@ -1,0 +1,26 @@
+{
+  "0.0_getting_started": {
+    "title": "Getting Started with Fessonia"
+  },
+  "0.1_stream_specifiers_mappings": {
+    "title": "Stream Specifiers and Mappings"
+  },
+  "1_example_overlay_images": {
+    "title": "Example: Overlaying Images on Video"
+  },
+  "2_example_generate_test_video": {
+    "title": "Example: Generating Test Video"
+  },
+  "3_about_fessonia": {
+    "title": "About Fessonia"
+  },
+  "4_contributing": {
+    "title": "Contributing to Fessonia"
+  },
+  "5_code_of_conduct": {
+    "title": "Code of Conduct"
+  },
+  "6_license": {
+    "title": "License"
+  }
+}

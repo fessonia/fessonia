@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: lib/ffmpeg_command.js | @tedconf/fessonia</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+        
+            <link type="text/css" rel="stylesheet" href="overrides.css">
+        
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 250px; height: 94px">
+        
+            <a href="index.html" rel="noopener noreferrer" target="_blank">
+                <img src="../../img/Fessonia_logo.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
+        
+            <span class="version">v2.2.0</span>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+        <ol class="lnb-tab">
+            <li id="api-tab">
+                <a href="#"><h4>API</h4></a>
+            </li>
+            <li id="examples-tab">
+                <a href="#"><h4>Guides</h4></a>
+            </li>
+        </ol>
+    
+    <div class="lnb-examples hidden"><h3>Guides</h3><ul><li><a href="tutorial-0.0_getting_started.html">Getting Started with Fessonia</a><div class="hidden" id="0.0_getting_started_sub"></div></li><li><a href="tutorial-0.1_stream_specifiers_mappings.html">Stream Specifiers and Mappings</a><div class="hidden" id="0.1_stream_specifiers_mappings_sub"></div></li><li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a><div class="hidden" id="1_example_overlay_images_sub"></div></li><li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a><div class="hidden" id="2_example_generate_test_video_sub"></div></li><li><a href="tutorial-3_about_fessonia.html">About Fessonia</a><div class="hidden" id="3_about_fessonia_sub"></div></li><li><a href="tutorial-4_contributing.html">Contributing to Fessonia</a><div class="hidden" id="4_contributing_sub"></div></li><li><a href="tutorial-5_code_of_conduct.html">Code of Conduct</a><div class="hidden" id="5_code_of_conduct_sub"></div></li><li><a href="tutorial-6_license.html">License</a><div class="hidden" id="6_license_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="FFmpegCommand.html">FFmpegCommand</a><div class="hidden" id="FFmpegCommand_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegCommand.html#filterGraph">filterGraph</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegCommand.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegCommand.html#addFilterChain">addFilterChain</a></li><li><a href="FFmpegCommand.html#addInput">addInput</a></li><li><a href="FFmpegCommand.html#addOutput">addOutput</a></li><li><a href="FFmpegCommand.html#execute">execute</a></li><li><a href="FFmpegCommand.html#inputs">inputs</a></li><li><a href="FFmpegCommand.html#logData">logData</a></li><li><a href="FFmpegCommand.html#logLines">logLines</a></li><li><a href="FFmpegCommand.html#outputs">outputs</a></li><li><a href="FFmpegCommand.html#spawn">spawn</a></li><li><a href="FFmpegCommand.html#toCommand">toCommand</a></li><li><a href="FFmpegCommand.html#toString">toString</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegCommand.html#event:error">error</a></li><li><a href="FFmpegCommand.html#event:success">success</a></li><li><a href="FFmpegCommand.html#event:update">update</a></li></ul></div></li><li><a href="FFmpegError.html">FFmpegError</a><div class="hidden" id="FFmpegError_sub"></div></li><li><a href="FFmpegInput.html">FFmpegInput</a><div class="hidden" id="FFmpegInput_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegInput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegInput.html#.validateUrl">validateUrl</a></li><li><a href="FFmpegInput.html#streamSpecifier">streamSpecifier</a></li><li><a href="FFmpegInput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegInput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegInput.html#toString">toString</a></li></ul></div></li><li><a href="FFmpegOutput.html">FFmpegOutput</a><div class="hidden" id="FFmpegOutput_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegOutput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegOutput.html#addOptions">addOptions</a></li><li><a href="FFmpegOutput.html#addStream">addStream</a></li><li><a href="FFmpegOutput.html#addStreams">addStreams</a></li><li><a href="FFmpegOutput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegOutput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegOutput.html#toString">toString</a></li><li><a href="FFmpegOutput.html#validateStreams">validateStreams</a></li></ul></div></li><li><a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a><div class="hidden" id="FFmpegProgressEmitter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#formattedLog">formattedLog</a></li><li><a href="FFmpegProgressEmitter.html#last">last</a></li><li><a href="FFmpegProgressEmitter.html#lastMediaTime">lastMediaTime</a></li><li><a href="FFmpegProgressEmitter.html#logData">logData</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#event:update">update</a></li></ul></div></li><li><a href="FilterChain.html">FilterChain</a><div class="hidden" id="FilterChain_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FilterChain.html#inputNode">inputNode</a></li><li><a href="FilterChain.html#inputPads">inputPads</a></li><li><a href="FilterChain.html#outputNode">outputNode</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterChain.html#.wrap">wrap</a></li><li><a href="FilterChain.html#addInput">addInput</a></li><li><a href="FilterChain.html#addInputs">addInputs</a></li><li><a href="FilterChain.html#appendNodes">appendNodes</a></li><li><a href="FilterChain.html#getOutputPad">getOutputPad</a></li><li><a href="FilterChain.html#position">position</a></li><li><a href="FilterChain.html#prependNodes">prependNodes</a></li><li><a href="FilterChain.html#streamSpecifier">streamSpecifier</a></li><li><a href="FilterChain.html#toString">toString</a></li><li><a href="FilterChain.html#validateInputs">validateInputs</a></li></ul></div></li><li><a href="FilterGraph.html">FilterGraph</a><div class="hidden" id="FilterGraph_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterGraph.html#.wrap">wrap</a></li><li><a href="FilterGraph.html#addFilterChain">addFilterChain</a></li><li><a href="FilterGraph.html#chainPosition">chainPosition</a></li><li><a href="FilterGraph.html#toString">toString</a></li></ul></div></li><li><a href="FilterNode.html">FilterNode</a><div class="hidden" id="FilterNode_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterNode.html#getOutputPad">getOutputPad</a></li><li><a href="FilterNode.html#toString">toString</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#createCommandString">createCommandString</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getFessonia">getFessonia</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileOverview lib/ffmpeg_command.js - Defines and exports the FFmpegCommand class
+ */
+
+const { EventEmitter } = require('events');
+
+const config = require('./util/config')(),
+  cp = require('child_process'),
+  FFmpegInput = require('./ffmpeg_input'),
+  FFmpegOutput = require('./ffmpeg_output'),
+  FFmpegError = require('./ffmpeg_error'),
+  Chunker = require('./util/chunker'),
+  { createCommandString } = require('./util/command_string_creator');
+
+/**
+ * Class representing an FFmpeg command (`ffmpeg ...`)
+ *
+ * @extends events.EventEmitter
+ */
+class FFmpegCommand extends EventEmitter {
+  /**
+   * Create an FFmpegCommand object
+   * @param {Object} options - the global options for the command
+   *
+   * @property {Map&lt;string,Object>} options - global options for the command
+   * @property {Array&lt;FFmpegInput>} _inputs - input files (with their options) for the command
+   * @property {Array&lt;FFmpegOutput>} _outputs - output files (with their options) for the command
+   * @property {Array&lt;FilterGraph>|undefined} _filterGraph - the command's filter graph
+   *
+   * @emits FFmpegCommand#update
+   */
+  constructor (options = new Map()) {
+    super();
+    this.options = FFmpegCommand.validateOptions(options);
+    this._inputs = [];
+    this._outputs = [];
+    this._filterGraph = undefined;
+    const FFmpegProgressEmitter = FFmpegCommand._loadFFmpegProgressEmitter();
+    this._progressEmitter = new FFmpegProgressEmitter();
+    /**
+     * @event FFmpegCommand#update
+     * @description Event with an update on FFmpeg progress on the command. Progress lines from FFmpeg are parsed by an {@link FFmpegProgressEmitter} object to generate the data for this event.
+     * @type {Object}
+     * @property {any} * - all properties included in the FFmpegProgressEmitter's `progressData` object
+     */
+    this._progressEmitter.on('update', (data) => this.emit('update', data));
+  }
+
+  /**
+   * Add an input to the FFmpegCommand object
+   * @param {FFmpegInput} input - ffmpeg input object
+   * @returns {void}
+   */
+  addInput (input) {
+    input.inputLabel = this._inputs.length;
+    this._inputs.push(input);
+  }
+
+  /**
+   * Add an output to the FFmpegCommand object
+   * @param {FFmpegOutput} output - ffmpeg output object
+   * @returns {void}
+   */
+  addOutput (output) {
+    this._outputs.push(output);
+  }
+
+  /**
+   * Add a filter chain to the FFmpegCommand object's filter graph
+   * @param {FilterGraph} filterChain - filter chain object
+   * @returns {void}
+   */
+  addFilterChain (filterChain) {
+    if (typeof this._filterGraph === 'undefined') {
+      const FilterGraph = FFmpegCommand._loadFilterGraph();
+      this._filterGraph = new FilterGraph();
+    }
+    this._filterGraph.addFilterChain(filterChain);
+  }
+
+  /**
+   * Get inputs on the FFmpegCommand object
+   *
+   * @returns {Array&lt;FFmpegInput>} the inputs
+   */
+  inputs () {
+    return(this._inputs);
+  }
+
+  /**
+   * Get outputs on the FFmpegCommand object
+   *
+   * @returns {Array&lt;FFmpegOutput>} the outputs
+   */
+  outputs () {
+    return(this._outputs);
+  }
+
+  /**
+   * Get the filter graph on the FFmpegCommand object
+   *
+   * @returns {FilterGraph} the filter graphs
+   */
+  get filterGraph () {
+    return(this._filterGraph);
+  }
+
+  /**
+   * Get most recent log lines from the ffmpeg run
+   * @param {number} n - the number of lines to pull (default: 1)
+   * @returns {Array&lt;string>} - the log lines
+   */
+  logLines (n = 1) {
+    return this._progressEmitter.last(n);
+  }
+
+  /**
+   * Get the currently buffered log data from the ffmpeg run
+   * @returns {Array&lt;string>} - the log data
+   */
+  logData () {
+    return this._progressEmitter.logData();
+  }
+
+  /**
+   * Generate the command representation of the command
+   *
+   * @returns {Object} - an object containing keys 'command' and 'args'
+   */
+  toCommand () {
+    const result = { command: config.ffmpeg_bin };
+    // Handle global options
+    let args = [];
+    this.options.forEach((value, opt) => {
+      args.push(`-${opt}`);
+      if (value !== null &amp;&amp; value !== undefined) {
+        args.push(value.toString());
+      }
+    });
+    // Handle inputs
+    for (let input of this._inputs) {
+      args = args.concat(input.toCommandArray());
+    }
+    // Handle filterGraph
+    if (typeof this._filterGraph !== 'undefined') {
+      args.push('-filter_complex', this.filterGraph.toString());
+    }
+    // Handle outputs
+    for (let output of this._outputs) {
+      args = args.concat(output.toCommandArray());
+    }
+    result.args = args;
+    return (result);
+  }
+
+  /**
+   * Generate the string representation of the command
+   *
+   * @returns {string} - the command string to be executed
+   */
+  toString () {
+    const cmd = this.toCommand();
+    return createCommandString(cmd.command, cmd.args);
+  }
+
+  /**
+   * Execute the command and return a promise for the output
+   *
+   * @returns {Promise} - the child_process promise handling the execution
+   *
+   * @throws {FFmpegError}
+   */
+  execute () {
+    const cmd = this.toCommand();
+    return new Promise(function (resolve, reject) {
+      cp.execFile(cmd.command, cmd.args, (err, stdout, stderr) => {
+        if (err) {
+          return reject(new FFmpegError(err));
+        }
+        resolve({ stderr: stderr, stdout: stdout });
+      });
+    });
+  }
+
+  /**
+   * Spawn a child process to execute the command and return the child process
+   * @param {boolean} emitEvents - emit events about process state and progress (default: true)
+   *
+   * @returns {ChildProcess} - the child_process
+   */
+  spawn (emitEvents = true) {
+    // TODO: use pipe:3 for progress events to disambiguate from stderr
+    // cannot do this if ffmpeg is run within docker since it cannot attach other fds
+    if (emitEvents) {
+      if (!this.options.has('progress')) {
+        // add more parseable progress output
+        this.options.set('progress', 'pipe:2');
+      }
+    }
+    const cmd = this.toCommand();
+    const proc = cp.spawn(cmd.command, cmd.args, { stdio: 'pipe' });
+    if (emitEvents) {
+      this._handleProcessEvents(proc);
+      const chunker = new Chunker;
+      proc.stderr.pipe(chunker).pipe(this._progressEmitter);
+    }
+    return proc;
+  }
+
+  /**
+   * Validate the options passed into the constructor
+   * @param {Object} options - the options for the input
+   * @returns {Map} - validated options
+   */
+  static validateOptions (options) {
+    // TODO: validate input options here
+    if (!(options instanceof Map)) {
+      return (new Map(Object.entries(options)));
+    }
+    return (options);
+  }
+
+  /**
+   * Attach handlers for child process events
+   *
+   * @param {ChildProcess} proc - the child process to listen on
+   *
+   * @emits FFmpegCommand#success
+   * @emits FFmpegCommand#failure
+   * @emits FFmpegCommand#error
+   *
+   * @returns {void}
+   *
+   * @private
+   */
+  _handleProcessEvents (proc) {
+    proc.on('exit', (code, signal) => {
+      if (code === 0 &amp;&amp; signal === null) {
+        /**
+         * 'success' event
+         * @description Event indicating the FFmpeg process completed successfully
+         * @event FFmpegCommand#success
+         * @type {object}
+         * @property {number} exitCode - the child process' exit code
+         * @property {String} log - full log with ffmpeg times
+         * @property {FFmpegProgressEmitter} progress - progress object for more inspection
+         */
+        this.emit('success', {
+          exitCode: code,
+          log: this._progressEmitter.formattedLog(),
+          progress: this._progressEmitter
+        });
+      } else {
+        /**
+         * 'error' event
+         * @description Event indicating an error has occurred. If the error occured within the node process while attempting to execute the FFmpeg child process, the type will be `Error`. If the error occurred within the FFmpeg child process, the type will be `FFmpegError`, and will have the listed properties.
+         * @event FFmpegCommand#error
+         * @type {FFmpegError|Error}
+         * @property {number} code - the child process' exit code
+         * @property {string|undefined} signal - the signal that caused the process termination, if available
+         * @property {String} message - full log with ffmpeg times
+         * @property {cmd} cmd - ffmpeg command string
+         */
+        this.emit('error', new FFmpegError({
+          code: code,
+          signal: signal,
+          cmd: this.toString(),
+          progress: this._progressEmitter
+        }));
+      }
+    });
+    proc.on('error', (err) => {
+      this.emit('error', err);
+    });
+  }
+
+  /**
+   * Load the FFmpegProgressEmitter class and return it
+   *
+   * @returns {FFmpegProgressEmitter} the FFmpegProgressEmitter class
+   *
+   * @private
+   */
+  static _loadFFmpegProgressEmitter () {
+    return require('./ffmpeg_progress_emitter');
+  }
+
+  /**
+   * Load the FilterGraph class and return it
+   *
+   * @returns {FilterGraph} the FilterGraph class
+   *
+   * @private
+   */
+  static _loadFilterGraph () {
+    return require('./filter_graph');
+  }
+}
+
+module.exports = FFmpegCommand;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="../../img/Fessonia_logo.png" style="width: 250px; height: 94px">
+    <div class="footer-text">Made with ♥️ by TED</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>
