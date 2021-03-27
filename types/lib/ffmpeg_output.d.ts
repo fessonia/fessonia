@@ -1,7 +1,7 @@
 import FFmpegOption from './ffmpeg_option';
 import FFmpegStreamSpecifier from './ffmpeg_stream_specifier';
 
-export default FFmpegOutput;
+export = FFmpegOutput;
 
 /** Class representing an FFmpeg output file */
 declare class FFmpegOutput {

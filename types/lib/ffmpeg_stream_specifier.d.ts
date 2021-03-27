@@ -1,7 +1,7 @@
 import FFmpegInput from './ffmpeg_input';
 import FilterChain from './filter_chain';
 
-export default FFmpegStreamSpecifier;
+export = FFmpegStreamSpecifier;
 
 /**
  * Class representing an FFmpeg stream specifier

@@ -1,6 +1,6 @@
 import FFmpegProgressEmitter from './ffmpeg_progress_emitter';
 
-export default FFmpegError;
+export = FFmpegError;
 
 interface FFmpegError extends Error {
     /** the FFmpeg command string that was executed */

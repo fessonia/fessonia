@@ -1,7 +1,7 @@
 import FilterChain from './filter_chain';
 import FilterNode from './filter_node';
 
-export default FilterGraph;
+export = FilterGraph;
 
 /** Class representing an FFmpeg filter graph */
 declare class FilterGraph {

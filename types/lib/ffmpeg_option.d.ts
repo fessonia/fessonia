@@ -2,7 +2,7 @@ import FilterChain from './filter_chain';
 import FilterGraph from './filter_graph';
 import FilterNode from './filter_node';
 
-export default FFmpegOption;
+export = FFmpegOption;
 
 /**
  * Class representing an FFmpeg option

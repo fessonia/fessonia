@@ -5,7 +5,7 @@ import FFmpegOutput from './ffmpeg_output';
 import FilterChain from './filter_chain';
 import FilterGraph from './filter_graph';
 
-export default FFmpegCommand;
+export = FFmpegCommand;
 
 /** Class representing an FFmpeg command (`ffmpeg ...`) */
 declare class FFmpegCommand extends EventEmitter {

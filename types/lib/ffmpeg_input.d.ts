@@ -4,7 +4,7 @@ import FilterGraph from './filter_graph';
 import FilterNode from './filter_node';
 import FFmpegStreamSpecifier from './ffmpeg_stream_specifier';
 
-export default FFmpegInput;
+export = FFmpegInput;
 
 /** Class representing an FFmpeg input file (`-i`) */
 declare class FFmpegInput {

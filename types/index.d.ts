@@ -1,14 +1,15 @@
 import { FessoniaConfig } from './lib/util/config';
-import FFmpegCommand from './lib/ffmpeg_command';
-import FFmpegInput from './lib/ffmpeg_input';
-import FFmpegOutput from './lib/ffmpeg_output';
-import FilterChain from './lib/filter_chain';
-import FilterNode from './lib/filter_node';
+import type FFmpegCommand = require('./lib/ffmpeg_command');
+import type FFmpegError = require('./lib/ffmpeg_error');
+import type FFmpegInput = require('./lib/ffmpeg_input');
+import type FFmpegOutput = require('./lib/ffmpeg_output');
+import type FilterChain = require('./lib/filter_chain');
+import type FilterNode = require('./lib/filter_node');
 
 /** Main function interface to the library. Returns object of classes when called. */
-export default function getFessonia(opts?: Partial<Fessonia.ConfigOpts>): Fessonia;
+declare function Fessonia(opts?: Partial<Fessonia.ConfigOpts>): Fessonia;
 
-export interface Fessonia {
+interface Fessonia {
   FFmpegCommand: typeof FFmpegCommand;
   FFmpegInput: typeof FFmpegInput;
   FFmpegOutput: typeof FFmpegOutput;
@@ -16,22 +17,17 @@ export interface Fessonia {
   FilterNode: typeof FilterNode;
 }
 
-// re-export only types (i.e., not constructors) to prevent direct instantiation
-import type FFmpegCommandType from './lib/ffmpeg_command';
-import type FFmpegError from './lib/ffmpeg_error';
-import type FFmpegInputType from './lib/ffmpeg_input';
-import type FFmpegOutputType from './lib/ffmpeg_output';
-import type FilterNodeType from './lib/filter_node';
-import type FilterChainType from './lib/filter_chain';
-export namespace Fessonia {
+declare namespace Fessonia {
     export type ConfigOpts = Partial<FessoniaConfig>;
 
     export {
-      FFmpegCommandType as FFmpegCommand,
+      FFmpegCommand,
       FFmpegError,
-      FFmpegInputType as FFmpegInput,
-      FFmpegOutputType as FFmpegOutput,
-      FilterChainType as FilterChain,
-      FilterNodeType as FilterNode,
+      FFmpegInput,
+      FFmpegOutput,
+      FilterChain,
+      FilterNode,
     };
 }
+
+export = Fessonia;

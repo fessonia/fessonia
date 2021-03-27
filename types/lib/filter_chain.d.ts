@@ -1,7 +1,7 @@
 import FilterNode from './filter_node'
 import FFmpegStreamSpecifier from './ffmpeg_stream_specifier';
 
-export default FilterChain;
+export = FilterChain;
 
 type ArrayOfOneOrMore<T> = [T, ...T[]];
 
