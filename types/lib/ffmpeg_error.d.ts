@@ -1,4 +1,4 @@
-import FFmpegProgressEmitter from './ffmpeg_progress_emitter';
+import FFmpegProgressEmitter = require('./ffmpeg_progress_emitter');
 
 export = FFmpegError;
 

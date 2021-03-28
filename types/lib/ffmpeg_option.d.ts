@@ -1,6 +1,6 @@
-import FilterChain from './filter_chain';
-import FilterGraph from './filter_graph';
-import FilterNode from './filter_node';
+import FilterChain = require('./filter_chain');
+import FilterGraph = require('./filter_graph');
+import FilterNode = require('./filter_node');
 
 export = FFmpegOption;
 

@@ -1,5 +1,5 @@
-import FFmpegOption from './ffmpeg_option';
-import FFmpegStreamSpecifier from './ffmpeg_stream_specifier';
+import FFmpegOption = require('./ffmpeg_option');
+import FFmpegStreamSpecifier = require('./ffmpeg_stream_specifier');
 
 export = FFmpegOutput;
 

@@ -1,5 +1,5 @@
-import FilterChain from './filter_chain';
-import FilterNode from './filter_node';
+import FilterChain = require('./filter_chain');
+import FilterNode = require('./filter_node');
 
 export = FilterGraph;
 

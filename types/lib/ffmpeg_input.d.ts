@@ -1,8 +1,8 @@
-import FFmpegOption from './ffmpeg_option';
-import FilterChain from './filter_chain';
-import FilterGraph from './filter_graph';
-import FilterNode from './filter_node';
-import FFmpegStreamSpecifier from './ffmpeg_stream_specifier';
+import FFmpegOption = require('./ffmpeg_option');
+import FilterChain = require('./filter_chain');
+import FilterGraph = require('./filter_graph');
+import FilterNode = require('./filter_node');
+import FFmpegStreamSpecifier = require('./ffmpeg_stream_specifier');
 
 export = FFmpegInput;
 

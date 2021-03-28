@@ -1,9 +1,9 @@
 import { EventEmitter } from 'events';
 import { ChildProcessWithoutNullStreams } from 'child_process';
-import FFmpegInput from './ffmpeg_input';
-import FFmpegOutput from './ffmpeg_output';
-import FilterChain from './filter_chain';
-import FilterGraph from './filter_graph';
+import FFmpegInput = require('./ffmpeg_input');
+import FFmpegOutput = require('./ffmpeg_output');
+import FilterChain = require('./filter_chain');
+import FilterGraph = require('./filter_graph');
 
 export = FFmpegCommand;
 

@@ -1,5 +1,5 @@
-import FFmpegInput from './ffmpeg_input';
-import FilterChain from './filter_chain';
+import FFmpegInput = require('./ffmpeg_input');
+import FilterChain = require('./filter_chain');
 
 export = FFmpegStreamSpecifier;
 
