@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Stream Specifiers and Mappings | @tedconf/fessonia</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+        
+            <link type="text/css" rel="stylesheet" href="overrides.css">
+        
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 250px; height: 94px">
+        
+            <a href="index.html" rel="noopener noreferrer" target="_blank">
+                <img src="../../img/Fessonia_logo.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
+        
+            <span class="version">v2.2.1</span>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+        <ol class="lnb-tab">
+            <li id="api-tab">
+                <a href="#"><h4>API</h4></a>
+            </li>
+            <li id="examples-tab">
+                <a href="#"><h4>Guides</h4></a>
+            </li>
+        </ol>
+    
+    <div class="lnb-examples hidden"><h3>Guides</h3><ul><li><a href="tutorial-0.0_getting_started.html">Getting Started with Fessonia</a><div class="hidden" id="0.0_getting_started_sub"></div></li><li><a href="tutorial-0.1_stream_specifiers_mappings.html">Stream Specifiers and Mappings</a><div class="hidden" id="0.1_stream_specifiers_mappings_sub"></div></li><li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a><div class="hidden" id="1_example_overlay_images_sub"></div></li><li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a><div class="hidden" id="2_example_generate_test_video_sub"></div></li><li><a href="tutorial-3_about_fessonia.html">About Fessonia</a><div class="hidden" id="3_about_fessonia_sub"></div></li><li><a href="tutorial-4_contributing.html">Contributing to Fessonia</a><div class="hidden" id="4_contributing_sub"></div></li><li><a href="tutorial-5_code_of_conduct.html">Code of Conduct</a><div class="hidden" id="5_code_of_conduct_sub"></div></li><li><a href="tutorial-6_license.html">License</a><div class="hidden" id="6_license_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="FFmpegCommand.html">FFmpegCommand</a><div class="hidden" id="FFmpegCommand_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegCommand.html#filterGraph">filterGraph</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegCommand.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegCommand.html#addFilterChain">addFilterChain</a></li><li><a href="FFmpegCommand.html#addInput">addInput</a></li><li><a href="FFmpegCommand.html#addOutput">addOutput</a></li><li><a href="FFmpegCommand.html#execute">execute</a></li><li><a href="FFmpegCommand.html#inputs">inputs</a></li><li><a href="FFmpegCommand.html#logData">logData</a></li><li><a href="FFmpegCommand.html#logLines">logLines</a></li><li><a href="FFmpegCommand.html#outputs">outputs</a></li><li><a href="FFmpegCommand.html#spawn">spawn</a></li><li><a href="FFmpegCommand.html#toCommand">toCommand</a></li><li><a href="FFmpegCommand.html#toString">toString</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegCommand.html#event:error">error</a></li><li><a href="FFmpegCommand.html#event:success">success</a></li><li><a href="FFmpegCommand.html#event:update">update</a></li></ul></div></li><li><a href="global.html#FFmpegError">FFmpegError</a><div class="hidden" id="FFmpegError_sub"></div></li><li><a href="FFmpegInput.html">FFmpegInput</a><div class="hidden" id="FFmpegInput_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegInput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegInput.html#.validateUrl">validateUrl</a></li><li><a href="FFmpegInput.html#streamSpecifier">streamSpecifier</a></li><li><a href="FFmpegInput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegInput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegInput.html#toString">toString</a></li></ul></div></li><li><a href="FFmpegOutput.html">FFmpegOutput</a><div class="hidden" id="FFmpegOutput_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegOutput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegOutput.html#addOptions">addOptions</a></li><li><a href="FFmpegOutput.html#addStream">addStream</a></li><li><a href="FFmpegOutput.html#addStreams">addStreams</a></li><li><a href="FFmpegOutput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegOutput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegOutput.html#toString">toString</a></li><li><a href="FFmpegOutput.html#validateStreams">validateStreams</a></li></ul></div></li><li><a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a><div class="hidden" id="FFmpegProgressEmitter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#formattedLog">formattedLog</a></li><li><a href="FFmpegProgressEmitter.html#last">last</a></li><li><a href="FFmpegProgressEmitter.html#lastMediaTime">lastMediaTime</a></li><li><a href="FFmpegProgressEmitter.html#logData">logData</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#event:update">update</a></li></ul></div></li><li><a href="FilterChain.html">FilterChain</a><div class="hidden" id="FilterChain_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FilterChain.html#inputNode">inputNode</a></li><li><a href="FilterChain.html#inputPads">inputPads</a></li><li><a href="FilterChain.html#outputNode">outputNode</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterChain.html#.wrap">wrap</a></li><li><a href="FilterChain.html#addInput">addInput</a></li><li><a href="FilterChain.html#addInputs">addInputs</a></li><li><a href="FilterChain.html#appendNodes">appendNodes</a></li><li><a href="FilterChain.html#getOutputPad">getOutputPad</a></li><li><a href="FilterChain.html#position">position</a></li><li><a href="FilterChain.html#prependNodes">prependNodes</a></li><li><a href="FilterChain.html#streamSpecifier">streamSpecifier</a></li><li><a href="FilterChain.html#toString">toString</a></li><li><a href="FilterChain.html#validateInputs">validateInputs</a></li></ul></div></li><li><a href="FilterGraph.html">FilterGraph</a><div class="hidden" id="FilterGraph_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterGraph.html#.wrap">wrap</a></li><li><a href="FilterGraph.html#addFilterChain">addFilterChain</a></li><li><a href="FilterGraph.html#chainPosition">chainPosition</a></li><li><a href="FilterGraph.html#toString">toString</a></li></ul></div></li><li><a href="FilterNode.html">FilterNode</a><div class="hidden" id="FilterNode_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterNode.html#getOutputPad">getOutputPad</a></li><li><a href="FilterNode.html#toString">toString</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#createCommandString">createCommandString</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getFessonia">getFessonia</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+<section>
+    <header>
+        
+
+        <h2>Stream Specifiers and Mappings</h2>
+    </header>
+
+    
+        <article class="readme">
+            <p>Stream specifiers are used by the library to create explicit names for streams from input files and filter chains.</p>
+<p>When an <code>FFmpegInput</code> is added to the <code>FFmpegCommand</code> object, the order of addition is tracked, and its positional index is used as an identifier in any stream specifiers requested for it. Stream specifiers on inputs mapped to a <code>FilterChain</code> are added to the beginning of the string representation of the filter chain, and those mapped to an <code>FFmpegOutput</code> are used with the <code>-map</code> <code>ffmpeg</code> option.</p>
+<p>Similarly, when a stream specifier is requested for a <code>FilterChain</code> output pad, the positional index of that filter chain within the <code>FFmpegCommand</code>'s <code>FilterGraph</code> object is used to generate a unique output pad name. That pad name is then appended to the end of the string representation of that filter chain, and is used with the <code>-map</code> option to map the output stream from that filter into that output file.</p>
+<p>If no stream specifiers are requested, no explicit names will be added to the command, allowing <code>ffmpeg</code> to use its implicit mapping capabilities.</p>
+<p>For example, if we create the following objects:</p>
+<pre class="prettyprint source lang-{javascript}"><code>const cmd = new FFmpegCommand();
+const videoInput = new FFmpegInput('/path/to/some/video.mov', {/*...*/});
+const videoFilters = new FilterChain([
+  new FilterNode('edgedetect', { mode: 'colormix', high: 0 })
+]);
+const output = new FFmpegOutput('/path/to/output.mp4', {/*...*/});
+</code></pre>
+<p>Then in the following code, we use explicit mappings:</p>
+<ul>
+<li>we request a stream specifier for <code>videoInput</code>'s video stream</li>
+<li>we request a stream specifier for the output of <code>videoFilters</code></li>
+</ul>
+<p>Those stream specifiers are used in the filter graph and mappings of the resulting command.</p>
+<pre class="prettyprint source lang-{javascript}"><code>videoFilters.addInput(videoInput.streamSpecifier('v'));
+
+output.addStreams(videoFilters.streamSpecifier());
+
+cmd.addInput(videoInput);
+cmd.addFilterChain(videoFilters);
+cmd.addOutput(output);
+
+console.log(cmd.toString());
+</code></pre>
+<p>This would result in the following <code>ffmpeg</code> command, with the label <code>0</code> applied to <code>videoInput</code> and the label <code>1</code> applied to <code>audioInput</code>, in the order they were added to the command, and a generated name <code>[chain0_edgedetect_0]</code> for the single output pad of the video filter chain <code>videoFilters</code>.</p>
+<pre class="prettyprint source lang-{text}"><code>ffmpeg -i &quot;/path/to/some/video.mov&quot; -filter_complex &quot;[0:v]edgedetect=mode=colormix:high=0[chain0_edgedetect_0]&quot; -map &quot;[chain0_edgedetect_0]&quot; &quot;/path/to/output.mp4&quot;
+</code></pre>
+<p>In contrast, the following code, using the same objects above, requests no stream specifiers and specifies no explicit mappings.</p>
+<pre class="prettyprint source lang-{javascript}"><code>cmd.addInput(videoInput);
+cmd.addFilterChain(videoFilters)
+cmd.addOutput(output);
+console.log(cmd.toString());
+</code></pre>
+<p>This would result in the command:</p>
+<pre class="prettyprint source lang-{text}"><code>ffmpeg -i &quot;/path/to/input.mov&quot; -filter_complex &quot;edgedetect=mode=colormix:high=0&quot; &quot;/path/to/output.mp4&quot;
+</code></pre>
+<p>We recommend using explicit mappings for clarity where possible.</p>
+        </article>
+    
+</section>
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="../../img/Fessonia_logo.png" style="width: 250px; height: 94px">
+    <div class="footer-text">Made with ♥️ by TED</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        showLnbExamples();
+    </script>
+
+</body>
+</html>
