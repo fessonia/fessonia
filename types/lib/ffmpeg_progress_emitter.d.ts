@@ -1,6 +1,6 @@
 import { Writable, WritableOptions } from 'stream';
 
-export default FFmpegProgressEmitter;
+export = FFmpegProgressEmitter;
 
 /**
  * A class that implements a progress event emitter for FFmpegCommand executions

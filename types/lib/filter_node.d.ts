@@ -1,4 +1,4 @@
-export default FilterNode;
+export = FilterNode;
 
 declare class FilterNode {
     args: FilterNode.Argument[];
