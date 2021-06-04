@@ -3,6 +3,17 @@
 ## On master since the last release...
 
 * [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.2...master)
+* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.2.1/)
+
+### Bug Fixes
+
+* TypeScript types module kind fixes ([PR #45](https://github.com/tedconf/fessonia/pull/45) by [@andrewbranch](https://github.com/andrewbranch))
+
+### CI Changes
+
+* Update of package-lock.json lockfile version from 1 to 2, npm audit fixes to dev dependencies. No impact on production code. ([773ba42](https://github.com/tedconf/fessonia/commit/773ba42e1b671ac49984b733df6405d4f14bd3b3))
+* Dependabot update of dev dependency lodash. No impact to production code. ([PR #47](https://github.com/tedconf/fessonia/pull/47))
+* Dependabot update of dev dependency y18n. No impact to production code. ([PR #46](https://github.com/tedconf/fessonia/pull/46))
 
 ## 2.2.0 (2021-02-12)
 
@@ -13,7 +24,7 @@
 
 * Added TypeScript support with types defined in the `types` folder. ([PR #44](https://github.com/tedconf/fessonia/pull/44) by [@universalhandle](https://github.com/universalhandle) and [@glensc](https://github.com/glensc))
 
-### Bug fixes
+### Bug Fixes
 
 * Fix improper use of the Config singleton object, and update docs accordingly ([PR #43](https://github.com/tedconf/fessonia/pull/43) by [@universalhandle](https://github.com/universalhandle))
 
