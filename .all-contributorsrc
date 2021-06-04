@@ -134,6 +134,18 @@
         "doc",
         "review"
       ]
+    },
+    {
+      "login": "andrewbranch",
+      "name": "Andrew Branch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3277153?v=4",
+      "profile": "https://github.com/andrewbranch",
+      "contributions": [
+        "bug",
+        "code",
+        "ideas",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 5
