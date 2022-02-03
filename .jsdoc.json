@@ -49,7 +49,7 @@
       "overrides.css"
     ],
     "resources": {
-      "Contribute on Github": "https://github.com/tedconf/fessonia",
+      "Contribute on Github": "https://github.com/fessonia/fessonia",
       "Read the FFmpeg Docs": "http://ffmpeg.org/documentation.html"
     }
   }

@@ -2,69 +2,74 @@
 
 ## On master since the last release...
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.2...master)
-* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.2.1/)
+* [View the commits.](https://github.com/fessonia/fessonia/compare/2.2.0...master)
+* [View the docs.](https://fessonia.github.io/fessonia/2.2.1/)
+
+## 2.2.1 (2021-06-04)
+
+* [View the commits.](https://github.com/fessonia/fessonia/compare/2.2.0...2.2.1)
+* [View the docs.](https://fessonia.github.io/fessonia/2.2.1/)
 
 ### Bug Fixes
 
-* TypeScript types module kind fixes ([PR #45](https://github.com/tedconf/fessonia/pull/45) by [@andrewbranch](https://github.com/andrewbranch))
+* TypeScript types module kind fixes ([PR #45](https://github.com/fessonia/fessonia/pull/45) by [@andrewbranch](https://github.com/andrewbranch))
 
 ### CI Changes
 
-* Update of package-lock.json lockfile version from 1 to 2, npm audit fixes to dev dependencies. No impact on production code. ([773ba42](https://github.com/tedconf/fessonia/commit/773ba42e1b671ac49984b733df6405d4f14bd3b3))
-* Dependabot update of dev dependency lodash. No impact to production code. ([PR #47](https://github.com/tedconf/fessonia/pull/47))
-* Dependabot update of dev dependency y18n. No impact to production code. ([PR #46](https://github.com/tedconf/fessonia/pull/46))
+* Update of package-lock.json lockfile version from 1 to 2, npm audit fixes to dev dependencies. No impact on production code. ([773ba42](https://github.com/fessonia/fessonia/commit/773ba42e1b671ac49984b733df6405d4f14bd3b3))
+* Dependabot update of dev dependency lodash. No impact to production code. ([PR #47](https://github.com/fessonia/fessonia/pull/47))
+* Dependabot update of dev dependency y18n. No impact to production code. ([PR #46](https://github.com/fessonia/fessonia/pull/46))
 
 ## 2.2.0 (2021-02-12)
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.2...2.2.0)
-* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.2.0/)
+* [View the commits.](https://github.com/fessonia/fessonia/compare/2.1.2...2.2.0)
+* [View the docs.](https://fessonia.github.io/fessonia/2.2.0/)
 
 ### New Features
 
-* Added TypeScript support with types defined in the `types` folder. ([PR #44](https://github.com/tedconf/fessonia/pull/44) by [@universalhandle](https://github.com/universalhandle) and [@glensc](https://github.com/glensc))
+* Added TypeScript support with types defined in the `types` folder. ([PR #44](https://github.com/fessonia/fessonia/pull/44) by [@universalhandle](https://github.com/universalhandle) and [@glensc](https://github.com/glensc))
 
 ### Bug Fixes
 
-* Fix improper use of the Config singleton object, and update docs accordingly ([PR #43](https://github.com/tedconf/fessonia/pull/43) by [@universalhandle](https://github.com/universalhandle))
+* Fix improper use of the Config singleton object, and update docs accordingly ([PR #43](https://github.com/fessonia/fessonia/pull/43) by [@universalhandle](https://github.com/universalhandle))
 
 ## 2.1.2 (2020-08-07)
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.1...2.1.2)
-* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.1.2/)
+* [View the commits.](https://github.com/fessonia/fessonia/compare/2.1.1...2.1.2)
+* [View the docs.](https://fessonia.github.io/fessonia/2.1.2/)
 
 ### Internal Changes
 
-* Refactor of command string creation within `FFmpegCommand`, `FFmpegOutput` and `FFmpegInput` to reduce repeated code for concatenation and option value quote handling. ([PR #40](https://github.com/tedconf/fessonia/pull/40))
+* Refactor of command string creation within `FFmpegCommand`, `FFmpegOutput` and `FFmpegInput` to reduce repeated code for concatenation and option value quote handling. ([PR #40](https://github.com/fessonia/fessonia/pull/40))
 
 ## 2.1.1 (2020-08-07)
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/2.1.0...2.1.1)
-* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.1.1/)
+* [View the commits.](https://github.com/fessonia/fessonia/compare/2.1.0...2.1.1)
+* [View the docs.](https://fessonia.github.io/fessonia/2.1.1/)
 
 ### Bug Fixes
 
-* A bug ([Issue #38](https://github.com/tedconf/fessonia/issues/38)) in command string generation preventing quoting of option values starting with `-` was fixed. ([PR #39](https://github.com/tedconf/fessonia/pull/39))
+* A bug ([Issue #38](https://github.com/fessonia/fessonia/issues/38)) in command string generation preventing quoting of option values starting with `-` was fixed. ([PR #39](https://github.com/fessonia/fessonia/pull/39))
 
 ### CI Changes
 
 * Remove node 8 from Travis CI config, and bump the default node version to 12.15.0. This is in response to the [Node.js February 2020 security releases](https://nodejs.org/en/blog/vulnerability/february-2020-security-releases/) addressing CVEs [CVE-2019-15604](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-15604), [CVE-2019-15605](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-15605), and [CVE-2019-15606](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-15606).
 * Convert from using the `nyc` library for test coverage reporting to using `c8`, which uses V8's internal coverage metrics. This change was made due to bug [instanbuljs/nyc#619](https://github.com/istanbuljs/nyc/issues/619), whereby reported line numbers in error stack traces from tests are incorrect, as well as for generally more simplicity in the test run. 
-* Dependabot update of dev dependency acorn. No impact to production code. ([PR #32](https://github.com/tedconf/fessonia/pull/32))
-* Dependency update of dev dependency minimist. No impact to production code. ([4b63ea2](https://github.com/tedconf/fessonia/commit/4b63ea2d0631e1d32b8b65cd16731b794f3bb84e))
-* Dependabot update of dev dependency lodash. No impact to production code. ([PR #37](https://github.com/tedconf/fessonia/pull/37))
-* Dependency update of dev dependencies c8 and all-contributors-cli. No impact to production code. ([7de5991](https://github.com/tedconf/fessonia/commit/7de59913deebf1a1d41751bd79ce9885ef890ad6))
+* Dependabot update of dev dependency acorn. No impact to production code. ([PR #32](https://github.com/fessonia/fessonia/pull/32))
+* Dependency update of dev dependency minimist. No impact to production code. ([4b63ea2](https://github.com/fessonia/fessonia/commit/4b63ea2d0631e1d32b8b65cd16731b794f3bb84e))
+* Dependabot update of dev dependency lodash. No impact to production code. ([PR #37](https://github.com/fessonia/fessonia/pull/37))
+* Dependency update of dev dependencies c8 and all-contributors-cli. No impact to production code. ([7de5991](https://github.com/fessonia/fessonia/commit/7de59913deebf1a1d41751bd79ce9885ef890ad6))
 
 ### Documentation Changes
 
 * A stray symlink causing a page load failure in the documentation site was removed.
 * The _Talks about this Library_ section of the _About Fessonia_ page in the docs site was updated.
-* A documentation bug in the _Events_ section of the _Getting Started_ page in the docs ([#35](https://github.com/tedconf/fessonia/issues/35)) was found and fixed ([PR #34](https://github.com/tedconf/fessonia/pull/34) by [@glensc](https://github.com/glensc).
+* A documentation bug in the _Events_ section of the _Getting Started_ page in the docs ([#35](https://github.com/fessonia/fessonia/issues/35)) was found and fixed ([PR #34](https://github.com/fessonia/fessonia/pull/34) by [@glensc](https://github.com/glensc).
 
 ## 2.1.0 (2020-01-14)
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/2.0.0...2.1.0)
-* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.1.0/)
+* [View the commits.](https://github.com/fessonia/fessonia/compare/2.0.0...2.1.0)
+* [View the docs.](https://fessonia.github.io/fessonia/2.1.0/)
 
 ### Bug Fixes
 
@@ -83,8 +88,8 @@ This release alters the way filter pad names are handled by the library.
 
 ## 2.0.0 (2019-12-03)
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/1.0.1...2.0.0)
-* [View the docs.](https://tedconf.github.io/fessonia/fessonia/2.0.0/)
+* [View the commits.](https://github.com/fessonia/fessonia/compare/1.0.1...2.0.0)
+* [View the docs.](https://fessonia.github.io/fessonia/2.0.0/)
 
 ### Breaking Changes
 
@@ -100,8 +105,8 @@ Documentation has been updated to reflect the new progress and log handling.
 
 ## 1.0.1 (2019-11-06)
 
-* [View the commits.](https://github.com/tedconf/fessonia/compare/1.0.0...1.0.1)
-* [View the docs.](https://tedconf.github.io/fessonia/fessonia/1.0.1/)
+* [View the commits.](https://github.com/fessonia/fessonia/compare/1.0.0...1.0.1)
+* [View the docs.](https://fessonia.github.io/fessonia/1.0.1/)
 
 ### New Features
 
@@ -110,16 +115,16 @@ This release adds support for appending and prepending `FilterNode`s to existing
 ### Documentation Changes
 
 * New documentation for 
-* Fix of broken link ([@iameli](https://github.com/iameli)) [d8d5332](https://github.com/tedconf/fessonia/commit/d8d5332603ba0c95fa243ac1dd770126dd75512c)
+* Fix of broken link ([@iameli](https://github.com/iameli)) [d8d5332](https://github.com/fessonia/fessonia/commit/d8d5332603ba0c95fa243ac1dd770126dd75512c)
 
 ### CI Changes
 
-* Add explicit testing of node 12 [5ae9ce2](https://github.com/tedconf/fessonia/commit/5ae9ce2cceb38774d57b18c8135afb6faf6cda38)
+* Add explicit testing of node 12 [5ae9ce2](https://github.com/fessonia/fessonia/commit/5ae9ce2cceb38774d57b18c8135afb6faf6cda38)
 
 ## 1.0.0 (2019-10-04)
 
-* [View the commits.](https://github.com/tedconf/fessonia/commits/e9c0b425321c172f0a5f56346985f34a827138d0)
-* [View the docs.](https://tedconf.github.io/fessonia/fessonia/1.0.0/)
+* [View the commits.](https://github.com/fessonia/fessonia/commits/e9c0b425321c172f0a5f56346985f34a827138d0)
+* [View the docs.](https://fessonia.github.io/fessonia/1.0.0/)
 
 ### New Features
 
@@ -132,4 +137,4 @@ This initial version provides an implementation of the core features:
 
 ### Documentation Changes
 
-Documentation auto-generation capability, as well as several tutorials and informational documents were created and published with this release. Documentation for this release can be found at [https://tedconf.github.io/fessonia/fessonia/1.0.0/](https://tedconf.github.io/fessonia/fessonia/1.0.0/).
+Documentation auto-generation capability, as well as several tutorials and informational documents were created and published with this release. Documentation for this release can be found at [https://fessonia.github.io/fessonia/1.0.0/](https://fessonia.github.io/fessonia/1.0.0/).

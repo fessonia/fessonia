@@ -14,7 +14,7 @@ ffmpeg -r "23.976" -f "lavfi" -i \
 To do the same using Fessonia in JavaScript, you would do the following.
 
 ```{javascript}
-const { FilterNode, FilterChain, FFmpegInput, FFmpegOutput, FFmpegCommand } = require('@tedconf/fessonia')();
+const { FilterNode, FilterChain, FFmpegInput, FFmpegOutput, FFmpegCommand } = require('fessonia')();
 
 // Construct the video filtergraph and corresponding input
 const lifeFilter = new FilterNode('life',{

@@ -40,12 +40,12 @@ You'll also need a package manager for node packages installed. In this document
 
 ### Setup
 
-You may wish to fork this repo in order to contribute. To do so, click the "Fork" button in the top right of [the main repo page on github.com](https://github.com/tedconf/fessonia).
+You may wish to fork this repo in order to contribute. To do so, click the "Fork" button in the top right of [the main repo page on github.com](https://github.com/fessonia/fessonia).
 
 First, clone this repo locally and enter the directory.
 
 ```{bash}
-git clone git@github.com:tedconf/fessonia.git
+git clone git@github.com:fessonia/fessonia.git
 cd fessonia
 ```
 
@@ -118,4 +118,4 @@ Travis CI is setup to run a build against LTS node versions 8.x and up, as well 
 
 Travis CI also runs a similar build at least once daily to ensure that the build doesn't break due to lack of maintenance. This cron-based build is only run if there has not been a build in the last 24 hours.
 
-You can see the results of Travis CI runs at [https://travis-ci.com/tedconf/fessonia](https://travis-ci.com/tedconf/fessonia).
+You can see the results of Travis CI runs at [https://travis-ci.com/fessonia/fessonia](https://travis-ci.com/fessonia/fessonia).
