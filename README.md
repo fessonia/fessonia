@@ -23,4 +23,4 @@ A big thanks goes to [all those who have already contributed](./CONTRIBUTORS.md)
 
 ## License
 
-This project was made with ♥️ by TED, and is licensed under the MIT license. For more details, see the [License](LICENSE) file.
+This project was created with ♥️ at TED, is now maintained independently, and is licensed under the MIT license. For more details, see the [License](LICENSE) file.
