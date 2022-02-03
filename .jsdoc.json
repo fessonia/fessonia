@@ -35,7 +35,7 @@
       "api": "API",
       "tutorials": "Guides"
     },
-    "footerText": "Made with ♥️ by TED",
+    "footerText": "Made with ♥️ at TED, maintained independently",
     "useCollapsibles": false,
     "default": {
       "staticFiles": {
@@ -49,7 +49,7 @@
       "overrides.css"
     ],
     "resources": {
-      "Contribute on Github": "https://github.com/tedconf/fessonia",
+      "Contribute on Github": "https://github.com/fessonia/fessonia",
       "Read the FFmpeg Docs": "http://ffmpeg.org/documentation.html"
     }
   }

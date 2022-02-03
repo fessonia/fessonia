@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tutorial: Contributing to Fessonia | @tedconf/fessonia</title>
+    <title>Tutorial: Contributing to Fessonia | fessonia/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -30,7 +30,7 @@
         
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
+        <h1><a href="index.html" class="link">fessonia/fessonia</a></h1>
         
             <span class="version">v1.0.1</span>
         
@@ -97,9 +97,9 @@
 <p>For ease of operation, you may also be interested in <a href="https://github.com/wbyoung/avn"><code>avn</code></a>, a tool that auto-selects the version of node used by the project based on the <code>.nvmrc</code> file in the repo root when you enter a directory at the command line.</p>
 <p>You'll also need a package manager for node packages installed. In this document, I'll use <code>npm</code> for reference, but corresponding <code>yarn</code> commands should also work just fine.</p>
 <h3>Setup</h3>
-<p>You may wish to fork this repo in order to contribute. To do so, click the &quot;Fork&quot; button in the top right of <a href="https://github.com/tedconf/fessonia">the main repo page on github.com</a>.</p>
+<p>You may wish to fork this repo in order to contribute. To do so, click the &quot;Fork&quot; button in the top right of <a href="https://github.com/fessonia/fessonia">the main repo page on github.com</a>.</p>
 <p>First, clone this repo locally and enter the directory.</p>
-<pre class="prettyprint source lang-{bash}"><code>git clone git@github.com:tedconf/fessonia.git
+<pre class="prettyprint source lang-{bash}"><code>git clone git@github.com:fessonia/fessonia.git
 cd fessonia
 </code></pre>
 <p>Change the name of the git remote from <code>origin</code> to <code>upstream</code>, and add your fork of the repo as the <code>origin</code>. (The below command assumes your Github username is in an environment variable <code>GITHUB_USERNAME</code>.)</p>
@@ -137,7 +137,7 @@ git remote add origin git@github.com:${GITHUB_USERNAME}/fessonia.git
 <h3>Continuous Integration via Travis CI</h3>
 <p>Travis CI is setup to run a build against LTS node versions 8.x and up, as well as the latest stable node version, on each commit to any branch on the repo and each pull request submitted against the repo.</p>
 <p>Travis CI also runs a similar build at least once daily to ensure that the build doesn't break due to lack of maintenance. This cron-based build is only run if there has not been a build in the last 24 hours.</p>
-<p>You can see the results of Travis CI runs at <a href="https://travis-ci.com/tedconf/fessonia">https://travis-ci.com/tedconf/fessonia</a>.</p>
+<p>You can see the results of Travis CI runs at <a href="https://travis-ci.com/fessonia/fessonia">https://travis-ci.com/fessonia/fessonia</a>.</p>
         </article>
     
 </section>

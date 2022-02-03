@@ -1,6 +1,6 @@
 {
-  "name": "@tedconf/fessonia",
-  "version": "2.2.1",
+  "name": "fessonia",
+  "version": "2.2.2",
   "description": "A node module easing the burden of automating ffmpeg from node.js",
   "main": "index.js",
   "types": "types/index.d.ts",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tedconf/fessonia.git"
+    "url": "git+https://github.com/fessonia/fessonia.git"
   },
   "keywords": [
     "fessonia",
@@ -42,9 +42,9 @@
   "author": "Ryan B. Harvey <ryan.b.harvey@ted.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tedconf/fessonia/issues"
+    "url": "https://github.com/fessonia/fessonia/issues"
   },
-  "homepage": "https://tedconf.github.io/fessonia",
+  "homepage": "https://fessonia.github.io/fessonia",
   "devDependencies": {
     "@types/node": "^14.14.37",
     "all-contributors-cli": "^6.17.0",

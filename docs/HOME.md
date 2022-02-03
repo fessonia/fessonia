@@ -1,10 +1,9 @@
 <h1 align="center"><img src="Fessonia_logo_social_preview_1280x640.png" alt="Fessonia: easing the burden of automating ffmpeg from node.js" title="Fessonia: easing the burden of automating ffmpeg from node.js" width="100%"/></h1>
 
 <p align="center">
-<a href="https://travis-ci.com/tedconf/fessonia" target="_blank"><img src="https://travis-ci.com/tedconf/fessonia.svg?branch=master" alt="Build Status" title="Build Status" /></a>
-<a href="https://github.com/tedconf/fessonia"><img src="https://img.shields.io/node/v/@tedconf/fessonia" alt="Node versions supported" title="Node versions supported" /></a>
-<a href="https://github.com/tedconf/fessonia"><img src="https://img.shields.io/david/tedconf/fessonia" alt="Dependencies" title="Dependencies" /></a>
-<a href="https://npmjs.com/@tedconf/fessonia"><img src="https://img.shields.io/npm/v/@tedconf/fessonia?label=version" alt="Version" title="Version" /></a>
+<a href="https://travis-ci.com/fessonia/fessonia" target="_blank"><img src="https://travis-ci.com/fessonia/fessonia.svg?branch=master" alt="Build Status" title="Build Status" /></a>
+<a href="https://github.com/fessonia/fessonia"><img src="https://img.shields.io/node/v/fessonia" alt="Node versions supported" title="Node versions supported" /></a>
+<a href="https://npmjs.com/fessonia"><img src="https://img.shields.io/npm/v/fessonia?label=version" alt="Version" title="Version" /></a>
 </p>
 
 Fessonia is a node module for working with FFmpeg, allowing for modeling inputs, outputs, filtergraphs, and entire ffmpeg commands in JavaScript code.
@@ -23,4 +22,4 @@ Your contributions are welcome! To get started developing on this library, take 
 
 ## License
 
-This project was made with ♥️ by TED, and is licensed under the MIT license. For more details, see the [License](tutorial-6_license.html) file.
+This project was created with ♥️ at TED, is now maintained independently,and is licensed under the MIT license. For more details, see the [License](tutorial-6_license.html) file.

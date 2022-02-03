@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Class: FFmpegCommand | fessonia</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+        
+            <link type="text/css" rel="stylesheet" href="overrides.css">
+        
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 250px; height: 94px">
+        
+            <a href="index.html" rel="noopener noreferrer" target="_blank">
+                <img src="../../img/Fessonia_logo.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">fessonia</a></h1>
+        
+            <span class="version">v2.2.2</span>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+        <ol class="lnb-tab">
+            <li id="api-tab">
+                <a href="#"><h4>API</h4></a>
+            </li>
+            <li id="examples-tab">
+                <a href="#"><h4>Guides</h4></a>
+            </li>
+        </ol>
+    
+    <div class="lnb-examples hidden"><h3>Guides</h3><ul><li><a href="tutorial-0.0_getting_started.html">Getting Started with Fessonia</a><div class="hidden" id="0.0_getting_started_sub"></div></li><li><a href="tutorial-0.1_stream_specifiers_mappings.html">Stream Specifiers and Mappings</a><div class="hidden" id="0.1_stream_specifiers_mappings_sub"></div></li><li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a><div class="hidden" id="1_example_overlay_images_sub"></div></li><li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a><div class="hidden" id="2_example_generate_test_video_sub"></div></li><li><a href="tutorial-3_about_fessonia.html">About Fessonia</a><div class="hidden" id="3_about_fessonia_sub"></div></li><li><a href="tutorial-4_contributing.html">Contributing to Fessonia</a><div class="hidden" id="4_contributing_sub"></div></li><li><a href="tutorial-5_code_of_conduct.html">Code of Conduct</a><div class="hidden" id="5_code_of_conduct_sub"></div></li><li><a href="tutorial-6_license.html">License</a><div class="hidden" id="6_license_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="FFmpegCommand.html">FFmpegCommand</a><div class="hidden" id="FFmpegCommand_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegCommand.html#filterGraph">filterGraph</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegCommand.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegCommand.html#addFilterChain">addFilterChain</a></li><li><a href="FFmpegCommand.html#addInput">addInput</a></li><li><a href="FFmpegCommand.html#addOutput">addOutput</a></li><li><a href="FFmpegCommand.html#execute">execute</a></li><li><a href="FFmpegCommand.html#inputs">inputs</a></li><li><a href="FFmpegCommand.html#logData">logData</a></li><li><a href="FFmpegCommand.html#logLines">logLines</a></li><li><a href="FFmpegCommand.html#outputs">outputs</a></li><li><a href="FFmpegCommand.html#spawn">spawn</a></li><li><a href="FFmpegCommand.html#toCommand">toCommand</a></li><li><a href="FFmpegCommand.html#toString">toString</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegCommand.html#event:error">error</a></li><li><a href="FFmpegCommand.html#event:success">success</a></li><li><a href="FFmpegCommand.html#event:update">update</a></li></ul></div></li><li><a href="global.html#FFmpegError">FFmpegError</a><div class="hidden" id="FFmpegError_sub"></div></li><li><a href="FFmpegInput.html">FFmpegInput</a><div class="hidden" id="FFmpegInput_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegInput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegInput.html#.validateUrl">validateUrl</a></li><li><a href="FFmpegInput.html#streamSpecifier">streamSpecifier</a></li><li><a href="FFmpegInput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegInput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegInput.html#toString">toString</a></li></ul></div></li><li><a href="FFmpegOutput.html">FFmpegOutput</a><div class="hidden" id="FFmpegOutput_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegOutput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegOutput.html#addOptions">addOptions</a></li><li><a href="FFmpegOutput.html#addStream">addStream</a></li><li><a href="FFmpegOutput.html#addStreams">addStreams</a></li><li><a href="FFmpegOutput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegOutput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegOutput.html#toString">toString</a></li><li><a href="FFmpegOutput.html#validateStreams">validateStreams</a></li></ul></div></li><li><a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a><div class="hidden" id="FFmpegProgressEmitter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#formattedLog">formattedLog</a></li><li><a href="FFmpegProgressEmitter.html#last">last</a></li><li><a href="FFmpegProgressEmitter.html#lastMediaTime">lastMediaTime</a></li><li><a href="FFmpegProgressEmitter.html#logData">logData</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#event:update">update</a></li></ul></div></li><li><a href="FilterChain.html">FilterChain</a><div class="hidden" id="FilterChain_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FilterChain.html#inputNode">inputNode</a></li><li><a href="FilterChain.html#inputPads">inputPads</a></li><li><a href="FilterChain.html#outputNode">outputNode</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterChain.html#.wrap">wrap</a></li><li><a href="FilterChain.html#addInput">addInput</a></li><li><a href="FilterChain.html#addInputs">addInputs</a></li><li><a href="FilterChain.html#appendNodes">appendNodes</a></li><li><a href="FilterChain.html#getOutputPad">getOutputPad</a></li><li><a href="FilterChain.html#position">position</a></li><li><a href="FilterChain.html#prependNodes">prependNodes</a></li><li><a href="FilterChain.html#streamSpecifier">streamSpecifier</a></li><li><a href="FilterChain.html#toString">toString</a></li><li><a href="FilterChain.html#validateInputs">validateInputs</a></li></ul></div></li><li><a href="FilterGraph.html">FilterGraph</a><div class="hidden" id="FilterGraph_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterGraph.html#.wrap">wrap</a></li><li><a href="FilterGraph.html#addFilterChain">addFilterChain</a></li><li><a href="FilterGraph.html#chainPosition">chainPosition</a></li><li><a href="FilterGraph.html#toString">toString</a></li></ul></div></li><li><a href="FilterNode.html">FilterNode</a><div class="hidden" id="FilterNode_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterNode.html#getOutputPad">getOutputPad</a></li><li><a href="FilterNode.html#toString">toString</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#createCommandString">createCommandString</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getFessonia">getFessonia</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>FFmpegCommand<span class="signature">(options)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>Class representing an FFmpeg command (<code>ffmpeg ...</code>)</p></div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dt>
+    
+        <h4 class="name" id="FFmpegCommand">
+            
+                new <span class="type-signature"></span>FFmpegCommand<span class="signature">(options)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line20">line 20</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Create an FFmpegCommand object</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the global options for the command</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="FFmpegCommand.html#event:update">FFmpegCommand#event:update</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Map.&lt;string, Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>global options for the command</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_inputs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="FFmpegInput.html">FFmpegInput</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>input files (with their options) for the command</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_outputs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="FFmpegOutput.html">FFmpegOutput</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>output files (with their options) for the command</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_filterGraph</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="FilterGraph.html">FilterGraph</a>></span>
+|
+
+<span class="param-type">undefined</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the command's filter graph</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+        
+        </div>
+    
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>events.EventEmitter</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+
+<dt>
+<h4 class="name" id="filterGraph">
+    <span class="type-signature"></span>filterGraph<span class="type-signature"></span>
+    
+    <div class="container-source members">
+        <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+        <code><a href="lib_ffmpeg_command.js.html#line104">line 104</a></code>
+    </div>
+    
+</h4>
+
+
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Get the filter graph on the FFmpegCommand object</p>
+    </div>
+    
+
+    <!--
+    
+    -->
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+                
+
+<dt>
+    
+        <h4 class="name" id=".validateOptions">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>validateOptions<span class="signature">(options)</span><span class="type-signature"> &rarr; {Map}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line215">line 215</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Validate the options passed into the constructor</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the options for the input</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Map</span>
+
+
+
+
+
+- <ul>
+<li>validated options</li>
+</ul>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="addFilterChain">
+            
+                <span class="type-signature"></span>addFilterChain<span class="signature">(filterChain)</span><span class="type-signature"> &rarr; {void}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line73">line 73</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Add a filter chain to the FFmpegCommand object's filter graph</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filterChain</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FilterGraph.html">FilterGraph</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>filter chain object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">void</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="addInput">
+            
+                <span class="type-signature"></span>addInput<span class="signature">(input)</span><span class="type-signature"> &rarr; {void}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line54">line 54</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Add an input to the FFmpegCommand object</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FFmpegInput.html">FFmpegInput</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ffmpeg input object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">void</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="addOutput">
+            
+                <span class="type-signature"></span>addOutput<span class="signature">(output)</span><span class="type-signature"> &rarr; {void}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line64">line 64</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Add an output to the FFmpegCommand object</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>output</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FFmpegOutput.html">FFmpegOutput</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ffmpeg output object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">void</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="execute">
+            
+                <span class="type-signature"></span>execute<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line173">line 173</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Execute the command and return a promise for the output</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Throws:</h5>
+    
+            
+
+    <div class="param-desc">
+    
+        
+<span class="param-type"><a href="global.html#FFmpegError">FFmpegError</a></span>
+
+
+    
+    </div>
+
+
+        
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Promise</span>
+
+
+
+
+
+- <ul>
+<li>the child_process promise handling the execution</li>
+</ul>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="inputs">
+            
+                <span class="type-signature"></span>inputs<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="FFmpegInput.html">FFmpegInput</a>>}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line86">line 86</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get inputs on the FFmpegCommand object</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Array.&lt;<a href="FFmpegInput.html">FFmpegInput</a>></span>
+
+
+
+
+
+- <p>the inputs</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="logData">
+            
+                <span class="type-signature"></span>logData<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line121">line 121</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get the currently buffered log data from the ffmpeg run</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Array.&lt;string></span>
+
+
+
+
+
+- <ul>
+<li>the log data</li>
+</ul>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="logLines">
+            
+                <span class="type-signature"></span>logLines<span class="signature">(n)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line113">line 113</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get most recent log lines from the ffmpeg run</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last"><p>the number of lines to pull (default: 1)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Array.&lt;string></span>
+
+
+
+
+
+- <ul>
+<li>the log lines</li>
+</ul>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="outputs">
+            
+                <span class="type-signature"></span>outputs<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="FFmpegOutput.html">FFmpegOutput</a>>}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line95">line 95</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get outputs on the FFmpegCommand object</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Array.&lt;<a href="FFmpegOutput.html">FFmpegOutput</a>></span>
+
+
+
+
+
+- <p>the outputs</p>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="spawn">
+            
+                <span class="type-signature"></span>spawn<span class="signature">(emitEvents)</span><span class="type-signature"> &rarr; {ChildProcess}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line191">line 191</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Spawn a child process to execute the command and return the child process</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>emitEvents</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>emit events about process state and progress (default: true)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">ChildProcess</span>
+
+
+
+
+
+- <ul>
+<li>the child_process</li>
+</ul>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="toCommand">
+            
+                <span class="type-signature"></span>toCommand<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line130">line 130</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Generate the command representation of the command</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Object</span>
+
+
+
+
+
+- <ul>
+<li>an object containing keys 'command' and 'args'</li>
+</ul>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="toString">
+            
+                <span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line161">line 161</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Generate the string representation of the command</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">string</span>
+
+
+
+
+
+- <ul>
+<li>the command string to be executed</li>
+</ul>
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            </dl>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        <dl>
+            
+
+<dt>
+    
+        <h4 class="name" id="event:error">
+            
+                error
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line254">line 254</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Event indicating an error has occurred. If the error occured within the node process while attempting to execute the FFmpeg child process, the type will be <code>Error</code>. If the error occurred within the FFmpeg child process, the type will be <code>FFmpegError</code>, and will have the listed properties.</p>
+    </div>
+    
+
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="global.html#FFmpegError">FFmpegError</a></span>
+|
+
+<span class="param-type">Error</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>code</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the child process' exit code</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>signal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the signal that caused the process termination, if available</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>full log with ffmpeg times</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cmd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">cmd</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ffmpeg command string</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+        
+            
+
+<dt>
+    
+        <h4 class="name" id="event:success">
+            
+                success
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line239">line 239</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Event indicating the FFmpeg process completed successfully</p>
+    </div>
+    
+
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>exitCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the child process' exit code</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>log</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>full log with ffmpeg times</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>progress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>progress object for more inspection</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+        
+            
+
+<dt>
+    
+        <h4 class="name" id="event:update">
+            
+                update
+                
+            
+            <div class="container-source members">
+                <code><a href="lib_ffmpeg_command.js.html">lib/ffmpeg_command.js</a></code>,
+                <code><a href="lib_ffmpeg_command.js.html#line40">line 40</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Event with an update on FFmpeg progress on the command. Progress lines from FFmpeg are parsed by an <a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a> object to generate the data for this event.</p>
+    </div>
+    
+
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>*</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>all properties included in the FFmpegProgressEmitter's <code>progressData</code> object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+        </dl>
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="../../img/Fessonia_logo.png" style="width: 250px; height: 94px">
+    <div class="footer-text">Made with ♥️ at TED, maintained independently, maintained independently</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = 'FFmpegCommand_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>

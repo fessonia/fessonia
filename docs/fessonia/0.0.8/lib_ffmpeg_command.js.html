@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: lib/ffmpeg_command.js | @tedconf/fessonia</title>
+    <title>Source: lib/ffmpeg_command.js | fessonia/fessonia</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -16,32 +16,32 @@
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
 
-    
-        
+
+
             <link type="text/css" rel="stylesheet" href="overrides.css">
-        
-    
+
+
 </head>
 <body>
 <nav class="lnb" id="lnb">
     <div class="logo" style="width: 250px; height: 94px">
-        
+
             <a href="index.html" rel="noopener noreferrer" target="_blank">
                 <img src="../../img/Fessonia_logo.png" width="100%" height="100%">
             </a>
-        
+
     </div>
     <div class="title">
-        <h1><a href="index.html" class="link">@tedconf/fessonia</a></h1>
-        
+        <h1><a href="index.html" class="link">fessonia/fessonia</a></h1>
+
             <span class="version">v0.0.8</span>
-        
+
     </div>
     <div class="search-container" id="search-container">
         <input type="text" placeholder="Search">
         <ul></ul>
     </div>
-    
+
         <ol class="lnb-tab">
             <li id="api-tab">
                 <a href="#"><h4>API</h4></a>
@@ -50,17 +50,17 @@
                 <a href="#"><h4>Guides</h4></a>
             </li>
         </ol>
-    
+
     <div class="lnb-examples hidden"><h3>Guides</h3><ul><li><a href="tutorial-0_getting_started.html">Getting Started with Fessonia</a><div class="hidden" id="0_getting_started_sub"></div></li><li><a href="tutorial-1_example_overlay_images.html">Example: Overlaying Images on Video</a><div class="hidden" id="1_example_overlay_images_sub"></div></li><li><a href="tutorial-2_example_generate_test_video.html">Example: Generating Test Video</a><div class="hidden" id="2_example_generate_test_video_sub"></div></li><li><a href="tutorial-3_about_fessonia.html">About Fessonia</a><div class="hidden" id="3_about_fessonia_sub"></div></li><li><a href="tutorial-4_contributing.html">Contributing to Fessonia</a><div class="hidden" id="4_contributing_sub"></div></li><li><a href="tutorial-5_code_of_conduct.html">Code of Conduct</a><div class="hidden" id="5_code_of_conduct_sub"></div></li><li><a href="tutorial-6_license.html">License</a><div class="hidden" id="6_license_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="DefaultLogger.html">DefaultLogger</a><div class="hidden" id="DefaultLogger_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="DefaultLogger.html#.LOG_LEVELS">LOG_LEVELS</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="DefaultLogger.html#child">child</a></li><li><a href="DefaultLogger.html#debug">debug</a></li><li><a href="DefaultLogger.html#error">error</a></li><li><a href="DefaultLogger.html#fatal">fatal</a></li><li><a href="DefaultLogger.html#format">format</a></li><li><a href="DefaultLogger.html#info">info</a></li><li><a href="DefaultLogger.html#trace">trace</a></li><li><a href="DefaultLogger.html#warn">warn</a></li></ul></div></li><li><a href="FFmpegCommand.html">FFmpegCommand</a><div class="hidden" id="FFmpegCommand_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegCommand.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegCommand.html#addFilterGraph">addFilterGraph</a></li><li><a href="FFmpegCommand.html#addInput">addInput</a></li><li><a href="FFmpegCommand.html#addOutput">addOutput</a></li><li><a href="FFmpegCommand.html#connect">connect</a></li><li><a href="FFmpegCommand.html#execute">execute</a></li><li><a href="FFmpegCommand.html#filterGraphs">filterGraphs</a></li><li><a href="FFmpegCommand.html#getMappingParameterValue">getMappingParameterValue</a></li><li><a href="FFmpegCommand.html#inputs">inputs</a></li><li><a href="FFmpegCommand.html#mappedIO">mappedIO</a></li><li><a href="FFmpegCommand.html#outputs">outputs</a></li><li><a href="FFmpegCommand.html#processMappings">processMappings</a></li><li><a href="FFmpegCommand.html#spawn">spawn</a></li><li><a href="FFmpegCommand.html#toCommand">toCommand</a></li><li><a href="FFmpegCommand.html#toString">toString</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegCommand.html#event:error">error</a></li><li><a href="FFmpegCommand.html#event:failure">failure</a></li><li><a href="FFmpegCommand.html#event:success">success</a></li></ul></div></li><li><a href="FFmpegInput.html">FFmpegInput</a><div class="hidden" id="FFmpegInput_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li><li><a href="FFmpegInput.html#inputLabel">inputLabel</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegInput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegInput.html#.validateUrl">validateUrl</a></li><li><a href="FFmpegInput.html#inspect">inspect</a></li><li><a href="FFmpegInput.html#markTrackMapped">markTrackMapped</a></li><li><a href="FFmpegInput.html#nextAvailableOutputTrack">nextAvailableOutputTrack</a></li><li><a href="FFmpegInput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegInput.html#toCommandString">toCommandString</a></li><li><a href="FFmpegInput.html#toString">toString</a></li></ul></div></li><li><a href="FFmpegOutput.html">FFmpegOutput</a><div class="hidden" id="FFmpegOutput_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegOutput.html#.validateOptions">validateOptions</a></li><li><a href="FFmpegOutput.html#addOptions">addOptions</a></li><li><a href="FFmpegOutput.html#toCommandArray">toCommandArray</a></li><li><a href="FFmpegOutput.html#toCommandString">toCommandString</a></li></ul></div></li><li><a href="FFmpegProgressEmitter.html">FFmpegProgressEmitter</a><div class="hidden" id="FFmpegProgressEmitter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#._parseTimestamp">_parseTimestamp</a></li><li><a href="FFmpegProgressEmitter.html#_write">_write</a></li><li><a href="FFmpegProgressEmitter.html#last">last</a></li><li><a href="FFmpegProgressEmitter.html#logData">logData</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="FFmpegProgressEmitter.html#event:update">update</a></li></ul></div></li><li><a href="FilterGraph.html">FilterGraph</a><div class="hidden" id="FilterGraph_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterGraph.html#connect">connect</a></li><li><a href="FilterGraph.html#connectInput">connectInput</a></li><li><a href="FilterGraph.html#connectNodes">connectNodes</a></li><li><a href="FilterGraph.html#findOutputNodes">findOutputNodes</a></li><li><a href="FilterGraph.html#processConnections">processConnections</a></li><li><a href="FilterGraph.html#processInputPads">processInputPads</a></li><li><a href="FilterGraph.html#processOutputPads">processOutputPads</a></li><li><a href="FilterGraph.html#toString">toString</a></li><li><a href="FilterGraph.html#validateNodeTypes">validateNodeTypes</a></li></ul></div></li><li><a href="FilterNode.html">FilterNode</a><div class="hidden" id="FilterNode_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="FilterNode.html#.initialize">initialize</a></li><li><a href="FilterNode.html#inspect">inspect</a></li><li><a href="FilterNode.html#markInputPadMapped">markInputPadMapped</a></li><li><a href="FilterNode.html#markOutputPadMapped">markOutputPadMapped</a></li><li><a href="FilterNode.html#nextAvailableInputPadIndex">nextAvailableInputPadIndex</a></li><li><a href="FilterNode.html#nextAvailableOutputPadIndex">nextAvailableOutputPadIndex</a></li><li><a href="FilterNode.html#toString">toString</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#FFmpegEnumerations">FFmpegEnumerations</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getLogger">getLogger</a></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
 <div class="main" id="main">
-    
 
 
 
-    
+
+
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const { EventEmitter } = require('events');
@@ -80,7 +80,7 @@ class FFmpegCommand extends EventEmitter {
   /**
    * Create an FFmpegCommand object
    * @param {Object} options - the global options for the command
-   * 
+   *
    * @property {Map&lt;string,Object>} options - global options for the command
    * @property {Array&lt;FFmpegInput>} _inputs - input files (with their options) for the command
    * @property {Array&lt;FFmpegOutput>} _outputs - output files (with their options) for the command
@@ -102,7 +102,7 @@ class FFmpegCommand extends EventEmitter {
   /**
    * Add an input to the FFmpegCommand object
    * @param {FFmpegInput} input - ffmpeg input object
-   * 
+   *
    * @returns {void}
    */
   addInput (input) {
@@ -114,7 +114,7 @@ class FFmpegCommand extends EventEmitter {
    * Add an output to the FFmpegCommand object
    * @param {FFmpegOutput} output - ffmpeg output object
    * @param {null|Array&lt;Array&lt;FilterNode|FilterGraph|FFmpegInput|number>>} mappings - an array of inputs mapped to this output
-   * 
+   *
    * @returns {void}
    */
   addOutput (output, mappings = null) {
@@ -126,7 +126,7 @@ class FFmpegCommand extends EventEmitter {
    * Add a filter graph to the FFmpegCommand object
    * @param {FilterGraph} filterGraph - filter graph object
    * @param {null|FFmpegOutput} onOutput - an FFmpeg output object to which this filter graph's output is mapped
-   * 
+   *
    * @returns {void}
    */
   addFilterGraph (filterGraph, onOutput = null) {
@@ -138,21 +138,21 @@ class FFmpegCommand extends EventEmitter {
 
   /**
    * Get inputs on the FFmpegCommand object
-   * 
+   *
    * @returns {Array&lt;FFmpegInput>} the inputs
    */
   inputs () { return(this._inputs); }
 
   /**
    * Get outputs on the FFmpegCommand object
-   * 
+   *
    * @returns {Array&lt;FFmpegOutput>} the outputs
    */
   outputs () { return(this._outputs); }
 
   /**
    * Get filter graphs on the FFmpegCommand object
-   * 
+   *
    * @returns {Array&lt;FilterGraph>} the filter graphs
    */
   filterGraphs () { return(this._filterGraphs); }
@@ -161,7 +161,7 @@ class FFmpegCommand extends EventEmitter {
    * Connect elements in the command chain
    * @param {Object} from - the object to make the connection from
    * @param {FFmpegOutput|FilterGraph} to - the object to make the connection to
-   * 
+   *
    * @returns {void}
    */
   connect (from, to) {
@@ -175,7 +175,7 @@ class FFmpegCommand extends EventEmitter {
    * Get outputs on the FFmpegCommand object
    * @param {Array&lt;Array&lt;FilterNode|FilterGraph|FFmpegInput|integer>>} mappings - an array of input mappings
    * @param {FFmpegOutput} output - the output to map the mappings to
-   * 
+   *
    * @returns {FFmpegOutput} the output, with mappings assigned
    */
   processMappings (mappings, output) {
@@ -189,7 +189,7 @@ class FFmpegCommand extends EventEmitter {
    * Get the mapping parameter value for the given output and mapping information
    * @param {FFmpegInput|FilterNode|FilterGraph} fromObject - the object to map from
    * @param {integer} fromStreamIndex - the stream/output pad index to map from
-   * 
+   *
    * @returns {Array&lt;integer>|string} mapping parameter to add for this output
    */
   getMappingParameterValue (fromObject, fromStreamIndex) {
@@ -212,14 +212,14 @@ class FFmpegCommand extends EventEmitter {
 
   /**
    * Get input to output mappings on the FFmpegCommand object
-   * 
+   *
    * @returns {Array&lt;FFmpegInput>} the mapped inputs and outputs
    */
   mappedIO () { return(this._connections); }
 
   /**
    * Generate the command representation of the command
-   * 
+   *
    * @returns {Object} - an object containing keys 'command' and 'args'
    */
   toCommand () {
@@ -253,7 +253,7 @@ class FFmpegCommand extends EventEmitter {
 
   /**
    * Generate the string representation of the command
-   * 
+   *
    * @returns {string} - the command string to be executed
    */
   toString () {
@@ -266,7 +266,7 @@ class FFmpegCommand extends EventEmitter {
 
   /**
    * Execute the command and return a promise for the output
-   * 
+   *
    * @returns {Promise} - the child_process promise handling the execution
    */
   execute () {
@@ -282,7 +282,7 @@ class FFmpegCommand extends EventEmitter {
   /**
    * Spawn a child process to execute the command and return the child process
    * @param {boolean} emitEvents - emit events about process state and progress (default: true)
-   * 
+   *
    * @returns {ChildProcess} - the child_process
    */
   spawn (emitEvents = true) {
@@ -310,13 +310,13 @@ class FFmpegCommand extends EventEmitter {
 
   /**
    * Attach handlers for child process events
-   * 
+   *
    * @param {ChildProcess} proc - the child process to listen on
-   * 
+   *
    * @emits FFmpegCommand#success
    * @emits FFmpegCommand#failure
    * @emits FFmpegCommand#error
-   * 
+   *
    * @returns {void}
    *
    * @private
@@ -366,7 +366,7 @@ class FFmpegCommand extends EventEmitter {
 
   /**
    * Load the FFmpegProgressEmitter class and return it
-   * 
+   *
    * @returns {FFmpegProgressEmitter} the FFmpegProgressEmitter class
    *
    * @private
