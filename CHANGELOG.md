@@ -5,6 +5,16 @@
 * [View the commits.](https://github.com/fessonia/fessonia/compare/2.2.0...master)
 * [View the docs.](https://fessonia.github.io/fessonia/2.2.1/)
 
+## 2.2.2 (2022-02-02)
+
+* [View the commits.](https://github.com/fessonia/fessonia/compare/2.2.1...2.2.2)
+* [View the docs.](https://fessonia.github.io/fessonia/2.2.2/)
+
+### Migration from `@tedconf/fessonia` package to `fessonia`
+
+* Updated documentation and README file to point links to new repo home at [https://github.com/fessonia/fessonia](https://github.com/fessonia/fessonia) and new documentation home at [https://fessonia.github.io/fessonia](https://fessonia.github.io/fessonia).
+* Updated `package.json` and associated config to publish at `fessonia` instead of `@tedconf/fessonia`.
+
 ## 2.2.1 (2021-06-04)
 
 * [View the commits.](https://github.com/fessonia/fessonia/compare/2.2.0...2.2.1)
