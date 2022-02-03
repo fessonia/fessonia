@@ -35,7 +35,7 @@
       "api": "API",
       "tutorials": "Guides"
     },
-    "footerText": "Made with ♥️ by TED",
+    "footerText": "Made with ♥️ at TED, maintained independently",
     "useCollapsibles": false,
     "default": {
       "staticFiles": {
