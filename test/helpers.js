@@ -34,6 +34,7 @@ module.exports = {
       if (found >= 0) {
         expect(tested.slice(found, found + seq.length)).to.deep.eql(seq);
       } else {
+        /* eslint-disable-next-line no-console */
         console.error(tested, sequences);
         expect(false).to.be.true;
       }
