@@ -35,9 +35,9 @@ describe('FFmpegStreamSpecifier', () => {
   describe('toString()', () => {
     it('returns the correct stream specifier for a FilterChain', () => {
       const s1 = new FFmpegStreamSpecifier(filterChain, 0);
-      expect(s1.toString()).to.eql(`[chain0_split_0]`);
+      expect(s1.toString()).to.eql('[chain0_split_0]');
       const s2 = new FFmpegStreamSpecifier(filterChain, 1);
-      expect(s2.toString()).to.eql(`[chain0_split_1]`);
+      expect(s2.toString()).to.eql('[chain0_split_1]');
     });
     it('returns the correct stream specifier for an FFmpegInput', () => {
       const s1 = new FFmpegStreamSpecifier(ffmpegInput, 1)

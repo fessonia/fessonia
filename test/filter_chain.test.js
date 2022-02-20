@@ -87,14 +87,14 @@ describe('FilterChain', () => {
   describe('getOutputPad()', () => {
     it('returns the requested output pad label', () => {
       const fc = new FilterChain(nodes);
-      expect(fc.getOutputPad('0')).to.eql(`chain0_split_0`);
+      expect(fc.getOutputPad('0')).to.eql('chain0_split_0');
     });
 
     it('returns a name based on the last output node', () => {
       const fc = new FilterChain(nodes);
       const mock = sinon.mock(splitFilter);
       mock.expects('getOutputPad').once().withArgs('0').returns('splitFilterOutput');
-      expect(fc.getOutputPad('0')).to.eql(`chain0_splitFilterOutput`);
+      expect(fc.getOutputPad('0')).to.eql('chain0_splitFilterOutput');
       mock.verify();
     });
 
@@ -102,7 +102,7 @@ describe('FilterChain', () => {
       const fc = new FilterChain(nodes);
       const mock = sinon.mock(fc);
       mock.expects('position').once().returns(24);
-      expect(fc.getOutputPad('0')).to.eql(`chain24_split_0`);
+      expect(fc.getOutputPad('0')).to.eql('chain24_split_0');
       mock.verify();
     });
   });
@@ -155,7 +155,7 @@ describe('FilterChain', () => {
       let scaleFilter = new FilterNode('scale', [1920, 1080]);
       let nodes = [lifeFilter, scaleFilter];
       let fc = new FilterChain(nodes);
-      let expected = `life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080`;
+      let expected = 'life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080';
       expect(fc.toString()).to.eql(expected);
     });
     it('generative audio filter to be used as input', function () {
@@ -165,7 +165,7 @@ describe('FilterChain', () => {
         duration: 9999999999,
         sample_rate: 48000
       });
-      let expected = `sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000`;
+      let expected = 'sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000';
       let fc = new FilterChain([sineFilter]);
       expect(fc.toString()).to.eql(expected);
     });
