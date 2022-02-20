@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "allowJs": true,
+    "target": "ES6",
+    "moduleResolution": "node",
+    "baseUrl": "./"
+  },
+  "include": [
+    "./index.js",
+    "./lib",
+    "./test"
+  ]
+}

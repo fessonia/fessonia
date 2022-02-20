@@ -32,14 +32,25 @@
     "video"
   ],
   "engines": {
-    "node": ">=8.10.0"
+    "node": ">=12.0.0"
   },
   "directories": {
     "lib": "./lib",
     "test": "./test",
     "doc": "./doc/tutorials"
   },
-  "author": "Ryan B. Harvey <ryan.b.harvey@ted.com>",
+  "author": {
+    "name": "Ryan B. Harvey",
+    "email": "ryan.b.harvey@gmail.com",
+    "url": "https://codeanddata.codes"
+  },
+  "contributors": [
+    {
+      "name": "Mark Bogdanoff",
+      "email": "",
+      "url": ""
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fessonia/fessonia/issues"
@@ -56,7 +67,8 @@
     "jsdoc": "^3.6.10",
     "mocha": "^9.2.0",
     "sinon": "^7.1.1",
+    "ts-node": "^10.5.0",
     "tui-jsdoc-template": "^1.2.2",
-    "typescript": "^4.2.3"
+    "typescript": "^4.5.5"
   }
 }
