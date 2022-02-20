@@ -8,6 +8,10 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  schedule:
+    # 09:48:00 UTC on Saturdays
+    # == 01:48:00 PST / 04:48:00 EST
+    - cron: '48 09 * * 6'
 
 jobs:
   build:
