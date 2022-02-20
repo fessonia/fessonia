@@ -101,7 +101,7 @@ class FFmpegOption {
    * @param {string} name - the option name
    * @param {string|FilterNode|FilterChain|FilterGraph} arg - the argument for this option (default: null)
    */
-  constructor(name, arg = null) {
+  constructor (name, arg = null) {
     this.validate(name, arg);
     const FilterGraph = FFmpegOption._loadFilterGraph();
     if (FILTER_OPTIONS.includes(name) &amp;&amp; FilterGraph.wrap(arg) instanceof FilterGraph) {
@@ -183,7 +183,7 @@ module.exports = FFmpegOption;
 
 <footer>
     <img class="logo" src="../../img/Fessonia_logo.png" style="width: 250px; height: 94px">
-    <div class="footer-text">Made with ♥️ at TED, maintained independently, maintained independently</div>
+    <div class="footer-text">Made with ♥️ at TED, maintained independently</div>
 </footer>
 <script>prettyPrint();</script>
 <script src="scripts/jquery.min.js"></script>

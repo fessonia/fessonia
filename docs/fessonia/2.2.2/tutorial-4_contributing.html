@@ -134,10 +134,10 @@ git remote add origin git@github.com:${GITHUB_USERNAME}/fessonia.git
 <h4>Generate the table in the <code>CONTRIBUTORS.md</code> file</h4>
 <pre class="prettyprint source lang-{bash}"><code>npm run generate-contributors
 </code></pre>
-<h3>Continuous Integration via Travis CI</h3>
-<p>Travis CI is setup to run a build against LTS node versions 8.x and up, as well as the latest stable node version, on each commit to any branch on the repo and each pull request submitted against the repo.</p>
-<p>Travis CI also runs a similar build at least once daily to ensure that the build doesn't break due to lack of maintenance. This cron-based build is only run if there has not been a build in the last 24 hours.</p>
-<p>You can see the results of Travis CI runs at <a href="https://travis-ci.com/fessonia/fessonia">https://travis-ci.com/fessonia/fessonia</a>.</p>
+<h3>Continuous Integration via Github Actions</h3>
+<p>Github Actions is setup to run a build against LTS node versions 12.x and up, as well as the latest stable node version, on each push to any branch on the repo and each pull request submitted against the repo default branch.</p>
+<p>Github Actions also runs a similar build on the default branch at least once daily to ensure that the build doesn't break due to lack of maintenance.</p>
+<p>You can see the results of Github Actions runs at <a href="https://github.com/fessonia/fessonia/actions">https://github.com/fessonia/fessonia/actions</a>.</p>
         </article>
     
 </section>
@@ -148,7 +148,7 @@ git remote add origin git@github.com:${GITHUB_USERNAME}/fessonia.git
 
 <footer>
     <img class="logo" src="../../img/Fessonia_logo.png" style="width: 250px; height: 94px">
-    <div class="footer-text">Made with ♥️ at TED, maintained independently, maintained independently</div>
+    <div class="footer-text">Made with ♥️ at TED, maintained independently</div>
 </footer>
 <script>prettyPrint();</script>
 <script src="scripts/jquery.min.js"></script>

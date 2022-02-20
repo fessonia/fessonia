@@ -112,10 +112,10 @@ npm run check-contributors
 npm run generate-contributors
 ```
 
-### Continuous Integration via Travis CI
+### Continuous Integration via Github Actions
 
-Travis CI is setup to run a build against LTS node versions 8.x and up, as well as the latest stable node version, on each commit to any branch on the repo and each pull request submitted against the repo.
+Github Actions is setup to run a build against LTS node versions 12.x and up, as well as the latest stable node version, on each push to any branch on the repo and each pull request submitted against the repo default branch.
 
-Travis CI also runs a similar build at least once daily to ensure that the build doesn't break due to lack of maintenance. This cron-based build is only run if there has not been a build in the last 24 hours.
+Github Actions also runs a similar build on the default branch at least once daily to ensure that the build doesn't break due to lack of maintenance.
 
-You can see the results of Travis CI runs at [https://travis-ci.com/fessonia/fessonia](https://travis-ci.com/fessonia/fessonia).
+You can see the results of Github Actions runs at [https://github.com/fessonia/fessonia/actions](https://github.com/fessonia/fessonia/actions).
