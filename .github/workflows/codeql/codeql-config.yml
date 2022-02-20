@@ -1,0 +1,9 @@
+paths:
+  - index.js
+  - lib
+  - test
+  - scripts
+  - types
+paths-ignore:
+  - node_modules
+  - docs
