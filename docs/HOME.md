@@ -22,4 +22,4 @@ Your contributions are welcome! To get started developing on this library, take 
 
 ## License
 
-This project was created with ♥️ at TED, is now maintained independently,and is licensed under the MIT license. For more details, see the [License](tutorial-6_license.html) file.
+This project was created with ♥️ at TED, is now maintained independently, and is licensed under the MIT license. For more details, see the [License](tutorial-6_license.html) file.
