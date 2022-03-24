@@ -72,7 +72,7 @@ describe('FilterGraph', function () {
       fg.addFilterChain(audioFilters)
       video.inputLabel = 0
       delayedAudio.inputLabel = 1
-      const expected = `[0:v]scale=640:-1,subtitles=filename=subtitles.srt;[1:a]alimiter=limit=0.8,atadenoise=s=31`
+      const expected = '[0:v]scale=640:-1,subtitles=filename=subtitles.srt;[1:a]alimiter=limit=0.8,atadenoise=s=31';
       expect(fg.toString()).to.eql(expected)
     });
   });

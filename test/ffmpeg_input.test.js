@@ -98,7 +98,7 @@ describe('FFmpegInput', function () {
         duration: 9999999999,
         sample_rate: 48000
       });
-      let expected = `-re -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000"`;
+      let expected = '-re -f "lavfi" -i "sine=frequency=620:beep_factor=4:duration=9999999999:sample_rate=48000"';
       let fiObj = new FFmpegInput(fInput, new Map([
         ['re', null],
         ['f', 'lavfi']
@@ -117,7 +117,7 @@ describe('FFmpegInput', function () {
         stitch: 0
       });
       const scaleNode = new FilterNode('scale', [1920, 1080]);
-      const expected = `-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080"`;
+      const expected = '-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080"';
       const fcInput = new FilterChain([lifeNode, scaleNode]);
       const fiObj = new FFmpegInput(fcInput, new Map([
         ['re', null],
@@ -138,7 +138,7 @@ describe('FFmpegInput', function () {
         stitch: 0
       });
       const scaleNode = new FilterNode('scale', [1920, 1080]);
-      const expected = `-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080"`;
+      const expected = '-re -r "23.976" -f "lavfi" -i "life=size=320x240:mold=10:rate=23.976:ratio=0.5:death_color=#C83232:life_color=#00ff00:stitch=0,scale=1920:1080"';
       const fc = new FilterChain([lifeNode, scaleNode]);
       const fgInput = new FilterGraph();
       fgInput.addFilterChain(fc);

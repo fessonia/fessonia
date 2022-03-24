@@ -122,7 +122,7 @@ describe('FFmpegOutput', function () {
       const expectedLast = '/some/file.mp4';
       const expectedArgs = [
         ['-dn'],
-        ['-filter_complex', `crop=iw:ih/2:0:0,split[chain0_split_0][chain0_split_1];[chain0_split_0]vflip[chain1_vflip_0];[chain0_split_1]hflip[chain2_hflip_0]`],
+        ['-filter_complex', 'crop=iw:ih/2:0:0,split[chain0_split_0][chain0_split_1];[chain0_split_0]vflip[chain1_vflip_0];[chain0_split_1]hflip[chain2_hflip_0]'],
         ['-b:v', '3850k'],
         ['-f', 'mp4'],
         ['-aspect', '16:9']
@@ -205,7 +205,7 @@ describe('FFmpegOutput', function () {
       expect(fo.streams.length).to.eql(1);
       expect(fo.streams).to.deep.eql([ videoStream ]);
       expect(fo.toCommandArray()).to.deep.eql([
-        '-map', `[chain0_scale_0]`,
+        '-map', '[chain0_scale_0]',
         '/some/file.mp4'
       ]);
     });
@@ -243,8 +243,8 @@ describe('FFmpegOutput', function () {
       expect(fo.streams.length).to.eql(2);
       expect(fo.streams).to.deep.eql([ stream1, stream2 ]);
       expect(fo.toCommandArray()).to.deep.eql([
-        '-map', `[chain0_scale_0]`,
-        '-map', `[chain0_vflip_0]`,
+        '-map', '[chain0_scale_0]',
+        '-map', '[chain0_vflip_0]',
         '/some/file.mp4'
       ]);
     });
