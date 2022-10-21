@@ -1,33 +1,49 @@
 /**
- * @fileOverview lib/filter_node.js - Defines and exports the FilterNode class
+ * @fileOverview lib/filter_node.ts - Defines and exports the FilterNode class
  */
 
-const crypto = require('crypto');
-const util = require('util');
+import { inspect } from 'util';
 
-const config = require('./util/config')();
-const logger = config.logger;
+declare namespace FilterNode {
+  export type FilterArg =
+    stringOrNumber | Array<stringOrNumber | stringOrNumber[]> | keyValuePair;
+}
+
+export interface iFilterNode {
+  readonly filterName: string;
+  readonly args: FilterNode.FilterArg;
+
+  toString (): string;
+  getOutputPad (specifier: number | string): string;
+}
+
+interface keyValuePair {
+  name: string;
+  value: stringOrNumber | stringOrNumber[];
+}
+
+type stringOrNumber = string | number;
+
 
 /** Class representing a single node in an FFmpeg filter graph */
-class FilterNode {
+export class FilterNode implements iFilterNode {
   /**
    * Create a filter for use in an FFmpeg filter graph
    * @param {string} filterName - the name of the filter
-   * @param {Array<any>} args - the arguments for the filter (default: {})
+   * @param {Array<FilterNode.FilterArg>} args - the arguments for the filter (default: {})
    */
-  constructor (filterName, args = []) {
+  constructor (
+    public readonly filterName: string,
+    public readonly args: FilterNode.FilterArg = []
+  ) {
     this._validateOptions(filterName, args);
-    this.filterName = filterName;
-    this.args = args;
-
-    return this;
   }
 
   /**
    * Generate the argument string defining this FFmpeg filter node
    * @returns {string} the filter argument string
    */
-  toString () {
+  toString (): string {
     return (this.filterName + this._processFilterArguments());
   }
 
@@ -36,7 +52,7 @@ class FilterNode {
    * @param {number|string} specifier the output pad specifier
    * @returns {string} - the output pad label
    */
-  getOutputPad (specifier) {
+  getOutputPad (specifier: stringOrNumber): string {
     return `${this.filterName}_${specifier}`;
   }
 
@@ -50,7 +66,7 @@ class FilterNode {
    *
    * @private
    */
-  _validateOptions (filterName, args) {
+  _validateOptions (filterName: string, args: FilterNode.FilterArg) {
     if (!filterName) {
       const errMsg = 'FilterNode constructor requires a filterName parameter. Please supply a value for filterName when creating the FilterNode.';
       throw new Error(errMsg);
@@ -64,7 +80,7 @@ class FilterNode {
    *
    * @private
    */
-  _processFilterArguments () {
+  _processFilterArguments (): string {
     const args = this.args;
     if (!args) { return (''); }
     let argterms = [], kvargs = [];
@@ -85,7 +101,7 @@ class FilterNode {
           argterms.push(arg);
           break;
         default:
-          throw new Error(`Invalid argument ${util.inspect(arg)} of FilterNode ${util.inspect(this)}. Filter arguments should be either a string or an object with keys 'name' and 'value', or in rare cases, an Array.`);
+          throw new Error(`Invalid argument ${inspect(arg)} of FilterNode ${inspect(this)}. Filter arguments should be either a string or an object with keys 'name' and 'value', or in rare cases, an Array.`);
         }
       }
     } else {
@@ -105,10 +121,8 @@ class FilterNode {
    *
    * @private
    */
-  static _handleArrayArguments (arg) {
+  static _handleArrayArguments (arg: FilterNode.FilterArg | FilterNode.FilterArg[]): string | FilterNode.FilterArg {
     if (typeof arg === 'object' && Array.isArray(arg)) { return arg.join('|'); }
     return arg;
   }
 }
-
-module.exports = FilterNode;
